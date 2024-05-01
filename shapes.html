@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            font-weight: bolder;
+            font: 1em sans-serif;
+            background-color: antiquewhite;
+        }
+
+        #shapes-container {
+
+            margin: 0 auto;
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+
+
+        img {
+            width: 90px;
+            height: 90px;
+            
+        }
+        #questions {
+      justify-self: center;
+      margin: 0 auto;
+      width:50%;
+    
+    font-size: 1.5em;
+      color: #0a0400;
+      background-color: lightgoldenrodyellow;
+      text-align: center;
+      box-shadow: #0703c7 0px 0px 20px;
+      border-radius: 5px;
+    }
+
+    #message {
+        margin: 0 auto;
+      position: relative;
+      width: 150px;
+      font-weight: bolder;
+      font-size: 2em;
+     text-align: center;
+      background-color: rgb(13, 250, 179);
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+        button {
+      width: 100px;
+      background-color: #4CAF50;
+
+      color: #0a0400;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: larger;
+    }
+
+    button:hover {
+      background-color: #c0f09f;
+    }
+    #linkto {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #53add6;
+            border-radius: 5px;
+            width: 50%;
+            justify-self: center;
+        }
+        #questiondiv {
+            margin: 5px;
+            margin: 0 auto;
+            width: 50%;
+
+            font-size: 1.5em;
+            color: #0a0400;
+            background-color: rgb(210, 223, 250);
+            text-align: center;
+            box-shadow: #0703c7 0px 0px 20px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <a href="index.html" id="linkto">What is the shape</a>
+    
+    <hr style="height: 10px; background-color: #5e3737;"/>
+   
+   
+    <button id="questions" onclick="startGame()" >Click Here To Ask the Question</button>
+  
+    <div id="questiondiv"></div>
+    <div id="message"></div>
+    <div id="shapes-container">
+        <div class="shape square">
+            <img src="./images/square.png" alt="circle">
+        </div>
+        <div class="shape circle">
+            <img src="./images/circle.png" alt="circle">
+        </div>
+
+        <div class="shape triangle">
+            <img src="./images/triangle.png" alt="triangle">
+        </div>
+
+      
+
+        <div class="shape heart">
+            <img src="./images/heart.png" alt="heart">
+        </div>
+
+        <div class="shape pentagon">
+            <img src="./images/pentagon.png" alt="pentagon">
+        </div>
+
+        <div class="shape hexagon">
+            <img src="./images/hexagon.png" alt="hexagon">
+        </div>
+
+        <div class="shape heptagon">
+            <img src="./images/heptagon.png" alt="heptagon">
+        </div>
+
+        <div class="shape octagon">
+            <img src="./images/octagon.png" alt="octagon">
+        </div>
+
+        <div class="shape parallelogram">
+            <img src="./images/parallelogram.png" alt="parallelogram">
+        </div>
+
+        <div class="shape star">
+            <img src="./images/star.png" alt="star">
+        </div>
+
+        <div class="shape cross">
+            <img src="./images/cross.png" alt="cross">
+        </div>
+
+        <div class="shape cube">
+            <img src="./images/cube.png" alt="cube">
+        </div>
+
+        <div class="shape cone">
+            <img src="./images/cone.png" alt="cone">
+        </div>
+
+        <div class="shape cylinder">
+            <img src="./images/cylinder.png" alt="cylinder">
+        </div>
+
+        <div class="shape semicircle">
+            <img src="./images/semicircle.png" alt="semicircle">
+        </div>
+
+        <div class="shape oval">
+            <img src="./images/oval.png" alt="oval">
+        </div>
+
+        <div class="shape rectangle">
+            <img src="./images/rectangle.png" alt="rectangle">
+        </div>
+
+        <div class="shape rhombus">
+            <img src="./images/rhombus.png" alt="rhombus">
+        </div>
+
+        <div class="shape trapezoid">
+            <img src="./images/trapezoid.jpg" alt="trapezoid">
+        </div>
+
+        <div class="shape kite">
+            <img src="./images/kite.png" alt="kite">
+        </div>
+
+        <div class="shape nonagon">
+            <img src="./images/nonagon.png" alt="nonagon">
+        </div>
+
+        <div class="shape decagon">
+            <img src="./images/decagon.png" alt="decagon">
+        </div>
+
+        <div class="shape cuboid">
+            <img src="./images/cuboid.png" alt="cuboid">
+        </div>
+
+        <div class="shape sphere">
+            <img src="./images/sphere.png" alt="sphere">
+        </div>
+
+        <div class="shape pyramid">
+            <img src="./images/pyramid.png" alt="pyramid">
+        </div>
+
+        <div class="shape right-triangle">
+            <img src="./images/right-triangle.png" alt="right triangle">
+        </div>
+
+    </div>
+   
+    <audio id="Correct" src="./audio/That is correct.mp3"></audio>
+    <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
+    <script>
+    const shapes = ['square', 'circle', 'triangle', 'heart', 'pentagon', 'hexagon', 'heptagon', 'octagon',
+    'parallelogram', 'star', 'cross', 'cube', 'cone', 'cylinder', 'semicircle', 'oval', 'rectangle', 'rhombus',
+    'trapezoid', 'kite', 'nonagon', 'decagon', 'cuboid', 'sphere', 'pyramid', 'right-triangle'];
+
+    function startGame() {
+    const randomIndex = Math.floor(Math.random() * shapes.length);
+    const shape = shapes[randomIndex];
+
+    document.getElementById('questiondiv').innerText = `What shape is ${shape}?`;
+    // Added speak() call to ask aloud
+    const utterance = new SpeechSynthesisUtterance(`What shape is ${shape}?`);
+    speechSynthesis.speak(utterance);
+
+    const correctShapeElement = document.querySelector(`.shape.${shape}`);
+
+    const shapeElements = document.querySelectorAll('.shape');
+    shapeElements.forEach(element => {
+        element.addEventListener('click', () => {
+            if (element === correctShapeElement) {
+                document.getElementById("message").innerHTML = "Correct!";
+                document.getElementById("message").style.color = "green";
+                playSound(true);
+              
+            } else {
+                document.getElementById("message").innerHTML = "Incorrect. Try again";
+                document.getElementById("message").style.color = "red";
+                playSound(false);
+               
+            }
+        });
+    });
+}
+
+function playSound(isCorrect) {
+    const correctAudio = document.getElementById("Correct");
+    const incorrectAudio = document.getElementById("Incorrect");
+
+    // Pause any currently playing audio
+    correctAudio.pause();
+    correctAudio.currentTime = 0;
+    incorrectAudio.pause();
+    incorrectAudio.currentTime = 0;
+
+    // Play the appropriate audio based on correctness
+    if (isCorrect) {
+        correctAudio.play();
+    } else {
+        incorrectAudio.play();
+    }
+}
+     
+</script>
+</body>
+
+</html>

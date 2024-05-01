@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock - Paper - Scissors</title>
+   <style>
+    body{
+        margin: 0;
+        padding: 0;
+        font-family: 'Itim', cursive;
+    }
+
+        #table {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0px auto;
+        }
+
+    #computer {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5%;
+background-color: antiquewhite;
+
+    }
+ #me {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        background-color: rgb(252, 236, 213);
+    }
+    #computer img, #me img {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        cursor: pointer;
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 1); 
+    }
+    
+    #message {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+        #countdown {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0px 5px 10px 0px #000;
+            width: 150px;
+            margin: 0 auto;
+            background-color: aqua;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h2{
+            text-align: center;
+        }
+
+        #linkto {
+            font-size: 15px;
+          font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #eee6c2;
+            border-radius: 5px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+   </style>
+</head>
+<body>
+    <a href="index.html" id="linkto">Rock - Paper - Scissors</a>
+    
+  
+    <button id="countdown" onclick="count123()">Start Game</button>
+    <div id="table">
+        <div id="computer"></div>
+        <div id="me">
+            <img src="./images/rock.png" alt="rock" id="rock" onclick="playerChoice('rock')">
+            <img src="./images/paper.png" alt="paper" id="paper" onclick="playerChoice('paper')">
+            <img src="./images/scissors.png" alt="scissors" id="scissors" onclick="playerChoice('scissors')">
+
+        </div>
+
+    </div>
+    <div id="message"></div>
+    <script>
+        let countdown = 3;
+        const countdownElement = document.getElementById('countdown');
+        const messageElement = document.getElementById('message');
+        const computerElement = document.getElementById('computer');
+        const playerChoices = document.querySelectorAll('#me img');
+
+        const computerChoiceElement = document.getElementById('computer');
+        const playerChoiceElements = document.querySelectorAll('#me img');
+
+        function count123(callback) {
+            let countdown = 3;
+            const countdownElement = document.getElementById('countdown');
+
+            const countdownInterval = setInterval(() => {
+                countdownElement.textContent = countdown;
+                countdown--;
+
+                if (countdown === 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = '';
+                    callback();
+                    countdown = 3; // reset count for new game
+                }
+            }, 1000);
+        }
+
+
+
+        function getComputerChoice() {
+            const choices = ['rock', 'paper', 'scissors'];
+            return choices[Math.floor(Math.random() * 3)];
+        }
+
+        function getWinner(playerChoice, computerChoice) {
+            if (playerChoice === computerChoice) {
+                return 'Tie';
+            }
+
+            if (playerChoice === 'rock' && computerChoice === 'scissors') {
+                return playerChoice;
+            } else if (playerChoice === 'rock' && computerChoice === 'paper') {
+                return computerChoice;
+            } else if (playerChoice === 'scissors' && computerChoice === 'rock') {
+                return computerChoice;
+            } else if (playerChoice === 'scissors' && computerChoice === 'paper') {
+                return playerChoice;
+            } else if (playerChoice === 'paper' && computerChoice === 'rock') {
+                return playerChoice;
+            } else if (playerChoice === 'paper' && computerChoice === 'scissors') {
+                return computerChoice;
+            }
+        }
+
+        
+
+        function resetGame() {
+            countdownElement.textContent = "Start Game";
+            messageElement.textContent = "";
+
+            setTimeout(() => {
+                location.reload();
+            }, 7000);
+        }
+
+
+
+
+
+        playerChoices.forEach(choice => {
+            choice.addEventListener('click', () => {
+                const playerChoice = choice.getAttribute('alt');
+                const computerChoice = getComputerChoice();
+                const winner = getWinner(playerChoice, computerChoice);
+
+                computerElement.src = `./images/${computerChoice}.png`;
+                computerElement.innerHTML = `<img src="./images/${computerChoice}.png" alt="${computerChoice}">`;
+
+                if (winner === playerChoice) {
+                    messageElement.textContent = 'You win!';
+                    messageElement.style.color = 'green';
+                } else if (winner === 'Tie') {
+                    messageElement.textContent = "It's a tie!";
+                    messageElement.style.color = 'blue';
+                } else {
+                    messageElement.textContent = 'You lose!';
+                    messageElement.style.color = 'red';
+                }
+
+                // Reset countdown after game is played
+                countdown = 3;
+                countdownElement.textContent = countdown;
+
+               
+            });
+           
+        });
+        
+        resetGame()
+    </script>
+
+
+</body>
+</html>

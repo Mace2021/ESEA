@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+              * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Itim', cursive;
+}
+         button {
+        width: 45%;
+        background-color: #085a71;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font: 1em sans-serif;
+      }
+    
+      button:hover {
+        background-color: #579dc5;
+      }
+        .capital {
+        width: 100px;
+        padding: 10px 15px;
+        margin: 5px;
+        border: 1px solid gold ;
+        border-radius: 5px;
+        background-color: #1c1c1c;
+        cursor: pointer;
+        color: rgb(247, 246, 244);
+      }
+
+      .capital:hover {
+        background-color: #adcf5e;
+      }
+        #capitaltable{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        font-weight: bolder;
+      }
+      
+      #message {
+      position: relative;
+      width: 100%;
+      font-weight: bolder;
+      font-size: 2em;
+     text-align: center;
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    </style>
+</head>
+<body>
+    <a href="index.html" style="background-color: rgb(240, 191, 145); font: 2em sans-serif; font-weight: bolder; border-radius: 5px;">What is the Capital</a>
+    
+    
+    <br>
+    <button id="question" onclick="askQuestion() " >Click To Ask the Question</button>
+    <div id="message"></div>
+    <hr style="height: 10px; background-color: #5e3737;"/>
+   <div id="board-container">
+    <div id="capitaltable">
+
+            <p id="Montgomery" class="capital">Montgomery</p>
+            <p id="Juneau" class="capital">Juneau</p>
+            <p id="Phoenix" class="capital">Phoenix</p>
+            <p id="Little Rock" class="capital">Little Rock</p>
+            <p id="Sacramento" class="capital">Sacramento</p>
+            <p id="Denver" class="capital">Denver</p>
+            <p id="Hartford" class="capital">Hartford</p>
+            <p id="Dover" class="capital">Dover</p>
+            <p id="Tallahassee" class="capital">Tallahassee</p>
+            <p id="Atlanta" class="capital">Atlanta</p>
+            <p id="Honolulu" class="capital">Honolulu</p>
+            <p id="Boise" class="capital">Boise</p>
+            <p id="Springfield" class="capital">Springfield</p>
+            <p id="Indianapolis" class="capital">Indianapolis</p>
+            <p id="Des Moines" class="capital">Des Moines</p>
+            <p id="Topeka" class="capital">Topeka</p>
+            <p id="Frankfort" class="capital">Frankfort</p>
+            <p id="Baton Rouge" class="capital">Baton Rouge</p>
+            <p id="Augusta" class="capital">Augusta</p>
+            <p id="Annapolis" class="capital">Annapolis</p>
+            <p id="Boston" class="capital">Boston</p>
+            <p id="Lansing" class="capital">Lansing</p>
+            <p id="Saint Paul" class="capital">Saint Paul</p>
+            <p id="Jackson" class="capital">Jackson</p>
+            <p id="Jefferson City" class="capital">Jefferson City</p>
+            <p id="Helena" class="capital">Helena</p>
+            <p id="Lincoln" class="capital">Lincoln</p>
+            <p id="Carson City" class="capital">Carson City</p>
+            <p id="Concord" class="capital">Concord</p>
+            <p id="Trenton" class="capital">Trenton</p>
+            <p id="Santa Fe" class="capital">Santa Fe</p>
+            <p id="Albany" class="capital">Albany</p>
+            <p id="Raleigh" class="capital">Raleigh</p>
+            <p id="Bismarck" class="capital">Bismarck</p>
+            <p id="Columbus" class="capital">Columbus</p>
+            <p id="Oklahoma City" class="capital">Oklahoma City</p>
+            <p id="Salem" class="capital">Salem</p>
+            <p id="Harrisburg" class="capital">Harrisburg</p>
+            <p id="Providence" class="capital">Providence</p>
+            <p id="Columbia" class="capital">Columbia</p>
+            <p id="Pierre" class="capital">Pierre</p>
+            <p id="Nashville" class="capital">Nashville</p>
+            <p id="Austin" class="capital">Austin</p>
+            <p id="Salt Lake City" class="capital">Salt Lake City</p>
+            <p id="Montpelier" class="capital">Montpelier</p>
+            <p id="Richmond" class="capital">Richmond</p>
+            <p id="Olympia" class="capital">Olympia</p>
+            <p id="Charleston" class="capital">Charleston</p>
+            <p id="Madison" class="capital">Madison</p>
+            <p id="Cheyenne" class="capital">Cheyenne</p>
+    </div>
+   
+    <audio id="Correct" src="./audio/That is correct.mp3"></audio>
+    <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
+    <script>
+      
+            const states = [
+               
+                { state: 'Alabama', capital: 'Montgomery' },
+                { state: 'Alaska', capital: 'Juneau' },
+                { state: 'Arizona', capital: 'Phoenix' },
+                { state: 'Arkansas', capital: 'Little Rock' },
+                { state: 'California', capital: 'Sacramento' },
+                { state: 'Colorado', capital: 'Denver' },
+                { state: 'Connecticut', capital: 'Hartford' },
+                { state: 'Delaware', capital: 'Dover' },
+                { state: 'Florida', capital: 'Tallahassee' },
+                { state: 'Georgia', capital: 'Atlanta' },
+                { state: 'Hawaii', capital: 'Honolulu' },
+                { state: 'Idaho', capital: 'Boise' },
+                { state: 'Illinois', capital: 'Springfield' },
+                { state: 'Indiana', capital: 'Indianapolis' },
+                { state: 'Iowa', capital: 'Des Moines' },
+                { state: 'Kansas', capital: 'Topeka' },
+                { state: 'Kentucky', capital: 'Frankfort' },
+                { state: 'Louisiana', capital: 'Baton Rouge' },
+                { state: 'Maine', capital: 'Augusta' },
+                { state: 'Maryland', capital: 'Annapolis' },
+                { state: 'Massachusetts', capital: 'Boston' },
+                { state: 'Michigan', capital: 'Lansing' },
+                { state: 'Minnesota', capital: 'Saint Paul' },
+                { state: 'Mississippi', capital: 'Jackson' },
+                { state: 'Missouri', capital: 'Jefferson City' },
+                { state: 'Montana', capital: 'Helena' },
+                { state: 'Nebraska', capital: 'Lincoln' },
+                { state: 'Nevada', capital: 'Carson City' },
+                { state: 'New Hampshire', capital: 'Concord' },
+                { state: 'New Jersey', capital: 'Trenton' },
+                { state: 'New Mexico', capital: 'Santa Fe' },
+                { state: 'New York', capital: 'Albany' },
+                { state: 'North Carolina', capital: 'Raleigh' },
+                { state: 'North Dakota', capital: 'Bismarck' },
+                { state: 'Ohio', capital: 'Columbus' },
+                { state: 'Oklahoma', capital: 'Oklahoma City' },
+                { state: 'Oregon', capital: 'Salem' },
+                { state: 'Pennsylvania', capital: 'Harrisburg' },
+                { state: 'Rhode Island', capital: 'Providence' },
+                { state: 'South Carolina', capital: 'Columbia' },
+                { state: 'South Dakota', capital: 'Pierre' },
+                { state: 'Tennessee', capital: 'Nashville' },
+                { state: 'Texas', capital: 'Austin' },
+                { state: 'Utah', capital: 'Salt Lake City' },
+                { state: 'Vermont', capital: 'Montpelier' },
+                { state: 'Virginia', capital: 'Richmond' },
+                { state: 'Washington', capital: 'Olympia' },
+                { state: 'West Virginia', capital: 'Charleston' },
+                { state: 'Wisconsin', capital: 'Madison' },
+                { state: 'Wyoming', capital: 'Cheyenne' }
+            ];
+
+            let currentAnswer;
+let currentState; // Moved outside to make it globally accessible
+
+
+function askQuestion() {
+    // Clear previous message
+    document.getElementById('message').textContent = '';
+
+    currentState = states[Math.floor(Math.random() * states.length)]; // Use the global variable
+
+    // Speak the question using speech synthesis
+    const utterance = new SpeechSynthesisUtterance(`What is the capital of ${currentState.state}?`);
+    speechSynthesis.speak(utterance);
+
+    // Listen for click on answer
+    const answers = document.querySelectorAll('.capital');
+    answers.forEach(answer => {
+        answer.removeEventListener('click', handleClick); // Remove existing event listeners
+        answer.addEventListener('click', handleClick); // Add new event listener
+    });
+}
+
+function handleClick(event) {
+    if (!currentAnswer) {
+        currentAnswer = event.target;
+
+        const selectedCapital = event.target.textContent.trim().toLowerCase();
+        const correctCapital = currentState.capital.toLowerCase(); // Use the global variable
+
+        if (selectedCapital === correctCapital) {
+            document.getElementById("message").innerHTML = "Correct!";
+                document.getElementById("message").style.color = "green";
+                playSound(true);
+        } else {
+            document.getElementById("message").innerHTML = "Incorrect. Try again";
+                document.getElementById("message").style.color = "red";
+                playSound(false);
+        }
+        // Reset currentAnswer so the user can try again
+        currentAnswer = null;
+    }
+}
+function playSound(isCorrect) {
+    const correctAudio = document.getElementById("Correct");
+    const incorrectAudio = document.getElementById("Incorrect");
+
+    // Pause any currently playing audio
+    correctAudio.pause();
+    correctAudio.currentTime = 0;
+    incorrectAudio.pause();
+    incorrectAudio.currentTime = 0;
+
+    // Play the appropriate audio based on correctness
+    if (isCorrect) {
+        correctAudio.play();
+    } else {
+        incorrectAudio.play();
+    }
+}
+</script>
+
+</body>
+</html>

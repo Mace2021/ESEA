@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spelling</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+            * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Itim', cursive;
+}
+      body {
+        font-family: Arial, sans-serif;
+        font-weight: bolder;
+        
+      }
+    
+      #board-containers {
+          display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        
+        }
+
+    
+      #board {
+        display: inline;
+        width: 100%;
+        height:auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin:1px;
+       
+      }
+   
+    #spellingInput {
+
+      position: relative;
+      top: -20px;
+
+      width: 100%;
+      padding: 12px 20px;
+
+      box-sizing: border-box;
+      border: 2px solid #0f0101;
+      border-radius: 4px;
+      color: #000000;
+      font: 1.5em sans-serif;
+    }
+
+    
+      button {
+        width: 80px;
+        background-color: #4CAF50;
+        color: white;
+     height: 6vh;
+      font-weight: bolder;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size:medium;
+        margin: 1px;
+      }
+    
+      button:hover {
+        background-color: #4ea309;
+      }
+    
+      .letters {
+        width: 55px;
+       
+      
+        border: 2px solid #53add6;
+        border-radius: 5px;
+        background-color: #e2eafc;
+        cursor: pointer;
+      }
+    
+      .letters:hover {
+        background-color: #adcf5e;
+      }
+    input{
+      width: 100%;
+    
+      text-align: center;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: rgb(204, 200, 195);
+      
+        font-size: medium;
+    }
+    #message {
+       
+       position: relative;
+       width: 100%;
+       font-weight: bolder;
+       font-size: 1.5em;
+       background-color: lightgoldenrodyellow;
+       justify-content: center;
+       margin-bottom: 20px;
+     }
+    #tableLetter {
+      display: flex;
+     
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+
+
+      font: 1.5em sans-serif;
+    }
+
+    </style>
+    
+</head>
+<body>    
+    <a  href="index.html"
+      style="
+        background-color: #daf8f8;
+        font: 2em sans-serif;
+        font-weight: bolder;
+        border-radius: 10%;
+        color: rgb(39, 23, 2);
+        width: 100%;
+      "
+      >spelling</a
+    >
+    <hr>
+  <p onclick="askQuestion()" style="width: 50%; font-weight: bolder;justify-content: center;background-color: #4cafaa;
+   margin: 0 auto; 
+width: 200px;
+border-radius: 5px;
+box-shadow: 3px 3px lightsteelblue;"
+>Click Here To Ask the Question</p>
+
+
+ <div id="questionpic">
+  <img src="" alt="">
+
+ </div>
+    <div id="board-containers">
+        <div id="board"> 
+            <input type="text" id="spellingInput" placeholder="Type your spelling here...">
+            <button onclick="checkSpelling()">Check</button>
+            <button onclick="clearLastLetter()" style="background-color: brown;">Clear</button> <!-- New clear button -->
+            <div id="message"></div>
+        </div >
+        <div id="tableLetter">
+          <p onclick="addLetter('A')" class="letters">A</p>
+          <p onclick="addLetter('B')" class="letters">B</p>
+          <p onclick="addLetter('C')" class="letters">C</p>
+          <p onclick="addLetter('D')" class="letters">D</p>
+          <p onclick="addLetter('E')" class="letters">E</p>
+          <p onclick="addLetter('F')" class="letters">F</p>
+          <p onclick="addLetter('G')" class="letters">G</p>
+          <p onclick="addLetter('H')" class="letters">H</p>
+          <p onclick="addLetter('I')" class="letters">I</p>
+          <p onclick="addLetter('J')" class="letters">J</p>
+          <p onclick="addLetter('K')" class="letters">K</p>
+          <p onclick="addLetter('L')" class="letters">L</p>
+          <p onclick="addLetter('M')" class="letters">M</p>
+          <p onclick="addLetter('N')" class="letters">N</p>
+          <p onclick="addLetter('O')" class="letters">O</p>
+          <p onclick="addLetter('P')" class="letters">P</p>
+          <p onclick="addLetter('Q')" class="letters">Q</p>
+          <p onclick="addLetter('R')" class="letters">R</p>
+          <p onclick="addLetter('S')" class="letters">S</p>
+          <p onclick="addLetter('T')" class="letters">T</p>
+          <p onclick="addLetter('U')" class="letters">U</p>
+          <p onclick="addLetter('V')" class="letters">V</p>
+          <p onclick="addLetter('W')" class="letters">W</p>
+          <p onclick="addLetter('X')" class="letters">X</p>
+          <p onclick="addLetter('Y')" class="letters">Y</p>
+          <p onclick="addLetter('Z')" class="letters">Z</p>
+        </div>
+       
+        
+    </div>
+
+    <audio id="Correct" src="./audio/That is correct.mp3"></audio>
+    <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
+
+<script>
+    const words = ['Apple', 'Boy', 'Cat', 'Dog', 'Elephant', 'Fish', 'Goat', 'Horse', 'Iguana', 'Jaguar', 'Kangaroo', 'Lion', 'Monkey', 'Narwhal', 'Ostrich', 'Penguin', 'Queen', 'Rat', 'Snake', 'Tiger', 'Unicorn', 'Vampire', 'Whale', 'XRay', 'Yak', 'Zebra'];
+    let currentWord;
+
+    function addLetter(letter) {
+        const input = document.getElementById('spellingInput');
+        input.value += letter;
+    }
+
+    function checkSpelling() {
+    const input = document.getElementById('spellingInput');
+    const userSpelling = input.value.trim().toLowerCase(); // Trim whitespace and convert to lowercase
+    const answer = currentWord.toLowerCase();
+    const messageElement = document.getElementById('message');
+
+    if (userSpelling === answer) {
+        messageElement.textContent = 'Correct!';
+        messageElement.style.color = 'darkgreen';
+        playSound(true); 
+        console.log('That is correct');// Play sound for correct spelling
+    } else {
+        messageElement.textContent = 'Incorrect. Try again.';
+        messageElement.style.color = 'red';
+        playSound(false); 
+        console.log('That is Incorrect');// Play sound for incorrect spelling
+    }
+}
+function clearLastLetter() {
+        const input = document.getElementById('spellingInput');
+        const currentText = input.value;
+        input.value = currentText.substring(0, currentText.length - 1); // Remove the last character
+    }
+    
+
+    function askQuestion() {
+        currentWord = words[Math.floor(Math.random() * words.length)];
+        const utterance = new SpeechSynthesisUtterance(`Spell the word ${currentWord}?`);
+        speechSynthesis.speak(utterance);
+
+    }
+    function startGame() {
+            askQuestion();
+            // Add click event listeners to the letter elements
+            const letterElements = document.querySelectorAll('.spelling');
+            letterElements.forEach(element => {
+                element.addEventListener('click', handleClick);
+            });
+        } 
+        function playSound(isCorrect) {
+    const correctAudio = document.getElementById("Correct");
+    const incorrectAudio = document.getElementById("Incorrect");
+
+    // Pause any currently playing audio
+    correctAudio.pause();
+    correctAudio.currentTime = 0;
+    incorrectAudio.pause();
+    incorrectAudio.currentTime = 0;
+
+    // Play the appropriate audio based on correctness
+    if (isCorrect) {
+        correctAudio.play();
+    } else {
+        incorrectAudio.play();
+    }
+}
+  
+</script>
+</body>
+</html>

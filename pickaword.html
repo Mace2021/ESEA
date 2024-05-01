@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is the word?</title>
+    <link rel="stylesheet" href="style.css">
+<style>
+      #board-containers {
+          display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background-color: #0b090a;
+        opacity: 0.9;
+        border: rgb(65, 55, 1) 5px solid;
+        }
+
+      .countwords {
+        font-size: large;
+   
+        border-radius: 10px;
+        background-color: rgb(252, 251, 250);
+        color: #0b090a;
+        cursor: pointer;
+       width: 80px;
+       height:40px;
+      margin: 5px;
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+      }
+      
+      button{
+        background-color: #000103; 
+        border-radius: 10%; 
+        font-size:large; 
+        width: 80%; 
+        height: 50px;
+        color: #ffffff;
+      }
+     
+      #message {
+       
+       position: relative;
+       width: 100%;
+       font-weight: bolder;
+       font-size: 2em;
+       background-color: lightgoldenrodyellow;
+       justify-content: center;
+       margin-bottom: 20px;
+     }
+
+     img{
+        width: 200px;
+        border-radius: 5px;
+     }
+
+</style>
+    </head>
+<body>
+    <a href="index.html" style="background-color: rgb(0, 0, 0); font: 1.5em sans-serif; font-weight: bolder; border-radius: 10%;color: #fcf9f9;">What is the Word</a>
+    
+    <hr style="height: 10px; background-color: #5e3737;"/>
+  
+   
+    <button id="question" onclick="startGame()" >Click Here To Ask the Question</button>
+    <div id="questionpic"></div>
+    <div id="message"></div>
+   <div id="board-containers">
+      <div id="Apple" class="countwords">Apple</div>
+      <div id="Boy" class="countwords">Boy</div>
+      <div id="Cat" class="countwords">Cat</div>
+      <div id="Dog" class="countwords">Dog</div>
+      <div id="Elephant" class="countwords">Elephant</div>
+      <div id="Fish" class="countwords">Fish</div>
+      <div id="Goat" class="countwords">Goat</div>
+      <div id="Horse" class="countwords">Horse</div>
+      <div id="Iguana" class="countwords">Iguana</div>
+      <div id="Jaguar" class="countwords">Jaguar</div>
+      <div id="Kangaroo" class="countwords">Kangaroo</div>
+      <div id="Lion" class="countwords">Lion</div>
+      <div id="Monkey" class="countwords">Monkey</div>
+      <div id="Narwhal" class="countwords">Narwhal</div>
+      <div id="Ostrich" class="countwords">Ostrich</div>
+      <div id="Penguin" class="countwords">Penguin</div>
+      <div id="Queen" class="countwords">Queen</div>
+      <div id="Rat" class="countwords">Rat</div>
+      <div id="Snake" class="countwords">Snake</div>
+      <div id="Tiger" class="countwords">Tiger</div>
+      <div id="Unicorn" class="countwords">Unicorn</div>
+      <div id="Vampire" class="countwords">Vampire</div>
+      <div id="Whale" class="countwords">Whale</div>
+      <div id="XRay" class="countwords">XRay</div>
+      <div id="Yak" class="countwords">Yak</div>
+      <div id="Zebra" class="countwords">Zebra</div>
+
+      
+    </div>
+    <div id="message"></div>
+    <audio id="Correct" src="./audio/That is correct.mp3"></audio>
+    <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
+
+    <script>
+        // Array of letters
+        const words = ['Apple', 'Boy', 'Cat', 'Dog', 'Elephant', 'Fish', 'Goat', 'Horse', 'Iguana', 'Jaguar', 'Kangaroo', 'Lion', 'Monkey', 'Narwhal', 'Ostrich', 'Penguin', 'Queen', 'Rat', 'Snake', 'Tiger', 'Unicorn', 'Vampire', 'Whale', 'XRay', 'Yak', 'Zebra'];
+    
+        // Variable to store the current word
+        let currentWord;
+    
+       
+    
+        // Function to handle the click event
+        function handleClick(event) {
+            const messageElement = document.getElementById('message');
+            const clickedWord = event.target.textContent;
+            
+            if (clickedWord === currentWord) {
+                messageElement.textContent = 'Correct!';
+                messageElement.style.color = 'green';
+                playSound(true);
+                console.log('That is correct');
+            } else {
+                messageElement.textContent = 'Incorrect. Try again.';
+                messageElement.style.color = 'red';
+                playSound(false);
+                console.log('That is Incorrect');
+            }
+            
+            clearPicture();
+            // Re-enable click event listeners
+            const letterElements = document.querySelectorAll('.countwords');
+            letterElements.forEach(element => {
+                element.addEventListener('click', handleClick);
+            });
+        }
+    
+        // Function to remove the image
+        function clearPicture() {
+    const questionPicDiv = document.getElementById('questionpic');
+    questionPicDiv.innerHTML = ''; // Clear the inner HTML instead of removing the element
+}
+    
+        // Function to ask a question
+        function askQuestion() {
+            // Choose a random word
+            currentWord = words[Math.floor(Math.random() * words.length)];
+    
+            // Add image to questionpic div
+            const img = document.createElement('img');
+            img.id = 'questionpic';
+            img.src = `images/${currentWord.toLowerCase()}.png`;
+    
+            // Clear the questionpic div before adding the new image
+            const questionPicDiv = document.getElementById('questionpic');
+            questionPicDiv.innerHTML = '';
+            questionPicDiv.appendChild(img);
+    
+            // Speak the question using speech synthesis
+            const utterance = new SpeechSynthesisUtterance(`Which word is ${currentWord}?`);
+            speechSynthesis.speak(utterance);
+        }
+    
+        // Function to start the game
+        function startGame() {
+            askQuestion();
+            
+            // Add click event listeners to the letter elements
+            const letterElements = document.querySelectorAll('.countwords');
+            letterElements.forEach(element => {
+                element.addEventListener('click', handleClick);
+            });
+        }
+        function playSound(isCorrect) {
+    const correctAudio = document.getElementById("Correct");
+    const incorrectAudio = document.getElementById("Incorrect");
+
+    // Pause any currently playing audio
+    correctAudio.pause();
+    correctAudio.currentTime = 0;
+    incorrectAudio.pause();
+    incorrectAudio.currentTime = 0;
+
+    // Play the appropriate audio based on correctness
+    if (isCorrect) {
+        correctAudio.play();
+    } else {
+        incorrectAudio.play();
+    }
+}
+    </script>
+    
+    
+
+  </body>
+</html>

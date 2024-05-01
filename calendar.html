@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+              * {
+    
+    font-family: 'Itim', cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  
+   text-align: center;
+   
+}
+
+#linka{
+   width: 100%;
+   text-align: center;
+
+
+}
+h2 
+{
+    text-align: center;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.788);
+}
+p{
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.788);
+}
+table{
+    text-align: center;
+   width:60%;
+   align-items: center;
+   margin: 0 auto;
+   background-color: rgba(35, 191, 253, 0.562);
+   border-radius: 12px;
+}
+.today{
+    background-color: rgb(196, 255, 206);
+}
+
+        #calendar {
+width: 100%;
+            display: block;
+           
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            
+           
+            margin: 0 auto;
+            position: relative;
+            text-align: center;
+
+        }
+
+
+
+
+#prev, #next {
+    width: 25px;
+    background-color: rgb(129, 247, 168);
+    margin: 5px;
+}
+#daysofweek{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+
+    margin: auto;
+    justify-content: space-evenly;
+    width: 90%;
+}
+    .day{
+        background-color: rgb(230, 243, 214);
+margin-top: 15px;
+margin-bottom: 15px;
+        border: solid 2px rgb(8, 8, 8);
+        width: 88px;
+        height: 30px;
+        border-radius: 5px;
+        text-align: center;
+        font: 1em;
+    }  
+    .month{
+        background-color: rgba(255, 3, 3, 0.849);
+margin-top: 15px;
+margin-bottom: 15px;
+        border: solid 2px rgb(8, 8, 8);
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+        text-align: center;
+        justify-content: space-evenly;
+    } 
+    #linkto {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+       
+            background-color: #53add6;
+            border-radius: 5px;
+        width: auto;
+            justify-self: center;
+        } 
+    </style>
+</head>
+<body>
+    <a href="index.html" id="linkto">Calendar</a>
+
+
+  
+    
+    <h2>Days of the week</h2>
+    <h4>Click on the blocks to learn</h4>
+<div id="daysofweek">
+        <div class="day" id="Sunday" onclick="speak('Sunday')">Sunday</div>
+        <div class="day" id="Monday" onclick="speak('Monday')">Monday</div>
+        <div class="day" id="Tuesday" onclick="speak('Tuesday')">Tuesday</div>
+        <div class="day" id="Wednesday" onclick="speak('Wednesday')">Wednesday</div>
+        <div class="day" id="Thursday" onclick="speak('Thursday')">Thursday</div>
+        <div class="day" id="Friday" onclick="speak('Friday')">Friday</div>
+        <div class="day" id="Saturday" onclick="speak('Saturday')">Saturday</div>
+
+    </div>
+    <h2>Months of the year</h2>
+    <h4>Click on the blocks to learn</h4>
+    <div id="daysofweek">
+        <div class="month" id="January" onclick="speak('January')">January</div>
+        <div class="month" id="February" onclick="speak('February')">February</div>
+        <div class="month" id="March" onclick="speak('March')">March</div>
+        <div class="month" id="April" onclick="speak('April')">April</div>
+        <div class="month" id="May" onclick="speak('May')">May</div>
+        <div class="month" id="June" onclick="speak('June')">June</div>
+        <div class="month" id="July" onclick="speak('July')">July</div>
+        <div class="month" id="August" onclick="speak('August')">August</div>
+        <div class="month" id="September" onclick="speak('September')">September</div>
+        <div class="month" id="October" onclick="speak('October')">October</div>
+        <div class="month" id="November" onclick="speak('November')">November</div>
+        <div class="month" id="December" onclick="speak('December')">December</div>
+
+
+    </div>
+<div id="calendar">
+    <button id="prev">&lt;</button>
+
+    <span id="current-month"></span>
+
+    <button id="next">&gt;</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody id="calendar-body">
+        </tbody>
+    </table>
+    </div>
+    <p> There are 30 days in April, June, September, and November. All the other months have 31 days, except for February, which has 28 days or 29 days each leap year.</p>
+        <script>
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"];
+
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
+
+document.getElementById("current-month").innerText =
+monthNames[currentMonth] + " " + currentYear;
+
+function generateCalendar(month, year) {
+
+let firstDay = new Date(year, month, 1).getDay();
+let daysInMonth = new Date(year, month + 1, 0).getDate();
+
+let tableHtml = "";
+
+for (let i = 0; i < firstDay; i++) {
+tableHtml += "<td></td>";
+}
+
+for (let i = 1; i <= daysInMonth; i++) {
+if (i === currentDate.getDate() && month === currentMonth) {
+tableHtml += "<td class='today'>" + i + "</td>";
+} else {
+tableHtml += "<td>" + i + "</td>";
+}
+if ((i + firstDay) % 7 === 0) {
+tableHtml += "</tr><tr>";
+}
+}
+
+document.getElementById("calendar-body").innerHTML = tableHtml;
+}
+
+generateCalendar(currentMonth, currentYear);
+
+document.getElementById("prev").addEventListener("click", () => {
+currentMonth--;
+if (currentMonth < 0) {
+currentMonth = 11;
+currentYear--;
+}
+generateCalendar(currentMonth, currentYear);
+document.getElementById("current-month").innerText =
+monthNames[currentMonth] + " " + currentYear;
+});
+
+document.getElementById("next").addEventListener("click", () => {
+currentMonth++;
+if (currentMonth > 11) {
+currentMonth = 0;
+currentYear++;
+}
+generateCalendar(currentMonth, currentYear);
+document.getElementById("current-month").innerText =
+monthNames[currentMonth] + " " + currentYear;
+});
+function speak(day) {
+            // Create a new speech synthesis object
+            var msg = new SpeechSynthesisUtterance();
+            // Set the text to be spoken
+            msg.text = day;
+            // Use the browser's built-in speech synthesis to speak the text
+            window.speechSynthesis.speak(msg);
+        }
+        function speak(month) {
+            // Create a new speech synthesis object
+            var msg = new SpeechSynthesisUtterance();
+            // Set the text to be spoken
+            msg.text = month;
+            // Use the browser's built-in speech synthesis to speak the text
+            window.speechSynthesis.speak(msg);
+        }
+</script>
+
+   
+
+</body>
+</html>

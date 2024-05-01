@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology</title>
+    
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        #intro {
+            text-align: start;
+            margin: 30px;
+        }
+        #cells{
+            width: 100%;
+            display: flex;
+            background-color:rgb(247, 245, 245);
+           
+            justify-content: center;
+box-sizing: border-box;
+
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 0 auto;
+            /* changed margin to margin: auto */
+            text-align: center;
+            background-color: #f2f2f2;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+
+        img:hover {
+            transform: scale(1.1);
+            margin: 0 auto;
+            /* added margin: 0 auto */
+        }
+
+
+        #plantsCell,#AnimalCell{
+            margin: 15px;
+
+        }
+        #plantsCelltext,#AnimalCelltext {
+            margin: 15px;
+
+        }
+        #uCell,#mCell{
+            margin: 15px;
+
+        }
+
+        #multicellular,
+        #unicellular {
+            margin: 30px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+      
+        
+    </style>
+</head>
+<body>
+    <a href="index.html" style="background-color: rgb(240, 191, 145); font: 1.5em sans-serif; font-weight: bolder; border-radius: 5px;">Biology</a>
+    
+    
+    <div id="intro">
+<h3>What is Biology</h3>
+        <p>Biology is the study of living organisms and their structure, function, growth, origin, evolution, and
+            distribution.</p>
+<p>It is a broad field that encompasses the study of all living things, from the smallest microorganisms to the
+    largest plants and animals. Biologists study the structure and function of cells, the interactions between organisms and their environment, the evolution of species, and the complex processes 
+    that sustain life.</p>
+    <p><b>Branches of Biology</b></p>
+
+    <ul>
+        <li><b>Anatomy</b> - the study of the structure and parts of living organisms</li>
+        <li><b>Physiology</b> - the study of the functions and processes of living organisms</li>
+        <li> <b>Ecology</b> - the study of the relationships between living organisms and their environment</li>
+        <li> <b> Genetics</b> - the study of heredity and the variation of inherited characteristics</li>
+        <li><b>Microbiology</b> - the study of microorganisms, such as bacteria, viruses, and fungi</li>
+        <li><b>Botany</b> - the study of plants</li>
+        <li><b>Zoology</b> - the study of animals</li>
+        <li><b>Biochemistry</b> - the study of the chemical processes that occur in living organisms</li>
+        <li><b>Evolutionary Biology</b> - the study of the origin and development of species over time</li>
+        <li><b>Cell Biology</b> - the study of the structure and function of cells, the fundamental units of life</li>
+        <li><b>Molecular Biology</b> - the study of the molecular mechanisms that govern the activities of cells, including DNA, RNA, and proteins</li>
+        <li><b>Developmental Biology</b> - the study of the processes by which organisms grow and develop from a single cell into a complex, multicellular organism</li>
+        <li><b>Neurobiology</b> - the study of the nervous system, including the brain, spinal cord, and nerves</li>
+        <li><b>Immunology</b> - the study of the body's immune system and how it defends against disease and infection</li>
+        <li><b>Bioinformatics</b> - the application of computer science and information technology to the field of biology, including the analysis of biological data</li>
+        <li><b>Biotechnology</b> - the use of living organisms or their components to create useful products, such as medicines, biofuels, and genetically modified crops</li>
+        <li><b>Marine Biology</b> - the study of the plants and animals that live in the ocean and other aquatic environments</li>
+        <li><b>Paleontology</b> - the study of prehistoric life through the examination of fossils</li>
+        <li><b>Epidemiology</b> - the study of the spread and
+            control of diseases within a population</li>
+            <li><b>Ethology</b> - the study of animal behavior and how it
+                relates to the natural environment</li>
+                <li><b>Systematics</b> - the study of the classification and
+                    evolutionary relationships of organisms</li>
+                    <li><b>Anthropology</b> - the study of humans, including their
+                        origins, culture, and behavior</li>
+                        <li><b>Mycology</b> - the study of fungi, including their
+                            structure, function, and role in ecosystems</li>
+                            <li><b>Virology</b> - the study of viruses, their structure, function, and interaction with host organisms</li>
+                            <li><b>Cryobiology</b> - the study of the effects of low temperatures on living organisms and the preservation of biological materials at low temperatures</li>
+                            <li><b>Chronobiology</b> - the study of biological rhythms and their influence on the function and behavior of living organisms</li>
+                            <li><b>Ecotoxicology</b> - the study of the effects of toxic chemicals and other pollutants on ecosystems and the environment</li>
+                            <li><b>Evolutionary Developmental Biology (Evo-Devo)</b> - the study of the evolutionary mechanisms that shape the development of organisms</li>
+                            <li><b>Genomics</b> - the study of the complete set of genetic information in an organism, including the functions and interactions of its genes</li>
+                            <li><b>Proteomics</b> - the study of the complete set of proteins expressed by a genome, including their structure, function, and interactions</li>
+                            <li><b>Metabolomics</b> - the study of the complete set of small-molecule chemicals found within a biological sample, such as cells, tissues, or organisms</li>
+                            <li><b>Epigenetics</b> - the study of heritable changes in gene expression that do not involve changes to the DNA sequence, such as DNA methyl
+                                ation and histone modifications</li>
+                                <li><b>Biophysics</b> - the study of the physical principles that underlie biological processes, such as the structure and function of biomolecules, the
+                                    dynamics of living systems, and the interactions between living organisms and their environment</li>
+                                    <li><b>Computational Biology</b> - the use of computational methods and tools to analyze and understand biological systems, including the development of mathematical models and simulations</li>
+                                    <li><b>Synthetic Biology</b> - the design and construction of new biological parts, devices, and systems, as well as the re-design of existing, natural biological systems for useful purposes</li>
+                                    <li><b>Astrobiology</b> - the study of the origin, evolution, distribution, and future of life in the universe, including the search for extraterrestrial life</li>
+                                    <li><b>Biomimetics</b> - the study and application of biological systems and processes to the design of engineering solutions and technologies</li>
+                                    <li><b>Biorobotics</b> - the integration of biological principles and mechanisms into the design and development of robotic systems</li>
+                                    <li><b>Bioengineering</b> - the application of engineering principles and methods to solve problems in biology and medicine, such as the design of medical devices, tissue engineering, and bioinformatics</li>
+                                       
+                                </ul>
+</div>
+<div id="cells">
+    <div id="AnimalCell">
+        <h4>Animal Cells</h4>
+    <img src="./images/acell.png" alt="">
+</div>
+    <div id="plantsCell">
+        <h4>Plant Cells</h4>
+        <img src="./images/pcell.png" alt="">
+    </div>
+</div>
+
+<div id="cells">
+    <div id="AnimalCelltext">
+        <h4>Animal Cells</h4>
+    <p>Animal cells contain many organelles, which are subunits within the cell that perform specialized functions. The organelles may be membrane-bound (enclosed within a lipid bilayer) or non-membrane bound (free in the cytoplasm). Here is a list of animal cell components and organelles and their functions:</p>
+                <p>
+                    <b>Cell Membrane:</b> The cell membrane or plasma membrane is a selectively permeable lipid bilayer
+                    that encloses the contents of the cell and regulates the transport of materials into and out of it.
+                </p>
+                <p><b>Cytoplasm:</b> The cytoplasm is the jelly-like fluid that gives a cell is shape and contains the
+                    molecules the cell needs for its processes.
+                </p>
+                <p><b>Cytoskeleton:</b> The cytoskeleton is a network of protein fibers that provides structural
+                    support, maintains cell shape, and enables cell movement. It is composed of three main types of
+                    protein filaments: microfilaments, intermediate filaments, and microtubules.
+                </p>
+                <p><b>Nucleus:</b> The nucleus is the control center of the cell, containing DNA and regulating gene
+                    expression. It is surrounded by a double-layered nuclear envelope or nuclear membrane that has
+                    nuclear pores that allow the exchange of materials between the nucleus and the cytoplasm.
+                </p>
+                <p><b>Nucleolus:</b> Located within the nucleus, the nucleolus is the site of pre-ribosome production.
+                </p>
+                <p><b>Mitochondria:</b> Often referred to as the “powerhouse” of the cell, mitochondria are responsible
+                    for generating energy in the form of adenosine triphosphate (ATP) through cellular respiration.
+                </p>
+                <p><b>Endoplasmic Reticulum (ER):</b> The ER is a network of membrane-bound tubes and sacs involved in
+                    the synthesis, folding, and transport of proteins and lipids. There are two types of ER: the rough
+                    ER, which is studded with ribosomes and involved in protein synthesis, and the smooth ER, which is
+                    responsible for lipid synthesis and detoxification.
+                </p>
+                <p><b>Ribosomes:</b> These small structures, composed of RNA and proteins, are the sites of protein
+                    synthesis within the cell. They can be found either free-floating in the cytoplasm or attached to
+                    the rough ER.
+                </p>
+                <p><b>Golgi Apparatus:</b> The Golgi apparatus is responsible for modifying, sorting, and packaging
+                    proteins and lipids for transport to their final destinations within or outside the cell.
+                </p>
+                <p><b>Lysosomes:</b> Lysosomes are membrane-bound organelles containing enzymes that break down waste
+                    materials and cellular debris, playing a crucial role in the recycling of cellular components.
+                </p>
+                <p><b>Peroxisomes:</b> These small organelles contain enzymes that neutralize toxic substances and break
+                    down fatty acids, contributing to cellular detoxification and energy production.
+                </p>
+                <p><b>Centrosome:</b> The centrosome is an organelle found in animal cells, but not plant cells. It is a
+                    small organelle near the nucleus with radiating tubules. The centrosome produces and organizes
+                    microtubules and regulates cell division so that the cell contents equally divide between daughter
+                    cells.
+                </p>
+</div>
+    <div id="plantsCelltext">
+        <h4>Plant Cells</h4>
+                <p>
+                    Plant cells comprise several organelles, each with unique functions vital to the cell’s operation:
+
+                <p> <b>Cell Wall:</b> The cell wall is a rigid layer that provides support, protection, and shape to
+                    the
+                    cell. It consists mainly of cellulose.
+                </p>
+                <p>  <b>Plasma Membrane:</b> This is a semi-permeable membrane that controls the movement of substances
+                    in and
+                    out of the cell.
+                </p>
+                <p>  <b>Nucleus:</b> The nucleus is the control center of the cell, containing DNA that directs all
+                    cell
+                    activities. The nuclear membrane is a double-membrane structure with nuclear pores that encloses the
+                    nucleus and regulates transport and communication with the cytoplasm.
+                </p>
+                <p>  <b>Mitochondria:</b> Often referred to as the powerhouse of the cell, mitochondria produce ATP
+                    through a
+                    process called cellular respiration.
+                </p>
+                <p>  <b>Chloroplasts:</b> These are the sites of photosynthesis, where sunlight, carbon dioxide, and
+                    water
+                    change into glucose and oxygen. Chloroplasts contain a green pigment called chlorophyll, which
+                    captures light energy.
+                </p>
+                <p>  <b>Peroxisomes:</b> Plant peroxisomes perform a key role in photorespiration and produce plant
+                    hormones.
+                </p>
+                <p>  <b>Endoplasmic Reticulum (ER):</b> ER is a network of membranous tubules and sacs where lipid
+                    synthesis
+                    and protein folding occur. The rough ER, studded with ribosomes, synthesizes proteins, while the
+                    smooth ER performs lipid synthesis.
+                </p>
+                <p>  <b>Golgi Apparatus:</b> The Golgi apparatus modifies, sorts, and packages proteins and lipids for
+                    transport to their final destinations within or outside the cell.
+                </p>
+                <p>  <b>Ribosomes:</b> These are the sites of protein synthesis. They are either free in the cytoplasm
+                    or
+                    bound to the ER.
+                </p>
+                <p>  <b>Vacuoles:</b> Plant cells contain a large central vacuole that stores water and helps maintain
+                    turgor
+                    pressure, supporting the cell’s structure. Druse and raphite crystals occur in some plant vacuoles.
+                    These crystals of calcium oxalate and calcium carbonates deter herbivores and also store minerals
+                    for the cell.
+                </p>
+                <p>  <b>Cytoskeleton:</b> Just like in animal cells, plant cells also contain a cytoskeleton. The
+                    cytoskeleton
+                    is a network of protein fibers in the cytoplasm that provides structural support and plays a key
+                    role in cell division and the transport of materials within the cell.
+                </p>
+                <p>  <b>Plasmodesmata:</b> These are small tubes that connect plant cells to each other, allowing
+                    direct
+                    communication and transport of substances between them. This is a unique feature of plant cells not
+                    found in animal cells.
+                </p>
+
+    </div>
+    
+</div>
+<div id="intro">
+<p>All living this are made up of cells. This can be a unicellular (single) cell organisim like a Bacteria or 
+    like a Human which is a multicellular organism with trillions of cells. Cells are the basic building blocks of life.
+</p>
+<div id="cell">
+    <div id="unicellular">
+        <h4>Unicellular Organisms</h4>
+        <p>Unicellular organisms, such as bacteria and protists, are composed of a single cell that performs all the
+            functions necessary for life. These organisms have a variety of shapes and structures, but they all share
+            the basic features of a cell, including a cell membrane, cytoplasm, and genetic material. Unicellular
+            organisms are able to carry out all the essential life processes, such as respiration, reproduction, and
+            metabolism, within a single cell. They are found in a wide range of environments, from the deepest oceans
+            to the hottest deserts, and play a crucial role in many ecosystems.
+    
+     
+</div>
+    <div id="multicellular">
+        <h4>Multicellular Organisms</h4>
+        <p>
+            Multicellular organisms, such as plants and animals, are composed of many cells that work together to perform the various functions necessary for life. These cells are organized into tissues, organs, and organ systems, each with a specific role to play. Multicellular organisms have a greater level of complexity than unicellular organisms, with specialized cells
+            performing specialized functions. This allows for a more efficient and effective use of resources, as well as the ability to carry out more complex processes. Multicellular organisms also have the ability to grow and develop, with cells dividing
+            and differentiating to form the various structures and systems of the organism. This allows for a greater degree of adaptability and the ability to respond to changes in the environment.
+
+        </p>
+        
+    </div>
+</div>
+<div id="cells">
+    <div id="uCell">
+    <img src="./images/ucell.png" alt=""> 
+</div>
+<div id="mCell">
+    <img src="./images/mcell.png" alt="">
+    <p>Adobe stock photos</p>
+</div>
+</div>
+</div>
+
+</body>
+</html>
