@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            font-weight: bolder;
+          
+            font-weight: bold;
             font-family: 'Itim', cursive;
         }
 
@@ -62,16 +62,15 @@ padding: 2px;
     #questions {
       justify-self: center;
       margin: 0 auto;
-      width: 180px;
+      width: 200px;
     
-    font-size: 1em;
+   font: 1em sans-serif;
       color: #0a0400;
       background-color: lightgoldenrodyellow;
       text-align: center;
       box-shadow: #0703c7 0px 0px 20px;
       border-radius: 5px;
     }
-
     #message {
       position: relative;
       width: 180px;
@@ -128,6 +127,7 @@ padding: 2px;
       /* Replace 'apple.png' with your apple image file */
       background-size: contain;
       margin-top: 10px;
+      margin: 2px;
 
     }
         #numOfApples {
@@ -138,6 +138,16 @@ padding: 2px;
       margin: 0 auto;
       width: 100%;
         }
+        #linkto {
+            font-size: 1em;
+            
+            text-align: center;
+       
+            background-color: #c0fad6;
+            border-radius: 5px;
+        width: auto;
+            justify-self: center;
+        }
     </style>
 
 </head>
@@ -146,7 +156,7 @@ padding: 2px;
     <a href="index.html" id="linkto">How Many Apples</a>
 
     <hr>
-    <p onclick="askQuestion()" id="questions" ;>Click Here To Ask the Question</p>
+    <p onclick="askQuestion()" id="questions" ;>Click To Ask The Question</p>
     <div id="questiondiv">
         <div id="numOfApples"></div>
 
