@@ -13,21 +13,21 @@
 }
     body {
       font-family: Arial, sans-serif;
-      font-weight: bolder;
+      
       font: 1em sans-serif;
     }
 
     button {
-      width: 45%;
+      width: 100px;
       background-color: #c4fff9;
      
       color: #0a0400;
-      padding: 14px 20px;
+     
       margin: 8px 0;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-size:larger;
+      font-size:large;
     }
 
     button:hover {
@@ -43,6 +43,7 @@
       align-items: center;
       align-items: center;
       width: 100%;
+      margin: 0 auto;
 
     }
 
@@ -50,7 +51,7 @@
   display: block;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 10px; /* Adjust the gap between columns */
-  width: 250px;
+  width: 200px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -88,14 +89,14 @@
     #denominator2,
     #denominator3,
     #denominator4 {
-      width: 50px;
-      height: 50px;
+      width: 35px;
+      height: 35px;
       background-color: #86f5d3;
       border: 9px solid #f14d4d;
-      padding: 10px;
-      font-size: 24px;
+     
+  
       text-align: center;
-      line-height: 50px;
+     
 
       font-weight: bolder;
       cursor: pointer;
@@ -109,14 +110,14 @@
       align-items: center;
       font-weight: bold;
    
-      font: 2em sans-serif;
+      font: 1em sans-serif;
       
     }
 
 
     .letters {
       width: 35px;
-      padding: 5px 10px;
+      padding: 5px;
       margin: 1px;
       border: 1px solid #53add6;
       border-radius: 5px;
@@ -131,28 +132,28 @@
  
 
     #answerInput {
-      width: 20%;
-      padding: 12px 20px;
+      width: 180px;
+      padding: 5px 10px;
       margin: 8px 0;
       box-sizing: border-box;
       border: 2px solid #0f0101;
       border-radius: 4px;
       color: #000000;
       text-align: right;
-      font-size: 2em;
+      font-size: 1em;
       font-weight: bolder;
       background-color: rgb(144, 201, 235);
     }
 
     #message {
       position: relative;
-      width: 100%;
+      width: 180px;
       font-weight: bolder;
-      font-size: 2em;
+      font-size: 1em;
       color: #0a0400;
       background-color: rgb(241, 241, 163);
       justify-content: center;
-  
+  margin: 0 auto;
     }
     </style>
 </head>
@@ -160,7 +161,7 @@
     <a  href="index.html"
     style="
       background-color: #0563c1;
-      font: 2em sans-serif;
+      font: 1em sans-serif;
       font-weight: bolder;
       border-radius: 10%;
       color: burlywood;
@@ -168,7 +169,7 @@
     >Math</a
   >
   <hr>
-  <button onclick="askQuestion()" style="width: 50%; font:bold;">Click Here To Ask the Question</button>
+  <button onclick="askQuestion()" style="width: 200px; font: 1em sans-serif;">Click Here To Ask the Question</button>
 
   <div id="math-container">
     <div id="mathboard">
