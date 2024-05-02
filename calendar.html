@@ -22,7 +22,7 @@
 
 
 }
-h2 
+h4
 {
     text-align: center;
     margin-bottom: 5px;
@@ -30,13 +30,13 @@ h2
 }
 p{
     margin: 0 auto;
-    width: 60%;
+    width: 180px;
     text-align: center;
     margin-bottom: 5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.788);
 }
 table{
-    text-align: center;
+text-align: center;
    width:60%;
    align-items: center;
    margin: 0 auto;
@@ -47,22 +47,17 @@ table{
     background-color: rgb(196, 255, 206);
 }
 
-        #calendar {
+ #calendar {
 width: 100%;
             display: block;
-           
             justify-content: center;
             justify-items: center;
             align-items: center;
-            
-           
             margin: 0 auto;
             position: relative;
             text-align: center;
 
         }
-
-
 
 
 #prev, #next {
@@ -74,10 +69,9 @@ width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin-top: 15px;
-
     margin: auto;
     justify-content: space-evenly;
-    width: 90%;
+    width: 100%;
 }
     .day{
         background-color: rgb(230, 243, 214);
@@ -91,18 +85,18 @@ margin-bottom: 15px;
         font: 1em;
     }  
     .month{
-        background-color: rgba(255, 3, 3, 0.849);
+background-color: rgba(255, 3, 3, 0.849);
 margin-top: 15px;
 margin-bottom: 15px;
-        border: solid 2px rgb(8, 8, 8);
-        width: 80px;
-        height: 30px;
-        border-radius: 5px;
-        text-align: center;
-        justify-content: space-evenly;
+border: solid 2px rgb(8, 8, 8);
+width: 85px;
+height: 30px;
+border-radius: 5px;
+text-align: center;
+justify-content: space-evenly;
     } 
     #linkto {
-            font-size: 1.5em;
+            font-size: 1em;
             font-weight: bold;
             text-align: center;
        
@@ -119,8 +113,8 @@ margin-bottom: 15px;
 
   
     
-    <h2>Days of the week</h2>
-    <h4>Click on the blocks to learn</h4>
+    <h4>Days of the week</h4>
+    <h6>Click on the blocks to learn</h6>
 <div id="daysofweek">
         <div class="day" id="Sunday" onclick="speak('Sunday')">Sunday</div>
         <div class="day" id="Monday" onclick="speak('Monday')">Monday</div>
@@ -131,8 +125,8 @@ margin-bottom: 15px;
         <div class="day" id="Saturday" onclick="speak('Saturday')">Saturday</div>
 
     </div>
-    <h2>Months of the year</h2>
-    <h4>Click on the blocks to learn</h4>
+    <h4>Months of the year</h4>
+    <h6>Click on the blocks to learn</h6>
     <div id="daysofweek">
         <div class="month" id="January" onclick="speak('January')">January</div>
         <div class="month" id="February" onclick="speak('February')">February</div>
