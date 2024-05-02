@@ -12,62 +12,64 @@
     font-family: 'Itim', cursive;
 }
          button {
-        width: 45%;
+        width: 200px;
         background-color: #085a71;
         color: white;
-        padding: 14px 20px;
+     padding: 2px;
         margin: 8px 0;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font: 1em sans-serif;
+        font: 1em s;
       }
     
       button:hover {
         background-color: #579dc5;
       }
         .capital {
-        width: 100px;
-        padding: 10px 15px;
+        width: 110px;
+        padding: 5px;
         margin: 5px;
         border: 1px solid gold ;
         border-radius: 5px;
         background-color: #1c1c1c;
         cursor: pointer;
         color: rgb(247, 246, 244);
+        text-align: center;
       }
 
       .capital:hover {
-        background-color: #adcf5e;
+        background-color: #b2f704;
+        color: #000;
       }
         #capitaltable{
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        font-weight: bolder;
+        
       }
       
       #message {
       position: relative;
-      width: 100%;
+      width: 180px;
       font-weight: bolder;
-      font-size: 2em;
+      font-size: 1em;
      text-align: center;
       background-color: lightgoldenrodyellow;
       justify-content: center;
-      margin-bottom: 20px;
+      margin:0 auto;
     }
     </style>
 </head>
 <body>
-    <a href="index.html" style="background-color: rgb(240, 191, 145); font: 2em sans-serif; font-weight: bolder; border-radius: 5px;">What is the Capital</a>
+    <a href="index.html" style="background-color: rgb(240, 191, 145); font: 1em sans-serif; font-weight: bolder; border-radius: 5px;">What is the Capital</a>
     
     
     <br>
-    <button id="question" onclick="askQuestion() " >Click To Ask the Question</button>
+    <button id="question" onclick="askQuestion() " >Click To Ask The Question</button>
     <div id="message"></div>
-    <hr style="height: 10px; background-color: #5e3737;"/>
+    <hr style="height: 2px; background-color: #750101;"/>
    <div id="board-container">
     <div id="capitaltable">
 
