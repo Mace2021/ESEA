@@ -101,7 +101,12 @@
       align-items: center;
       font: 1em sans-serif;
     }
-
+#questions{
+  margin: 0 auto;
+  background-color: #abc562;
+  width: 200px;
+  border-radius: 5px;
+}
     </style>
     
 </head>
@@ -118,12 +123,8 @@
       >spelling</a
     >
     <hr>
-  <p onclick="askQuestion()" style="width: 50%; justify-content: center; text-align: center; background-color: #4cafaa;
-   margin: 0 auto; 
-width: 200px;
-border-radius: 5px;
-box-shadow: 3px 3px lightsteelblue;"
->Click To Ask The Question</p>
+  <div onclick="askQuestion()" id="questions"
+>Click To Ask The Question</div>
 
 
  <div id="questionpic">
