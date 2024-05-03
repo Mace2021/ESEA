@@ -19,6 +19,7 @@
         #cells{
             width: 100%;
             display: flex;
+            flex-wrap: wrap;
             background-color:rgb(247, 245, 245);
            
             justify-content: center;
@@ -27,7 +28,7 @@ box-sizing: border-box;
         }
 
         img {
-            width: 100%;
+            width: 210px;
             height: auto;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -63,17 +64,44 @@ box-sizing: border-box;
 
         #multicellular,
         #unicellular {
-            margin: 30px;
+            display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
         }
 
-      
-        
+        #cell-types{
+            display: flex;
+          flex-wrap: wrap;
+          
+        }
+
+        .cell-type{
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .cell-type h4{
+            margin-top: 10px;
+        }
+        #linkto {
+            font-size: 1em;
+            font-weight: bolder;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #1fe0c6;
+            border-radius: 5px;
+            width: 150px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            color: #000;
+        }
+
     </style>
 </head>
 <body>
-    <a href="index.html" style="background-color: rgb(240, 191, 145); font: 1.5em sans-serif; font-weight: bolder; border-radius: 5px;">Biology</a>
+    <a href="index.html" id="linkto">Biology</a>
     
     
     <div id="intro">
@@ -85,7 +113,7 @@ box-sizing: border-box;
     that sustain life.</p>
     <p><b>Branches of Biology</b></p>
 
-    <ul>
+  
         <li><b>Anatomy</b> - the study of the structure and parts of living organisms</li>
         <li><b>Physiology</b> - the study of the functions and processes of living organisms</li>
         <li> <b>Ecology</b> - the study of the relationships between living organisms and their environment</li>
@@ -133,22 +161,22 @@ box-sizing: border-box;
                                     <li><b>Biorobotics</b> - the integration of biological principles and mechanisms into the design and development of robotic systems</li>
                                     <li><b>Bioengineering</b> - the application of engineering principles and methods to solve problems in biology and medicine, such as the design of medical devices, tissue engineering, and bioinformatics</li>
                                        
-                                </ul>
+                               
 </div>
 <div id="cells">
     <div id="AnimalCell">
         <h4>Animal Cells</h4>
-    <img src="./images/acell.png" alt="">
+    <img src="./images/acell.png" alt="animalcell">
 </div>
     <div id="plantsCell">
         <h4>Plant Cells</h4>
-        <img src="./images/pcell.png" alt="">
+        <img src="./images/pcell.png" alt="plantsCell">
     </div>
 </div>
 
 <div id="cells">
     <div id="AnimalCelltext">
-        <h4>Animal Cells</h4>
+        <h4 style="color: sienna;">Animal Cells</h4>
     <p>Animal cells contain many organelles, which are subunits within the cell that perform specialized functions. The organelles may be membrane-bound (enclosed within a lipid bilayer) or non-membrane bound (free in the cytoplasm). Here is a list of animal cell components and organelles and their functions:</p>
                 <p>
                     <b>Cell Membrane:</b> The cell membrane or plasma membrane is a selectively permeable lipid bilayer
@@ -195,7 +223,7 @@ box-sizing: border-box;
                 </p>
 </div>
     <div id="plantsCelltext">
-        <h4>Plant Cells</h4>
+        <h4 style="color: sienna;" >Plant Cells</h4>
                 <p>
                     Plant cells comprise several organelles, each with unique functions vital to the cell’s operation:
 
@@ -260,7 +288,7 @@ box-sizing: border-box;
 <p>All living this are made up of cells. This can be a unicellular (single) cell organisim like a Bacteria or 
     like a Human which is a multicellular organism with trillions of cells. Cells are the basic building blocks of life.
 </p>
-<div id="cell">
+<div id="cell-types">
     <div id="unicellular">
         <h4>Unicellular Organisms</h4>
         <p>Unicellular organisms, such as bacteria and protists, are composed of a single cell that performs all the
@@ -272,6 +300,7 @@ box-sizing: border-box;
     
      
 </div>
+
     <div id="multicellular">
         <h4>Multicellular Organisms</h4>
         <p>
