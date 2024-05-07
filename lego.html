@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Who Took My Legos</title>
+    <link rel="stylesheet" href="style.css">
     <style>
    body{
     margin: 0px;
@@ -14,12 +15,14 @@
    }
 
 .flip-book {
+    background-color: bisque;
 display: flex;
 width: 80%;
 margin: 0 auto;
 }
 
 .flip-page {
+    background-color: rgb(255, 250, 243);
 padding: 20px;
 width: 80%;
 
@@ -35,10 +38,25 @@ img{
    margin: 0 auto;
 }
 
-
+#linkto {
+            font-size: 1em;
+            font-weight: bolder;
+            text-align: center;
+        width: 100%;
+            background-color: #1fe0c6;
+            border-radius: 5px;
+          margin: 0 auto;
+            justify-self: center;
+            color: #000;
+        }
     </style>
 </head>
 <body>
+    <a  href="index.html"
+    
+    id="linkto"
+  >Books
+</a>
     <div class="flip-book">
         
                 <a alt="coverpage"> <img src="./images/lego.jpg" ></a>
@@ -46,7 +64,7 @@ img{
            
         <div class="flip-page">
         <div>
-                <h2>Page 1</h2>
+                <h2>Book1</h2>
                 <p>Once upon a time in a small town in Montana, there lived a 
                     family of four in a beautiful, fenced house. The family consisted 
                     of a father, his wife, and their two children, Max and Lucy. Max, 
