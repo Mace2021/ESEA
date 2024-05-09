@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=T, initial-scale=1.0">
     <title>TV</title>
+    <style>
+        *{
+            
+            font-family: 'Itim', cursive;
+            font-size: 30px;
+            font-weight: bolder;
+           
+        }
+            @media (max-width: 768px) {
+        #iframe-container {
+            height: auto;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 65vw;
+        }
+    }
+    </style>
 </head>
 <body>
-<div id="mytv"></div>
+<div id="mytv">
+    <iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLthTrwQYsB-_OXpBBxRmKIWgKT6Zp5Eo3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+
+</div>
 </body>
 </html>
