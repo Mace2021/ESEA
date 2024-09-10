@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+             *{
+          
+          font-weight: bolder;
+          font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+          font-size: 25px;
+      }
+
+         button {
+        width: 400px;
+        background-color: #085a71;
+        color: white;
+     padding: 2px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+       
+      }
+    
+      button:hover {
+        background-color: #579dc5;
+      }
+        .capital {
+        width:180px;
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid gold ;
+        border-radius: 10px;
+        background-color: #1c1c1c;
+        cursor: pointer;
+        color: rgb(247, 246, 244);
+        text-align: center;
+        box-shadow: goldenrod 0px 0px 15px 5px;
+      }
+
+      .capital:hover {
+        background-color: #b2f704;
+        color: #000;
+      }
+        #capitaltable{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        
+      }
+    
+      #message {
+      position: relative;
+      width: 300px;
+      font-weight: bolder;
+     
+     text-align: center;
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin:0 auto;
+    }
+   
+    </style>
+</head>
+<body>
+    <a href="index.html" style="background-color: rgb(240, 191, 145); font: 1em sans-serif; font-weight: bolder; border-radius: 5px;">What is the Capital</a>
+    
+    
+    <br>
+    <button id="question" onclick="askQuestion() " >Click To Ask The Question</button>
+    <div id="message"></div>
+    <hr style="height: 2px; background-color: #750101;"/>
+   
+   
+   
+    <audio id="Correct" src="./audio/That is correct.mp3"></audio>
+    <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
+    <div id="question-container"></div>
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let states = [
+            { state: 'Alabama', capital: 'Montgomery', options: ['Montgomery', 'Birmingham', 'Mobile'] },
+            { state: 'Alaska', capital: 'Juneau', options: ['Juneau', 'Anchorage', 'Fairbanks'] },
+            { state: 'Arizona', capital: 'Phoenix', options: ['Phoenix', 'Tucson', 'Mesa'] },
+            { state: 'Arkansas', capital: 'Little Rock', options: ['Little Rock', 'Fayetteville', 'Fort Smith'] },
+            { state: 'California', capital: 'Sacramento', options: ['Sacramento', 'Los Angeles', 'San Francisco'] },
+            { state: 'Colorado', capital: 'Denver', options: ['Denver', 'Colorado Springs', 'Boulder'] },
+            { state: 'Connecticut', capital: 'Hartford', options: ['Hartford', 'Bridgeport', 'New Haven'] },
+            { state: 'Delaware', capital: 'Dover', options: ['Dover', 'Wilmington', 'Newark'] },
+            { state: 'Florida', capital: 'Tallahassee', options: ['Tallahassee', 'Miami', 'Orlando'] },
+            { state: 'Georgia', capital: 'Atlanta', options: ['Atlanta', 'Savannah', 'Augusta'] },
+            { state: 'Hawaii', capital: 'Honolulu', options: ['Honolulu', 'Hilo', 'Kailua'] },
+            { state: 'Idaho', capital: 'Boise', options: ['Boise', 'Nampa', 'Idaho Falls'] },
+            { state: 'Illinois', capital: 'Springfield', options: ['Springfield', 'Chicago', 'Peoria'] },
+            { state: 'Indiana', capital: 'Indianapolis', options: ['Indianapolis', 'Fort Wayne', 'Evansville'] },
+            { state: 'Iowa', capital: 'Des Moines', options: ['Des Moines', 'Cedar Rapids', 'Davenport'] },
+            { state: 'Kansas', capital: 'Topeka', options: ['Topeka', 'Wichita', 'Kansas City'] },
+            { state: 'Kentucky', capital: 'Frankfort', options: ['Frankfort', 'Louisville', 'Lexington'] },
+            { state: 'Louisiana', capital: 'Baton Rouge', options: ['Baton Rouge', 'New Orleans', 'Shreveport'] },
+            { state: 'Maine', capital: 'Augusta', options: ['Augusta', 'Portland', 'Bangor'] },
+            { state: 'Maryland', capital: 'Annapolis', options: ['Annapolis', 'Baltimore', 'Frederick'] },
+            { state: 'Massachusetts', capital: 'Boston', options: ['Boston', 'Worcester', 'Springfield'] },
+            { state: 'Michigan', capital: 'Lansing', options: ['Lansing', 'Detroit', 'Grand Rapids'] },
+            { state: 'Minnesota', capital: 'St. Paul', options: ['St. Paul', 'Minneapolis', 'Duluth'] },
+            { state: 'Mississippi', capital: 'Jackson', options: ['Jackson', 'Gulfport', 'Biloxi'] },
+            { state: 'Missouri', capital: 'Jefferson City', options: ['Jefferson City', 'Kansas City', 'St. Louis'] },
+            { state: 'Montana', capital: 'Helena', options: ['Helena', 'Billings', 'Missoula'] },
+            { state: 'Nebraska', capital: 'Lincoln', options: ['Lincoln', 'Omaha', 'Bellevue'] },
+            { state: 'Nevada', capital: 'Carson City', options: ['Carson City', 'Las Vegas', 'Reno'] },
+            { state: 'New Hampshire', capital: 'Concord', options: ['Concord', 'Manchester', 'Nashua'] },
+            { state: 'New Jersey', capital: 'Trenton', options: ['Trenton', 'Newark', 'Jersey City'] },
+            { state: 'New Mexico', capital: 'Santa Fe', options: ['Santa Fe', 'Albuquerque', 'Las Cruces'] },
+            { state: 'New York', capital: 'Albany', options: ['Albany', 'New York City', 'Buffalo'] },
+            { state: 'North Carolina', capital: 'Raleigh', options: ['Raleigh', 'Charlotte', 'Greensboro'] },
+            { state: 'North Dakota', capital: 'Bismarck', options: ['Bismarck', 'Fargo', 'Grand Forks'] },
+            { state: 'Ohio', capital: 'Columbus', options: ['Columbus', 'Cleveland', 'Cincinnati'] },
+            { state: 'Oklahoma', capital: 'Oklahoma City', options: ['Oklahoma City', 'Tulsa', 'Norman'] },
+            { state: 'Oregon', capital: 'Salem', options: ['Salem', 'Portland', 'Eugene'] },
+            { state: 'Pennsylvania', capital: 'Harrisburg', options: ['Harrisburg', 'Philadelphia', 'Pittsburgh'] },
+            { state: 'Rhode Island', capital: 'Providence', options: ['Providence', 'Warwick', 'Cranston'] },
+            { state: 'South Carolina', capital: 'Columbia', options: ['Columbia', 'Charleston', 'Greenville'] },
+            { state: 'South Dakota', capital: 'Pierre', options: ['Pierre', 'Sioux Falls', 'Rapid City'] },
+            { state: 'Tennessee', capital: 'Nashville', options: ['Nashville', 'Memphis', 'Knoxville'] },
+            { state: 'Texas', capital: 'Austin', options: ['Austin', 'Houston', 'Dallas'] },
+            { state: 'Utah', capital: 'Salt Lake City', options: ['Salt Lake City', 'West Valley City', 'Provo'] },
+            { state: 'Vermont', capital: 'Montpelier', options: ['Montpelier', 'Burlington', 'Rutland'] },
+            { state: 'Virginia', capital: 'Richmond', options: ['Richmond', 'Virginia Beach', 'Norfolk'] },
+            { state: 'Washington', capital: 'Olympia', options: ['Olympia', 'Seattle', 'Spokane'] },
+            { state: 'West Virginia', capital: 'Charleston', options: ['Charleston', 'Huntington', 'Morgantown'] },
+            { state: 'Wisconsin', capital: 'Madison', options: ['Madison', 'Milwaukee', 'Green Bay'] },
+            { state: 'Wyoming', capital: 'Cheyenne', options: ['Cheyenne', 'Casper', 'Laramie'] }
+        ];
+
+
+        let currentState;
+
+
+
+        function askQuestion() {
+            document.getElementById('message').textContent = '';
+
+
+            currentState = states[Math.floor(Math.random() * states.length)];
+
+
+
+            const utterance = new SpeechSynthesisUtterance(`What is the capital of ${currentState.state}?`);
+            speechSynthesis.speak(utterance);
+
+
+
+
+
+
+
+            // Display question and options in question-container
+            const questionContainer = document.getElementById('question-container');
+            questionContainer.innerHTML = `
+                <h2>What is the capital of ${currentState.state}?</h2>
+                <div id="options-container"></div>
+            `;
+
+
+
+
+
+
+
+
+
+
+
+
+            // Display options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            currentState.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                button.classList.add('capital');
+                button.addEventListener('click', handleClick);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+
+
+
+        function handleClick(event) {
+            const selectedCapital = event.target.textContent.split('. ')[1].trim().toLowerCase();
+            const correctCapital = currentState.capital.toLowerCase();
+
+
+
+            if (selectedCapital === correctCapital) {
+                document.getElementById("message").innerHTML = "Correct!";
+                document.getElementById("message").style.color = "green";
+                playSound(true);
+                announceResult(true);
+            } else {
+                document.getElementById("message").innerHTML = "Incorrect. Try again";
+                document.getElementById("message").style.color = "red";
+                playSound(false);
+                announceResult(false);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function playSound(isCorrect) {
+            const correctAudio = document.getElementById("Correct");
+            const incorrectAudio = document.getElementById("Incorrect");
+
+
+
+
+            correctAudio.pause();
+            correctAudio.currentTime = 0;
+            incorrectAudio.pause();
+            incorrectAudio.currentTime = 0;
+
+
+
+
+
+            if (isCorrect) {
+                correctAudio.play();
+            } else {
+                incorrectAudio.play();
+            }
+        }
+
+
+
+
+
+
+
+        function announceResult(isCorrect) {
+            const announcement = isCorrect ? "Correct!" : "Incorrect. Try again.";
+            const utterance = new SpeechSynthesisUtterance(announcement);
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</script>
+
+</body>
+</html>
