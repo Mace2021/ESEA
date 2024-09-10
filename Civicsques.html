@@ -75,64 +75,12 @@
     <div id="message"></div>
     <hr style="height: 2px; background-color: #750101;"/>
    
-   
-   
     <audio id="Correct" src="./audio/That is correct.mp3"></audio>
     <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
-    <div id="question-container"></div>
+    
+   
+   <div id="question-container"></div>
     <script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         let states = [
             { state: 'Alabama', capital: 'Montgomery', options: ['Montgomery', 'Birmingham', 'Mobile'] },
             { state: 'Alaska', capital: 'Juneau', options: ['Juneau', 'Anchorage', 'Fairbanks'] },
@@ -186,27 +134,15 @@
             { state: 'Wyoming', capital: 'Cheyenne', options: ['Cheyenne', 'Casper', 'Laramie'] }
         ];
 
-
         let currentState;
-
-
 
         function askQuestion() {
             document.getElementById('message').textContent = '';
 
-
             currentState = states[Math.floor(Math.random() * states.length)];
-
-
 
             const utterance = new SpeechSynthesisUtterance(`What is the capital of ${currentState.state}?`);
             speechSynthesis.speak(utterance);
-
-
-
-
-
-
 
             // Display question and options in question-container
             const questionContainer = document.getElementById('question-container');
@@ -214,17 +150,6 @@
                 <h2>What is the capital of ${currentState.state}?</h2>
                 <div id="options-container"></div>
             `;
-
-
-
-
-
-
-
-
-
-
-
 
             // Display options
             const optionsContainer = document.getElementById('options-container');
@@ -238,55 +163,31 @@
             });
         }
 
-
-
-
         function handleClick(event) {
             const selectedCapital = event.target.textContent.split('. ')[1].trim().toLowerCase();
             const correctCapital = currentState.capital.toLowerCase();
 
-
-
             if (selectedCapital === correctCapital) {
                 document.getElementById("message").innerHTML = "Correct!";
                 document.getElementById("message").style.color = "green";
-                playSound(true);
+               
                 announceResult(true);
             } else {
                 document.getElementById("message").innerHTML = "Incorrect. Try again";
                 document.getElementById("message").style.color = "red";
-                playSound(false);
+                
                 announceResult(false);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         function playSound(isCorrect) {
             const correctAudio = document.getElementById("Correct");
             const incorrectAudio = document.getElementById("Incorrect");
 
-
-
-
             correctAudio.pause();
             correctAudio.currentTime = 0;
             incorrectAudio.pause();
             incorrectAudio.currentTime = 0;
-
-
-
-
 
             if (isCorrect) {
                 correctAudio.play();
@@ -295,14 +196,9 @@
             }
         }
 
-
-
-
-
-
-
         function announceResult(isCorrect) {
-            const announcement = isCorrect ? "Correct!" : "Incorrect. Try again.";
+
+            const announcement = isCorrect ? "Correct!" : "Incorrect. Please try again.";
             const utterance = new SpeechSynthesisUtterance(announcement);
             speechSynthesis.speak(utterance);
         }
