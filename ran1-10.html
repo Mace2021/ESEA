@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Random number</title>
+    <title>Random number 1-10</title>
     <link rel="stylesheet" href="style.css" />
     <style>
         *{
@@ -39,24 +39,15 @@
       }
       button {
         
-        width: 100px;
-height: 50px;
+        width: 200px;
+height: 80px;
         padding: 10px;
-        background-color: rgb(75, 241, 103);
+        background-color: rgb(183, 248, 194);
         color: rgb(34, 1, 1);
         border-radius: 4px;
         cursor: pointer;
     margin: 10px;
       }
-
-
-
-
-
-
-
-
-
 
 
         #question {
@@ -92,7 +83,7 @@ height: 50px;
     
 
     <a href="index.html" style="width: 100%; justify-content: center;background-color: #bffaf0;
-    margin: 0 auto; width: 200px;border-radius: 5px;">Random Number</a>
+    margin: 0 auto; width: 200px;border-radius: 5px;">Random Number 1-10</a>
    
     <br> <br> <br>
     
@@ -109,8 +100,8 @@ height: 50px;
     <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
 
     <script>
-        // Array of numbers from 0 to 100
-        const Numbers = Array.from({length: 101}, (_, i) => i.toString());
+        // Array of numbers from 0 to 10
+        const Numbers = Array.from({length: 11}, (_, i) => i.toString());
 
         let currentNumber;
         let choices;
@@ -153,7 +144,7 @@ height: 50px;
             const boardContainer = document.getElementById('board-container');
             boardContainer.innerHTML = ''; // Clear previous choices
 
-            choices = getUniqueRandomNumbers(4, 101);
+            choices = getUniqueRandomNumbers(3, 11);
             currentNumber = choices[Math.floor(Math.random() * choices.length)].toString();
 
             // Create buttons for choices
@@ -165,7 +156,7 @@ height: 50px;
             });
 
             // Speak the question using speech synthesis
-            const utterance = new SpeechSynthesisUtterance(`Which of these numbers is ${currentNumber}?`);
+            const utterance = new SpeechSynthesisUtterance(`Which numbers is ${currentNumber}?`);
             speechSynthesis.speak(utterance);
         }
 
