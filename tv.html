@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=T, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>TV</title>
     <style>
         *{
@@ -11,6 +12,16 @@
             font-size: 30px;
             font-weight: bolder;
            
+        }
+        #linkto {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #eee6c2;
+            border-radius: 5px;
+            width: 50%;
+            justify-self: center;
         }
             @media (max-width: 768px) {
         #iframe-container {
@@ -27,9 +38,43 @@
     </style>
 </head>
 <body>
+    <a href="index.html" id="linkto">How to us ESEA</a>
 <div id="mytv">
-    <iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLthTrwQYsB-_OXpBBxRmKIWgKT6Zp5Eo3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
 
+
+    <video id="videoPlayer" width="100%" height="500" controls>
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </div>
+
+
+<script>
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoSource = videoPlayer.querySelector('source');
+    const videos = [
+       
+        'videos/Introduction To Early Start Education App (ESEA).mp4',
+        'videos/Arithmetic.mp4',
+        'videos/video3.mp4'
+        // Add more video paths as needed
+    ];
+    let currentVideoIndex = 0;
+
+    function playNextVideo() {
+        if (currentVideoIndex >= videos.length) {
+            currentVideoIndex = 0;
+        }
+        videoSource.src = videos[currentVideoIndex];
+        videoPlayer.load();
+        videoPlayer.play();
+        currentVideoIndex++;
+    }
+
+    videoPlayer.addEventListener('ended', playNextVideo);
+
+    // Start playing the first video
+    playNextVideo();
+</script>
 </body>
 </html>

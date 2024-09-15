@@ -31,17 +31,26 @@
       button:hover {
         background-color: #579dc5;
       }
-        .capital {
-        width:180px;
-        padding: 10px;
-        margin: 5px;
-        border: 1px solid gold ;
-        border-radius: 10px;
-        background-color: #1c1c1c;
-        cursor: pointer;
-        color: rgb(247, 246, 244);
-        text-align: center;
-        box-shadow: goldenrod 0px 0px 15px 5px;
+        .capital {border: 4px solid rgb(34, 1, 1);
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 300px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(85, 133, 136), rgb(72, 230, 195));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
       }
 
       .capital:hover {
@@ -158,9 +167,15 @@
             // Display options
             const optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
-            currentState.options.forEach((option, index) => {
+
+
+            // Randomize the order of options
+            const shuffledOptions = [...currentState.options].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach((option) => {
                 const button = document.createElement('button');
-                button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+
+                button.textContent = option;
                 button.classList.add('capital');
                 button.addEventListener('click', handleClick);
                 optionsContainer.appendChild(button);
@@ -168,7 +183,8 @@
         }
 
         function handleClick(event) {
-            const selectedCapital = event.target.textContent.split('. ')[1].trim().toLowerCase();
+
+            const selectedCapital = event.target.textContent.trim().toLowerCase();
             const correctCapital = currentState.capital.toLowerCase();
 
             if (selectedCapital === correctCapital) {
@@ -176,6 +192,7 @@
                 document.getElementById("message").style.color = "green";
                
                 announceResult(true);
+                setTimeout(askQuestion, 1000); // Auto reset after 1 second
             } else {
                 document.getElementById("message").innerHTML = "Incorrect. Try again";
                 document.getElementById("message").style.color = "red";

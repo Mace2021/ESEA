@@ -113,11 +113,8 @@
     <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
 
     <script>
-
-
         // Array of letters from A to Z
         const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
-
 
         let currentLetter;
         let choices;
@@ -125,8 +122,6 @@
         // Function to handle the click event
         function handleClick(event) {
             const messageElement = document.getElementById('message');
-
-
             const clickedLetter = event.target.textContent;
             if (clickedLetter === currentLetter) {
                 messageElement.textContent = 'Correct!';
@@ -148,18 +143,12 @@
             }
         }
 
-
-
-
-
-
         // Function to generate unique random letters
         function getUniqueRandomLetters(count) {
             const uniqueLetters = new Set();
             while(uniqueLetters.size < count) {
                 uniqueLetters.add(letters[Math.floor(Math.random() * letters.length)]);
             }
-
             return Array.from(uniqueLetters);
         }
 
@@ -167,8 +156,6 @@
         function askQuestion() {
             const boardContainer = document.getElementById('board-container');
             boardContainer.innerHTML = ''; // Clear previous choices
-
-
 
             choices = getUniqueRandomLetters(3);
             currentLetter = choices[Math.floor(Math.random() * choices.length)];
@@ -182,7 +169,6 @@
             });
 
             // Speak the question using speech synthesis
-
             const utterance = new SpeechSynthesisUtterance(`Which of these letters is ${currentLetter}?`);
             speechSynthesis.speak(utterance);
         }
