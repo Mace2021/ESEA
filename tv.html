@@ -32,28 +32,81 @@
         
         iframe {
             width: 100%;
-            height: 65vw;
+            height: 40vw;
         }
+    }
+    #container {
+        display: flex;
+        justify-content: space-between;
+    }
+    #sidebar {
+        width: 25%;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #sidebar h3 {
+        color: #333;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    #mytv {
+        width: 70%;
+    }
+    #videoList {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #videoList li:nth-child(odd) {
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: #94fd63;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    #videoList li:nth-child(even) {
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    #videoList li:hover {
+        background-color: #d0d0d0;
+        cursor: pointer;
     }
     </style>
 </head>
 <body>
     <a href="index.html" id="linkto">How to us ESEA</a>
-<div id="mytv">
 
 
-    <video id="videoPlayer" width="100%" height="500" controls>
-        <source src="" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</div>
 
+
+
+
+    <div id="container">
+        <div id="sidebar">
+            <h3>Next Videos</h3>
+            <ul id="videoList"></ul>
+        </div>
+        <div id="mytv">
+            <video id="videoPlayer" width="100%" height="500" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
 
 <script>
     const videoPlayer = document.getElementById('videoPlayer');
     const videoSource = videoPlayer.querySelector('source');
+    const videoList = document.getElementById('videoList');
     const videos = [
-       
+
         'videos/Introduction To Early Start Education App (ESEA).mp4',
         'videos/Arithmetic.mp4',
         'videos/video3.mp4'
@@ -61,20 +114,50 @@
     ];
     let currentVideoIndex = 0;
 
-    function playNextVideo() {
-        if (currentVideoIndex >= videos.length) {
-            currentVideoIndex = 0;
-        }
+
+
+
+
+    function playVideo(index) {
+        currentVideoIndex = index;
         videoSource.src = videos[currentVideoIndex];
         videoPlayer.load();
         videoPlayer.play();
+        updateSidebar();
+    }
+
+    function playNextVideo() {
         currentVideoIndex++;
+        if (currentVideoIndex >= videos.length) {
+            currentVideoIndex = 0;
+        }
+        playVideo(currentVideoIndex);
+    }
+
+    function updateSidebar() {
+        videoList.innerHTML = '';
+
+
+
+
+        for (let i = 0; i < videos.length; i++) {
+            if (i !== currentVideoIndex) {
+                const li = document.createElement('li');
+                li.textContent = videos[i].split('/').pop().replace('.mp4', '');
+                li.addEventListener('click', () => playVideo(i));
+                videoList.appendChild(li);
+            }
+        }
     }
 
     videoPlayer.addEventListener('ended', playNextVideo);
 
-    // Start playing the first video
-    playNextVideo();
+
+    // Start playing the first video and initialize sidebar
+
+    playVideo(0);
 </script>
+
+
 </body>
 </html>
