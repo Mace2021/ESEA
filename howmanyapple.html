@@ -224,6 +224,12 @@ padding: 2px;
                 document.getElementById("numOfApples").innerHTML = ""; // Clear image after answer
                 playSound(true);
                 console.log('That is Correct');
+                
+                // Automatically ask a new question after a short delay
+                setTimeout(() => {
+                    clearAnswer();
+                    askQuestion();
+                }, 2000); // 2 second delay
             } else {
                 document.getElementById("message").innerHTML = "Incorrect. Try again";
                 document.getElementById("message").style.color = "red";
