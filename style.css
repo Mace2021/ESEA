@@ -39,8 +39,8 @@ body {
 /* CSS for the dropdown */
 .dropdown {
 
-  width: 230px;
-  height: 200vh;
+  width: 300px;
+ 
 
   margin: 15px;
  
@@ -73,14 +73,19 @@ body {
 
 
 .dropdown-content {
-  width: 250px;
+  width: 100%;
+ 
   display: none;
+  height: auto;
  position: absolute;
-  background-color: #5206cc;
+
+  background-color: rgba(14, 13, 13, 1);  
   justify-content: center;
   justify-items: center;
   border: dodgerblue solid 2px;
   align-items: center;
+  margin: 15px;
+  border-radius: 10px;
   /* Changed align-items to center */
 }
 
@@ -93,8 +98,12 @@ body {
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 
   margin: 10px;
-  width: 90%;
-border-radius: 5px;
+  margin-left: -0px;
+  width: 100%;
+  height: auto;
+
+  border-radius: 5px;
+  justify-content: center;
 }
 
 
