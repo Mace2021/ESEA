@@ -10,13 +10,28 @@
 
 
 <style>
-  *{
-            
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 30px;
-            font-weight: bolder;
-           
-        }
+
+
+
+
+
+
+
+
+
+
+     body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 30px;
+        font-weight: bolder;
+   display: block;
+   flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0 auto;
+        text-align: center;
+}
      #linkto {
             font-size: 1.5em;
             font-weight: bold;
@@ -27,32 +42,51 @@
             width: 50%;
             justify-self: center;
         }
-        #iframe-container {
-            height: auto;
-            padding: 20px;
-            border-radius: 15px;
-        }
-        
         iframe {
-            width: 100%;
+            width: 1000px;
             height: 40vw;
-        }
-    @media (max-width: 768px) {
-        #iframe-container {
-            height: auto;
-            padding: 20px;
-            border-radius: 15px;
+            max-width: 800px;
+
+
+            display: block;
+            margin: 0 auto;
         }
 
-        iframe {
-            width: 100%;
-            height: 65vw;
+        #iframe-container {
+            width: auto;
+            height: auto;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           margin: 0 auto;
         }
-    }
+        @media (max-width: 768px) {
+            #iframe-container {
+                height: auto;
+                padding: 20px;
+                border-radius: 15px;
+            }
+        }
+        @media (max-width: 768px) {
+            #iframe-container {
+                height: auto;
+                padding: 20px;
+                border-radius: 15px;
+            }
+        }
+       
+      
 </style>
 </head>
 <body>
-    <a href="index.html" id="linkto">Story Time</a>
+    <div style="text-align: center;">
+        <a href="index.html" id="linkto">Story Time</a>
+    </div>
     <div id="iframe-container">
         <iframe
             src="./videos/Once Upon A Time part 1.mp4" frameborder="0"
@@ -61,5 +95,4 @@
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </body>
-
 </html>
