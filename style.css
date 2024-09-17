@@ -4,21 +4,28 @@
  font-weight: bolder;
 }
 body {
-  
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  
-   text-align: center;
-   
 
+
+
+
+
+
+
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  display: inline-block;
+  justify-content: center;
   background-image: url('https://source.unsplash.com/random/1920x1080/?gaming,background');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  }
-  
+
+
+}
  
 
 
