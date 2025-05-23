@@ -6,63 +6,113 @@
     <title>count123</title>
     <link rel="stylesheet" href="style.css">
 <style>
-  *{   
-            font-size: x-large;
-           font-weight: bolder;
-           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 34px;
-        }  
+  * {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
- #board-containers {
-          display: flex;
-          flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin: 10px;
-        
-        }
+  body {
+    background: #f8f6f3;
+    color: #221010;
+  }
+
+  #board-containers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 8px 32px 8px;
+  }
+
   .count123 {
-    border: 4px solid rgb(34, 1, 1);
-              border: 4px solid rgb(34, 1, 1);
-              border-style: double;
-              width: 200px;
-              height: auto;
-              padding: 10px;
+    border: 3px double #220101;
+    width: 120px;
+    min-height: 80px;
+    padding: 18px 0;
+    background: linear-gradient(135deg, #e3f6f8 0%, #bcae9e 100%);
+    color: #220101;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 0;
+    box-shadow: 0 2px 12px rgba(34, 1, 1, 0.13);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
 
-              background-image: linear-gradient(to right, rgb(212, 241, 243), rgb(161, 141, 127));
-              color: rgb(34, 1, 1);
-              border-radius: 10px;
-              cursor: pointer;
-              margin: 10px;
-              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
-              transition: all 0.3s ease;
-              font-size: 2em;
-              font-weight: bolder;
-              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-              justify-content: center;
-            
+  .count123:hover, .count123:active {
+    background: linear-gradient(135deg, #d0f0f3 0%, #e0cfc0 100%);
+    transform: scale(1.06);
+    box-shadow: 0 4px 18px rgba(34, 1, 1, 0.18);
+  }
+
+  #linkto {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    margin: 18px auto 10px auto;
+    background-color: #dad2d8;
+    border-radius: 7px;
+    padding: 10px 0;
+    width: 90%;
+    max-width: 400px;
+    text-decoration: none;
+    color: #221010;
+    box-shadow: 0 1px 6px rgba(34, 1, 1, 0.07);
+    transition: background 0.2s;
+  }
+
+  #linkto:hover {
+    background-color: #eae2e8;
+  }
+
+  @media screen and (max-width: 768px) {
+    #board-containers {
+      gap: 10px;
+      max-width: 100%;
+      padding: 0 2px 20px 2px;
+    }
+    .count123 {
+      width: 80px;
+      min-height: 60px;
+      font-size: 1.2em;
+      padding: 10px 0;
     }
     #linkto {
-            font-size: 1em;
-            font-weight: bold;
-            text-align: center;
-            margin: 0 auto;
-            background-color: #dad2d8;
-            border-radius: 5px;
-            width: 100%;
-            justify-self: center;
-        }
-  @media screen and (max-width: 568px) {
-        #board-containers {
-          display: flex;
-          flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        
-        }
-      }
+      font-size: 1em;
+      padding: 8px 0;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    #board-containers {
+      gap: 6px;
+      padding-bottom: 10px;
+    }
+    .count123 {
+      width: 60px;
+      min-height: 40px;
+      font-size: 1em;
+      padding: 6px 0;
+      border-width: 2px;
+    }
+    #linkto {
+      font-size: 0.95em;
+      padding: 6px 0;
+    }
+  }
 </style>
 </head>
 <body>

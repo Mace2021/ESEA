@@ -5,30 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
   <style>
-*{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 30px;
-            font-weight: bolder;
-           
-        }
+    * {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 30px;
+      font-weight: bolder;
+    }
 
+    .display {
+      color: rgb(15, 0, 0);
+      font-size: 20px;
+      text-align: center;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      background-color: rgb(235, 243, 199);
+      width: 50%;
+      margin: 0 auto;
+    }
 
-.display {
-    color: rgb(15, 0, 0);
-    font-size: 20px;
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    background-color: rgb(235, 243, 199);
-    width: 50%;
-    margin: 0 auto;
-}
-
-.hide {
-    display: none;
-}
+    .hide {
+      display: none;
+    }
 
     .container {
       margin: 0 auto;
@@ -36,102 +34,102 @@
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(3, 1fr);
       max-width: 300px;
-
-      @media (max-width: 600px) {
-        grid-template-columns: 1fr;
-        grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      }
-
+      gap: 5px;
     }
 
-.tile {
-  width: 100%;
-    border: 3px solid rgb(251, 251, 253);
-    min-width: 50%;
-    min-height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    cursor: pointer;
-    background-color: #9F6347;
-    margin: 0 auto;
-}
+    @media (max-width: 600px) {
+      .container {
+        max-width: 95vw;
+      }
+    }
 
-.playerX {
-    color: #09C372;
-}
-
-.playerO {
-    color: #498AFB;
-}
-
-.controls {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1em;
-}
-
-.controls button {
-    color: rgb(1, 9, 22);
-    padding: 8px;
-    border-radius: 8px;
-    border: none;
-    font-size: 20px;
-    margin-left: 1em;
-    cursor: pointer;
-}
-
-.restart {
-    background-color: #498AFB;
-}
-
-#reset {
-    background-color: #389fff;
-}
-
-    #icons-container {
+    .tile {
+      width: 100%;
+      border: 3px solid rgb(251, 251, 253);
+      min-width: 50%;
+      min-height: 80px;
       display: flex;
       justify-content: center;
-      margin-top: 20px;
+      align-items: center;
+      cursor: pointer;
+      background-color: #9F6347;
+      margin: 0 auto;
+      transition: background 0.2s;
     }
 
-    #icons-container div {
-      margin: 0 20px;
+    .tile.playerball {
+      background-color: #e0ffe0;
+    }
+
+    .tile.playerapple {
+      background-color: #e0eaff;
+    }
+
+    .playerball {
+      color: #09C372;
+    }
+
+    .playerapple {
+      color: #498AFB;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1em;
+    }
+
+    .controls button {
+      color: rgb(1, 9, 22);
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 20px;
+      margin-left: 1em;
       cursor: pointer;
+    }
+
+    .restart {
+      background-color: #498AFB;
+    }
+
+    #reset {
+      background-color: #389fff;
     }
 
     img {
       width: 65%;
+      pointer-events: none;
+      user-select: none;
     }
+
     #linkto {
-            font-size: 1.5em;
-            font-weight: bolder;
-            text-align: center;
-            margin: 0 auto;
-            background-color: #1fe0c6;
-            border-radius: 5px;
-            width: 150px;
-            justify-self: center;
-            color: #000;
-        }
+      font-size: 1.5em;
+      font-weight: bolder;
+      text-align: center;
+      margin: 0 auto;
+      background-color: #1fe0c6;
+      border-radius: 5px;
+      width: 150px;
+      justify-self: center;
+      color: #000;
+      display: block;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 
 <body>
-  <a href="index.html" id="linkto">Tic Tac Toe</a>
-
+  <a href="../index.html" id="linkto">Tic Tac Toe</a>
   <hr style="height: 10px; background-color: #5e3737;" />
 
   <main class="background">
-    <section class="title">
-   
-    </section>
+    <section class="title"></section>
     <section class="display">
-      Player <span class="display-player playerX">X</span>'s turn
+      Player <span class="display-player playerball">ball</span>'s turn
     </section>
     <section class="container">
       <div class="tile"></div>
@@ -149,143 +147,145 @@
       <button id="reset">Reset</button>
     </section>
   </main>
-  
+
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-  const tiles = Array.from(document.querySelectorAll('.tile'));
-  const playerDisplay = document.querySelector('.display-player');
-  const resetButton = document.querySelector('#reset');
-  const announcer = document.querySelector('.announcer');
+      const tiles = Array.from(document.querySelectorAll('.tile'));
+      const playerDisplay = document.querySelector('.display-player');
+      const resetButton = document.querySelector('#reset');
+      const announcer = document.querySelector('.announcer');
 
-  let board = ['', '', '', '', '', '', '', '', ''];
-  let currentPlayer = 'ball'; // Start with 'ball' instead of 'X'
-  let isGameActive = true;
+      let board = ['', '', '', '', '', '', '', '', ''];
+      let currentPlayer = 'ball'; // Start with 'ball'
+      let isGameActive = true;
+      let lastPlayer = null; // Track the last player who made a move
 
-  const BALL_WON = 'BALL_WON';
-  const APPLE_WON = 'APPLE_WON';
-  const TIE = 'TIE';
+      const BALL_WON = 'BALL_WON';
+      const APPLE_WON = 'APPLE_WON';
+      const TIE = 'TIE';
 
-  const winningConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
+      const winningConditions = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
 
-  function handleResultValidation() {
-    let roundWon = false;
-    for (let i = 0; i <= 7; i++) {
-      const [a, b, c] = winningConditions[i];
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        roundWon = true;
-        break;
+      function handleResultValidation() {
+        let roundWon = false;
+        for (let i = 0; i < winningConditions.length; i++) {
+          const [a, b, c] = winningConditions[i];
+          if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+            roundWon = true;
+            break;
+          }
+        }
+
+        if (roundWon) {
+          announce(lastPlayer === 'ball' ? BALL_WON : APPLE_WON);
+          isGameActive = false;
+          return;
+        }
+
+        if (!board.includes('')) announce(TIE);
       }
-    }
 
-    if (roundWon) {
-      announce(currentPlayer === 'ball' ? BALL_WON : APPLE_WON);
-      isGameActive = false;
-      return;
-    }
+      const announce = (type) => {
+        switch (type) {
+          case APPLE_WON:
+            announcer.innerHTML = 'Player <span class="playerapple">apple</span> Won';
+            break;
+          case BALL_WON:
+            announcer.innerHTML = 'Player <span class="playerball">ball</span> Won';
+            break;
+          case TIE:
+            announcer.innerText = 'Tie';
+        }
+        announcer.classList.remove('hide');
+      };
 
-    if (!board.includes('')) announce(TIE);
-  }
+      const isValidAction = (tile) => {
+        return !tile.querySelector('img');
+      };
 
-  const announce = (type) => {
-    switch (type) {
-      case APPLE_WON:
-        announcer.innerHTML = 'Player <span class="playerO">apple</span> Won';
-        break;
-      case BALL_WON:
-        announcer.innerHTML = 'Player <span class="playerX">ball</span> Won';
-        break;
-      case TIE:
-        announcer.innerText = 'Tie';
-    }
-    announcer.classList.remove('hide');
-  };
+      const updateBoard = (index) => {
+        board[index] = currentPlayer;
+      };
 
-  const isValidAction = (tile) => {
-    if (tile.querySelector('img')) return false; // Check if tile already has an image
-    return true;
-  };
+      const changePlayer = () => {
+        playerDisplay.classList.remove(`player${currentPlayer}`);
+        currentPlayer = currentPlayer === 'ball' ? 'apple' : 'ball';
+        playerDisplay.innerText = currentPlayer;
+        playerDisplay.classList.add(`player${currentPlayer}`);
+      };
 
-  const updateBoard = (index) => {
-    board[index] = currentPlayer;
-  }
+      function placeMark(shape, cell) {
+        let markImg = document.createElement('img');
+        if (shape === 'ball') {
+          markImg.src = '../images/ball.png';
+          markImg.id = 'balls';
+          markImg.alt = 'ball';
+          cell.appendChild(markImg);
+          cell.classList.add('playerball');
+        } else {
+          markImg.src = '../images/apple.png';
+          markImg.id = 'apples';
+          markImg.alt = 'apple';
+          cell.appendChild(markImg);
+          cell.classList.add('playerapple');
+        }
+      }
 
-  const changePlayer = () => {
-    playerDisplay.classList.remove(`player${currentPlayer}`);
-    currentPlayer = currentPlayer === 'ball' ? 'apple' : 'ball'; // Switch between 'ball' and 'apple'
-    playerDisplay.innerText = currentPlayer;
-    playerDisplay.classList.add(`player${currentPlayer}`);
-  }
+      function userAction(tile, index) {
+        if (!isGameActive || !isValidAction(tile)) return;
+        placeMark(currentPlayer, tile);
+        updateBoard(index);
+        lastPlayer = currentPlayer;
+        handleResultValidation();
+        if (isGameActive) {
+          changePlayer();
+          setTimeout(computerAction, 500);
+        }
+      }
 
-  const userAction = (tile, index) => {
-    if (isValidAction(tile) && isGameActive) {
-      placeMark(currentPlayer, tile); // Place the mark (ball or apple) on the tile
-      updateBoard(index);
-      handleResultValidation();
-      changePlayer();
-      if (isGameActive) setTimeout(computerAction, 500);
-    }
-  }
+      function computerAction() {
+        if (!isGameActive) return;
+        const emptyTiles = tiles.filter((tile, idx) => !tile.querySelector('img') && board[idx] === '');
+        if (emptyTiles.length === 0) return;
+        const randomTile = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+        const index = tiles.indexOf(randomTile);
+        placeMark(currentPlayer, randomTile);
+        updateBoard(index);
+        lastPlayer = currentPlayer;
+        handleResultValidation();
+        if (isGameActive) changePlayer();
+      }
 
-  const computerAction = () => {
-    const emptyTiles = tiles.filter(tile => !tile.querySelector('img')); // Filter out tiles with images
-    const randomIndex = Math.floor(Math.random() * emptyTiles.length);
-    const tile = emptyTiles[randomIndex];
-    placeMark(currentPlayer, tile); // Place the mark (ball or apple) on the tile
-    const index = tiles.indexOf(tile);
-    updateBoard(index);
-    handleResultValidation();
-    changePlayer();
-  }
+      function resetBoard() {
+        board = ['', '', '', '', '', '', '', '', ''];
+        isGameActive = true;
+        announcer.classList.add('hide');
+        currentPlayer = 'ball';
+        lastPlayer = null;
+        playerDisplay.classList.remove('playerapple', 'playerball');
+        playerDisplay.innerText = currentPlayer;
+        playerDisplay.classList.add('playerball');
+        tiles.forEach(tile => {
+          tile.innerHTML = '';
+          tile.classList.remove('playerball', 'playerapple');
+        });
+      }
 
-  const resetBoard = () => {
-    board = ['', '', '', '', '', '', '', '', ''];
-    isGameActive = true;
-    announcer.classList.add('hide');
-    currentPlayer = 'ball';
-    playerDisplay.innerText = currentPlayer;
-    playerDisplay.classList.add(`player${currentPlayer}`);
+      tiles.forEach((tile, index) => {
+        tile.addEventListener('click', () => userAction(tile, index));
+      });
 
-    tiles.forEach(tile => {
-      tile.innerHTML = ''; // Clear the tile's content
-      tile.classList.remove('playerball');
-      tile.classList.remove('playerapple');
+      resetButton.addEventListener('click', resetBoard);
     });
-  }
-
-  tiles.forEach((tile, index) => {
-    tile.addEventListener('click', () => userAction(tile, index));
-  });
-
-  resetButton.addEventListener('click', resetBoard);
-});
-
-function placeMark(shape, cell) {
-  let markImg = document.createElement('img');
-  if (shape === 'ball') {
-    markImg.src = './images/ball.png';
-    markImg.id = 'balls';
-    markImg.alt = 'ball';
-    cell.appendChild(markImg); // Append the ball image to the cell
-    cell.classList.add('playerball');
-  } else {
-    markImg.src = './images/apple.png';
-    markImg.id = 'apples';
-    markImg.alt = 'apple';
-    cell.appendChild(markImg); // Append the apple image to the cell
-    cell.classList.add('playerapple');
-  }
-}
-
-
   </script>
 </body>
 
