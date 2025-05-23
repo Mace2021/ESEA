@@ -33,22 +33,28 @@
   }
 
   .count123 {
-    border: 3px double #220101;
-    width: 120px;
-    min-height: 80px;
-    padding: 18px 0;
+    border: 2.5px solid #220101;
+    width: clamp(48px, 10vw, 100px);
+    min-height: clamp(32px, 7vw, 70px);
+    padding: clamp(6px, 1.5vw, 14px) 0;
     background: linear-gradient(135deg, #e3f6f8 0%, #bcae9e 100%);
     color: #220101;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
     margin: 0;
     box-shadow: 0 2px 12px rgba(34, 1, 1, 0.13);
-    transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
-    font-size: 2em;
+    transition: 
+      transform 0.15s, 
+      box-shadow 0.15s, 
+      background 0.3s,
+      border-color 0.2s;
+    font-size: clamp(0.8em, 2vw, 1.3em);
     display: flex;
     align-items: center;
     justify-content: center;
     user-select: none;
+    text-align: center;
+    aspect-ratio: 1 / 1;
   }
 
   .count123:hover, .count123:active {
