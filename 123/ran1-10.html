@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Random ABC</title>
+    <title>Random number 1-10</title>
     <link rel="stylesheet" href="style.css" />
     <style>
         *{
@@ -37,12 +37,13 @@
       margin: 5px;
         }
       }
-            button {
+      button {
               border: 4px solid rgb(34, 1, 1);
               border-style: double;
               width: 100px;
               height: auto;
               padding: 10px;
+
               background-image: linear-gradient(to right, rgb(85, 133, 136), rgb(72, 230, 195));
               color: rgb(34, 1, 1);
               border-radius: 10px;
@@ -54,11 +55,6 @@
               font-weight: bolder;
               font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
               justify-content: center;
-            }
-
-            button:hover {
-              transform: scale(1.05);
-              box-shadow: 0 0 15px rgba(34, 1, 1, 0.7);
             }
 
 
@@ -73,7 +69,7 @@
           justify-content: center;
           align-items: center;
           position: absolute;
-         border-style: groove;
+         
           left: 50%;
           transform: translate(-50%, -50%);
         }
@@ -94,8 +90,8 @@
 <body>
     
 
-    <a href="index.html" style="width: 100%; justify-content: center;background-color: #bffaf0;
-    margin: 0 auto; width: 200px;border-radius: 5px;">Random ABC</a>
+    <a href="../index.html" style="width: 100%; justify-content: center;background-color: #bffaf0;
+    margin: 0 auto; width: 200px;border-radius: 5px;">Random Number 1-10</a>
    
     <br> <br> <br>
     
@@ -112,17 +108,17 @@
     <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
 
     <script>
-        // Array of letters from A to Z
-        const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
+        // Array of numbers from 0 to 10
+        const Numbers = Array.from({length: 11}, (_, i) => i.toString());
 
-        let currentLetter;
+        let currentNumber;
         let choices;
 
         // Function to handle the click event
         function handleClick(event) {
             const messageElement = document.getElementById('message');
-            const clickedLetter = event.target.textContent;
-            if (clickedLetter === currentLetter) {
+            const clickedNumber = event.target.textContent;
+            if (clickedNumber === currentNumber) {
                 messageElement.textContent = 'Correct!';
                 messageElement.style.color = 'green';
                 playSound(true);
@@ -133,7 +129,7 @@
                     boardContainer.innerHTML = '';
                     messageElement.textContent = '';
                     askQuestion();
-                }, 1000); // Delay of 1.0 seconds before clearing and asking new question
+                }, 1000); // Delay of 1.5 seconds before clearing and asking new question
             } else {
                 messageElement.textContent = 'Incorrect. Try again.';
                 messageElement.style.color = 'red';
@@ -142,13 +138,13 @@
             }
         }
 
-        // Function to generate unique random letters
-        function getUniqueRandomLetters(count) {
-            const uniqueLetters = new Set();
-            while(uniqueLetters.size < count) {
-                uniqueLetters.add(letters[Math.floor(Math.random() * letters.length)]);
+        // Function to generate unique random numbers
+        function getUniqueRandomNumbers(count, max) {
+            const numbers = new Set();
+            while(numbers.size < count) {
+                numbers.add(Math.floor(Math.random() * max));
             }
-            return Array.from(uniqueLetters);
+            return Array.from(numbers);
         }
 
         // Function to ask a question
@@ -156,8 +152,8 @@
             const boardContainer = document.getElementById('board-container');
             boardContainer.innerHTML = ''; // Clear previous choices
 
-            choices = getUniqueRandomLetters(3);
-            currentLetter = choices[Math.floor(Math.random() * choices.length)];
+            choices = getUniqueRandomNumbers(3, 11);
+            currentNumber = choices[Math.floor(Math.random() * choices.length)].toString();
 
             // Create buttons for choices
             choices.forEach(choice => {
@@ -168,7 +164,7 @@
             });
 
             // Speak the question using speech synthesis
-            const utterance = new SpeechSynthesisUtterance(`Which of these letters is ${currentLetter}?`);
+            const utterance = new SpeechSynthesisUtterance(`Which numbers is ${currentNumber}?`);
             speechSynthesis.speak(utterance);
         }
 

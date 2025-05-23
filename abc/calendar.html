@@ -131,7 +131,7 @@ width: 100%;
     </style>
 </head>
 <body>
-    <a href="index.html" id="linkto">Calendar</a>
+    <a href="../index.html" id="linkto">Calendar</a>
 
 
   
@@ -249,22 +249,15 @@ generateCalendar(currentMonth, currentYear);
 document.getElementById("current-month").innerText =
 monthNames[currentMonth] + " " + currentYear;
 });
-function speak(day) {
-            // Create a new speech synthesis object
-            var msg = new SpeechSynthesisUtterance();
-            // Set the text to be spoken
-            msg.text = day;
-            // Use the browser's built-in speech synthesis to speak the text
-            window.speechSynthesis.speak(msg);
-        }
-        function speak(month) {
-            // Create a new speech synthesis object
-            var msg = new SpeechSynthesisUtterance();
-            // Set the text to be spoken
-            msg.text = month;
-            // Use the browser's built-in speech synthesis to speak the text
-            window.speechSynthesis.speak(msg);
-        }
+
+function speak(text) {
+    // Create a new speech synthesis object
+    var msg = new SpeechSynthesisUtterance();
+    // Set the text to be spoken
+    msg.text = text;
+    // Use the browser's built-in speech synthesis to speak the text
+    window.speechSynthesis.speak(msg);
+}
 </script>
 
    
