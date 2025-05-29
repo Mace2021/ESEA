@@ -174,7 +174,7 @@ img{
 
     <script>
 function startGame() {
-const bgMusic = new Audio('images/music/dramatic.mp3');
+const bgMusic = new Audio('../images/music/dramatic.mp3');
 bgMusic.play();
 let timeLeft = 10;
 let startTime = timeLeft; // Added to track start time
@@ -196,7 +196,7 @@ const boxes = document.querySelectorAll('.box');
 const randomIndex = Math.floor(Math.random() * boxes.length);
 const box = boxes[randomIndex];
 
-const images = ['./images/cat.png'];
+const images = ['../images/cat.png'];
 const imgSrc = images[Math.floor(Math.random() * images.length)]; // Changed to random image
 
 box.innerHTML = `<img src="${imgSrc}">`;
