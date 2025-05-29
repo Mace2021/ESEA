@@ -119,34 +119,44 @@
       text-decoration: none;
       margin-bottom: 10px;
     }
+
+    .center-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: none;
+    }
   </style>
 </head>
 
 <body>
-  <a href="../index.html" id="linkto">Tic Tac Toe</a>
-  <hr style="height: 10px; background-color: #5e3737;" />
-
-  <main class="background">
-    <section class="title"></section>
-    <section class="display">
-      Player <span class="display-player playerball">ball</span>'s turn
-    </section>
-    <section class="container">
-      <div class="tile"></div>
-      <div class="tile"></div>
-      <div class="tile"></div>
-      <div class="tile"></div>
-      <div class="tile"></div>
-      <div class="tile"></div>
-      <div class="tile"></div>
-      <div class="tile"></div>
-      <div class="tile"></div>
-    </section>
-    <section class="display announcer hide"></section>
-    <section class="controls">
-      <button id="reset">Reset</button>
-    </section>
-  </main>
+  <div class="center-container">
+    <a href="../index.html" id="linkto">Tic Tac Toe</a>
+    <hr style="height: 10px; background-color: #5e3737;" />
+    <main class="background">
+      <section class="title"></section>
+      <section class="display">
+        Player <span class="display-player playerball">ball</span>'s turn
+      </section>
+      <section class="container">
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+      </section>
+      <section class="display announcer hide"></section>
+      <section class="controls">
+        <button id="reset">Reset</button>
+      </section>
+    </main>
+  </div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
