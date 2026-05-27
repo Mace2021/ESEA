@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn emotions and feelings with ESEA">
+    <meta name="theme-color" content="#667eea">
+    
+    <title>Learn Emotions - ESEA</title>
+    <link rel="stylesheet" href="responsive.css">
+    
+    <style>
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .emotion-card {
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            border: 4px solid #333;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .emotion-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .emotion-name {
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+
+        .emotion-emoji {
+            font-size: 3rem;
+        }
+
+        @media (min-width: 480px) {
+            .emotion-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .emotion-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .emotion-card {
+                min-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header role="banner">
+            <div class="logo-container">
+                <img src="images/ESEA.png" alt="ESEA Logo">
+                <div>
+                    <h1>Learn Emotions</h1>
+                    <p>😊 Let's explore our feelings!</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container page-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+
+            <h2>How do you feel today?</h2>
+            <p>Click on each emotion to learn about it!</p>
+
+            <div class="emotion-grid">
+                <!-- Happy -->
+                <div class="emotion-card">
+                    <div class="emotion-emoji">😊</div>
+                    <div class="emotion-name">HAPPY</div>
+                </div>
+
+                <!-- Sad -->
+                <div class="emotion-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">
+                    <div class="emotion-emoji">😢</div>
+                    <div class="emotion-name">SAD</div>
+                </div>
+
+                <!-- Angry -->
+                <div class="emotion-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="emotion-emoji">😠</div>
+                    <div class="emotion-name">ANGRY</div>
+                </div>
+
+                <!-- Surprised -->
+                <div class="emotion-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">
+                    <div class="emotion-emoji">😮</div>
+                    <div class="emotion-name">SURPRISED</div>
+                </div>
+
+                <!-- Scared -->
+                <div class="emotion-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="emotion-emoji">😨</div>
+                    <div class="emotion-name">SCARED</div>
+                </div>
+
+                <!-- Excited -->
+                <div class="emotion-card" style="background: linear-gradient(135deg, #b993fe 0%, #a78bfa 100%);">
+                    <div class="emotion-emoji">🤩</div>
+                    <div class="emotion-name">EXCITED</div>
+                </div>
+
+                <!-- Calm -->
+                <div class="emotion-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">
+                    <div class="emotion-emoji">😌</div>
+                    <div class="emotion-name">CALM</div>
+                </div>
+
+                <!-- Shy -->
+                <div class="emotion-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="emotion-emoji">😳</div>
+                    <div class="emotion-name">SHY</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+                <h3>🎉 Wonderful Job Learning Emotions!</h3>
+                <p>It's great to understand your feelings! They're all normal and important.</p>
+                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Home</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <p>ESEA - Early Start Education App</p>
+            <p>📧 earlystarteducationapp@gmail.com</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

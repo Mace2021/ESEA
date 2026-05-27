@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about weather and seasons with ESEA">
+    <meta name="theme-color" content="#667eea">
+    
+    <title>Weather & Seasons - ESEA</title>
+    <link rel="stylesheet" href="responsive.css">
+    
+    <style>
+        .weather-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .weather-card {
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 15px;
+            border: 4px solid white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            color: white;
+        }
+
+        .weather-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .weather-name {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .weather-emoji {
+            font-size: 3rem;
+        }
+
+        @media (min-width: 480px) {
+            .weather-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .weather-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .weather-card {
+                min-height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header role="banner">
+            <div class="logo-container">
+                <img src="images/ESEA.png" alt="ESEA Logo">
+                <div>
+                    <h1>Weather & Seasons</h1>
+                    <p>🌤️ Explore nature's changes!</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container page-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+
+            <h2>Weather Types</h2>
+            <p>Click on each to learn about different weather!</p>
+
+            <div class="weather-grid">
+                <!-- Sunny -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #FFD89B 0%, #19547B 100%);">
+                    <div class="weather-emoji">☀️</div>
+                    <div class="weather-name">SUNNY</div>
+                </div>
+
+                <!-- Rainy -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="weather-emoji">🌧️</div>
+                    <div class="weather-name">RAINY</div>
+                </div>
+
+                <!-- Cloudy -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #a8a9ad 0%, #6c7074 100%);">
+                    <div class="weather-emoji">☁️</div>
+                    <div class="weather-name">CLOUDY</div>
+                </div>
+
+                <!-- Snowy -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #e0e0e0 0%, #4a5568 100%);">
+                    <div class="weather-emoji">❄️</div>
+                    <div class="weather-name">SNOWY</div>
+                </div>
+
+                <!-- Windy -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #89CFF0 0%, #6FA8DC 100%);">
+                    <div class="weather-emoji">💨</div>
+                    <div class="weather-name">WINDY</div>
+                </div>
+
+                <!-- Thunder -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #2C3E50 0%, #3D566E 100%);">
+                    <div class="weather-emoji">⛈️</div>
+                    <div class="weather-name">THUNDER</div>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 50px;">Seasons</h2>
+            <p>Click on each season to learn about it!</p>
+
+            <div class="weather-grid">
+                <!-- Spring -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #F5DEB3 0%, #90EE90 100%); color: #333;">
+                    <div class="weather-emoji">🌸</div>
+                    <div class="weather-name">SPRING</div>
+                </div>
+
+                <!-- Summer -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #333;">
+                    <div class="weather-emoji">🌞</div>
+                    <div class="weather-name">SUMMER</div>
+                </div>
+
+                <!-- Fall -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #FF8C00 0%, #DC143C 100%);">
+                    <div class="weather-emoji">🍂</div>
+                    <div class="weather-name">FALL</div>
+                </div>
+
+                <!-- Winter -->
+                <div class="weather-card" style="background: linear-gradient(135deg, #B0E0E6 0%, #87CEEB 100%);">
+                    <div class="weather-emoji">❄️</div>
+                    <div class="weather-name">WINTER</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+                <h3>🎉 Excellent Work!</h3>
+                <p>You've learned about weather and seasons! Nature is amazing!</p>
+                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Home</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <p>ESEA - Early Start Education App</p>
+            <p>📧 earlystarteducationapp@gmail.com</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
