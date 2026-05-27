@@ -3,39 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="style.css">
-    <title>Early Start Education App <img src="./images/ESEA.png"></title>
-
+    <meta name="description" content="Early Start Education App - Interactive learning for young children">
+    <meta name="author" content="ESEA Team">
+    <meta name="theme-color" content="#667eea">
+    
+    <title>ESEA - Early Start Education App</title>
+    
+    <link rel="stylesheet" href="responsive.css">
+    
     <style>
-        img {
-            max-width: 100px;
+        /* Local header styling adjustments */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .logo-container img {
+            max-width: 80px;
             height: auto;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
+            animation: bounce 2s infinite;
         }
 
-        img:hover {
-            transform: scale(1.5);
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-.dropdown{
-    height: 100px;
-    font-size: 2.5em;
-    font-weight: bold;
-    text-align: center;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
 
-.dropdown-content{
-    height: auto;
-    text-align: center;
-}
+        header p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
 
+        /* Category cards grid */
+        .categories-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Welcome message */
+        .welcome-message {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+        }
+
+        .welcome-message h2 {
+            color: #667eea;
+            font-size: 1.6rem;
+            margin: 0 0 10px 0;
+        }
+
+        .welcome-message p {
+            color: #333;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 480px) {
+            header h1 {
+                font-size: 2.3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <img src="./images/ESEA.png"><h1 style="background-color: #e3d5ca; font: 1.5em sans-serif; font-weight: bolder; "> Early Start Education App (ESEA)</h1>
-   
-    <div id="board-container">
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header role="banner">
+            <div class="logo-container">
+                <img src="./images/ESEA.png" alt="ESEA Logo" role="img">
+                <div>
+                    <h1>ESEA</h1>
+                    <p>Early Start Education App</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container page-content">
+            <!-- Welcome Message -->
+            <div class="welcome-message">
+                <h2>Welcome to Your Learning Adventure! 🎓</h2>
+                <p>Click on any subject below to explore and learn!</p>
+            </div>
+
+            <!-- Learning Categories -->
+            <div class="categories-section">
+                <div class="section-title">📚 Let's Learn Together!</div>
+                <div class="card-grid">
+                    <!-- Numbers & Counting -->
+                    <div class="card blue" role="button" tabindex="0" aria-label="Numbers and Counting">
+                        <div class="card-icon">🔢</div>
+                        <div class="card-title">Numbers & Counting</div>
+                        <div class="dropdown-menu">
+                            <a href="./123/123.html" class="dropdown-item">Count 1-100</a>
+                            <a href="./123/pickthenum.html" class="dropdown-item">Pick the Number</a>
+                            <a href="./123/ran1-10.html" class="dropdown-item">Random Number 1-10</a>
+                            <a href="./123/randnum.html" class="dropdown-item">Random Number 1-100</a>
+                        </div>
+                    </div>
+
+                    <!-- ABC & Letters -->
+                    <div class="card orange" role="button" tabindex="0" aria-label="Letters and Alphabet">
+                        <div class="card-icon">🔤</div>
+                        <div class="card-title">ABC & Letters</div>
+                        <div class="dropdown-menu">
+                            <a href="./abc/abc.html" class="dropdown-item">Say Your ABCs</a>
+                            <a href="./abc/picktheletter.html" class="dropdown-item">Pick the Letter</a>
+                            <a href="./abc/abcpic.html" class="dropdown-item">ABCs with Pictures</a>
+                            <a href="./abc/ranABC.html" class="dropdown-item">Which is Correct?</a>
+                        </div>
+                    </div>
+
+                    <!-- Spelling & Words -->
+                    <div class="card green" role="button" tabindex="0" aria-label="Spelling and Words">
+                        <div class="card-icon">✏️</div>
+                        <div class="card-title">Spelling & Words</div>
+                        <div class="dropdown-menu">
+                            <a href="./abc/pickaword.html" class="dropdown-item">Pick the Word</a>
+                            <a href="./abc/Spellingword.html" class="dropdown-item">Spell the Word</a>
+                            <a href="./abc/pickthepic.html" class="dropdown-item">Pick the Picture</a>
+                            <a href="./abc/filltheletter.html" class="dropdown-item">Fill the Blank</a>
+                        </div>
+                    </div>
+
+                    <!-- Dictionary -->
+                    <div class="card yellow" role="button" tabindex="0" aria-label="Dictionary">
+                        <div class="card-icon">📖</div>
+                        <div class="card-title">Dictionary</div>
+                        <div class="dropdown-menu">
+                            <a href="./abc/kiddictionary.html" class="dropdown-item">Kid Dictionary</a>
+                            <a href="./abc/dictionary.html" class="dropdown-item">Full Dictionary</a>
+                        </div>
+                    </div>
+
+                    <!-- Math & Arithmetic -->
+                    <div class="card pink" role="button" tabindex="0" aria-label="Math and Arithmetic">
+                        <div class="card-icon">➕</div>
+                        <div class="card-title">Math & Arithmetic</div>
+                        <div class="dropdown-menu">
+                            <a href="./arithmetic/Arithmetic.html" class="dropdown-item">Arithmetic</a>
+                            <a href="./arithmetic/math.html" class="dropdown-item">Basic Math</a>
+                            <a href="./arithmetic/howmanyapple.html" class="dropdown-item">Count the Apples</a>
+                        </div>
+                    </div>
+
+                    <!-- Civics -->
+                    <div class="card purple" role="button" tabindex="0" aria-label="Civics and Government">
+                        <div class="card-icon">🇺🇸</div>
+                        <div class="card-title">Civics</div>
+                        <div class="dropdown-menu">
+                            <a href="./civics/civic.html" class="dropdown-item">USA Civics</a>
+                            <a href="./civics/CivicsGame.html" class="dropdown-item">State Capitals</a>
+                            <a href="./civics/Civicsques.html" class="dropdown-item">State Capital Quiz</a>
+                        </div>
+                    </div>
+
+                    <!-- Science -->
+                    <div class="card blue" role="button" tabindex="0" aria-label="Science">
+                        <div class="card-icon">🔬</div>
+                        <div class="card-title">Science</div>
+                        <div class="dropdown-menu">
+                            <a href="./science/bio.html" class="dropdown-item">Biology & Nature</a>
+                            <a href="./colors.html" class="dropdown-item">Learn Colors</a>
+                            <a href="./weather.html" class="dropdown-item">Weather & Seasons</a>
+                        </div>
+                    </div>
+
+                    <!-- Shapes -->
+                    <div class="card orange" role="button" tabindex="0" aria-label="Shapes and Geometry">
+                        <div class="card-icon">🔷</div>
+                        <div class="card-title">Shapes</div>
+                        <div class="dropdown-menu">
+                            <a href="./shapes/shapes.html" class="dropdown-item">Learn Shapes</a>
+                            <a href="./shapes/whatshape.html" class="dropdown-item">What Shape is This?</a>
+                            <a href="./puzzles.html" class="dropdown-item">Puzzle Games</a>
+                        </div>
+                    </div>
+
+                    <!-- Games & Fun -->
+                    <div class="card green" role="button" tabindex="0" aria-label="Fun Games">
+                        <div class="card-icon">🎮</div>
+                        <div class="card-title">Games & Fun</div>
+                        <div class="dropdown-menu">
+                            <a href="./games/catchme.html" class="dropdown-item">Catch Me!</a>
+                            <a href="./games/tictactoe.html" class="dropdown-item">Tic-Tac-Toe</a>
+                            <a href="./games/rps.html" class="dropdown-item">Rock Paper Scissors</a>
+                            <a href="./gamification.html" class="dropdown-item">⭐ Your Achievements</a>
+                        </div>
+                    </div>
+
+                    <!-- Books & Stories -->
+                    <div class="card yellow" role="button" tabindex="0" aria-label="Stories and Books">
+                        <div class="card-icon">📚</div>
+                        <div class="card-title">Books & Stories</div>
+                        <div class="dropdown-menu">
+                            <a href="./books/lego.html" class="dropdown-item">Who Took My Legos?</a>
+                            <a href="./emotions.html" class="dropdown-item">Learn Emotions</a>
+                        </div>
+                    </div>
+
+                    <!-- Calendar & Time -->
+                    <div class="card pink" role="button" tabindex="0" aria-label="Calendar and Time">
+                        <div class="card-icon">📅</div>
+                        <div class="card-title">Calendar & Time</div>
+                        <div class="dropdown-menu">
+                            <a href="./abc/calendar.html" class="dropdown-item">Learn the Calendar</a>
+                        </div>
+                    </div>
+
+                    <!-- Video & Tutorials -->
+                    <div class="card purple" role="button" tabindex="0" aria-label="Videos and Tutorials">
+                        <div class="card-icon">📺</div>
+                        <div class="card-title">Videos & More</div>
+                        <div class="dropdown-menu">
+                            <a href="./tv/tv.html" class="dropdown-item">How to Use ESEA</a>
+                            <a href="./tv/storytime.html" class="dropdown-item">Story Time</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <div class="flex flex-column">
+                <h3>🌟 Support ESEA 🌟</h3>
+                <p>Help us create free learning tools for children everywhere!</p>
+                
+                <div class="flex" style="gap: 20px; margin-top: 20px;">
+                    <button class="btn btn-primary btn-large" onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=VD3YGDBNY6CUA')">
+                        💝 Donate
+                    </button>
+                    <img src="./images/QR Code.png" alt="Scan to Donate via QR Code" style="max-width: 100px; height: auto;">
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <h4>Contact Us</h4>
+                    <p>📧 earlystarteducationapp@gmail.com</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="app.js"></script>
+    
+    <script>
+        console.log('ESEA Dashboard loaded successfully');
+    </script>
+</body>
+</html>
         <div class="dropdown" >
         <a id="boards" class="count123" >123</a>
         <div class="dropdown-content" style="width: 100%; max-width: 350px; margin: 0 auto; box-sizing: border-box;">
@@ -152,6 +407,38 @@
             <!-- dropdown menu content here -->
             <a class="words3" href="./abc/calendar.html">Calendar</a>
             
+        </div>
+    </div>
+    <div class="dropdown" style="background-color: #0c5212ef;">
+        <a id="boards" class="counttv"  >Emotions</a>
+        <div class="dropdown-content">
+            <!-- dropdown menu content here -->
+            <a class="words3" href="./emotions/emotions.html">Emotions</a>
+            
+        </div>
+    </div>
+    <div class="dropdown" style="background-color: #5154f6ef;">
+        <a id="boards" class="counttv"  >puzzle</a>
+        <div class="dropdown-content">
+            <!-- dropdown menu content here -->
+            <a class="words3" href="./puzzle/puzzle.html">Puzzle</a>
+            <a class="words3" href="./puzzle/gamification.html">Puzzle 2</a>
+            
+        </div>
+    </div>
+    <div class="dropdown" style="background-color: #85c3f9ef;">
+        <a id="boards" class="counttv"  >Weather</a>
+        <div class="dropdown-content">
+            <!-- dropdown menu content here -->
+            <a class="words3" href="./weather/weather.html">Weather</a>
+            
+        </div>
+    </div>
+     <div class="dropdown" style="background-color: #788affbd;">
+        <a id="boards" class="counttv"  >colors </a>
+        <div class="dropdown-content">
+            <!-- dropdown menu content here -->
+            <a class="words3" href="./color/colors.html">colors</a>
         </div>
     </div>
 </div>

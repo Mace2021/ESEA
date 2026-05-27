@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gamification Dashboard - Track your learning progress and achievements">
+    <meta name="theme-color" content="#667eea">
+    
+    <title>Gamification Dashboard - ESEA</title>
+    <link rel="stylesheet" href="responsive.css">
+    
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #667eea;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-indicator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .level-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .badges-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .badge {
+            background: white;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #ffd700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-locked {
+            opacity: 0.4;
+            filter: grayscale(100%);
+            border-color: #ccc;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .module-stats {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .module-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .module-points {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .reset-btn {
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: #d93f52;
+            transform: scale(1.05);
+        }
+
+        @media (min-width: 480px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header role="banner">
+            <div class="logo-container">
+                <img src="images/ESEA.png" alt="ESEA Logo">
+                <div>
+                    <h1>Gamification Dashboard</h1>
+                    <p>⭐ Track your progress & achievements!</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container page-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+
+            <!-- Quick Stats -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Points</div>
+                    <div class="stat-value" id="totalPoints">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Current Level</div>
+                    <div class="stat-value" id="currentLevel">1</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Best Streak</div>
+                    <div class="stat-value" id="bestStreak">0</div>
+                </div>
+            </div>
+
+            <!-- Level Indicator -->
+            <div class="level-indicator">
+                <div>🏆 Current Achievement Level</div>
+                <div class="level-name" id="levelName">Beginner</div>
+                <div style="margin-top: 10px; font-size: 0.9rem;">Keep learning to advance to the next level!</div>
+            </div>
+
+            <!-- Progress to Next Level -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <h3>Progress to Next Level</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressToNextLevel" style="width: 0%;">0%</div>
+                </div>
+                <p id="progressText" style="text-align: center; color: #666;">0 / 100 points</p>
+            </div>
+
+            <!-- Badges & Achievements -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <h3>🎖️ Badges & Achievements</h3>
+                <div class="badges-container">
+                    <div class="badge badge-locked" title="First Steps - Earn 50 points">
+                        👣
+                    </div>
+                    <div class="badge badge-locked" title="Century - Earn 100 points">
+                        💯
+                    </div>
+                    <div class="badge badge-locked" title="Scholar - Earn 500 points">
+                        📚
+                    </div>
+                    <div class="badge badge-locked" title="Master - Earn 1000 points">
+                        🏅
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module Statistics -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <h3>📊 Module Statistics</h3>
+                <p id="moduleStatsEmpty" style="text-align: center; color: #999;">Start learning to see your stats!</p>
+                <div id="moduleStatsList"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0; text-align: center;">
+                <button class="reset-btn" onclick="resetProgress()">🔄 Reset Progress</button>
+                <p style="font-size: 0.9rem; color: #999; margin-top: 10px;">
+                    Click to reset all data (cannot be undone)
+                </p>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+                <h3>🎉 Keep Learning!</h3>
+                <p>Every lesson completed is a step towards becoming a learning champion!</p>
+                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Learning</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <p>ESEA - Early Start Education App</p>
+            <p>📧 earlystarteducationapp@gmail.com</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function updateDashboard() {
+            const scoring = GameScoring.load();
+            const streak = StreakTracker.load();
+
+            // Update stats
+            document.getElementById('totalPoints').textContent = scoring.totalPoints;
+            document.getElementById('currentLevel').textContent = scoring.level;
+            document.getElementById('levelName').textContent = GameScoring.getLevelName(scoring.level);
+            document.getElementById('bestStreak').textContent = streak.best;
+
+            // Update progress to next level
+            const levelThresholds = [0, 100, 300, 600, 1000];
+            const currentThreshold = levelThresholds[scoring.level - 1] || 0;
+            const nextThreshold = levelThresholds[scoring.level] || 1500;
+            const progressPercent = Math.round(((scoring.totalPoints - currentThreshold) / (nextThreshold - currentThreshold)) * 100);
+            
+            document.getElementById('progressToNextLevel').style.width = Math.min(progressPercent, 100) + '%';
+            document.getElementById('progressToNextLevel').textContent = Math.min(progressPercent, 100) + '%';
+            document.getElementById('progressText').textContent = `${scoring.totalPoints} / ${nextThreshold} points`;
+
+            // Update badges
+            const badgeEmojis = ['👣', '💯', '📚', '🏅'];
+            const badgeNames = ['first-steps', 'century', 'scholar', 'master'];
+            const badgeTitles = [
+                'First Steps - Earn 50 points',
+                'Century - Earn 100 points',
+                'Scholar - Earn 500 points',
+                'Master - Earn 1000 points'
+            ];
+            
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach((badge, index) => {
+                badge.title = badgeTitles[index];
+                badge.textContent = badgeEmojis[index];
+                
+                if (scoring.badges.includes(badgeNames[index])) {
+                    badge.classList.remove('badge-locked');
+                } else {
+                    badge.classList.add('badge-locked');
+                }
+            });
+
+            // Update module stats
+            const moduleStatsList = document.getElementById('moduleStatsList');
+            const moduleStatsEmpty = document.getElementById('moduleStatsEmpty');
+            
+            if (Object.keys(scoring.moduleStats).length === 0) {
+                moduleStatsList.innerHTML = '';
+                moduleStatsEmpty.style.display = 'block';
+            } else {
+                moduleStatsEmpty.style.display = 'none';
+                moduleStatsList.innerHTML = '';
+                
+                for (const [moduleId, stats] of Object.entries(scoring.moduleStats)) {
+                    const statDiv = document.createElement('div');
+                    statDiv.className = 'module-stats';
+                    statDiv.innerHTML = `
+                        <div class="module-name">${moduleId}</div>
+                        <div>
+                            <div style="font-size: 0.9rem; color: #999;">
+                                ${stats.attempts} attempt${stats.attempts !== 1 ? 's' : ''}
+                            </div>
+                            <div class="module-points">${stats.points} pts</div>
+                        </div>
+                    `;
+                    moduleStatsList.appendChild(statDiv);
+                }
+            }
+        }
+
+        function resetProgress() {
+            if (confirm('⚠️ Are you sure you want to reset all progress? This cannot be undone!')) {
+                GameScoring.reset();
+                StreakTracker.reset();
+                updateDashboard();
+                alert('✅ Progress has been reset!');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', updateDashboard);
+
+        // Update dashboard every second (to show real-time updates if another tab changes data)
+        setInterval(updateDashboard, 1000);
+    </script>
+</body>
+</html>
