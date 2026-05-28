@@ -8,7 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const cards = document.querySelectorAll('.card');
   
   cards.forEach(card => {
+    // Click handler for card (not on dropdown items)
     card.addEventListener('click', function(e) {
+      // If clicking on a dropdown item (link), let it navigate naturally
+      if (e.target.classList.contains('dropdown-item')) {
+        return; // Allow default link behavior
+      }
+      
+      // Prevent default only for card itself
       e.preventDefault();
       
       // Close other dropdowns
@@ -32,12 +39,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Handle dropdown item clicks
+  // Handle dropdown item clicks - ensure they navigate
   const dropdownItems = document.querySelectorAll('.dropdown-item');
   dropdownItems.forEach(item => {
     item.addEventListener('click', function(e) {
-      // Let the link navigate naturally
-      // Optionally add any custom logic here
+      // Let the link navigate naturally - don't prevent default
+      const href = this.getAttribute('href');
+      if (href) {
+        // Navigate to the href after a small delay for smooth transition
+        setTimeout(() => {
+          window.location.href = href;
+        }, 100);
+        e.preventDefault();
+      }
     });
   });
 
