@@ -4,167 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random number 1-10</title>
-    <link rel="stylesheet" href="../style.css" />
-    <style>
-        * {
-          font-size: x-large;
-          font-weight: bold;
-          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          box-sizing: border-box;
-        }
-
-        body {
-          background: linear-gradient(120deg, #e0f7fa 0%, #b2dfdb 100%);
-          margin: 0;
-          min-height: 100vh;
-        }
-
-        a {
-          display: block;
-          width: 220px;
-          margin: 30px auto 0 auto;
-          text-align: center;
-          background-color: #bffaf0;
-          border-radius: 8px;
-          padding: 12px 0;
-          font-size: 1.3em;
-          text-decoration: none;
-          color: #222;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-          transition: background 0.2s;
-        }
-        a:hover {
-          background-color: #a2e9d6;
-        }
-
-        #question {
-          width: 340px;
-          padding: 16px;
-          background: linear-gradient(90deg, #20a1ec 60%, #6ee7f7 100%);
-          color: #222;
-          border-radius: 8px;
-          cursor: pointer;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          margin: 0 auto;
-          left: 50%;
-          top: 18%;
-          transform: translate(-50%, -50%);
-          font-size: 1.4em;
-          box-shadow: 0 4px 16px rgba(32,161,236,0.13);
-          transition: background 0.2s;
-        }
-        #question:hover {
-          background: linear-gradient(90deg, #1b8fd1 60%, #4fd1c5 100%);
-        }
-
-        #message {
-          position: relative;
-          width: 240px;
-          font-weight: bold;
-          background-color: #fffbe7;
-          color: #222;
-          text-align: center;
-          border-radius: 6px;
-          margin: 0 auto;
-          padding: 10px 0;
-          box-shadow: 0 2px 8px rgba(255, 215, 0, 0.08);
-          font-size: 1.2em;
-        }
-
-        #board-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 18px;
-          margin: 30px auto 0 auto;
-          flex-wrap: wrap;
-          min-height: 100px;
-        }
-
-        button {
-          border: 3px double #220101;
-          width: 110px;
-          min-height: 60px;
-          padding: 14px 0;
-          background-image: linear-gradient(120deg, #558588 0%, #48e6c3 100%);
-          color: #220101;
-          border-radius: 12px;
-          cursor: pointer;
-          margin: 10px;
-          box-shadow: 0 2px 12px rgba(34, 1, 1, 0.13);
-          transition: background 0.2s, transform 0.1s;
-          font-size: 2em;
-          font-weight: bold;
-          font-family: inherit;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        button:hover {
-          background-image: linear-gradient(120deg, #48e6c3 0%, #558588 100%);
-          transform: scale(1.07);
-        }
-
-        .count123 {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 85px;
-          color: #080000;
-          padding: 5px;
-          box-shadow: 0px 0px 15px rgb(10, 121, 0);
-          background-color: rgb(170, 209, 122);
-          border-radius: 15px;
-          margin: 5px;
-          font: 2em sans-serif;
-        }
-
-        @media screen and (max-width: 568px) {
-          #board-container {
-            flex-direction: column;
-            width: 100%;
-            gap: 10px;
-            margin: 10px 0;
-          }
-          #question {
-            width: 90vw;
-            font-size: 1.1em;
-            padding: 10px;
-            top: 12%;
-          }
-          #message {
-            width: 90vw;
-            font-size: 1em;
-          }
-          button {
-            width: 90vw;
-            min-width: 0;
-            font-size: 1.3em;
-            padding: 10px 0;
-          }
-        }
+    <link rel="stylesheet" href="../responsive.css">
     
-    </style>
 
 </head>
-<body>
-    
+<body data-page="123/ran1-10.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
 
-    <a href="../index.html" style="width: 100%; justify-content: center;background-color: #bffaf0;
-    margin: 0 auto; width: 200px;border-radius: 5px;">Random Number 1-10</a>
    
-    <br> <br> <br>
-    
-    <br> <br> 
+<h6 style="text-align: center; margin-top: 20px; color: #333;">Random Number 1-10</h6>
+
     <div id="message"></div>
-    <br> 
+
     <div id="board-container">
-      
+  
       
     </div>
     
@@ -258,6 +115,18 @@
         document.addEventListener('DOMContentLoaded', startGame);
     </script>    
 
-    <script src="../lesson-support.js"></script>`n</body>
+    <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

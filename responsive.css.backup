@@ -1,0 +1,4274 @@
+/* ==========================================
+   ESEA - Responsive CSS Framework
+   Mobile-First Approach
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================
+   Container & Layout
+   ========================================== */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+   Header & Navigation
+   ========================================== */
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header img {
+  max-width: 60px;
+  height: auto;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.page-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 14px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  margin: 0 auto 20px;
+  max-width: 1000px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.page-nav-bottom {
+  margin-top: 1.5rem;
+}
+
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 0.85rem 1.2rem;
+  background: #ffffff;
+  color: #222;
+  text-decoration: none;
+  border: 2px solid #667eea;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.nav-button:hover,
+.nav-button:focus {
+  background: #667eea;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.nav-button:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   Card System (Learning Modules)
+   ========================================== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  padding: 15px 0;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 4px solid #333;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  opacity: 0.85;
+  color: #666;
+}
+
+.card.blue .card-subtitle,
+.card.orange .card-subtitle,
+.card.green .card-subtitle,
+.card.purple .card-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.card.yellow .card-subtitle,
+.card.pink .card-subtitle {
+  color: rgba(51, 51, 51, 0.85);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+/* Card Color Variants */
+.card.blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.card.blue .card-title {
+  color: white;
+}
+
+.card.orange {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.card.orange .card-title {
+  color: white;
+}
+
+.card.green {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.card.green .card-title {
+  color: white;
+}
+
+.card.yellow {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: #333;
+}
+
+.card.yellow .card-title {
+  color: #333;
+}
+
+.card.pink {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #333;
+}
+
+.card.pink .card-title {
+  color: #333;
+}
+
+.card.purple {
+  background: linear-gradient(135deg, #b993fe 0%, #a78bfa 100%);
+  color: white;
+}
+
+.card.purple .card-title {
+  color: white;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none;
+  background: rgba(0, 0, 0, 0.95);
+  border: 3px solid #667eea;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  position: static;
+  width: 100%;
+}
+
+.card.active .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 12px 15px;
+  margin: 8px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.dropdown-item:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================
+   Buttons
+   ========================================== */
+
+button,
+.btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active,
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: #333;
+}
+
+.btn-danger {
+  background: #ff6b6b;
+  color: white;
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 1.2rem;
+  min-height: 50px;
+}
+
+/* ==========================================
+   Input Elements
+   ========================================== */
+
+input[type='text'],
+input[type='number'],
+textarea,
+select {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 3px solid #667eea;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type='text']:focus,
+input[type='number']:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #764ba2;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* ==========================================
+   Text & Typography
+   ========================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+
+footer {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+  border-top: 4px solid #667eea;
+}
+
+footer h3 {
+  color: white;
+  font-size: 1.3rem;
+}
+
+footer p {
+  color: #ddd;
+  margin: 5px 0;
+}
+
+/* ==========================================
+   Back Button
+   ========================================== */
+
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+  text-align: center;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Accessibility: visible focus state for keyboard users */
+.back-button:focus,
+.card:focus-visible,
+.puzzle-card:focus-visible,
+.match-item:focus-visible {
+  outline: 3px solid #ffd57a;
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Center main containers for better readability */
+.page-wrapper,
+.container,
+.page-content,
+.center-container,
+.lesson-card,
+.main,
+.content {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-align: center;
+}
+
+/* Number tile sizing and alignment */
+.count123 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: clamp(18px, 2.6vw, 28px) !important;
+  padding: clamp(6px, 1.5vw, 12px) !important;
+}
+
+/* Ensure buttons and interactive elements are reachable and readable */
+button, .nav-btn {
+  font-size: 1rem;
+  padding: 10px 14px;
+}
+
+/* Improve contrast for clickable cards */
+.color-card, .weather-card, .element-card, .concept-card, .shape {
+  cursor: pointer;
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+/* Tablet: 480px and above */
+@media (min-width: 480px) {
+  body {
+    padding: 15px;
+  }
+
+  header {
+    padding: 25px 15px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .card {
+    padding: 25px;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Tablet: 768px and above */
+@media (min-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  header {
+    padding: 30px 20px;
+  }
+
+  header h1 {
+    font-size: 2.3rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 25px 0;
+  }
+
+  .card {
+    padding: 30px;
+  }
+
+  .card-title {
+    font-size: 1.7rem;
+  }
+
+  .dropdown-item {
+    font-size: 1.15rem;
+    padding: 14px 18px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Desktop: 1024px and above */
+@media (min-width: 1024px) {
+  body {
+    padding: 25px;
+  }
+
+  header {
+    padding: 35px 25px;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 30px 0;
+  }
+
+  .card {
+    padding: 35px;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+  }
+
+  .dropdown-item {
+    font-size: 1.2rem;
+    padding: 15px 20px;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
+
+  h2 {
+    font-size: 2.6rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+}
+
+/* ==========================================
+   Utility Classes
+   ========================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/* ==========================================
+   Accessibility
+   ========================================== */
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+  .card {
+    border-width: 5px;
+  }
+
+  button,
+  .btn {
+    border: 2px solid #333;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+  outline: 3px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none;
+  }
+}
+
+/* --- styles moved from 123/123.html --- */
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: #f8f6f3;
+    color: #221010;
+  }
+
+  #board-containers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 8px 32px 8px;
+}
+
+/* ==========================================
+   Kid-friendly UI tweaks
+   Improves touch targets, larger typography, rounded shapes
+   and adds a clear white border to color swatches used in quizzes
+   ========================================== */
+
+:root {
+  --kid-font: 'Comic Sans MS', 'Segoe UI', 'Trebuchet MS', sans-serif;
+  --card-border-white: #ffffff;
+}
+
+body {
+  font-size: 18px;
+}
+
+/* Color swatches/cards used in color quizzes */
+.color-card {
+  border: 6px solid var(--card-border-white) !important;
+  border-radius: 12px;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  padding: 12px;
+  text-align: center;
+}
+
+/* Some light color backgrounds need dark text for contrast */
+.color-card.light-bg { color: #222 !important; }
+
+/* Bigger, friendlier controls */
+button, .nav-button, .back-button, .dropdown-item {
+  border-radius: 14px;
+  font-size: 1.05rem;
+  padding: 14px 18px;
+}
+
+.card { border-radius: 14px; }
+
+.countabc, .count123 {
+  font-size: clamp(20px, 3.5vw, 36px) !important;
+  padding: clamp(12px, 2.5vw, 20px) !important;
+  border-radius: 12px;
+}
+
+/* Make small grids of swatches stack nicely on phones */
+.color-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+@media (min-width: 768px) { .color-grid { grid-template-columns: repeat(4,1fr); } }
+
+/* Informational panel used for short page notes */
+.info-panel {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255,255,255,0.9);
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  margin: 10px auto;
+  max-width: 900px;
+}
+
+
+  }
+
+  .count123 {
+    border: 2.5px solid #220101;
+    width: clamp(48px, 10vw, 100px);
+    min-height: clamp(32px, 7vw, 70px);
+    padding: clamp(6px, 1.5vw, 14px) 0;
+    background: linear-gradient(135deg, #e3f6f8 0%, #bcae9e 100%);
+    color: #220101;
+    border-radius: 14px;
+    cursor: pointer;
+    margin: 0;
+    box-shadow: 0 2px 12px rgba(34, 1, 1, 0.13);
+    transition: 
+      transform 0.15s, 
+      box-shadow 0.15s, 
+      background 0.3s,
+      border-color 0.2s;
+    font-size: clamp(0.8em, 2vw, 1.3em);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+  }
+
+  .count123:hover, .count123:active {
+    background: linear-gradient(135deg, #d0f0f3 0%, #e0cfc0 100%);
+    transform: scale(1.06);
+    box-shadow: 0 4px 18px rgba(34, 1, 1, 0.18);
+  }
+
+  #linkto {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    margin: 18px auto 10px auto;
+    background-color: #dad2d8;
+    border-radius: 7px;
+    padding: 10px 0;
+    width: 90%;
+    max-width: 400px;
+    text-decoration: none;
+    color: #221010;
+    box-shadow: 0 1px 6px rgba(34, 1, 1, 0.07);
+    transition: background 0.2s;
+  }
+
+  #linkto:hover {
+    background-color: #eae2e8;
+  }
+
+  @media screen and (max-width: 768px) {
+    #board-containers {
+      gap: 10px;
+      max-width: 100%;
+      padding: 0 2px 20px 2px;
+    }
+    .count123 {
+      width: 80px;
+      min-height: 60px;
+      font-size: 1.2em;
+      padding: 10px 0;
+    }
+    #linkto {
+      font-size: 1em;
+      padding: 8px 0;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    #board-containers {
+      gap: 6px;
+      padding-bottom: 10px;
+    }
+    .count123 {
+      width: 60px;
+      min-height: 40px;
+      font-size: 1em;
+      padding: 6px 0;
+      border-width: 2px;
+    }
+    #linkto {
+      font-size: 0.95em;
+      padding: 6px 0;
+    }
+  }
+
+/* --- styles moved from 123/pickthenum.html --- */
+*{
+            
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+#board-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.count123 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  min-width: 60px;
+  aspect-ratio: 1 / 1;
+  color: #080000;
+  padding: 5px;
+  box-shadow: 0px 0px 15px  rgb(10, 121, 0);
+  background-color: rgb(170, 209, 122);
+  border-radius: 15px;
+  margin: 0;
+  border-style: double;
+  font-size: 2em;
+  font-weight: bolder;
+  transition: background 0.2s;
+}
+@media (max-width: 600px) {
+  #board-container {
+    grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+    max-width: 100vw;
+  }
+  .count123 {
+    font-size: 1.2em;
+    min-width: 35px;
+  }
+}
+      @media screen and (max-width: 568px) {
+        #board-container {
+          display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      margin: 5px;
+        }
+      }
+      button {
+        
+        width: 400px;
+        padding: 2px;
+        background-color: rgb(32, 161, 236);
+        color: rgb(34, 1, 1);
+        border-radius: 4px;
+        cursor: pointer;
+    
+      }
+      #message {
+       
+      position: relative;
+      width: 200px;
+      font-weight: bold;
+   
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin:0 auto;
+    }
+
+/* --- styles moved from 123/ran1-10.html --- */
+* {
+          font-size: x-large;
+          font-weight: bold;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          box-sizing: border-box;
+        }
+
+        body {
+          background: linear-gradient(120deg, #e0f7fa 0%, #b2dfdb 100%);
+          margin: 0;
+          min-height: 100vh;
+        }
+
+       
+        #question {
+          width: 340px;
+          padding: 16px;
+          background: linear-gradient(90deg, #20a1ec 60%, #6ee7f7 100%);
+          color: #222;
+          border-radius: 8px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          margin: 0 auto;
+          left: 50%;
+          top: 18%;
+          transform: translate(-50%, -50%);
+          font-size: 1.4em;
+          box-shadow: 0 4px 16px rgba(32,161,236,0.13);
+          transition: background 0.2s;
+        }
+        #question:hover {
+          background: linear-gradient(90deg, #1b8fd1 60%, #4fd1c5 100%);
+        }
+
+        #message {
+          position: relative;
+          width: auto;
+          padding: 12px 20px;
+          font-weight: bold;
+          background-color: #fffbe7;
+          color: #222;
+          text-align: center;
+          border-radius: 6px;
+       
+          box-shadow: 0 2px 8px rgba(255, 215, 0, 0.08);
+          
+        }
+
+        #board-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+         
+          margin: 30px auto 0 auto;
+          flex-wrap: wrap;
+          min-height: 100px;
+        }
+
+        button {
+          border: 3px double #220101;
+          width: 80px;
+          min-height: 40px;
+          padding: 14px 0;
+          background-image: linear-gradient(120deg, #558588 0%, #48e6c3 100%);
+          color: #220101;
+          border-radius: 12px;
+          cursor: pointer;
+          margin: 10px;
+          box-shadow: 0 2px 12px rgba(34, 1, 1, 0.13);
+          transition: background 0.2s, transform 0.1s;
+          font-size: 2em;
+          font-weight: bold;
+          font-family: inherit;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        button:hover {
+          background-image: linear-gradient(120deg, #48e6c3 0%, #558588 100%);
+          transform: scale(1);
+        }
+
+        .count123 {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          width: 200px;
+          height: 60px;
+          color: #080000;
+          padding: 5px;
+          box-shadow: 0px 0px 15px rgb(10, 121, 0);
+          background-color: rgb(170, 209, 122);
+          border-radius: 15px;
+          margin: 5px;
+          font: 1em sans-serif;
+        }
+
+        @media screen and (max-width: 568px) {
+          #board-container {
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+            margin: 10px 0;
+          }
+          #question {
+            width: 60vw;
+            font-size: 1em;
+            padding: 10px;
+            top: 12%;
+          }
+          #message {
+            width: 20vw;
+            font-size: 1em;
+          }
+          button {
+            width: 100vw;
+            min-width: 0;
+            font-size: 1.3em;
+            padding: 10px 0;
+          }
+        }
+
+/* --- styles moved from 123/randnum.html --- */
+* {
+          font-size: x-large;
+          font-weight: bold;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          background: linear-gradient(120deg, #e0f7fa 0%, #b2dfdb 100%);
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        a {
+          display: block;
+          width: 220px;
+          text-align: center;
+          background-color: #bffaf0;
+          margin: 30px auto 0 auto;
+          border-radius: 8px;
+          padding: 12px 0;
+          text-decoration: none;
+          color: #222;
+          font-size: 1.3em;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+          transition: background 0.2s;
+        }
+        a:hover {
+          background: #a0e9de;
+        }
+
+        #question {
+          width: 320px;
+          padding: 16px;
+          background-color: #20a1ec;
+          color: #fff;
+          border-radius: 8px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          left: 50%;
+          top: 120px;
+          transform: translate(-50%, 0);
+          font-size: 1.4em;
+          box-shadow: 0 2px 12px rgba(32,161,236,0.15);
+          transition: background 0.2s;
+        }
+        #question:hover {
+          background-color: #1a7fc2;
+        }
+
+        #message {
+          position: relative;
+          width: 240px;
+          font-weight: bold;
+          background-color: #fffbe7;
+          color: #222;
+          text-align: center;
+          border-radius: 6px;
+          margin: 20px auto 0 auto;
+          padding: 10px 0;
+          box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+          font-size: 1.2em;
+        }
+
+        #board-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 18px;
+          margin: 30px auto 0 auto;
+          width: 100%;
+          max-width: 500px;
+        }
+
+        button {
+          border: 3px double #220101;
+          min-width: 90px;
+          min-height: 60px;
+          padding: 14px 24px;
+          background-image: linear-gradient(120deg, #55b7b8, #48e6c3);
+          color: #220101;
+          border-radius: 12px;
+          cursor: pointer;
+          margin: 0 10px;
+          box-shadow: 0 2px 10px rgba(34, 1, 1, 0.13);
+          transition: background 0.2s, transform 0.2s;
+          font-size: 2em;
+          font-weight: bold;
+          font-family: inherit;
+          outline: none;
+        }
+        button:hover, button:focus {
+          background-image: linear-gradient(120deg, #48e6c3, #55b7b8);
+          transform: scale(1.07);
+          box-shadow: 0 4px 16px rgba(34, 1, 1, 0.18);
+        }
+
+        .count123 {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          width: 100px;
+          height: 85px;
+          color: #080000;
+          padding: 5px;
+          box-shadow: 0px 0px 15px rgb(10, 121, 0);
+          background-color: rgb(170, 209, 122);
+          border-radius: 15px;
+          margin: 5px;
+          font: 2em sans-serif;
+        }
+
+        @media screen and (max-width: 568px) {
+          #board-container {
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin: 5px auto 0 auto;
+            max-width: 95vw;
+          }
+          #question {
+            width: 90vw;
+            font-size: 1.1em;
+            top: 90px;
+          }
+          #message {
+            width: 90vw;
+            font-size: 1em;
+          }
+          button {
+            min-width: 70vw;
+            font-size: 1.3em;
+            padding: 10px 0;
+          }
+        }
+
+/* --- styles moved from abc/abc.html --- */
+*{   
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 34px;
+        } 
+    #board-containers {
+          display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        
+        }
+  .countabc {border: 4px solid rgb(34, 1, 1);
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 210px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(145, 173, 127), rgb(207, 172, 132));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+    }
+  @media screen and (max-width: 568px) {
+        #board-containers {
+          display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+        
+        }
+      }
+
+/* --- styles moved from abc/abcpic.html --- */
+*{
+          
+          
+            font-weight: bolder;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 20px;
+        }
+      body{
+    
+            text-align: center;
+      }
+      #picboards{
+        display: block;
+color: #ebebd3;
+margin: 5px;
+text-align: center;
+
+      }
+      
+      img{
+        width: 160px;
+        border-radius: 5px;
+      }
+      .abcpic{
+        width: 160px;
+  display:block;
+  flex-wrap: wrap;
+  background-color: rgb(0, 0, 0);
+
+}
+.abcpic:hover{
+  cursor: pointer;
+}
+
+/* --- styles moved from abc/calendar.html --- */
+*{
+            font: 3em;
+            font-size: x-large;
+            
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+       
+    box-sizing: border-box;
+  
+   text-align: center;
+   
+}
+
+#linka{
+   width: 100%;
+   text-align: center;
+
+
+}
+h4
+{
+    text-align: center;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.788);
+}
+p{
+    margin: 0 auto;
+    width: 180px;
+    text-align: center;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.788);
+}
+table{
+text-align: center;
+   width:60%;
+   align-items: center;
+   margin: 0 auto;
+   background-color: rgba(35, 191, 253, 0.562);
+   border-radius: 12px;
+}
+.today{
+    background-color: rgb(196, 255, 206);
+}
+
+ #calendar {
+width: 100%;
+            display: block;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            margin: 0 auto;
+            position: relative;
+            text-align: center;
+
+        }
+
+
+#prev, #next {
+    width: 25px;
+    background-color: rgb(129, 247, 168);
+    margin: 5px;
+}
+#daysofweek{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    margin: auto;
+    justify-content: space-evenly;
+    width: 100%;
+}
+    .day{
+        border: 4px solid rgb(34, 1, 1);
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 250px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(120, 85, 136), rgb(85, 84, 87));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+    }  
+    .month{
+        border: 4px solid rgb(34, 1, 1);
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 250px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(62, 64, 209), rgb(206, 131, 101));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+    } 
+    #linkto {
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+       
+            background-color: #53add6;
+            border-radius: 5px;
+        width: auto;
+            justify-self: center;
+        }
+
+/* --- styles moved from abc/dictionary.html --- */
+*{
+            font: 3em;
+            font-size: x-large;
+           
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        img{
+        width: 100px;
+        border-radius: 5px;
+      }
+      #linkto {
+            font-size: 1.5em;
+            font-weight: bolder;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #1fe0c6;
+            border-radius: 5px;
+            width: 150px;
+            justify-self: center;
+            color: #000;
+        }
+
+        p  {
+           width: 80%;
+            background-color: #edf2f4;
+            margin: 0 auto;
+         row-gap: 2px;
+            text-align: center;
+        }
+      
+        h2 {
+           width: 150px;
+            background-color: #ffb17c;
+          
+        
+            margin: 0 auto;
+        }
+        #container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:center;
+        padding-bottom: 30px;
+        }
+
+/* --- styles moved from abc/filltheletter.html --- */
+*{
+            font: 45px;
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+#main-container {
+    display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+     
+        }
+button {
+        width: 92px;
+        background-color: #4CAF50;
+        color: white;
+   margin-top: 2px;
+  
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+       padding: 3px;
+        margin: 1px;
+      }
+    
+      button:hover {
+        background-color: #4ea309;
+      }
+
+    #message {
+       
+       position: relative;
+       width: 100%;
+  
+   
+       background-color: lightgoldenrodyellow;
+       justify-content: center;
+       margin-bottom: 20px;
+     }
+.letters {
+        width: 55px;
+   margin: 5px;
+        border: 2px solid #53add6;
+        border-radius: 5px;
+        background-color: #e2eafc;
+        cursor: pointer;
+        font: 1em sans-serif;
+      }
+    
+      .letters:hover {
+        background-color: #adcf5e;
+      }
+      #tableLetter {
+      display: flex;
+      width: 100%;
+   margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    text-align: center;
+     
+    }
+    
+    #linkto {
+    
+        text-align: center;
+        margin: 0 auto;
+        background-color: #ffb5b5;
+        border-radius: 5px;
+        width: 150px;
+        justify-self: center;
+        color: #000;
+    }
+
+        #spell-contating {
+          width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            box-sizing: border-box;
+            background-color: 2px solid #01472c;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 5px;
+        }
+
+
+
+
+            #spellcell {
+                width: 31px;
+                height: 35px;
+                font-size: 16px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+       
+input {
+            display: flex;
+          text-align: center;
+         
+          margin-top: -10px;
+            box-sizing: border-box;
+            border: 2px solid #470101;
+            border-radius: 4px;
+            background-color: rgb(252, 251, 251);
+          
+            justify-content: center;
+           
+           
+        }
+
+#present{
+  
+    position: relative;
+       width:100%;
+       background-color: rgb(213, 241, 162);
+       justify-content: center;
+       margin: 0 auto;
+}
+
+/* --- styles moved from abc/kiddictionary.html --- */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+        img{
+        width: 100px;
+        border-radius: 5px;
+      }
+      #linkto {
+            font-size: 1.5em;
+            font-weight: bolder;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #1fe0c6;
+            border-radius: 5px;
+            width: 150px;
+            justify-self: center;
+            color: #000;
+        }
+
+        p  {
+           width: 80%;
+            background-color: #edf2f4;
+            margin: 0 auto;
+         row-gap: 2px;
+            text-align: center;
+        }
+      
+        h2 {
+           width: 150px;
+            background-color: #ffb17c;
+          
+        
+            margin: 0 auto;
+        }
+
+/* --- styles moved from abc/pickaword.html --- */
+*{
+            font: 55px;
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+      #board-containers {
+          display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background-color: #0b090a;
+        opacity: 0.9;
+        border: rgb(65, 55, 1) 5px solid;
+        }
+
+      .countwords {
+        border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 300px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(241, 147, 7), rgb(230, 222, 215));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+
+      }
+      
+      button{
+        background-color: #000103; 
+        border-radius: 5px; 
+      
+        width: 220px; 
+      margin: 0 auto; 
+        color: #ffffff;
+      }
+     
+      #message {
+       
+       position: relative;
+       width: 100%;
+       font-weight: bolder;
+       font-size: 1em;
+       background-color: lightgoldenrodyellow;
+       justify-content: center;
+       margin-bottom: 20px;
+     }
+
+     img{
+        margin-top: 2px;
+        width: 150px;
+        border-radius: 5px;
+     }
+     #question{
+        display: block;
+        margin: 20px auto;
+    width: 400px;
+    border-radius: 5px;
+     }
+     #questionpic{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        
+     }
+
+/* --- styles moved from abc/picktheletter.html --- */
+*{
+           
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font: 55px;
+        }
+    #board-containers {
+          display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 0 auto;
+        }
+      .countabc {              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 210px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(80, 69, 69), rgba(145, 123, 123, 0.575));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+      }
+      button{
+        
+        width: 400px;
+        background-color: #aaf5fa;
+        color: rgb(3, 0, 0);
+        
+   
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      
+        margin-bottom: 10px;
+    }
+    #message {
+       
+       position: relative;
+       width: 200px;
+      
+       background-color: lightgoldenrodyellow;
+       justify-content: center;
+      
+     }
+        @media screen and (max-width: 568px) {
+          button {
+            width: 100%;
+          }
+        }
+
+/* --- styles moved from abc/pickthepic.html --- */
+*{
+            
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font: 2em;
+        }
+        #board-containers {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+
+      .countwords {
+      width: 200px;
+        background-color: rgb(121, 210, 252);
+       
+ display: flex;
+        cursor: pointer;
+      
+      margin: 2px;
+        display: flex;
+padding: 5px;
+        justify-content: center;
+        align-items: center;
+        border: #08090a 3px solid;
+        border-radius: 10px;
+      }
+      button{
+        background-color: #000303; 
+        border-radius:5px; 
+     
+        width: 400px; 
+     
+        color: #fcfafa;
+      }
+     
+
+      #message {
+       
+       position: relative;
+       width: 100%;
+       font-weight: bolder;
+    
+       background-color: lightgoldenrodyellow;
+       justify-content: center;
+       margin-bottom: 20px;
+     }
+     img{
+        width: 80%;
+        border-radius: 10px;
+     }
+     #linkto {
+          
+           
+            text-align: center;
+            margin: 0 auto;
+            background-color: #fdf8e1;
+            border-radius: 5px;
+            width: 200px;
+            justify-self: center;
+        }
+
+/* --- styles moved from abc/ranABC.html --- */
+*{
+            
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+      .count123 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width:100px;
+       height: 85px;  
+      color: #080000;
+     padding: 5px;
+        box-shadow: 0px 0px 15px  rgb(10, 121, 0);
+        background-color: rgb(170, 209, 122);
+        border-radius: 15px;
+        margin: 5px;
+        
+  font: 2em sans-serif;
+    }
+      @media screen and (max-width: 568px) {
+        #board-container {
+          display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      margin: 5px;
+        }
+      }
+            button {
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 100px;
+              height: auto;
+              padding: 10px;
+              background-image: linear-gradient(to right, rgb(85, 133, 136), rgb(72, 230, 195));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            }
+
+            button:hover {
+              transform: scale(1.05);
+              box-shadow: 0 0 15px rgba(34, 1, 1, 0.7);
+            }
+
+
+        #question {
+          width: 300px;
+          padding: 10px;
+          background-color: rgb(32, 161, 236);
+          color: rgb(34, 1, 1);
+          border-radius: 4px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+         border-style: groove;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      #message {
+       
+      position: relative;
+      width: 200px;
+      font-weight: bold;
+   
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin:0 auto;
+    }
+
+/* --- styles moved from abc/Spellingword.html --- */
+*{
+            
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
+            font-weight: bolder;
+           
+        }
+           
+      body {
+        padding: 0;
+    margin: 0;
+       
+      }
+    
+      #board-containers {
+          display: flex;
+          flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        
+        }
+
+    
+      #board {
+        display: inline-block;
+        width: 100%;
+        height:auto;
+       
+        margin:1px;
+       
+      }
+   
+    #spellingInput {
+
+      width: 200px;
+      padding: 12px 20px;
+
+      box-sizing: border-box;
+      border: 2px solid #0f0101;
+      border-radius: 4px;
+      color: #000000;
+     
+    }
+
+    
+      button {
+        width: 100px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 2px;
+        font-weight: bold;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 1px;
+      }
+    
+      button:hover {
+        background-color: #4ea309;
+      }
+    
+      .letters {
+        width: 55px;
+        border: 2px solid #53add6;
+        border-radius: 5px;
+        background-color: #e2eafc;
+        cursor: pointer;
+        margin: 5px;
+      }
+    
+      .letters:hover {
+        background-color: #adcf5e;
+      }
+
+    #spellingInput{
+      width: 80%;
+      text-align: center;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: rgb(204, 200, 195);
+      margin-bottom: 5px;
+    }
+
+    #message {   
+      margin: 0 auto;
+       width: 180px;
+       background-color: lightgoldenrodyellow;
+       justify-content: center;
+       margin-bottom: 20px;
+     }
+    #tableLetter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+     width: 100%;
+     padding: 10px;
+    }
+
+#questions{
+  margin: 0 auto;
+  background-color: #abc562;
+  width: 400px;
+  border-radius: 5px;
+}
+
+/* --- styles moved from arithmetic/Arithmetic.html --- */
+*{
+          
+            font-weight: bolder;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 35px;
+        }
+
+    body {
+     margin: 0;
+     padding: 0;
+    }
+
+    #board-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+    }
+
+    #mathboard {
+  display: block;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px; /* Adjust the gap between columns */
+  width: 240px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#numerator,
+#operator,
+#denominator{
+  display: flex;
+  align-items: center;
+}
+
+#numerator input,
+#operator input,
+#denominator {
+  flex: 1;
+ 
+  margin: 1px;
+  border: 2px solid #068cad;
+  border-radius: 3px;
+  box-sizing: border-box;
+  width: calc(10% - 1px); /* Adjust the input width */
+}
+
+    button {
+      width: auto;
+      background-color: #9cffd9;
+
+      color: #0a0400;
+     
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+     
+    }
+
+    button:hover {
+      background-color: #c0f09f;
+    }
+
+    .letters {
+      border: 4px solid rgb(34, 1, 1);
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 100px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(85, 133, 136), rgb(72, 230, 195));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 1em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+    }
+
+    .letters:hover {
+      background-color: #2cfc60;
+    }
+
+
+    #question{
+      justify-self: center;
+      margin: 0 auto;
+      width: 400px; 
+      color: #0a0400;
+      background-color: lightgoldenrodyellow;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    #questions {
+      justify-self: center;
+      margin: 0 auto;
+      width: 400px;
+      
+   
+      color: #0a0400;
+      background-color: lightgoldenrodyellow;
+      text-align: center;
+    }
+    #message {
+      position: relative;
+      width: 100%;
+      color: #0a0400;
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    #tablenum {
+      width: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      
+    }
+
+
+    img {
+      width: 50px;
+      height: 50px;
+   
+      /* Replace 'apple.png' with your apple image file */
+      background-size: contain;
+      margin: 2px;
+
+    }
+#qoperators{
+  
+  color: rgb(241, 34, 7);
+}
+    #explanation {
+      
+width:100%;
+      text-align: center;
+   
+      color: #02383a;
+     
+      background-color: #d8f3dc;
+      opacity: .9;
+    }
+
+    #num1Apples,
+    #num2Apples,
+    #resultApples,
+    #qoperators {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    
+      margin: 0 auto;
+      width: 60%;
+     
+    }
+
+    input {
+     width: 100px;
+     box-sizing: border-box;
+     border: 2px solid #0f0101;
+     border-radius: 4px;
+     color: #000000;
+     text-align: right;
+
+  
+     background-color: rgb(207, 199, 199);
+   }
+
+@media screen and (max-width: 600px) {
+  #explanation {
+  
+width:100%;
+      text-align: center;
+   
+      color: #02383a;
+  
+      background-color: rgb(223, 253, 220);
+      opacity: .9;
+    }
+
+      
+
+}
+
+/* --- styles moved from arithmetic/howmanyapple.html --- */
+*{
+            font: 3em;
+            font-size: x-large;
+            font-weight: bolder;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        body {
+          
+          margin: 0;
+          padding: 0;
+            text-align: center;
+        }
+
+        #math-container {
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+margin:0 auto;
+        }
+
+
+    
+
+    button {
+      width: auto;
+      background-color: #4CAF50;
+padding: 2px;
+      color: #0a0400;
+      
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+     
+    }
+
+    button:hover {
+      background-color: #c0f09f;
+    }
+
+
+    .letters {
+      width: 35px;
+     font: 1em ;
+      margin: 1px;
+      border: 1px solid #53add6;
+      border-radius: 5px;
+      background-color: aquamarine;
+      cursor: pointer;
+    }
+
+    .letters:hover {
+      background-color: #2cfc60;
+    }
+
+
+  
+    #questions {
+      justify-self: center;
+      margin: 0 auto;
+      width: 200px;
+    padding: 5px;
+   font: 1em sans-serif;
+      color: #0a0400;
+      background-color: lightgoldenrodyellow;
+      text-align: center;
+      box-shadow: #0703c7 0px 0px 20px;
+      border-radius: 5px;
+    }
+    #message {
+      position: relative;
+      width: 180px;
+      font-weight: bolder;
+      font-size: 1em;
+      color: #0a0400;
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin: 0 auto;
+    }
+
+    #tablenum {
+      width: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+   
+      font: 1em ;
+      
+    }
+
+        #linkto {
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #53add6;
+            border-radius: 5px;
+            width: 150px;
+            justify-self: center;
+        }
+
+
+        #answerInput {
+      width: 180px;
+     
+      margin: 4px 0;
+      box-sizing: border-box;
+      border: 2px solid #0f0101;
+      border-radius: 4px;
+      color: #000000;
+      text-align: right;
+      font-size: 1em;
+      font-weight: bolder;
+      background-color: rgb(211, 203, 203);
+    }
+    img {
+      width: 100px;
+      height: 80px;
+   box-shadow: 0px 0px 15px 5px;
+      /* Replace 'apple.png' with your apple image file */
+      background-size: contain;
+      margin-top: 10px;
+      margin: 5px;
+
+    }
+        #numOfApples {
+            display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    margin: 2px;
+      margin: 0 auto;
+      width: 100%;
+        }
+        #linkto {
+            font-size: 1em;
+            
+            text-align: center;
+       
+            background-color: #c0fad6;
+            border-radius: 5px;
+        width: auto;
+            justify-self: center;
+        }
+
+/* --- styles moved from arithmetic/math.html --- */
+*{
+            font: 45px;
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    body {
+   margin: 0;
+   padding: 0;
+    }
+
+    
+    button {
+      width: auto;
+      background-color: #c4fff9;
+     
+      color: #0a0400;
+     
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+     
+    }
+
+    button:hover {
+      background-color: #70cc5d;
+    }
+
+    #math-container {
+
+      display: flex;
+      flex-direction: column;
+ 
+      justify-content: center;
+      align-items: center;
+      align-items: center;
+      width: 100%;
+      margin: 0 auto;
+
+    }
+
+    #mathboard {
+  display: block;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px; /* Adjust the gap between columns */
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#numerator,
+#operator,
+#denominator,
+#answerInput-cont {
+  display: flex;
+  align-items: center;
+}
+
+#numerator input,
+#operator input,
+#denominator input,
+#answerInput {
+  flex: 1;
+ 
+  margin: 1px;
+  border: 2px solid #068cad;
+  border-radius: 3px;
+  box-sizing: border-box;
+  width: calc(10% - 1px); /* Adjust the input width */
+}
+
+
+    #numerator1,
+    #numerator2,
+    #numerator3,
+    #numerator4,
+    #operator1,
+    #operator2,
+    #operator3,
+    #operator4,
+    #denominator1,
+    #denominator2,
+    #denominator3,
+    #denominator4 {
+      width: 35px;
+      height: 35px;
+      background-color: #86f5d3;
+      border: 9px solid #f14d4d;
+     
+  
+      text-align: center;
+     
+
+      cursor: pointer;
+    }
+
+    #tablenum {
+      width: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+   
+    
+      
+    }
+
+
+    .letters {
+      width: 40px;
+      padding: 5px;
+      margin: 5px;
+      border: 1px solid #53add6;
+      border-radius: 5px;
+      background-color: aquamarine;
+      cursor: pointer;
+    }
+
+    .letters:hover {
+      background-color: #2cfc60;
+    }
+
+ 
+    #answerInput {
+      width: 180px;
+      padding: 5px 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 2px solid #0f0101;
+      border-radius: 4px;
+      color: #000000;
+      text-align: right;
+    
+      background-color: rgb(144, 201, 235);
+    }
+
+    #message {
+      position: relative;
+      width: 180px;
+      font-weight: bolder;
+    
+    
+      background-color: rgb(241, 241, 163);
+      justify-content: center;
+  margin: 0 auto;
+    }
+
+/* --- styles moved from books/lego.html --- */
+*{
+            font: 45px;
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+   body{
+    margin: 0px;
+ 
+    font-family: 'Itim', cursive;
+    box-sizing: border-box;
+
+   }
+
+.flip-book {
+    background-color: bisque;
+display: flex;
+width: 80%;
+margin: 0 auto;
+}
+
+.flip-page {
+    background-color: rgb(255, 250, 243);
+padding: 20px;
+width: 80%;
+
+margin: 0 auto;
+
+}
+
+
+
+
+img{
+    width: 100%;
+   margin: 0 auto;
+}
+
+#linkto {
+            font-size: 1em;
+            font-weight: bolder;
+            text-align: center;
+        width: 100%;
+            background-color: #1fe0c6;
+            border-radius: 5px;
+          margin: 0 auto;
+            justify-self: center;
+            color: #000;
+        }
+
+/* --- styles moved from civics/civic.html --- */
+*{
+            font: 3em;
+            font-size: x-large;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    body{
+      font-family: 'Itim', cursive;
+    
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        opacity: .9px;
+        box-sizing: border-box;
+       
+    }
+    #civic-board{
+width: 100%;
+box-sizing: border-box;
+    }
+    #thebranches{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 0 auto;
+      
+    }
+     .branch {
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            flex-direction: column;
+            background-color: #fafffb;
+            opacity: 0.7;
+            margin: 10px;
+        }
+        #theconstitution{
+  width: 70%;
+  background-color: #fafffb;
+  justify-items: center;
+  margin: 0 auto;
+}
+.embed iframe {
+  width: 100%;
+
+  border: none;
+  font: 1em s;
+}
+
+p, h3, h1, h2, h4, h5, h6 {
+  font: 1em s;
+}
+
+
+   
+        img{
+          width: 100%;
+          
+        }
+
+/* --- styles moved from civics/civic.html --- */
+@import url("https://www.archives.gov/modules/system/system.base.css?sb4qg3");
+
+/* --- styles moved from civics/civic.html --- */
+@import url("https://www.archives.gov/sites/all/modules/custom/archives_ui/css/font-awesome.min.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/archives_ui/css/helptext.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/archives_ui/css/ckeditor_custom.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/argentina/css/argentina_style.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/contrib/calendar/css/calendar_multiday.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/contrib/date/date_repeat_field/date_repeat_field.css?sb4qg3");
+        @import url("https://www.archives.gov/modules/field/theme/field.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/findingaid_stat/css/findingaid.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/findingaid_stat/css/explorer_landing.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/nara_catalog/css/nara-api-style.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/nara_document_app/css/documentapp.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/archive_features/nara_timeline/css/custom.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/archive_features/nara_timeline/css/timeline.css?sb4qg3");
+        @import url("https://www.archives.gov/modules/node/node.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/contrib/user_alert/css/user-alert.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/custom/varnish_purge/css/varnishpurge.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/contrib/views/css/views.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/modules/contrib/ckeditor/css/ckeditor.css?sb4qg3");
+
+/* --- styles moved from civics/civic.html --- */
+@import url("https://www.archives.gov/sites/all/modules/contrib/ctools/css/ctools.css?sb4qg3");
+
+/* --- styles moved from civics/civic.html --- */
+.section-theme #title-bar{background:#4f240e url("https://www.archives.gov/files/global-images/section-headers/founding-docs.png") no-repeat center right;}.section-theme #mega-footer > h2{background:#4f240e}.section-theme #title-bar .breadcrumb{background-color:#73391D;}.section-theme th{background-color:#4f240e !important;}
+
+/* --- styles moved from civics/civic.html --- */
+@import url("https://www.archives.gov/sites/all/modules/custom/nara_custom/css/nara_custom.css?sb4qg3");
+
+/* --- styles moved from civics/civic.html --- */
+@import url("https://www.archives.gov/sites/all/themes/nara/css/jquery.fancybox.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/themes/nara/css/jquery.fancybox-thumbs.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/themes/nara/css/bootstrap.min.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/themes/nara/css/styles.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/themes/nara/css/vertical-tabs.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/themes/nara/css/overrides.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/themes/nara/css/mediagallery.css?sb4qg3");
+        @import url("https://www.archives.gov/sites/all/themes/nara/css/dataTables.bootstrap.min.css?sb4qg3");
+
+/* --- styles moved from civics/civic.html --- */
+div.form-item-body-und-0-format {
+          display:none;
+        }
+        div.form-item-field-col-b-und-0-format {
+          display:none;
+        }
+        div.filter-guidelines {
+          display:none;
+        }
+        div.filter-help {
+          display:none;
+        }
+
+/* --- styles moved from civics/civic.html --- */
+ul.nav-tabs {
+        display:none;
+        }
+        #block-workbench-block {
+        display:none;
+        }
+        p, h3, h1, h2, h4, h5, h6 {
+  font: 1em s;
+}
+
+/* --- styles moved from civics/civic.html --- */
+th .sortable a.sort-active {
+        color:#ffffff;
+        }
+        table.sortable th.sortable a.active {
+        color:#ffffff;
+        }
+        table.sortable th.sortable a {
+        color:#ffffff;
+        }
+        table.sortable th a.sortheader {
+        color:#ffffff;
+        }
+        
+        
+        /* visited link */
+        table.sortable th.sortable a:visited {
+            color: #ffffff;
+        }
+        
+        /* mouse over link */
+        table.sortable th.sortable a:hover {
+            color: #ffffff;
+        }
+        
+        /* selected link */
+        table.sortable th.sortable a:active {
+            color: #ffffff;
+        }
+        .section-theme th a {
+        color:#ffffff;
+        }
+        
+        table.sortable  tr:nth-of-type(odd) {
+              background-color:#F5F5F5;
+        }
+        table.sortable-onload-1  tr:nth-of-type(odd) {
+              background-color:#F5F5F5;
+         }
+        table.sortable-onload-0  tr:nth-of-type(odd) {
+              background-color:#F5F5F5;
+         }
+
+/* --- styles moved from civics/CivicsGame.html --- */
+*{
+          
+          font-weight: bolder;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-size: 25px;
+      }
+
+         button {
+        width: 400px;
+        background-color: #085a71;
+        color: white;
+     padding: 2px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+       
+      }
+    
+      button:hover {
+        background-color: #579dc5;
+      }
+        .capital {
+            border: 4px solid rgb(34, 1, 1);
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 400px;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(106, 127, 245), rgb(29, 31, 139));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+             
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+        box-shadow: goldenrod 0px 0px 15px 5px;
+      }
+
+      .capital:hover {
+        background-color: #b2f704;
+        color: #000;
+      }
+        #capitaltable{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        
+      }
+    
+      #message {
+      position: relative;
+      width: 300px;
+      font-weight: bolder;
+     
+     text-align: center;
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin:0 auto;
+    }
+
+/* --- styles moved from civics/Civicsques.html --- */
+*{
+          
+          font-weight: bolder;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-size: 25px;
+      }
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    display: block;
+}
+         button {
+        width: 400px;
+        background-color: #085a71;
+        color: white;
+
+
+        padding: 2px;
+        margin: 8px auto;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        display: block;
+      }
+    
+      button:hover {
+        background-color: #579dc5;
+      }
+        .capital {border: 4px solid rgb(34, 1, 1);
+              border: 4px solid rgb(34, 1, 1);
+              border-style: double;
+              width: 400pxS;
+              height: auto;
+              padding: 10px;
+
+              background-image: linear-gradient(to right, rgb(85, 133, 136), rgb(72, 230, 195));
+              color: rgb(34, 1, 1);
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 10px;
+              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
+              transition: all 0.3s ease;
+              font-size: 2em;
+              font-weight: bolder;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              justify-content: center;
+            
+
+      }
+
+      .capital:hover {
+        background-color: #b2f704;
+        color: #000;
+      }
+        #capitaltable{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        
+      }
+    
+      #message {
+      position: relative;
+      width: 300px;
+      font-weight: bolder;
+     
+     text-align: center;
+      background-color: lightgoldenrodyellow;
+      justify-content: center;
+      margin:0 auto;
+    }
+    #options-container{
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+
+    }
+    h2{
+        font-size: xx-large;
+        text-align: center;
+    }
+   #options-container{
+
+    display: inline-block;
+    justify-content: center;
+   }
+
+/* --- styles moved from color/colors.html --- */
+.color-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .color-card {
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            border: 4px solid #333;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .color-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-name {
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+
+        .color-emoji {
+            font-size: 3rem;
+        }
+
+        @media (min-width: 480px) {
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .color-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .color-card {
+                min-height: 150px;
+            }
+        }
+
+/* --- styles moved from emotions/emotions.html --- */
+.emotion-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .emotion-card {
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            border: 4px solid #333;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .emotion-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .emotion-name {
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+
+        .emotion-emoji {
+            font-size: 3rem;
+        }
+
+        @media (min-width: 480px) {
+            .emotion-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .emotion-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .emotion-card {
+                min-height: 150px;
+            }
+        }
+
+/* --- styles moved from games/catchme.html --- */
+* {
+  box-sizing: border-box;
+  background-color: rgb(0, 0, 0);
+
+  
+  text-align: center;
+  
+
+            font: 3em;
+         
+            font-weight: bolder;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+#board{
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.cube {
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.row {
+  display: flex;
+}
+
+.box {
+  flex: 2;
+  height: 100px;
+  background-color: #0a0808;
+  border: 2px solid #666;
+  transform-style: preserve-3d;
+ 
+  box-shadow: 0px 1px 2px 0px rgba(0, 255, 255, 0.7),
+                1px 2px 4px 0px rgba(0, 255, 255, 0.7),
+                2px 4px 8px 0px rgba(0, 255, 255, 0.7),
+                2px 4px 16px 0px rgba(0, 255, 255, 0.7);
+           
+}
+
+
+
+
+        button {
+            display: block;
+            margin: 0 auto;
+            width: 180px;
+            height: 45px;
+            background-color: #4CAF50;
+            color: rgb(8, 8, 8);
+            height: 5vh;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+           font-weight: bolder;
+         padding: 5px;
+            
+        }
+
+        button:hover {
+            background-color: #4ea309;
+        }
+
+
+p{
+    text-align: center;
+}
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.box:hover{
+  transform: scale(1.1);
+}
+#box-board {
+  display: flex;
+}
+
+.box {
+  cursor: pointer;
+}
+
+      
+        #message{
+            background-color: rgb(247, 217, 179);
+            width: 50%;
+            margin: 20px auto;
+        }
+        #catchmeqr {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            margin: 0 auto;
+
+        }
+
+        #divgr {
+            padding-top: 30px;
+            width: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        #donate {
+            width: 100px;
+            height: 40px;
+           
+            margin: 0 auto;
+
+        
+        }
+#header {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+   text-shadow: 0 0 10px #ff0000
+}
+
+        a {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px #ff0000;
+            margin: 0 auto;
+        }
+
+/* --- styles moved from games/rps.html --- */
+*{
+            
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font: 2em;
+        }
+    body{
+        margin: 0;
+        padding: 0;
+        font-family: 'Itim', cursive;
+    }
+
+        #table {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0px auto;
+        }
+
+    #computer {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5%;
+background-color: antiquewhite;
+
+    }
+ #me {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        background-color: rgb(252, 236, 213);
+    }
+    #computer img, #me img {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        cursor: pointer;
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 1); 
+    }
+    
+    #message {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+        #countdown {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0px 5px 10px 0px #000;
+            width: 150px;
+            margin: 0 auto;
+            background-color: aqua;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h2{
+            text-align: center;
+        }
+
+        #linkto {
+            font-size: 15px;
+          font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #eee6c2;
+            border-radius: 5px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+/* --- styles moved from games/tictactoe.html --- */
+* {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+
+    .display {
+      color: rgb(15, 0, 0);
+      font-size: 20px;
+      text-align: center;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      background-color: rgb(235, 243, 199);
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .container {
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      max-width: 300px;
+      gap: 5px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        max-width: 95vw;
+      }
+    }
+
+    .tile {
+      width: 100%;
+      border: 3px solid rgb(251, 251, 253);
+      min-width: 50%;
+      min-height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      background-color: #9F6347;
+      margin: 0 auto;
+      transition: background 0.2s;
+    }
+
+    .tile.playerball {
+      background-color: #e0ffe0;
+    }
+
+    .tile.playerapple {
+      background-color: #e0eaff;
+    }
+
+    .playerball {
+      color: #09C372;
+    }
+
+    .playerapple {
+      color: #498AFB;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1em;
+    }
+
+    .controls button {
+      color: rgb(1, 9, 22);
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 20px;
+      margin-left: 1em;
+      cursor: pointer;
+    }
+
+    .restart {
+      background-color: #498AFB;
+    }
+
+    #reset {
+      background-color: #389fff;
+    }
+
+    img {
+      width: 65%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #linkto {
+      font-size: 1.5em;
+      font-weight: bolder;
+      text-align: center;
+      margin: 0 auto;
+      background-color: #1fe0c6;
+      border-radius: 5px;
+      width: 150px;
+      justify-self: center;
+      color: #000;
+      display: block;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+
+    .center-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: none;
+    }
+
+/* --- styles moved from index.html --- */
+/* Local header styling adjustments */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .logo-container img {
+            max-width: 80px;
+            height: auto;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Category cards grid */
+        .categories-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Welcome message */
+        .welcome-message {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+        }
+
+        .welcome-message h2 {
+            color: #667eea;
+            font-size: 1.6rem;
+            margin: 0 0 10px 0;
+        }
+
+        .welcome-message p {
+            color: #333;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 480px) {
+            header h1 {
+                font-size: 2.3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+/* --- styles moved from puzzles/gamification.html --- */
+.dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #667eea;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-indicator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .level-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .badges-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .badge {
+            background: white;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #ffd700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-locked {
+            opacity: 0.4;
+            filter: grayscale(100%);
+            border-color: #ccc;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .module-stats {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .module-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .module-points {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .reset-btn {
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: #d93f52;
+            transform: scale(1.05);
+        }
+
+        @media (min-width: 480px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+/* --- styles moved from puzzles/puzzles.html --- */
+.puzzle-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .puzzle-card {
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 15px;
+            border: 4px solid white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            color: white;
+        }
+
+        .puzzle-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .puzzle-name {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .puzzle-emoji {
+            font-size: 3rem;
+        }
+
+        .matching-area {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .match-item {
+            padding: 15px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .match-item:hover {
+            background: #f0f0f0;
+            transform: scale(1.02);
+        }
+
+        @media (min-width: 480px) {
+            .puzzle-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .matching-area {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .puzzle-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .puzzle-card {
+                min-height: 160px;
+            }
+
+            .matching-area {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+/* --- styles moved from science/bio.html --- */
+*{
+            font: 3em;
+            font-size: x-large;
+            
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        #intro {
+            text-align: start;
+            margin: 30px;
+        }
+        #cells{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            background-color:rgb(247, 245, 245);
+           
+            justify-content: center;
+box-sizing: border-box;
+
+        }
+
+          /* Section rule used to replace inline <hr> styles */
+          .section-rule {
+            height: 2px;
+            background-color: #5e3737;
+            border: none;
+            margin: 18px auto;
+            max-width: 1000px;
+          }
+
+          /* Prefer grid layout for large sets of tiles so all items are visible */
+          #board-containers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(64px, 96px));
+            gap: 12px;
+            justify-content: center;
+            align-items: start;
+            width: 100%;
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 0 8px 32px 8px;
+          }
+
+        img {
+            width: 210px;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 0 auto;
+            /* changed margin to margin: auto */
+            text-align: center;
+            background-color: #f2f2f2;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+
+        img:hover {
+            transform: scale(1.1);
+            margin: 0 auto;
+            /* added margin: 0 auto */
+        }
+
+
+        #plantsCell,#AnimalCell{
+            margin: 15px;
+
+        }
+        #plantsCelltext,#AnimalCelltext {
+            margin: 15px;
+
+        }
+        #uCell,#mCell{
+            margin: 15px;
+
+        }
+
+        #multicellular,
+        #unicellular {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #cell-types{
+            display: flex;
+          flex-wrap: wrap;
+          
+        }
+
+        .cell-type{
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .cell-type h4{
+            margin-top: 10px;
+        }
+        #linkto {
+            font-size: 1em;
+            font-weight: bolder;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #1fe0c6;
+            border-radius: 5px;
+            width: 150px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            color: #000;
+        }
+
+/* --- styles moved from science/chem.html --- */
+body { padding: 1rem; background: linear-gradient(180deg, #f6f9ff 0%, #d7e8ff 100%); }
+    .lesson-card { max-width: 900px; margin: 0 auto; padding: 1rem; background: rgba(255,255,255,0.92); border-radius: 24px; box-shadow: 0 16px 35px rgba(0,0,0,0.12); }
+    .lesson-card h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .lesson-card p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+    .element-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 1rem; margin-top: 1rem; }
+    .element-card { background: #eef6ff; border: 3px solid #8ab7ff; border-radius: 18px; padding: 1rem; text-align: center; }
+    .element-card h2 { margin: 0.5rem 0 0.2rem; font-size: 1.6rem; }
+    .element-card button { margin-top: 0.8rem; padding: 0.8rem 1rem; border: none; border-radius: 999px; background: #7fc2ff; color: #021b47; font-weight: bold; cursor: pointer; }
+    #element-detail { margin-top: 1.2rem; padding: 1rem; border-radius: 16px; background: #fff; border: 2px dashed #4c7afb; }
+
+/* --- styles moved from science/compute.html --- */
+body { padding: 1rem; background: linear-gradient(180deg, #f5fff2 0%, #c8f7d4 100%); }
+    .lesson-card { max-width: 920px; margin: 0 auto; padding: 1rem; background: rgba(255,255,255,0.94); border-radius: 24px; box-shadow: 0 16px 35px rgba(0,0,0,0.12); }
+    .lesson-card h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .lesson-card p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+    .concept-list { display: grid; gap: 1rem; margin-top: 1rem; }
+    .concept-card { border: 2px solid #55c79f; border-radius: 20px; padding: 1rem; background: #f8fff7; }
+    .concept-card h2 { margin: 0 0 0.5rem; }
+    .concept-card button { margin-top: 0.8rem; padding: 0.8rem 1rem; border: none; border-radius: 999px; background: #43b675; color: white; font-weight: bold; cursor: pointer; }
+    #detail { margin-top: 1.2rem; padding: 1rem; background: #ffffff; border-radius: 18px; border: 2px dashed #55c79f; }
+
+/* --- styles moved from shapes/shapes.html --- */
+*{
+            
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
+            font-weight: bolder;
+           
+        }
+         body {
+           margin: 0;
+           padding: 0;
+        }
+
+        #shapes-container {
+
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        
+        }
+
+
+
+        img {
+            width:200px;
+          height:200px;
+            background-color: rgb(221, 255, 255);
+            margin: 2px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            border-style: double;
+        }
+
+        #questions {
+      justify-self: center;
+      margin: 0 auto;
+      width:100%;
+    background-color: lightgoldenrodyellow;
+      color: #0a0400;
+      
+      text-align: center;
+      box-shadow: #0703c7 0px 0px 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    #message {
+        margin: 0 auto;
+      position: relative;
+      width: 150px;
+      
+     
+     text-align: center;
+      background-color: rgb(13, 250, 179);
+      justify-content: center;
+      margin-bottom: 20px;
+      
+    }
+      
+
+    button:hover {
+      background-color: #c0f09f;
+    }
+    #linkto {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #53add6;
+            border-radius: 5px;
+            width: 50%;
+            justify-self: center;
+        }
+        #questiondiv {
+            margin: 5px;
+            margin: 0 auto;
+            width: 100%;
+
+            font-size: 1.5em;
+            color: #0a0400;
+            background-color: rgb(210, 223, 250);
+            text-align: center;
+            box-shadow: #0703c7 0px 0px 20px;
+            border-radius: 5px;
+        }
+
+/* --- styles moved from shapes/whatshape.html --- */
+*{
+            
+            font-size: x-large;
+           font-weight: bolder;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+         body {
+          margin: 0;
+          padding: 0;
+        }
+
+        #shapes-container {
+
+            margin: 0 auto;
+          width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+
+
+        img {
+            width: 90px;
+            height: 90px;
+            box-shadow: 0px 3px 25px 0px rgba(0,0,0,0.17);
+        background-color: darkgrey;
+        border-style: double;
+        }
+        #questions {
+      justify-self: center;
+      margin: 0 auto;
+      width: 390px;
+      color: #0a0400;
+      background-color: lightgoldenrodyellow;
+      text-align: center;
+      box-shadow: #0703c7 0px 0px 20px;
+      border-radius: 5px;
+    }
+
+    #message {
+        margin: 0 auto;
+      position: relative;
+      width: 180px;;
+    
+     text-align: center;
+      background-color: rgb(13, 250, 179);
+      justify-content: center;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    
+
+   
+    #linkto {
+           
+            text-align: center;
+            margin: 0 auto;
+            background-color: #eee6c2;
+            border-radius: 5px;
+            width:400px;
+            justify-self: center;
+        }
+        #shapes {
+            margin: 5px;
+            margin: 0 auto;
+            width:200px;
+            color: #0a0400;
+            background-color: rgb(210, 223, 250);
+            text-align: center;
+            box-shadow: #0703c7 0px 0px 20px;
+            border-radius: 5px;
+        }
+.shape {
+    width: 400px;
+    height: 80px;
+font-size: 2em ;
+    display: flex;
+    background-image: linear-gradient(to right, #f7f7de, #ebe5cf);
+    margin: 5px;
+    justify-content: center;
+  
+    border: rgb(231, 129, 4);
+    border-radius: 5px;
+    border-style: double;
+    box-shadow: 0px 0px 15px  rgb(10, 121, 0);
+    
+}
+#questiondiv{
+    margin: 5px;
+            margin: 0 auto;
+            width: 400px;
+
+         
+            color: #0a0400;
+            background-color: rgb(191, 255, 182);
+            text-align: center;
+            box-shadow: #0703c7 0px 0px 20px;
+            border-radius: 5px;
+}
+
+/* --- styles moved from tv/storytime.html --- */
+body { margin: 0; padding: 0; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; background: linear-gradient(180deg, #fff7f0 0%, #ffe8c6 100%); text-align: center; }
+    .lesson-card { max-width: 1000px; margin: 1rem auto; padding: 1rem; background: rgba(255,255,255,0.94); border-radius: 24px; box-shadow: 0 14px 30px rgba(0,0,0,0.12); }
+    .lesson-card h1 { margin-top: 0; font-size: 2.2rem; }
+    .lesson-card p { font-size: 1.05rem; line-height: 1.7; margin: 0.8rem auto; max-width: 760px; }
+    .video-wrapper { position: relative; width: 100%; padding-top: 56.25%; margin-top: 1rem; }
+    .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 18px; }
+    a.back-link { display: inline-block; margin-top: 0.8rem; padding: 0.8rem 1.2rem; background: #ffd57a; color: #092343; border-radius: 999px; text-decoration: none; font-weight: 900; }
+
+/* --- styles moved from tv/tv.html --- */
+*{
+            
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
+            font-weight: bolder;
+           
+        }
+        #linkto {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+            background-color: #eee6c2;
+            border-radius: 5px;
+            width: 50%;
+            justify-self: center;
+        }
+            @media (max-width: 768px) {
+        #iframe-container {
+            height: auto;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 40vw;
+        }
+    }
+    #container {
+        display: flex;
+        justify-content: space-between;
+    }
+    #sidebar {
+        width: 25%;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #sidebar h3 {
+        color: #333;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    #mytv {
+        width: 70%;
+    }
+    #videoList {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #videoList li:nth-child(odd) {
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: #94fd63;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    #videoList li:nth-child(even) {
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    #videoList li:hover {
+        background-color: #d0d0d0;
+        cursor: pointer;
+    }
+
+/* --- styles moved from weather/weather.html --- */
+.weather-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .weather-card {
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 15px;
+            border: 4px solid white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            color: white;
+        }
+
+        .weather-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .weather-name {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .weather-emoji {
+            font-size: 3rem;
+        }
+
+        @media (min-width: 480px) {
+            .weather-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .weather-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .weather-card {
+                min-height: 160px;
+            }
+        }

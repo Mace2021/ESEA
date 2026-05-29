@@ -4,175 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>count123</title>
-    <link rel="stylesheet" href="../style.css">
-<style>
-  * {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 22px;
-    font-weight: bold;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+    <link rel="stylesheet" href="../responsive.css">
 
-  body {
-    background: #f8f6f3;
-    color: #221010;
-  }
-
-  #board-containers {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 16px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 24px auto;
-    padding: 0 8px 32px 8px;
-  }
-
-  .count123 {
-    border: 2.5px solid #220101;
-    width: clamp(48px, 10vw, 100px);
-    min-height: clamp(32px, 7vw, 70px);
-    padding: clamp(6px, 1.5vw, 14px) 0;
-    background: linear-gradient(135deg, #e3f6f8 0%, #bcae9e 100%);
-    color: #220101;
-    border-radius: 14px;
-    cursor: pointer;
-    margin: 0;
-    box-shadow: 0 2px 12px rgba(34, 1, 1, 0.13);
-    transition: 
-      transform 0.15s, 
-      box-shadow 0.15s, 
-      background 0.3s,
-      border-color 0.2s;
-    font-size: clamp(0.8em, 2vw, 1.3em);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    text-align: center;
-    aspect-ratio: 1 / 1;
-  }
-
-  .count123:hover, .count123:active {
-    background: linear-gradient(135deg, #d0f0f3 0%, #e0cfc0 100%);
-    transform: scale(1.06);
-    box-shadow: 0 4px 18px rgba(34, 1, 1, 0.18);
-  }
-
-  #linkto {
-    display: block;
-    font-size: 1.1em;
-    font-weight: bold;
-    text-align: center;
-    margin: 18px auto 10px auto;
-    background-color: #dad2d8;
-    border-radius: 7px;
-    padding: 10px 0;
-    width: 90%;
-    max-width: 400px;
-    text-decoration: none;
-    color: #221010;
-    box-shadow: 0 1px 6px rgba(34, 1, 1, 0.07);
-    transition: background 0.2s;
-  }
-
-  #linkto:hover {
-    background-color: #eae2e8;
-  }
-
-  @media screen and (max-width: 768px) {
-    #board-containers {
-      gap: 10px;
-      max-width: 100%;
-      padding: 0 2px 20px 2px;
-    }
-    .count123 {
-      width: 80px;
-      min-height: 60px;
-      font-size: 1.2em;
-      padding: 10px 0;
-    }
-    #linkto {
-      font-size: 1em;
-      padding: 8px 0;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    #board-containers {
-      gap: 6px;
-      padding-bottom: 10px;
-    }
-    .count123 {
-      width: 60px;
-      min-height: 40px;
-      font-size: 1em;
-      padding: 6px 0;
-      border-width: 2px;
-    }
-    #linkto {
-      font-size: 0.95em;
-      padding: 6px 0;
-    }
-  }
-</style>
 </head>
-<body>
+<body data-page="123/123.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     
     
-    <div style="background-color: antiquewhite; text-align:center; padding:8px;">Click on each block to Learn</div>
-    <hr style="height: 1px; background-color: #5e3737;"/>
+    <div class="info-panel">Click on each block to Learn</div>
+    <hr class="section-rule" />
     <div id="board-containers" >
-        <div
-        id="board"
-        class="count123"
-       
-        onclick="document.getElementById('1').play()"
-      >
+        <div class="count123" onclick="document.getElementById('1').play()">
         <audio id="1" src="../audio/1.wav"></audio>1
       </div>
-      <div
-        id="board"
-        class="count123"
-        
-        onclick="document.getElementById('2').play()"
-      >
+      <div class="count123" onclick="document.getElementById('2').play()">
         <audio id="2" src="../audio/2.wav"></audio>2
       </div>
-      <div
-        id="board"
-        class="count123"
-      
-        onclick="document.getElementById('3').play()"
-      >
+      <div class="count123" onclick="document.getElementById('3').play()">
         <audio id="3" src="../audio/3.wav"></audio>3
       </div>
-      <div
-        id="board"
-        class="count123"
-   
-        onclick="document.getElementById('4').play()"
-      >
+      <div class="count123" onclick="document.getElementById('4').play()">
         <audio id="4" src="../audio/4.wav"></audio>4
       </div>
-      <div
-        id="board"
-        class="count123"
-      
-        onclick="document.getElementById('5').play()"
-      >
+      <div class="count123" onclick="document.getElementById('5').play()">
         <audio id="5" src="../audio/5.wav"></audio>5
       </div>
-      <div
-        id="board"
-        class="count123"
-     
-        onclick="document.getElementById('6').play()"
-      >
+      <div class="count123" onclick="document.getElementById('6').play()">
         <audio id="6" src="../audio/6.wav"></audio>6
       </div>
             <div
@@ -1020,6 +882,24 @@
      
     </div>
 
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+  <script>
+    // Remove duplicate id attributes from numeric tiles to keep DOM valid
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.count123').forEach(el => el.removeAttribute('id'));
+    });
+  </script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

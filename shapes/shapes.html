@@ -4,104 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shapes</title>
-    <link rel="stylesheet" href="../style.css">
-    <style>
-         *{
-            
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 30px;
-            font-weight: bolder;
-           
-        }
-         body {
-           margin: 0;
-           padding: 0;
-        }
-
-        #shapes-container {
-
-            margin: 0 auto;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-        
-        }
-
-
-
-        img {
-            width:200px;
-          height:200px;
-            background-color: rgb(221, 255, 255);
-            margin: 2px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            border-style: double;
-        }
-
-        #questions {
-      justify-self: center;
-      margin: 0 auto;
-      width:100%;
-    background-color: lightgoldenrodyellow;
-      color: #0a0400;
-      
-      text-align: center;
-      box-shadow: #0703c7 0px 0px 20px;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-
-    #message {
-        margin: 0 auto;
-      position: relative;
-      width: 150px;
-      
-     
-     text-align: center;
-      background-color: rgb(13, 250, 179);
-      justify-content: center;
-      margin-bottom: 20px;
-      
-    }
-      
-
-    button:hover {
-      background-color: #c0f09f;
-    }
-    #linkto {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-            margin: 0 auto;
-            background-color: #53add6;
-            border-radius: 5px;
-            width: 50%;
-            justify-self: center;
-        }
-        #questiondiv {
-            margin: 5px;
-            margin: 0 auto;
-            width: 100%;
-
-            font-size: 1.5em;
-            color: #0a0400;
-            background-color: rgb(210, 223, 250);
-            text-align: center;
-            box-shadow: #0703c7 0px 0px 20px;
-            border-radius: 5px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="../responsive.css">
+    
 </head>
 
-<body>
+<body data-page="shapes/shapes.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     <a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
     
-    <hr style="height: 10px; background-color: #5e3737;"/>
+    <hr class="section-rule" />
    
    
     <div id="questiondiv"></div>
@@ -273,7 +189,19 @@ function playSound(isCorrect) {
 }
      
 </script>
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 
 </html>
 

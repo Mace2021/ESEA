@@ -4,84 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=C, initial-scale=1.0">
     <title>Civics</title>
-<link rel="stylesheet" href="../style.css">
-<style>
-   *{
-            font: 3em;
-            font-size: x-large;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-    body{
-      font-family: 'Itim', cursive;
-    
-        background-color: #f2f2f2;
-        margin: 0;
-        padding: 0;
-        opacity: .9px;
-        box-sizing: border-box;
-       
-    }
-    #civic-board{
-width: 100%;
-box-sizing: border-box;
-    }
-    #thebranches{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin: 0 auto;
-      
-    }
-     .branch {
-            align-items: center;
-            text-align: center;
-            width: 100%;
-            flex-direction: column;
-            background-color: #fafffb;
-            opacity: 0.7;
-            margin: 10px;
-        }
-        #theconstitution{
-  width: 70%;
-  background-color: #fafffb;
-  justify-items: center;
-  margin: 0 auto;
-}
-.embed iframe {
-  width: 100%;
+<link rel="stylesheet" href="../responsive.css">
 
-  border: none;
-  font: 1em s;
-}
-
-p, h3, h1, h2, h4, h5, h6 {
-  font: 1em s;
-}
-
-
-   
-        img{
-          width: 100%;
-          
-        }
-</style>
 </head>
-<body>
-    <a  href="../index.html"
-    style="
-      background-color: #0563c1;
-      font: 1em sans-serif;
-      font-weight: bolder;
-      border-radius: 5px;
-      color: burlywood;
-    "
+<body data-page="civics/civic.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <a  href="../index.html" class="back-button"
     >CIVICS</a
   >
   <hr>
   <div id="civic-board">
-    <h5 style="width: 100%; background-color: ivory;"><img src="./images/usaflag.jpg" style="width: 25px;"> The government of the United States<img src="./images/usaflag.jpg" style="width: 25px;"> </h5>
+    <h5 style="width: 100%; background-color: ivory;"><img src="./images/usaflag.jpg" class="img-25"> The government of the United States<img src="./images/usaflag.jpg" class="img-25"> </h5>
     <p style="background-color:snow;">The United States is a <em><strong>Constitution Repulic</strong> </em>with three branches of government; The executive, The judiciary, The legislature.</p>
     <div id="thebranches">
         <div class="branch">
@@ -105,7 +43,7 @@ p, h3, h1, h2, h4, h5, h6 {
     </div>
     <div id="mapofusa">
         <h4>Map of the United States</h4>
-        <embed src="./images/us-state-capitals.png" style="width: 100%; height:100%; justify-self: center"></embed>
+        <embed src="./images/us-state-capitals.png" class="embed-responsive"></embed>
     
     </div>
     <div id="theconstitution">
@@ -149,130 +87,30 @@ p, h3, h1, h2, h4, h5, h6 {
         <meta property="article:modified_time" content="2023-08-14T07:28:22-04:00" />
           <title>The Constitution of the United States: A Transcription | National Archives</title>
         
-          <style>
-        @import url("https://www.archives.gov/modules/system/system.base.css?sb4qg3");
-        </style>
-        <style>
-        @import url("https://www.archives.gov/sites/all/modules/custom/archives_ui/css/font-awesome.min.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/archives_ui/css/helptext.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/archives_ui/css/ckeditor_custom.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/argentina/css/argentina_style.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/contrib/calendar/css/calendar_multiday.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/contrib/date/date_repeat_field/date_repeat_field.css?sb4qg3");
-        @import url("https://www.archives.gov/modules/field/theme/field.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/findingaid_stat/css/findingaid.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/findingaid_stat/css/explorer_landing.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/nara_catalog/css/nara-api-style.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/nara_document_app/css/documentapp.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/archive_features/nara_timeline/css/custom.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/archive_features/nara_timeline/css/timeline.css?sb4qg3");
-        @import url("https://www.archives.gov/modules/node/node.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/contrib/user_alert/css/user-alert.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/custom/varnish_purge/css/varnishpurge.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/contrib/views/css/views.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/modules/contrib/ckeditor/css/ckeditor.css?sb4qg3");
-        </style>
-        <style>
-        @import url("https://www.archives.gov/sites/all/modules/contrib/ctools/css/ctools.css?sb4qg3");
-        </style>
-        <style>.section-theme #title-bar{background:#4f240e url("https://www.archives.gov/files/global-images/section-headers/founding-docs.png") no-repeat center right;}.section-theme #mega-footer > h2{background:#4f240e}.section-theme #title-bar .breadcrumb{background-color:#73391D;}.section-theme th{background-color:#4f240e !important;}
-        </style>
-        <style>
-        @import url("https://www.archives.gov/sites/all/modules/custom/nara_custom/css/nara_custom.css?sb4qg3");
-        </style>
-        <style>
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/jquery.fancybox.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/jquery.fancybox-thumbs.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/bootstrap.min.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/styles.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/vertical-tabs.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/overrides.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/mediagallery.css?sb4qg3");
-        @import url("https://www.archives.gov/sites/all/themes/nara/css/dataTables.bootstrap.min.css?sb4qg3");
-        </style>
+          
+        
+        
+        
+        
+        
           <!-- HTML5 element support for IE6-8 -->
           <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
           <![endif]-->
-          <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic|Merriweather">
+          <link rel="stylesheet" href="../responsive.css">
           <script src="https://www.archives.gov/files/js/js_XexEZhbTmj1BHeajKr2rPfyR8Y68f4rm0Nv3Vj5_dSI.js"></script>
         <script src="https://www.archives.gov/files/js/js_8v5UhyfTsGnntEOcsJ72RAGLktVqSGruBruLTvltanI.js"></script>
         <script src="https://www.archives.gov/files/js/js_EUB5lwPdXEaablkAcJ6ZewrxRWr6O2ngeo4biKP9lGE.js"></script>
         <script src="https://www.archives.gov/files/js/js_9r2S3ue_2gK7YiBb98m9cUqR6JTaJs3UtpFCbfWzwkU.js"></script>
         <script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","setHasJsCookie":0,"ajaxPageState":{"theme":"nara","theme_token":"IxYy_GwW2ygrX13vlucEs70qbulV64xC8uXp5vQ58xc","js":{"sites\/all\/themes\/bootstrap\/js\/bootstrap.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery\/1.7\/jquery.min.js":1,"misc\/jquery-extend-3.4.0.js":1,"misc\/jquery-html-prefilter-3.5.0-backport.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/custom\/archives_ui\/scripts\/helptext.js":1,"sites\/all\/modules\/custom\/argentina\/js\/script.js":1,"sites\/all\/modules\/custom\/findingaid_stat\/js\/script.js":1,"sites\/all\/modules\/custom\/nara_catalog\/js\/script.js":1,"sites\/all\/modules\/custom\/nara_document_app\/js\/script.js":1,"sites\/all\/modules\/contrib\/user_alert\/js\/user-alert.js":1,"sites\/all\/modules\/custom\/nara_custom\/js\/nara_custom.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/affix.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/alert.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/button.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/carousel.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/collapse.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/dropdown.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/modal.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/tooltip.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/popover.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/scrollspy.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/tab.js":1,"sites\/all\/themes\/nara\/assets\/javascripts\/bootstrap\/transition.js":1,"sites\/all\/themes\/nara\/scripts\/jPanelMenu.js":1,"sites\/all\/themes\/nara\/scripts\/jRespond.js":1,"sites\/all\/themes\/nara\/scripts\/matchHeight.min.js":1,"sites\/all\/themes\/nara\/scripts\/jquery.fancybox.pack.js":1,"sites\/all\/themes\/nara\/scripts\/toc.js":1,"sites\/all\/themes\/nara\/scripts\/jquery.dataTables.min.js":1,"sites\/all\/themes\/nara\/scripts\/dataTables.bootstrap.min.js":1,"sites\/all\/themes\/nara\/scripts\/scripts.js":1,"sites\/all\/themes\/nara\/scripts\/jquery.scrollTo.js":1,"sites\/all\/themes\/nara\/scripts\/mediagallery.js":1},"css":{"modules\/system\/system.base.css":1,"sites\/all\/modules\/custom\/archives_ui\/css\/font-awesome.min.css":1,"sites\/all\/modules\/custom\/archives_ui\/css\/helptext.css":1,"sites\/all\/modules\/custom\/archives_ui\/css\/ckeditor_custom.css":1,"sites\/all\/modules\/custom\/argentina\/css\/argentina_style.css":1,"sites\/all\/modules\/contrib\/calendar\/css\/calendar_multiday.css":1,"sites\/all\/modules\/contrib\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/custom\/findingaid_stat\/css\/findingaid.css":1,"sites\/all\/modules\/custom\/findingaid_stat\/css\/explorer_landing.css":1,"sites\/all\/modules\/custom\/liaisons\/css\/liaisons_style.css":1,"sites\/all\/modules\/custom\/nara_catalog\/css\/nara-api-style.css":1,"sites\/all\/modules\/custom\/nara_document_app\/css\/documentapp.css":1,"sites\/all\/modules\/archive_features\/nara_timeline\/css\/custom.css":1,"sites\/all\/modules\/archive_features\/nara_timeline\/css\/timeline.css":1,"modules\/node\/node.css":1,"sites\/all\/modules\/contrib\/user_alert\/css\/user-alert.css":1,"sites\/all\/modules\/custom\/varnish_purge\/css\/varnishpurge.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/all\/modules\/contrib\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"0":1,"sites\/all\/modules\/custom\/nara_custom\/css\/nara_custom.css":1,"sites\/all\/themes\/nara\/css\/jquery.fancybox.css":1,"sites\/all\/themes\/nara\/css\/jquery.fancybox-thumbs.css":1,"sites\/all\/themes\/nara\/css\/do_not_edit.css":1,"sites\/all\/themes\/nara\/css\/bootstrap.min.css":1,"sites\/all\/themes\/nara\/css\/styles.css":1,"sites\/all\/themes\/nara\/css\/vertical-tabs.css":1,"sites\/all\/themes\/nara\/css\/overrides.css":1,"sites\/all\/themes\/nara\/css\/mediagallery.css":1,"sites\/all\/themes\/nara\/css\/dataTables.bootstrap.min.css":1}},"archives_ui":{"trustedDomains":["twitter\\.com","youtube\\.com","youtu\\.be","recordsofrights\\.org","presidentialtimeline\\.org","nationalarchivesstore\\.org","bush41\\.org","nara\\.learn\\.com","bush41\\.org","bushlibrary\\.tamu\\.edu","fdrlibrary\\.marist\\.edu","georgewbushlibrary\\.smu\\.edu","lbjlibrary\\.org","trumanlibrary\\.org","fdrlibrary\\.org","archivesfoundation\\.org","jfklibrary\\.org","Myarchivesstore\\.org","docsteach\\.org","digitalvaults\\.org","jfk50\\.org","reagan\\.utexas\\.edu","clinton\\.presidentiallibraries\\.us","fdrlibrary\\.org","us11\\.campaign-archive.?\\.com","lbjlibrary\\.net","github\\.io","github\\.com","eventbrite\\.com","facebook\\.com","pinterest\\.com","tumblr\\.com","google\\.com","historypin\\.org","giphy\\.com","instagram\\.com","flickr\\.com","foursquare\\.com","addthis\\.com","apple\\.com","georgebushfoundation\\.org","clintonpresidentialcenter\\.org","geraldrfordfoundation\\.org","reaganfoundation\\.org","rooseveltinstitute\\.org","socialarchive\\.iath\\.virginia.edu","s3\\.amazonaws\\.com","surveymonkey\\.com","storify\\.com","constantcontact\\.com","snaccooperative\\.org"]},"user_alert":{"url_prefix":"","current_path":"founding-docs\/constitution-transcript"},"bootstrap":{"anchorsFix":1,"anchorsSmoothScrolling":1,"formHasError":1,"popoverEnabled":1,"popoverOptions":{"animation":1,"html":0,"placement":"right","selector":"","trigger":"click","triggerAutoclose":1,"title":"","content":"","delay":0,"container":"body"},"tooltipEnabled":1,"tooltipOptions":{"animation":1,"html":0,"placement":"bottom","selector":"","trigger":"hover focus","delay":0,"container":"body"}}});</script>
           
-          <style type="text/css">
-        div.form-item-body-und-0-format {
-          display:none;
-        }
-        div.form-item-field-col-b-und-0-format {
-          display:none;
-        }
-        div.filter-guidelines {
-          display:none;
-        }
-        div.filter-help {
-          display:none;
-        }
-        </style>
-        <style type="text/css">
-        ul.nav-tabs {
-        display:none;
-        }
-        #block-workbench-block {
-        display:none;
-        }
-        p, h3, h1, h2, h4, h5, h6 {
-  font: 1em s;
-}
-        </style>
+          
+        
         
         <script type="text/javascript" src="/includes/javascript/sortable/tablesort.js"></script>
         <script type="text/javascript" src="/includes/javascript/sortable/customsort.js"></script>
         <script type="text/javascript" src="/includes/javascript/sortable/sortable.css"></script>
-        <style type="text/css">
-        th .sortable a.sort-active {
-        color:#ffffff;
-        }
-        table.sortable th.sortable a.active {
-        color:#ffffff;
-        }
-        table.sortable th.sortable a {
-        color:#ffffff;
-        }
-        table.sortable th a.sortheader {
-        color:#ffffff;
-        }
         
-        
-        /* visited link */
-        table.sortable th.sortable a:visited {
-            color: #ffffff;
-        }
-        
-        /* mouse over link */
-        table.sortable th.sortable a:hover {
-            color: #ffffff;
-        }
-        
-        /* selected link */
-        table.sortable th.sortable a:active {
-            color: #ffffff;
-        }
-        .section-theme th a {
-        color:#ffffff;
-        }
-        
-        table.sortable  tr:nth-of-type(odd) {
-              background-color:#F5F5F5;
-        }
-        table.sortable-onload-1  tr:nth-of-type(odd) {
-              background-color:#F5F5F5;
-         }
-        table.sortable-onload-0  tr:nth-of-type(odd) {
-              background-color:#F5F5F5;
-         }
-        </style>
         </head>
         <body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-39633 node-type-3-col-page " >
         <!-- Google Tag Manager (noscript) -->
@@ -1279,11 +1117,35 @@ p, h3, h1, h2, h4, h5, h6 {
         }());
         </script>
         </div> <!-- end -->
-          <script src="../lesson-support.js"></script>`n</body>
+          <script src="../lesson-support.js"></script>`n
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
         </html>
     </embed>
   </div>
   </div>
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

@@ -7,66 +7,17 @@
     <meta name="theme-color" content="#667eea">
     
     <title>Weather & Seasons - ESEA</title>
-    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="../responsive.css">
     
-    <style>
-        .weather-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        .weather-card {
-            padding: 30px 20px;
-            text-align: center;
-            border-radius: 15px;
-            border: 4px solid white;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 10px;
-            color: white;
-        }
-
-        .weather-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .weather-name {
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
-
-        .weather-emoji {
-            font-size: 3rem;
-        }
-
-        @media (min-width: 480px) {
-            .weather-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .weather-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .weather-card {
-                min-height: 160px;
-            }
-        }
-    </style>
+    
 </head>
-<body>
+<body data-page="weather/weather.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     <div class="page-wrapper">
         <!-- Header -->
         <header role="banner">
@@ -81,7 +32,7 @@
 
         <!-- Main Content -->
         <div class="container page-content">
-            <a href="index.html" class="back-button">← Back to Home</a>
+    
 
             <h2>Weather Types</h2>
             <p>Click on each to learn about different weather!</p>
@@ -124,7 +75,7 @@
                 </div>
             </div>
 
-            <h2 style="margin-top: 50px;">Seasons</h2>
+            <h2 class="section-title">Seasons</h2>
             <p>Click on each season to learn about it!</p>
 
             <div class="weather-grid">
@@ -153,10 +104,10 @@
                 </div>
             </div>
 
-            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+            <div class="info-panel">
                 <h3>🎉 Excellent Work!</h3>
                 <p>You've learned about weather and seasons! Nature is amazing!</p>
-                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Home</a>
+                
             </div>
         </div>
 
@@ -185,6 +136,18 @@
             });
         });
         </script>
-    </body>
+    
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

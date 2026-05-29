@@ -7,67 +7,17 @@
     <meta name="theme-color" content="#667eea">
     
     <title>Learn Emotions - ESEA</title>
-    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="../responsive.css">
     
-    <style>
-        .emotion-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        .emotion-card {
-            padding: 40px 20px;
-            text-align: center;
-            border-radius: 15px;
-            border: 4px solid #333;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .emotion-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .emotion-name {
-            font-size: 1.3rem;
-            margin-top: 10px;
-        }
-
-        .emotion-emoji {
-            font-size: 3rem;
-        }
-
-        @media (min-width: 480px) {
-            .emotion-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .emotion-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .emotion-card {
-                min-height: 150px;
-            }
-        }
-    </style>
+    
 </head>
-<body>
+<body data-page="emotions/emotions.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     <div class="page-wrapper">
         <!-- Header -->
         <header role="banner">
@@ -137,10 +87,10 @@
                 </div>
             </div>
 
-            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+            <div class="info-panel">
                 <h3>🎉 Wonderful Job Learning Emotions!</h3>
                 <p>It's great to understand your feelings! They're all normal and important.</p>
-                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Home</a>
+                <a href="index.html" class="back-button">← Back to Home</a>
             </div>
         </div>
 
@@ -152,6 +102,18 @@
     </div>
 
     <script src="app.js"></script>
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

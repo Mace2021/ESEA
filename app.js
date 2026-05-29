@@ -299,6 +299,60 @@ const SpeedBonus = {
   }
 };
 
+const PageNavigator = {
+  pages: [
+    'index.html',
+    'abc/abc.html', 'abc/abcpic.html', 'abc/picktheletter.html', 'abc/pickthepic.html', 'abc/pickaword.html', 'abc/ranABC.html', 'abc/Spellingword.html', 'abc/filltheletter.html', 'abc/dictionary.html', 'abc/kiddictionary.html', 'abc/calendar.html',
+    '123/123.html', '123/pickthenum.html', '123/randnum.html', '123/ran1-10.html',
+    'arithmetic/Arithmetic.html', 'arithmetic/math.html', 'arithmetic/howmanyapple.html',
+    'color/colors.html',
+    'shapes/shapes.html', 'shapes/whatshape.html',
+    'games/catchme.html', 'games/rps.html', 'games/tictactoe.html', 'games/shapes.html', 'games/whatshape.html',
+    'puzzles/puzzles.html', 'puzzles/gamification.html',
+    'science/bio.html', 'science/chem.html', 'science/compute.html',
+    'civics/civic.html', 'civics/Civicsques.html', 'civics/CivicsGame.html',
+    'weather/weather.html',
+    'tv/tv.html', 'tv/storytime.html',
+    'books/lego.html'
+  ],
+
+  init() {
+    document.addEventListener('DOMContentLoaded', () => this.renderNav());
+  },
+
+  renderNav() {
+    const pageId = document.body.dataset.page;
+    if (!pageId) return;
+    const currentIndex = this.pages.indexOf(pageId);
+    if (currentIndex === -1) return;
+    const prevPage = this.pages[(currentIndex - 1 + this.pages.length) % this.pages.length];
+    const nextPage = this.pages[(currentIndex + 1) % this.pages.length];
+    const currentParts = pageId.split('/');
+    const currentFolder = currentParts.length > 1 ? currentParts[0] : '';
+
+    const resolvePath = target => {
+      const targetParts = target.split('/');
+      if (targetParts.length === 1) {
+        return currentFolder ? `../${target}` : target;
+      }
+      if (currentFolder && targetParts[0] === currentFolder) {
+        return targetParts.slice(1).join('/');
+      }
+      return currentFolder ? `../${target}` : target;
+    };
+
+    const homePath = resolvePath('index.html');
+    const prevPath = resolvePath(prevPage);
+    const nextPath = resolvePath(nextPage);
+
+    document.querySelectorAll('.page-nav .nav-prev').forEach(link => link.setAttribute('href', prevPath));
+    document.querySelectorAll('.page-nav .nav-next').forEach(link => link.setAttribute('href', nextPath));
+    document.querySelectorAll('.page-nav .nav-home').forEach(link => link.setAttribute('href', homePath));
+  }
+};
+
+PageNavigator.init();
+
 // Initialize learning progress tracking
 LearningProgress.init();
 

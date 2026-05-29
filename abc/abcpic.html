@@ -4,55 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A For Apple</title>
-    <link rel="stylesheet" href="../style.css">
-    <style>
-       *{
-          
-          
-            font-weight: bolder;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 20px;
-        }
-      body{
+    <link rel="stylesheet" href="../responsive.css">
     
-            text-align: center;
-      }
-      #picboards{
-        display: block;
-color: #ebebd3;
-margin: 5px;
-text-align: center;
-
-      }
-      
-      img{
-        width: 160px;
-        border-radius: 5px;
-      }
-      .abcpic{
-        width: 160px;
-  display:block;
-  flex-wrap: wrap;
-  background-color: rgb(0, 0, 0);
-
-}
-.abcpic:hover{
-  cursor: pointer;
-}
-    </style>
 </head>
-  <body>
+  <body data-page="abc/abcpic.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     <a
-      href="../index.html"
-      style="
-        background-color: rgb(253, 97, 6);
-      
-        border-radius: 10px;
-      "
+      href="../index.html" class="back-button"
       >A For Apple</a
     >
     <div href="index.html" style="background-color: rgb(221, 248, 194);  border-radius: 10px;">Click on each block to Learn</div>
-    <hr style="height: 1px; background-color: #f52e2e;"/>
+    <hr class="section-rule" />
     <div id="board-container">
       <div
         id="picboards"
@@ -63,7 +30,7 @@ text-align: center;
         <img
           src="../images/apple.png"
           alt="Apple"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="A" src="../audio/a.mp3"></audio>
@@ -79,7 +46,7 @@ text-align: center;
         <img
           src="../images/Ball.png"
           alt="Ball"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="B" src="../audio/b.mp3"></audio>
@@ -94,7 +61,7 @@ text-align: center;
         <img
           src="../images/Clock.png"
           alt="Clock"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="C" src="../audio/c.mp3"></audio>
@@ -109,7 +76,7 @@ text-align: center;
         <img
           src="../images/Donkey.png"
           alt="Donkey"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="D" src="../audio/d.mp3"></audio>
@@ -124,7 +91,7 @@ text-align: center;
         <img
           src="../images/elephant.png"
           alt="elephant"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="E" src="../audio/e.mp3"></audio>
@@ -139,7 +106,7 @@ text-align: center;
         <img
           src="../images/Frog.png"
           alt="Frog"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="F" src="../audio/F for Frog.mp3"></audio>
@@ -154,7 +121,7 @@ text-align: center;
         <img
           src="../images/Goat.png"
           alt="Goat"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="G" src="../audio/G for Goat.mp3"></audio>
@@ -169,7 +136,7 @@ text-align: center;
         <img
           src="../images/Home.png"
           alt="Home"
-          style="box-sizing: border-box"
+         
         />
 
         <audio id="H" src="../audio/Home.mp3"></audio>
@@ -184,7 +151,7 @@ text-align: center;
       <img
         src="../images/Ice-Cream.png"
         alt="Ice-Cream"
-        style="box-sizing: border-box"
+       
       />
 
       <audio id="I" src="../audio/I for Ice cream.mp3"></audio>
@@ -199,7 +166,7 @@ text-align: center;
     <img
       src="../images/Justice.png"
       alt="Lady Justice"
-      style="box-sizing: border-box"
+     
     />
 
     <audio id="J" src="../audio/j.mp3"></audio>
@@ -214,7 +181,7 @@ text-align: center;
   <img
     src="../images/Kangaroo.png"
     alt="Kangaroo"
-    style="box-sizing: border-box"
+   
   />
 
   <audio id="K" src="../audio/k.mp3"></audio>
@@ -229,7 +196,7 @@ onclick="document.getElementById('L').play()"
 <img
   src="../images/Lock.png"
   alt="Lock"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="L" src="../audio/L for Lock.mp3"></audio>
@@ -244,7 +211,7 @@ onclick="document.getElementById('M').play()"
 <img
   src="../images/Monkey.png"
   alt="Monkey"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="M" src="../audio/m.mp3"></audio>
@@ -259,7 +226,7 @@ onclick="document.getElementById('N').play()"
 <img
   src="../images/Nun.png"
   alt="Nun"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="N" src="../audio/N for Nun.mp3"></audio>
@@ -274,7 +241,7 @@ onclick="document.getElementById('O').play()"
 <img
   src="../images/Orange.png"
   alt="Orange"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="O" src="../audio/O for Orange.mp3"></audio>
@@ -289,7 +256,7 @@ onclick="document.getElementById('P').play()"
 <img
   src="../images/Pillow.png"
   alt="Pillow"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="P" src="../audio/p.mp3"></audio>
@@ -304,7 +271,7 @@ onclick="document.getElementById('Q').play()"
 <img
   src="../images/Queen.png"
   alt="Queen"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="Q" src="../audio/Q for Queen.mp3"></audio>
@@ -319,7 +286,7 @@ onclick="document.getElementById('R').play()"
 <img
   src="../images/Rabbit.png"
   alt="Rabbit"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="R" src="../audio/r.mp3"></audio>
@@ -334,7 +301,7 @@ onclick="document.getElementById('S').play()"
 <img
   src="../images/Superman.png"
   alt="Superman"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="S" src="../audio/s.mp3"></audio>
@@ -349,7 +316,7 @@ onclick="document.getElementById('T').play()"
 <img
   src="../images/Telephone.png"
   alt="Telephone"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="T" src="../audio/t.mp3"></audio>
@@ -364,7 +331,7 @@ onclick="document.getElementById('U').play()"
 <img
   src="../images/Umbrella.jpg"
   alt="Umbrella"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="U" src="../audio/U for Umbrella.mp3"></audio>
@@ -379,7 +346,7 @@ onclick="document.getElementById('V').play()"
 <img
   src="../images/Vacuum.png"
   alt="Vacuum"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="V" src="../audio/V for Vacuum.mp3"></audio>
@@ -394,7 +361,7 @@ onclick="document.getElementById('W').play()"
 <img
   src="../images/Windown.png"
   alt="Window"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="W" src="../audio/W for Window.mp3"></audio>
@@ -409,7 +376,7 @@ onclick="document.getElementById('X').play()"
 <img
   src="../images/x-ray.png"
   alt="XRay"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="X" src="../audio/X for XRay.mp3"></audio>
@@ -424,7 +391,7 @@ onclick="document.getElementById('Y').play()"
 <img
   src="../images/Yam.png"
   alt="Yam"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="Y" src="../audio/Y for Yam.mp3"></audio>
@@ -439,13 +406,25 @@ onclick="document.getElementById('Z').play()"
 <img
   src="../images/Zebra.png"
   alt="Zebra"
-  style="box-sizing: border-box"
+ 
 />
 
 <audio id="Z" src="../audio/z.mp3"></audio>
 Z For Zebra
 </div>
     </div>
-    <script src="../lesson-support.js"></script>`n</body>
+    <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

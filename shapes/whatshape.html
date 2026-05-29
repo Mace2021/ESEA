@@ -4,119 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>What Shapes is this</title>
-    <link rel="stylesheet" href="../style.css">
-    <style>
-         *{
-            
-            font-size: x-large;
-           font-weight: bolder;
-           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-         body {
-          margin: 0;
-          padding: 0;
-        }
-
-        #shapes-container {
-
-            margin: 0 auto;
-          width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-
-
-        img {
-            width: 90px;
-            height: 90px;
-            box-shadow: 0px 3px 25px 0px rgba(0,0,0,0.17);
-        background-color: darkgrey;
-        border-style: double;
-        }
-        #questions {
-      justify-self: center;
-      margin: 0 auto;
-      width: 390px;
-      color: #0a0400;
-      background-color: lightgoldenrodyellow;
-      text-align: center;
-      box-shadow: #0703c7 0px 0px 20px;
-      border-radius: 5px;
-    }
-
-    #message {
-        margin: 0 auto;
-      position: relative;
-      width: 180px;;
+    <link rel="stylesheet" href="../responsive.css">
     
-     text-align: center;
-      background-color: rgb(13, 250, 179);
-      justify-content: center;
-      margin-bottom: 20px;
-      border-radius: 5px;
-    }
-    
-
-   
-    #linkto {
-           
-            text-align: center;
-            margin: 0 auto;
-            background-color: #eee6c2;
-            border-radius: 5px;
-            width:400px;
-            justify-self: center;
-        }
-        #shapes {
-            margin: 5px;
-            margin: 0 auto;
-            width:200px;
-            color: #0a0400;
-            background-color: rgb(210, 223, 250);
-            text-align: center;
-            box-shadow: #0703c7 0px 0px 20px;
-            border-radius: 5px;
-        }
-.shape {
-    width: 400px;
-    height: 80px;
-font-size: 2em ;
-    display: flex;
-    background-image: linear-gradient(to right, #f7f7de, #ebe5cf);
-    margin: 5px;
-    justify-content: center;
-  
-    border: rgb(231, 129, 4);
-    border-radius: 5px;
-    border-style: double;
-    box-shadow: 0px 0px 15px  rgb(10, 121, 0);
-    
-}
-#questiondiv{
-    margin: 5px;
-            margin: 0 auto;
-            width: 400px;
-
-         
-            color: #0a0400;
-            background-color: rgb(191, 255, 182);
-            text-align: center;
-            box-shadow: #0703c7 0px 0px 20px;
-            border-radius: 5px;
-}
-
-
-    </style>
 </head>
 
-<body>
+<body data-page="shapes/whatshape.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     <a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
     
-    <hr style="height: 2px; background-color: #5e3737;"/>
+    <hr class="section-rule" />
    
    
     <div id="questiondiv"></div>
@@ -309,7 +210,19 @@ function playSound(isCorrect) {
 
    
 </script>
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 
 </html>
 

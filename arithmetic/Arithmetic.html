@@ -4,215 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arithmetic</title>
-    <link rel="stylesheet" href="../style.css">
-  <style>
+    <link rel="stylesheet" href="../responsive.css">
   
-
-*{
-          
-            font-weight: bolder;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 35px;
-        }
-
-    body {
-     margin: 0;
-     padding: 0;
-    }
-
-    #board-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-
-    }
-
-    #mathboard {
-  display: block;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 10px; /* Adjust the gap between columns */
-  width: 240px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#numerator,
-#operator,
-#denominator{
-  display: flex;
-  align-items: center;
-}
-
-#numerator input,
-#operator input,
-#denominator {
-  flex: 1;
- 
-  margin: 1px;
-  border: 2px solid #068cad;
-  border-radius: 3px;
-  box-sizing: border-box;
-  width: calc(10% - 1px); /* Adjust the input width */
-}
-
-    button {
-      width: auto;
-      background-color: #9cffd9;
-
-      color: #0a0400;
-     
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-     
-    }
-
-    button:hover {
-      background-color: #c0f09f;
-    }
-
-    .letters {
-      border: 4px solid rgb(34, 1, 1);
-              border: 4px solid rgb(34, 1, 1);
-              border-style: double;
-              width: 100px;
-              height: auto;
-              padding: 10px;
-
-              background-image: linear-gradient(to right, rgb(85, 133, 136), rgb(72, 230, 195));
-              color: rgb(34, 1, 1);
-              border-radius: 10px;
-              cursor: pointer;
-              margin: 10px;
-              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
-              transition: all 0.3s ease;
-              font-size: 1em;
-              font-weight: bolder;
-              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-              justify-content: center;
-            
-
-    }
-
-    .letters:hover {
-      background-color: #2cfc60;
-    }
-
-
-    #question{
-      justify-self: center;
-      margin: 0 auto;
-      width: 400px; 
-      color: #0a0400;
-      background-color: lightgoldenrodyellow;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    #questions {
-      justify-self: center;
-      margin: 0 auto;
-      width: 400px;
-      
-   
-      color: #0a0400;
-      background-color: lightgoldenrodyellow;
-      text-align: center;
-    }
-    #message {
-      position: relative;
-      width: 100%;
-      color: #0a0400;
-      background-color: lightgoldenrodyellow;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    #tablenum {
-      width: 90%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      
-    }
-
-
-    img {
-      width: 50px;
-      height: 50px;
-   
-      /* Replace 'apple.png' with your apple image file */
-      background-size: contain;
-      margin: 2px;
-
-    }
-#qoperators{
-  
-  color: rgb(241, 34, 7);
-}
-    #explanation {
-      
-width:100%;
-      text-align: center;
-   
-      color: #02383a;
-     
-      background-color: #d8f3dc;
-      opacity: .9;
-    }
-
-    #num1Apples,
-    #num2Apples,
-    #resultApples,
-    #qoperators {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    
-      margin: 0 auto;
-      width: 60%;
-     
-    }
-
-    input {
-     width: 100px;
-     box-sizing: border-box;
-     border: 2px solid #0f0101;
-     border-radius: 4px;
-     color: #000000;
-     text-align: right;
-
-  
-     background-color: rgb(207, 199, 199);
-   }
-
-@media screen and (max-width: 600px) {
-  #explanation {
-  
-width:100%;
-      text-align: center;
-   
-      color: #02383a;
-  
-      background-color: rgb(223, 253, 220);
-      opacity: .9;
-    }
-
-      
-
-}
-
-
-  </style>
 
    
 </head>
-<body>
+<body data-page="arithmetic/Arithmetic.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     
-    <a href="../index.html" style="background-color: rgb(199, 253, 6); border-radius: 10px; box-shadow: 0px -4px 5px 2px  #474141;">Arithmetic </a>
+    <a href="../index.html" class="back-button">Arithmetic </a>
     
     <hr>
   
@@ -239,8 +44,8 @@ width:100%;
         
         </div>
         <button onclick="checkAnswer()">Check</button>
-        <button  onclick="clearAnswer()" style="background-color: brown; width: auto;">Clear</button>
-        <div id="message" style="font-weight: bolder;"></div>
+        <button  onclick="clearAnswer()" class="btn btn-danger">Clear</button>
+        <div id="message" class="strong-message"></div>
       </div>
     </div> 
    
@@ -422,6 +227,18 @@ speechSynthesis.speak(utterance);
 }
   </script>
 
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

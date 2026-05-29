@@ -7,161 +7,17 @@
     <meta name="theme-color" content="#667eea">
     
     <title>Gamification Dashboard - ESEA</title>
-    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="../responsive.css">
     
-    <style>
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 3px solid #667eea;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #667eea;
-            margin: 10px 0;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .level-indicator {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .level-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .badges-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .badge {
-            background: white;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 3px solid #ffd700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .badge:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .badge-locked {
-            opacity: 0.4;
-            filter: grayscale(100%);
-            border-color: #ccc;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: #e0e0e0;
-            border-radius: 15px;
-            overflow: hidden;
-            margin: 15px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            width: 0%;
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .module-stats {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 5px solid #667eea;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .module-name {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .module-points {
-            font-size: 1.5rem;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .reset-btn {
-            background: #f5576c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .reset-btn:hover {
-            background: #d93f52;
-            transform: scale(1.05);
-        }
-
-        @media (min-width: 480px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-    </style>
+    
 </head>
-<body>
+<body data-page="puzzles/gamification.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     <div class="page-wrapper">
         <!-- Header -->
         <header role="banner">
@@ -200,7 +56,7 @@
             <div class="level-indicator">
                 <div>🏆 Current Achievement Level</div>
                 <div class="level-name" id="levelName">Beginner</div>
-                <div style="margin-top: 10px; font-size: 0.9rem;">Keep learning to advance to the next level!</div>
+                <div >Keep learning to advance to the next level!</div>
             </div>
 
             <!-- Progress to Next Level -->
@@ -247,10 +103,10 @@
                 </p>
             </div>
 
-            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+            <div class="info-panel">
                 <h3>🎉 Keep Learning!</h3>
                 <p>Every lesson completed is a step towards becoming a learning champion!</p>
-                <a href="index.html" class="back-button" style="margin-top: 15px;" aria-label="Back to Learning">← Back to Learning</a>
+                <a href="index.html" class="back-button" aria-label="Back to Learning">← Back to Learning</a>
             </div>
         </div>
 
@@ -363,6 +219,18 @@
         // Update dashboard every second (to show real-time updates if another tab changes data)
         setInterval(updateDashboard, 1000);
     </script>
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 

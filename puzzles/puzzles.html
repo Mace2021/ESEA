@@ -7,98 +7,17 @@
     <meta name="theme-color" content="#667eea">
     
     <title>Puzzles - ESEA</title>
-    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="../responsive.css">
     
-    <style>
-        .puzzle-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        .puzzle-card {
-            padding: 30px 20px;
-            text-align: center;
-            border-radius: 15px;
-            border: 4px solid white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 10px;
-            color: white;
-        }
-
-        .puzzle-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .puzzle-name {
-            font-size: 1.1rem;
-            margin-top: 10px;
-        }
-
-        .puzzle-emoji {
-            font-size: 3rem;
-        }
-
-        .matching-area {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .match-item {
-            padding: 15px;
-            background: white;
-            border: 3px solid #667eea;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .match-item:hover {
-            background: #f0f0f0;
-            transform: scale(1.02);
-        }
-
-        @media (min-width: 480px) {
-            .puzzle-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .matching-area {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .puzzle-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .puzzle-card {
-                min-height: 160px;
-            }
-
-            .matching-area {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
+    
 </head>
-<body>
+<body data-page="puzzles/puzzles.html">
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
     <div class="page-wrapper">
         <!-- Header -->
         <header role="banner">
@@ -150,7 +69,7 @@
                 </button>
             </div>
 
-            <h2 style="margin-top: 50px;">Shape Matching Challenge</h2>
+            <h2 class="section-title">Shape Matching Challenge</h2>
             <p>Choose the correct shape answer. Each correct match earns points and helps unlock badges.</p>
 
             <div class="matching-area" id="matchingGame" role="application" aria-label="Shape matching challenge">
@@ -161,12 +80,12 @@
                 <button type="button" class="match-item" data-answer="star" aria-label="Star" style="background: #fff3e0; color: #e65100;">⭐ STAR</button>
             </div>
             <div id="matchFeedback" class="match-feedback" role="status" aria-live="polite" style="font-weight: bold; margin-top: 10px; min-height: 2rem; color: #333;"></div>
-            <button type="button" id="resetMatch" class="back-button" style="margin-top: 15px;">🔄 Try another shape</button>
+            <button type="button" id="resetMatch" class="back-button">🔄 Try another shape</button>
 
-            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+            <div class="info-panel">
                 <h3>🎉 Great Matching Skills!</h3>
                 <p>Keep practicing to become a puzzle expert!</p>
-                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Home</a>
+                <a href="index.html" class="back-button">← Back to Home</a>
             </div>
         </div>
 
@@ -232,6 +151,18 @@
             chooseChallenge();
         })();
     </script>
-  <script src="../lesson-support.js"></script>`n</body>
+  <script src="../lesson-support.js"></script>
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+
+    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+      <a href="#" class="nav-button nav-prev">← Previous</a>
+      <a href="#" class="nav-button nav-home">🏠 Home</a>
+      <a href="#" class="nav-button nav-next">Next →</a>
+    </nav>
+</body>
 </html>
 
