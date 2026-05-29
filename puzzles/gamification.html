@@ -32,7 +32,7 @@
 
         <!-- Main Content -->
         <div class="container page-content">
-            <a href="index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
+            <a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
 
             <!-- Quick Stats -->
             <div class="dashboard-grid" role="region" aria-label="Progress statistics">
@@ -60,17 +60,17 @@
             </div>
 
             <!-- Progress to Next Level -->
-            <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
-                <h3>Progress to Next Level</h3>
+            <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0; ">
+                <h3 style="color: #000;">Progress to Next Level</h3>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressToNextLevel" style="width: 0%;">0%</div>
                 </div>
-                <p id="progressText" style="text-align: center; color: #666;">0 / 100 points</p>
+                <p id="progressText" style="text-align: center; color: #090909;">0 / 100 points</p>
             </div>
 
             <!-- Badges & Achievements -->
             <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
-                <h3>🎖️ Badges & Achievements</h3>
+                <h3 style="color: #000;">🎖️ Badges & Achievements</h3>
                 <div class="badges-container" aria-label="Achievement badges">
                     <div class="badge badge-locked" role="img" aria-label="First Steps badge locked" data-badge-name="first-steps" data-badge-title="First Steps - Earn 50 points">
                         👣
@@ -90,15 +90,15 @@
 
             <!-- Module Statistics -->
             <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
-                <h3>📊 Module Statistics</h3>
-                <p id="moduleStatsEmpty" style="text-align: center; color: #999;">Start learning to see your stats!</p>
+                <h3 style="color: #000;">📊 Module Statistics</h3>
+                <p id="moduleStatsEmpty" style="text-align: center; color: #0c0c0c;">Start learning to see your stats!</p>
                 <div id="moduleStatsList"></div>
             </div>
 
             <!-- Action Buttons -->
             <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0; text-align: center;">
                 <button class="reset-btn" onclick="resetProgress()">🔄 Reset Progress</button>
-                <p style="font-size: 0.9rem; color: #999; margin-top: 10px;">
+                <p style="font-size: 0.9rem; color: #0f0e0e; margin-top: 10px;">
                     Click to reset all data (cannot be undone)
                 </p>
             </div>
@@ -106,7 +106,7 @@
             <div class="info-panel">
                 <h3>🎉 Keep Learning!</h3>
                 <p>Every lesson completed is a step towards becoming a learning champion!</p>
-                <a href="index.html" class="back-button" aria-label="Back to Learning">← Back to Learning</a>
+                <a href="../index.html" class="back-button" aria-label="Back to Learning">← Back to Learning</a>
             </div>
         </div>
 
@@ -220,17 +220,6 @@
         setInterval(updateDashboard, 1000);
     </script>
   <script src="../lesson-support.js"></script>
-    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
-    </nav>
-
-    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
-    </nav>
 </body>
 </html>
 

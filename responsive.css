@@ -72,6 +72,9 @@ html {
   font-size: var(--base-font-size);
   scroll-behavior: smooth;
 }
+h3 {
+  color: black;
+}
 
 body {
   font-family: var(--font-family);
@@ -106,6 +109,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  color:black;
 }
 
 .container,
@@ -596,6 +600,8 @@ h2 {
 
 h3 {
   font-size: clamp(1.3rem, 4vw, 2rem);
+  color:black;
+  
 }
 
 h4 {
@@ -743,6 +749,347 @@ p {
   border-top: 3px solid var(--primary);
   margin: var(--spacing-lg) 0;
   opacity: 0.5;
+}
+
+/* ==========================================
+   LEARNING MODULE SPECIFIC STYLES
+   ========================================== */
+
+/* ABC Picture Learning (abcpic.html, etc.) */
+.abcpic,
+.picboards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  border: 4px solid var(--white);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: var(--white);
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-weight: 900;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  min-height: 140px;
+  min-width: 100px;
+  aspect-ratio: 1;
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-shadow: var(--shadow-md);
+}
+
+.abcpic:hover,
+.picboards:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-lg);
+}
+
+.abcpic:active,
+.picboards:active {
+  transform: scale(0.95);
+}
+
+.abcpic img,
+.picboards img {
+  max-width: 100%;
+  max-height: 80px;
+  object-fit: contain;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Letter Buttons */
+.letters {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: var(--white);
+  border: 3px solid var(--white);
+  border-radius: var(--radius-md);
+  font-weight: 900;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+  margin: var(--spacing-sm);
+  text-align: center;
+}
+
+.letters:hover,
+.letters:focus {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+}
+
+.letters:active {
+  transform: scale(0.95);
+}
+
+/* Board Container with Grid Layout */
+#board-containers,
+#board-container,
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 1000px;
+  margin: var(--spacing-2xl) auto;
+  padding: 0 var(--spacing-md) var(--spacing-2xl);
+}
+
+#board,
+.board,
+.board-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Spelling Input Section */
+#spell-containing,
+.spell-section,
+.input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto var(--spacing-2xl);
+}
+
+#spell-containing input,
+.spellcell,
+#spellcell {
+  width: 100%;
+  max-width: 100px;
+  height: 50px;
+  padding: var(--spacing-md);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  border: 3px solid var(--primary);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: bold;
+  font-family: inherit;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+}
+
+#spell-containing input:focus,
+.spellcell:focus,
+#spellcell:focus {
+  outline: none;
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: #fffef5;
+}
+
+/* Message Display */
+#message,
+.message {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-weight: 900;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  text-align: center;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Weather Grid */
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 1000px;
+  margin: var(--spacing-2xl) auto;
+}
+
+/* Weather Cards */
+.weather-card,
+.weather-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  border: 4px solid var(--white);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  min-height: 140px;
+  aspect-ratio: 1;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  font-weight: 900;
+  color: var(--white);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.weather-card:hover,
+.weather-item:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-lg);
+}
+
+.weather-card:active,
+.weather-item:active {
+  transform: scale(0.95);
+}
+
+.weather-emoji {
+  font-size: clamp(2rem, 8vw, 3rem);
+  margin-bottom: var(--spacing-md);
+}
+
+.weather-name {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 900;
+}
+
+/* Dictionary and Content Pages */
+#container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+#present,
+.content-header {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+#present h2,
+.content-header h2 {
+  color: var(--primary-dark);
+  margin-top: 0;
+}
+
+/* Arithmetic and Math Problem Display */
+.problem,
+.math-problem,
+#questionpic {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, #FFD89B 0%, #19547B 100%);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-2xl);
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 900;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+#questionpic img {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+/* Options Grid for Multiple Choice */
+.options,
+.choices,
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 800px;
+  margin: var(--spacing-2xl) auto;
+}
+
+.option,
+.choice,
+.answer-button {
+  padding: clamp(var(--spacing-md), 3vw, var(--spacing-lg));
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 900;
+  border: 3px solid var(--white);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.option:hover,
+.choice:hover,
+.answer-button:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-lg);
+}
+
+.option:active,
+.choice:active,
+.answer-button:active {
+  transform: scale(0.95);
+}
+
+.option.correct {
+  background: linear-gradient(135deg, var(--success) 0%, var(--success-light) 100%);
+}
+
+.option.incorrect {
+  background: linear-gradient(135deg, var(--danger) 0%, #ff4444 100%);
+}
+
+/* #tableLetter - Letter Selector */
+#tableLetter,
+.letter-table,
+.letter-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: var(--spacing-sm);
+  width: 100%;
+  max-width: 600px;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ==========================================

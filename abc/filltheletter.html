@@ -3,184 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fill The missing letter</title>
+    <title>Fill The Missing Letter - ESEA</title>
     <link rel="stylesheet" href="../responsive.css">
-    
-
-
+</head>
 <body data-page="abc/filltheletter.html">
     <nav class="page-nav" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
+        <a href="#" class="nav-button nav-prev">← Previous</a>
+        <a href="#" class="nav-button nav-home">🏠 Home</a>
+        <a href="#" class="nav-button nav-next">Next →</a>
     </nav>
 
-<a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
+    <a href="../index.html" class="back-button">← Back to Learning</a>
 
-<hr class="section-rule" />
-    <div id="present"></div>
+    <div class="container page-content">
+        <header role="banner">
+            <h1>🔤 Fill the Missing Letter</h1>
+            <p>Complete the word by filling in the blank</p>
+        </header>
 
-    <div id="board-containers">
-
-        <div id="board">
-            <button onclick="checkSpelling()">Check</button>
-            <button onclick="clearLastLetter()" class="btn btn-danger">Clear</button>
-            <div id="message"></div>
+        <div id="present" class="problem" role="region" aria-live="polite">
+            Ready? Click Start!
         </div>
-        <div id="spell-contating">
-            
-            
-            <p id="spellcell"></p>
-               
-            <input id="spellcell">
-            <input id="spellcell">
-            <input id="spellcell">
-           
-            <input id="spellcell">
-            <input id="spellcell">
-            <input id="spellcell">
-           
-            <input id="spellcell">
-            <input id="spellcell">
-            <input id="spellcell">
-           
-            <input id="spellcell">
-            <input id="spellcell">
 
-
+        <div class="spell-section">
+            <label style="font-weight: bold; font-size: 1.1rem;">Fill in the missing letter:</label>
+            <div id="spell-containing" style="display: flex; flex-wrap: wrap; justify-content: center; gap: var(--spacing-md); padding: var(--spacing-lg); background: rgba(255, 255, 255, 0.95); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); margin: var(--spacing-lg) 0;">
             </div>
-        <div id="tableLetter">
-            <p onclick="addLetter('A')" class="letters">a</p>
-            <p onclick="addLetter('B')" class="letters">b</p>
-            <p onclick="addLetter('C')" class="letters">c</p>
-            <p onclick="addLetter('D')" class="letters">d</p>
-            <p onclick="addLetter('E')" class="letters">e</p>
-            <p onclick="addLetter('F')" class="letters">f</p>
-            <p onclick="addLetter('G')" class="letters">g</p>
-            <p onclick="addLetter('H')" class="letters">h</p>
-            <p onclick="addLetter('I')" class="letters">i</p>
-            <p onclick="addLetter('J')" class="letters">j</p>
-            <p onclick="addLetter('K')" class="letters">k</p>
-            <p onclick="addLetter('L')" class="letters">l</p>
-            <p onclick="addLetter('M')" class="letters">m</p>
-            <p onclick="addLetter('N')" class="letters">n</p>
-            <p onclick="addLetter('O')" class="letters">o</p>
-            <p onclick="addLetter('P')" class="letters">p</p>
-            <p onclick="addLetter('Q')" class="letters">q</p>
-            <p onclick="addLetter('R')" class="letters">r</p>
-            <p onclick="addLetter('S')" class="letters">s</p>
-            <p onclick="addLetter('T')" class="letters">t</p>
-            <p onclick="addLetter('U')" class="letters">u</p>
-            <p onclick="addLetter('V')" class="letters">v</p>
-            <p onclick="addLetter('W')" class="letters">w</p>
-            <p onclick="addLetter('X')" class="letters">x</p>
-            <p onclick="addLetter('Y')" class="letters">y</p>
-            <p onclick="addLetter('Z')" class="letters">z</p>
         </div>
 
-       
+        <div id="board" class="board-buttons">
+            <button onclick="checkSpelling()" class="btn btn-primary btn-large">✓ Check</button>
+            <button onclick="clearInput()" class="btn btn-danger btn-large">🗑 Clear</button>
+        </div>
 
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <div style="text-align: center; margin: var(--spacing-2xl) 0; font-weight: bold; font-size: 1.1rem;">
+            Click on letters to fill in the word:
+        </div>
+
+        <div id="tableLetter" class="letter-selector">
+            <button onclick="addLetter('A')" class="letters">A</button>
+            <button onclick="addLetter('B')" class="letters">B</button>
+            <button onclick="addLetter('C')" class="letters">C</button>
+            <button onclick="addLetter('D')" class="letters">D</button>
+            <button onclick="addLetter('E')" class="letters">E</button>
+            <button onclick="addLetter('F')" class="letters">F</button>
+            <button onclick="addLetter('G')" class="letters">G</button>
+            <button onclick="addLetter('H')" class="letters">H</button>
+            <button onclick="addLetter('I')" class="letters">I</button>
+            <button onclick="addLetter('J')" class="letters">J</button>
+            <button onclick="addLetter('K')" class="letters">K</button>
+            <button onclick="addLetter('L')" class="letters">L</button>
+            <button onclick="addLetter('M')" class="letters">M</button>
+            <button onclick="addLetter('N')" class="letters">N</button>
+            <button onclick="addLetter('O')" class="letters">O</button>
+            <button onclick="addLetter('P')" class="letters">P</button>
+            <button onclick="addLetter('Q')" class="letters">Q</button>
+            <button onclick="addLetter('R')" class="letters">R</button>
+            <button onclick="addLetter('S')" class="letters">S</button>
+            <button onclick="addLetter('T')" class="letters">T</button>
+            <button onclick="addLetter('U')" class="letters">U</button>
+            <button onclick="addLetter('V')" class="letters">V</button>
+            <button onclick="addLetter('W')" class="letters">W</button>
+            <button onclick="addLetter('X')" class="letters">X</button>
+            <button onclick="addLetter('Y')" class="letters">Y</button>
+            <button onclick="addLetter('Z')" class="letters">Z</button>
+        </div>
     </div>
 
-    
     <audio id="Correct" src="../audio/That is correct.mp3"></audio>
     <audio id="Incorrect" src="../audio/That is Incorrect.mp3"></audio>
 
+    <script src="../lesson-support.js"></script>
     <script>
-        var correctWords = ['apple', 'banana', 'orange', 'pear', 'grape', 'strawberry', 'blueberry', 'blackberry', 'raspberry', 'pineapple', 'peach', 'plum', 'cherry', 'apricot', 'nectarine', 'fig', 'kiwi', 'mango', 'papaya', 'coconut', 'lime', 'lemon', 'grapefruit', 'pomegranate', 'watermelon', 'cantaloupe', 'honeydew', 'avocado', 'tomato', 'potato'];
-        var currentWordIndex = 0;
-        var currentWord = '';
+        const correctWords = ['apple', 'banana', 'orange', 'pear', 'grape', 'strawberry', 'blueberry', 'blackberry', 'raspberry', 'pineapple', 'peach', 'plum', 'cherry', 'apricot', 'nectarine', 'fig', 'kiwi', 'mango', 'papaya', 'coconut'];
+        let currentWord = '';
+        let spellInputs = [];
 
-        // Function to get a random word from the list
         function getRandomWord() {
             return correctWords[Math.floor(Math.random() * correctWords.length)];
         }
 
-        // Function to ask the question and populate spelling cells
         function askQuestion() {
             currentWord = getRandomWord();
-            const utterance = new SpeechSynthesisUtterance(`Spell the word ${currentWord}?`);
+            const utterance = new SpeechSynthesisUtterance(`Spell the word: ${currentWord}`);
             speechSynthesis.speak(utterance);
 
             let displayWord = '';
             for (let i = 0; i < currentWord.length; i++) {
-                if (i % 2 === 0) {
-                    displayWord += currentWord[i];
-                } else {
-                    displayWord += '-';
-                }
+                displayWord += i % 2 === 0 ? currentWord[i] : '?';
             }
-            document.getElementById('present').textContent = `Spell the word: ${displayWord}`;
+            document.getElementById('present').textContent = `Spell: ${displayWord}`;
             populateSpellCells(currentWord);
         }
 
-        document.addEventListener('DOMContentLoaded', askQuestion);
-
-        // Function to populate spelling cells with the given word
         function populateSpellCells(word) {
-            var spellCells = document.querySelectorAll("#spell-contating input");
-            var wordLength = word.length;
-            var displayWord = document.getElementById('present').textContent.replace("Spell the word: ", ""); // Get the display word
-            var missingLetterIndex = null; // Track the index of the missing letter in the word
+            const container = document.getElementById('spell-containing');
+            container.innerHTML = '';
+            spellInputs = [];
 
-            for (var i = 0; i < spellCells.length; i++) {
-                if (i < wordLength) {
-                    if (displayWord[i] === '-') {
-                        // If the character is "-", leave the input blank
-                        spellCells[i].value = "";
-                        missingLetterIndex = i;
-                    } else {
-                        // Otherwise, populate the cell with the corresponding letter from the word
-                        spellCells[i].value = word[i];
-                    }
-                } else {
-                    // If it's beyond the word length, fill with '*' and disable
-                    spellCells[i].value = "*";
-                    spellCells[i].disabled = true;
+            for (let i = 0; i < word.length; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'spellcell';
+                input.maxLength = '1';
+                input.style.width = '50px';
+                input.style.height = '50px';
+                input.style.padding = 'var(--spacing-md)';
+                input.style.fontSize = 'clamp(1rem, 2.5vw, 1.2rem)';
+                input.style.border = '3px solid var(--primary)';
+                input.style.borderRadius = 'var(--radius-md)';
+                input.style.textAlign = 'center';
+                input.style.fontWeight = 'bold';
+                input.style.textTransform = 'uppercase';
+                input.style.fontFamily = 'inherit';
+
+                if (i % 2 === 0) {
+                    input.value = word[i].toUpperCase();
+                    input.disabled = true;
+                    input.style.backgroundColor = '#ddd';
+                }
+
+                container.appendChild(input);
+                spellInputs.push(input);
+            }
+        }
+
+        function checkSpelling() {
+            let userWord = '';
+            spellInputs.forEach(input => {
+                userWord += input.value.toLowerCase();
+            });
+
+            const messageElement = document.getElementById('message');
+            if (userWord === currentWord) {
+                messageElement.textContent = '✓ Correct! Next word coming...';
+                messageElement.style.color = 'white';
+                messageElement.style.background = '#28a745';
+                document.getElementById('Correct').play();
+                setTimeout(() => {
+                    messageElement.textContent = '';
+                    askQuestion();
+                }, 1400);
+            } else {
+                messageElement.textContent = '✗ Try again!';
+                messageElement.style.color = 'white';
+                messageElement.style.background = '#dc3545';
+                document.getElementById('Incorrect').play();
+            }
+        }
+
+        function clearInput() {
+            spellInputs.forEach(input => {
+                if (!input.disabled) {
+                    input.value = '';
+                }
+            });
+            spellInputs[0]?.focus();
+        }
+
+        function addLetter(letter) {
+            for (let input of spellInputs) {
+                if (!input.disabled && !input.value) {
+                    input.value = letter;
+                    input.focus();
+                    break;
                 }
             }
-
-            // Mark the cell for the missing letter if it exists
-            if (missingLetterIndex !== null) {
-                spellCells[missingLetterIndex].id = "spellcell";
-            }
         }
 
-
-     // Function to check the spelling
-function checkSpelling() {
-    var userInput = "";
-    var spellCells = document.querySelectorAll("#spell-contating input");
-    var userFilledWord = ""; // Initialize a variable to store the word entered by the user
-
-    // Concatenate all the filled letters in the spellCells into a single word
-    spellCells.forEach(function(cell) {
-        if (cell.value !== "*") { // Exclude cells with '*'
-            userFilledWord += cell.value.toLowerCase();
-        }
-    });
-
-    // Compare the userFilledWord with the currentWord
-if (userFilledWord === currentWord) {
-    document.getElementById("message").innerText = "Correct! Next word coming...";
-    document.getElementById("message").style.color = "green";
-    document.getElementById("Correct").play();
-    setTimeout(() => {
-        document.getElementById("message").innerText = "";
-        document.getElementById("spellingInput").value = "";
-        askQuestion();
-    }, 1400);
-} else {
-    document.getElementById("message").innerText = "Incorrect!";
-    document.getElementById("message").style.color = "red";
-    document.getElementById("Incorrect").play();
-}
-}
-
-
-
-
-
+        document.addEventListener('DOMContentLoaded', askQuestion);
+    </script>
+</body>
+</html>
 
         // Function to clear the input areas
         function clearInput() {

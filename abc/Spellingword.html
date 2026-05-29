@@ -3,151 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>spelling</title>
+    <title>Spelling Words - ESEA</title>
     <link rel="stylesheet" href="../responsive.css">
-    
-    
 </head>
 <body data-page="abc/Spellingword.html">
     <nav class="page-nav" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
+        <a href="#" class="nav-button nav-prev">← Previous</a>
+        <a href="#" class="nav-button nav-home">🏠 Home</a>
+        <a href="#" class="nav-button nav-next">Next →</a>
     </nav>
-    
-    <a href="../index.html" class="back-button"
-      >spelling</a
-    >
-    <hr>
- <div id="questionpic">
-  <img src="" alt="">
 
- </div>
-    <div id="board-containers">
-        
-            <input type="text" id="spellingInput" placeholder="Type your spelling here...">
-            <div id="board"> 
-            <button onclick="checkSpelling()">Check</button>
-            <button onclick="clearLastLetter()" class="btn btn-danger">Clear</button> <!-- New clear button -->
-            <div id="message"></div>
-        </div >
-        <div id="tableLetter">
-          <p onclick="addLetter('A')" class="letters">A</p>
-          <p onclick="addLetter('B')" class="letters">B</p>
-          <p onclick="addLetter('C')" class="letters">C</p>
-          <p onclick="addLetter('D')" class="letters">D</p>
-          <p onclick="addLetter('E')" class="letters">E</p>
-          <p onclick="addLetter('F')" class="letters">F</p>
-          <p onclick="addLetter('G')" class="letters">G</p>
-          <p onclick="addLetter('H')" class="letters">H</p>
-          <p onclick="addLetter('I')" class="letters">I</p>
-          <p onclick="addLetter('J')" class="letters">J</p>
-          <p onclick="addLetter('K')" class="letters">K</p>
-          <p onclick="addLetter('L')" class="letters">L</p>
-          <p onclick="addLetter('M')" class="letters">M</p>
-          <p onclick="addLetter('N')" class="letters">N</p>
-          <p onclick="addLetter('O')" class="letters">O</p>
-          <p onclick="addLetter('P')" class="letters">P</p>
-          <p onclick="addLetter('Q')" class="letters">Q</p>
-          <p onclick="addLetter('R')" class="letters">R</p>
-          <p onclick="addLetter('S')" class="letters">S</p>
-          <p onclick="addLetter('T')" class="letters">T</p>
-          <p onclick="addLetter('U')" class="letters">U</p>
-          <p onclick="addLetter('V')" class="letters">V</p>
-          <p onclick="addLetter('W')" class="letters">W</p>
-          <p onclick="addLetter('X')" class="letters">X</p>
-          <p onclick="addLetter('Y')" class="letters">Y</p>
-          <p onclick="addLetter('Z')" class="letters">Z</p>
+    <a href="../index.html" class="back-button">← Back to Learning</a>
+
+    <div class="container page-content">
+        <header role="banner">
+            <h1>🔤 Spelling Words</h1>
+            <p>Learn to spell words correctly</p>
+        </header>
+
+        <div id="questionpic" class="problem" role="region" aria-live="polite">
+            <span id="currentWord" style="font-size: clamp(2rem, 8vw, 3.5rem);">Ready?</span>
         </div>
-       
-        
+
+        <div class="spell-section">
+            <label for="spellingInput" style="font-weight: bold; font-size: 1.1rem;">Type the word:</label>
+            <input type="text" id="spellingInput" placeholder="Click letters or type..." aria-label="Spelling input">
+        </div>
+
+        <div id="board" class="board-buttons">
+            <button onclick="checkSpelling()" class="btn btn-primary btn-large">✓ Check</button>
+            <button onclick="clearLastLetter()" class="btn btn-danger btn-large">🗑 Clear All</button>
+        </div>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <div style="text-align: center; margin: var(--spacing-2xl) 0; font-weight: bold; font-size: 1.1rem;">
+            Click on letters to spell the word:
+        </div>
+
+        <div id="tableLetter" class="letter-selector">
+            <button onclick="addLetter('A')" class="letters">A</button>
+            <button onclick="addLetter('B')" class="letters">B</button>
+            <button onclick="addLetter('C')" class="letters">C</button>
+            <button onclick="addLetter('D')" class="letters">D</button>
+            <button onclick="addLetter('E')" class="letters">E</button>
+            <button onclick="addLetter('F')" class="letters">F</button>
+            <button onclick="addLetter('G')" class="letters">G</button>
+            <button onclick="addLetter('H')" class="letters">H</button>
+            <button onclick="addLetter('I')" class="letters">I</button>
+            <button onclick="addLetter('J')" class="letters">J</button>
+            <button onclick="addLetter('K')" class="letters">K</button>
+            <button onclick="addLetter('L')" class="letters">L</button>
+            <button onclick="addLetter('M')" class="letters">M</button>
+            <button onclick="addLetter('N')" class="letters">N</button>
+            <button onclick="addLetter('O')" class="letters">O</button>
+            <button onclick="addLetter('P')" class="letters">P</button>
+            <button onclick="addLetter('Q')" class="letters">Q</button>
+            <button onclick="addLetter('R')" class="letters">R</button>
+            <button onclick="addLetter('S')" class="letters">S</button>
+            <button onclick="addLetter('T')" class="letters">T</button>
+            <button onclick="addLetter('U')" class="letters">U</button>
+            <button onclick="addLetter('V')" class="letters">V</button>
+            <button onclick="addLetter('W')" class="letters">W</button>
+            <button onclick="addLetter('X')" class="letters">X</button>
+            <button onclick="addLetter('Y')" class="letters">Y</button>
+            <button onclick="addLetter('Z')" class="letters">Z</button>
+        </div>
     </div>
 
     <audio id="Correct" src="../audio/That is correct.mp3"></audio>
     <audio id="Incorrect" src="../audio/That is Incorrect.mp3"></audio>
 
-<script>
-    const words = ['Apple', 'Boy', 'Cat', 'Dog', 'Elephant', 'Fish', 'Goat', 'Horse', 'Iguana', 'Jaguar', 'Kangaroo', 'Lion', 'Monkey', 'Narwhal', 'Ostrich', 'Penguin', 'Queen', 'Rat', 'Snake', 'Tiger', 'Unicorn', 'Vampire', 'Whale', 'XRay', 'Yak', 'Zebra'];
-    let currentWord;
+    <script src="../lesson-support.js"></script>
+    <script>
+        const words = ['Apple', 'Boy', 'Cat', 'Dog', 'Elephant', 'Fish', 'Goat', 'Horse', 'Iguana', 'Jaguar', 'Kangaroo', 'Lion', 'Monkey', 'Narwhal', 'Ostrich', 'Penguin', 'Queen', 'Rat', 'Snake', 'Tiger', 'Unicorn', 'Vampire', 'Whale', 'XRay', 'Yak', 'Zebra'];
+        let currentWord;
 
-    function addLetter(letter) {
-        const input = document.getElementById('spellingInput');
-        input.value += letter;
-    }
+        function addLetter(letter) {
+            const input = document.getElementById('spellingInput');
+            input.value += letter;
+            input.focus();
+        }
 
-    function checkSpelling() {
-    const input = document.getElementById('spellingInput');
-    const userSpelling = input.value.trim().toLowerCase(); // Trim whitespace and convert to lowercase
-    const answer = currentWord.toLowerCase();
-    const messageElement = document.getElementById('message');
+        function checkSpelling() {
+            const input = document.getElementById('spellingInput');
+            const userSpelling = input.value.trim().toLowerCase();
+            const answer = currentWord.toLowerCase();
+            const messageElement = document.getElementById('message');
 
-    if (userSpelling === answer) {
-        messageElement.textContent = 'Correct! Next word coming...';
-        messageElement.style.color = 'darkgreen';
-        playSound(true); 
-        console.log('That is correct');// Play sound for correct spelling
-        setTimeout(() => {
-            messageElement.textContent = '';
-            document.getElementById('spellingInput').value = '';
-            askQuestion();
-        }, 1400);
-    } else {
-        messageElement.textContent = 'Incorrect. Try again.';
-        messageElement.style.color = 'red';
-        playSound(false); 
-        console.log('That is Incorrect');// Play sound for incorrect spelling
-    }
-}
-function clearLastLetter() {
-        const input = document.getElementById('spellingInput');
-        const currentText = input.value;
-        input.value = currentText.substring(0, currentText.length - 1); // Remove the last character
-    }
-    
+            if (userSpelling === answer) {
+                messageElement.textContent = '✓ Correct! Next word coming...';
+                messageElement.style.color = 'darkgreen';
+                messageElement.style.background = '#d4edda';
+                playSound(true);
+                setTimeout(() => {
+                    messageElement.textContent = '';
+                    document.getElementById('spellingInput').value = '';
+                    askQuestion();
+                }, 1400);
+            } else {
+                messageElement.textContent = '✗ Incorrect. Try again.';
+                messageElement.style.color = 'white';
+                messageElement.style.background = '#dc3545';
+                playSound(false);
+            }
+        }
 
-    function askQuestion() {
-        currentWord = words[Math.floor(Math.random() * words.length)];
-        const utterance = new SpeechSynthesisUtterance(`Spell the word ${currentWord}?`);
-        speechSynthesis.speak(utterance);
+        function clearLastLetter() {
+            const input = document.getElementById('spellingInput');
+            input.value = '';
+            input.focus();
+        }
 
-    }
+        function askQuestion() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            document.getElementById('currentWord').textContent = currentWord;
+            const utterance = new SpeechSynthesisUtterance(`Spell the word: ${currentWord}`);
+            speechSynthesis.speak(utterance);
+        }
 
-    document.addEventListener('DOMContentLoaded', askQuestion);
-    function startGame() {
-            askQuestion();
-            // Add click event listeners to the letter elements
-            const letterElements = document.querySelectorAll('.spelling');
-            letterElements.forEach(element => {
-                element.addEventListener('click', handleClick);
-            });
-        } 
-    function playSound(isCorrect) {
-    const correctAudio = document.getElementById("Correct");
-    const incorrectAudio = document.getElementById("Incorrect");
+        function playSound(isCorrect) {
+            const correctAudio = document.getElementById("Correct");
+            const incorrectAudio = document.getElementById("Incorrect");
 
-    // Pause any currently playing audio
-    correctAudio.pause();
-    correctAudio.currentTime = 0;
-    incorrectAudio.pause();
-    incorrectAudio.currentTime = 0;
+            correctAudio.pause();
+            correctAudio.currentTime = 0;
+            incorrectAudio.pause();
+            incorrectAudio.currentTime = 0;
 
-    // Play the appropriate audio based on correctness
-    if (isCorrect) {
-        correctAudio.play();
-    } else {
-        incorrectAudio.play();
-    }
-}
-  
-</script>
-  <script src="../lesson-support.js"></script>
-    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
-    </nav>
+            if (isCorrect) {
+                correctAudio.play();
+            } else {
+                incorrectAudio.play();
+            }
+        }
 
-    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
+        document.addEventListener('DOMContentLoaded', askQuestion);
+    </script>
+</body>
+</html>
       <a href="#" class="nav-button nav-prev">← Previous</a>
       <a href="#" class="nav-button nav-home">🏠 Home</a>
       <a href="#" class="nav-button nav-next">Next →</a>

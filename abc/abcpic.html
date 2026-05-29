@@ -3,428 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A For Apple</title>
+    <title>A For Apple - Learn ABC - ESEA</title>
     <link rel="stylesheet" href="../responsive.css">
-    
 </head>
-  <body data-page="abc/abcpic.html">
+<body data-page="abc/abcpic.html">
     <nav class="page-nav" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
+        <a href="#" class="nav-button nav-prev">← Previous</a>
+        <a href="#" class="nav-button nav-home">🏠 Home</a>
+        <a href="#" class="nav-button nav-next">Next →</a>
     </nav>
 
-    <a
-      href="../index.html" class="back-button"
-      >A For Apple</a
-    >
-    <div href="index.html" style="background-color: rgb(221, 248, 194);  border-radius: 10px;">Click on each block to Learn</div>
-    <hr class="section-rule" />
-    <div id="board-container">
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('A').play()"
-        
-      >
-        <img
-          src="../images/apple.png"
-          alt="Apple"
-         
-        />
+    <a href="../index.html" class="back-button">← Back to ABC</a>
 
-        <audio id="A" src="../audio/a.mp3"></audio>
-        A For Apple
-      </div>
+    <div class="container page-content">
+        <header role="banner">
+            <h1>🔤 Learn ABC with Pictures</h1>
+            <p>Click on each picture to learn the letter and the word</p>
+        </header>
 
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('B').play()"
-       
-      >
-        <img
-          src="../images/Ball.png"
-          alt="Ball"
-         
-        />
+        <div class="info-panel">Click on each block to learn the letter and hear the pronunciation</div>
 
-        <audio id="B" src="../audio/b.mp3"></audio>
-        B For Baseball
-      </div>
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('C').play()"
-        
-      >
-        <img
-          src="../images/Clock.png"
-          alt="Clock"
-         
-        />
+        <div id="board-container" role="region" aria-label="ABC learning cards">
+            <div class="abcpic" onclick="document.getElementById('A').play()">
+                <img src="../images/apple.png" alt="Apple for A">
+                <audio id="A" src="../audio/a.mp3"></audio>
+                <span>A - Apple</span>
+            </div>
 
-        <audio id="C" src="../audio/c.mp3"></audio>
-        C For Clock
-      </div>
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('D').play()"
-      
-      >
-        <img
-          src="../images/Donkey.png"
-          alt="Donkey"
-         
-        />
+            <div class="abcpic" onclick="document.getElementById('B').play()">
+                <img src="../images/Ball.png" alt="Ball for B">
+                <audio id="B" src="../audio/b.mp3"></audio>
+                <span>B - Baseball</span>
+            </div>
 
-        <audio id="D" src="../audio/d.mp3"></audio>
-        D For Donkey
-      </div>
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('E').play()"
-        
-      >
-        <img
-          src="../images/elephant.png"
-          alt="elephant"
-         
-        />
+            <div class="abcpic" onclick="document.getElementById('C').play()">
+                <img src="../images/Clock.png" alt="Clock for C">
+                <audio id="C" src="../audio/c.mp3"></audio>
+                <span>C - Clock</span>
+            </div>
 
-        <audio id="E" src="../audio/e.mp3"></audio>
-        E For Elephant
-      </div>
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('F').play()"
-       
-      >
-        <img
-          src="../images/Frog.png"
-          alt="Frog"
-         
-        />
+            <div class="abcpic" onclick="document.getElementById('D').play()">
+                <img src="../images/Donkey.png" alt="Donkey for D">
+                <audio id="D" src="../audio/d.mp3"></audio>
+                <span>D - Donkey</span>
+            </div>
 
-        <audio id="F" src="../audio/F for Frog.mp3"></audio>
-        F For Frog
-      </div>
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('G').play()"
-      
-      >
-        <img
-          src="../images/Goat.png"
-          alt="Goat"
-         
-        />
+            <div class="abcpic" onclick="document.getElementById('E').play()">
+                <img src="../images/elephant.png" alt="Elephant for E">
+                <audio id="E" src="../audio/e.mp3"></audio>
+                <span>E - Elephant</span>
+            </div>
 
-        <audio id="G" src="../audio/G for Goat.mp3"></audio>
-        G For Goat
-      </div>
-      <div
-        id="picboards"
-        class="abcpic"
-        onclick="document.getElementById('H').play()"
-      
-      >
-        <img
-          src="../images/Home.png"
-          alt="Home"
-         
-        />
+            <div class="abcpic" onclick="document.getElementById('F').play()">
+                <img src="../images/Frog.png" alt="Frog for F">
+                <audio id="F" src="../audio/F for Frog.mp3"></audio>
+                <span>F - Frog</span>
+            </div>
 
-        <audio id="H" src="../audio/Home.mp3"></audio>
-        H For Home
-      </div>
-      <div
-      id="picboards"
-      class="abcpic"
-      onclick="document.getElementById('I').play()"
-  
-    >
-      <img
-        src="../images/Ice-Cream.png"
-        alt="Ice-Cream"
-       
-      />
+            <div class="abcpic" onclick="document.getElementById('G').play()">
+                <img src="../images/Goat.png" alt="Goat for G">
+                <audio id="G" src="../audio/G for Goat.mp3"></audio>
+                <span>G - Goat</span>
+            </div>
 
-      <audio id="I" src="../audio/I for Ice cream.mp3"></audio>
-      I For Ice-Cream
+            <div class="abcpic" onclick="document.getElementById('H').play()">
+                <img src="../images/Home.png" alt="Home for H">
+                <audio id="H" src="../audio/Home.mp3"></audio>
+                <span>H - Home</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('I').play()">
+                <img src="../images/Ice-Cream.png" alt="Ice Cream for I">
+                <audio id="I" src="../audio/I for Ice cream.mp3"></audio>
+                <span>I - Ice Cream</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('J').play()">
+                <img src="../images/Justice.png" alt="Lady Justice for J">
+                <audio id="J" src="../audio/j.mp3"></audio>
+                <span>J - Justice</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('K').play()">
+                <img src="../images/Kangaroo.png" alt="Kangaroo for K">
+                <audio id="K" src="../audio/k.mp3"></audio>
+                <span>K - Kangaroo</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('L').play()">
+                <img src="../images/Lock.png" alt="Lock for L">
+                <audio id="L" src="../audio/L for Lock.mp3"></audio>
+                <span>L - Lock</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('M').play()">
+                <img src="../images/Monkey.png" alt="Monkey for M">
+                <audio id="M" src="../audio/m.mp3"></audio>
+                <span>M - Monkey</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('N').play()">
+                <img src="../images/Nun.png" alt="Nun for N">
+                <audio id="N" src="../audio/N for Nun.mp3"></audio>
+                <span>N - Nun</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('O').play()">
+                <img src="../images/Orange.png" alt="Orange for O">
+                <audio id="O" src="../audio/O for Orange.mp3"></audio>
+                <span>O - Orange</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('P').play()">
+                <img src="../images/Pillow.png" alt="Pillow for P">
+                <audio id="P" src="../audio/p.mp3"></audio>
+                <span>P - Pillow</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('Q').play()">
+                <img src="../images/Queen.png" alt="Queen for Q">
+                <audio id="Q" src="../audio/Q for Queen.mp3"></audio>
+                <span>Q - Queen</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('R').play()">
+                <img src="../images/Rabbit.png" alt="Rabbit for R">
+                <audio id="R" src="../audio/r.mp3"></audio>
+                <span>R - Rabbit</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('S').play()">
+                <img src="../images/Superman.png" alt="Superman for S">
+                <audio id="S" src="../audio/s.mp3"></audio>
+                <span>S - Superman</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('T').play()">
+                <img src="../images/Telephone.png" alt="Telephone for T">
+                <audio id="T" src="../audio/t.mp3"></audio>
+                <span>T - Telephone</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('U').play()">
+                <img src="../images/Umbrella.jpg" alt="Umbrella for U">
+                <audio id="U" src="../audio/U for Umbrella.mp3"></audio>
+                <span>U - Umbrella</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('V').play()">
+                <img src="../images/Vacuum.png" alt="Vacuum for V">
+                <audio id="V" src="../audio/V for Vacuum.mp3"></audio>
+                <span>V - Vacuum</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('W').play()">
+                <img src="../images/Windown.png" alt="Window for W">
+                <audio id="W" src="../audio/W for Window.mp3"></audio>
+                <span>W - Window</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('X').play()">
+                <img src="../images/x-ray.png" alt="XRay for X">
+                <audio id="X" src="../audio/X for XRay.mp3"></audio>
+                <span>X - X-Ray</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('Y').play()">
+                <img src="../images/Yam.png" alt="Yam for Y">
+                <audio id="Y" src="../audio/Y for Yam.mp3"></audio>
+                <span>Y - Yam</span>
+            </div>
+
+            <div class="abcpic" onclick="document.getElementById('Z').play()">
+                <img src="../images/Zebra.png" alt="Zebra for Z">
+                <audio id="Z" src="../audio/z.mp3"></audio>
+                <span>Z - Zebra</span>
+            </div>
+        </div>
     </div>
-    <div
-    id="picboards"
-    class="abcpic"
-    onclick="document.getElementById('J').play()"
-    
-  >
-    <img
-      src="../images/Justice.png"
-      alt="Lady Justice"
-     
-    />
 
-    <audio id="J" src="../audio/j.mp3"></audio>
-    J For Justice
-  </div>
-  <div
-  id="picboards"
-  class="abcpic"
-  onclick="document.getElementById('K').play()"
-
->
-  <img
-    src="../images/Kangaroo.png"
-    alt="Kangaroo"
-   
-  />
-
-  <audio id="K" src="../audio/k.mp3"></audio>
-  K For Kangaroo
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('L').play()"
-
->
-<img
-  src="../images/Lock.png"
-  alt="Lock"
- 
-/>
-
-<audio id="L" src="../audio/L for Lock.mp3"></audio>
-L For Lock
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('M').play()"
-
->
-<img
-  src="../images/Monkey.png"
-  alt="Monkey"
- 
-/>
-
-<audio id="M" src="../audio/m.mp3"></audio>
-M For Monkey
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('N').play()"
-
->
-<img
-  src="../images/Nun.png"
-  alt="Nun"
- 
-/>
-
-<audio id="N" src="../audio/N for Nun.mp3"></audio>
-N For Nun
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('O').play()"
-
->
-<img
-  src="../images/Orange.png"
-  alt="Orange"
- 
-/>
-
-<audio id="O" src="../audio/O for Orange.mp3"></audio>
-O For Orange
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('P').play()"
-
->
-<img
-  src="../images/Pillow.png"
-  alt="Pillow"
- 
-/>
-
-<audio id="P" src="../audio/p.mp3"></audio>
-P For Pillow
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('Q').play()"
-
->
-<img
-  src="../images/Queen.png"
-  alt="Queen"
- 
-/>
-
-<audio id="Q" src="../audio/Q for Queen.mp3"></audio>
-Q For Queen
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('R').play()"
-
->
-<img
-  src="../images/Rabbit.png"
-  alt="Rabbit"
- 
-/>
-
-<audio id="R" src="../audio/r.mp3"></audio>
-R For Rabbit
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('S').play()"
-
->
-<img
-  src="../images/Superman.png"
-  alt="Superman"
- 
-/>
-
-<audio id="S" src="../audio/s.mp3"></audio>
-S For Superman
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('T').play()"
-
->
-<img
-  src="../images/Telephone.png"
-  alt="Telephone"
- 
-/>
-
-<audio id="T" src="../audio/t.mp3"></audio>
-T For Telephone
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('U').play()"
-
->
-<img
-  src="../images/Umbrella.jpg"
-  alt="Umbrella"
- 
-/>
-
-<audio id="U" src="../audio/U for Umbrella.mp3"></audio>
-U For Umbrella
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('V').play()"
-
->
-<img
-  src="../images/Vacuum.png"
-  alt="Vacuum"
- 
-/>
-
-<audio id="V" src="../audio/V for Vacuum.mp3"></audio>
-V For Vacuum
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('W').play()"
-
->
-<img
-  src="../images/Windown.png"
-  alt="Window"
- 
-/>
-
-<audio id="W" src="../audio/W for Window.mp3"></audio>
-W For Window
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('X').play()"
-
->
-<img
-  src="../images/x-ray.png"
-  alt="XRay"
- 
-/>
-
-<audio id="X" src="../audio/X for XRay.mp3"></audio>
-X For X-Ray
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('Y').play()"
-
->
-<img
-  src="../images/Yam.png"
-  alt="Yam"
- 
-/>
-
-<audio id="Y" src="../audio/Y for Yam.mp3"></audio>
-Y For Yam
-</div>
-<div
-id="picboards"
-class="abcpic"
-onclick="document.getElementById('Z').play()"
-
->
-<img
-  src="../images/Zebra.png"
-  alt="Zebra"
- 
-/>
-
-<audio id="Z" src="../audio/z.mp3"></audio>
-Z For Zebra
-</div>
-    </div>
     <script src="../lesson-support.js"></script>
-    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
-    </nav>
-
-    <nav class="page-nav page-nav-bottom" aria-label="Page navigation">
-      <a href="#" class="nav-button nav-prev">← Previous</a>
-      <a href="#" class="nav-button nav-home">🏠 Home</a>
-      <a href="#" class="nav-button nav-next">Next →</a>
-    </nav>
 </body>
 </html>
 
