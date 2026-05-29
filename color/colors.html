@@ -155,7 +155,87 @@
         </footer>
     </div>
 
-    <script src="app.js"></script>
-  <script src="../lesson-support.js"></script>`n</body>
+        <script src="app.js"></script>
+        <script src="../lesson-support.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            // Speak color on click
+            document.querySelectorAll('.color-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const name = card.querySelector('.color-name')?.textContent?.trim();
+                    if (name && typeof speakText === 'function') speakText(name);
+                    card.style.transform = 'scale(1.03)';
+                    setTimeout(() => card.style.transform = '', 220);
+                });
+            });
+
+            // Build simple 'What color is this?' game
+            const colors = Array.from(document.querySelectorAll('.color-card')).map(c => ({
+                name: c.querySelector('.color-name')?.textContent?.trim(),
+                el: c
+            })).filter(Boolean);
+            if (!colors.length) return;
+
+            const container = document.querySelector('.page-content');
+            const gameBtn = document.createElement('button');
+            gameBtn.textContent = '▶️ Play Color Game: What color is this?';
+            gameBtn.className = 'back-button';
+            gameBtn.style.display = 'block';
+            gameBtn.style.margin = '12px 0';
+            container.insertBefore(gameBtn, container.querySelector('.color-grid'));
+
+            const gameArea = document.createElement('div');
+            gameArea.id = 'color-game';
+            gameArea.style.marginTop = '12px';
+            container.insertBefore(gameArea, container.querySelector('.color-grid'));
+
+            function startRound(){
+                gameArea.innerHTML = '';
+                const target = colors[Math.floor(Math.random()*colors.length)];
+                const swatch = document.createElement('div');
+                swatch.style.height = '140px';
+                swatch.style.width = '60%';
+                swatch.style.margin = '12px auto';
+                swatch.style.borderRadius = '12px';
+                const comp = window.getComputedStyle(target.el).backgroundColor || '';
+                swatch.style.background = comp || target.el.style.backgroundColor || '#ccc';
+                gameArea.appendChild(swatch);
+                if (typeof speakText === 'function') speakText('What color is this?');
+
+                const choices = [target.name];
+                while (choices.length < 3){
+                    const r = colors[Math.floor(Math.random()*colors.length)].name;
+                    if (!choices.includes(r)) choices.push(r);
+                }
+                for (let i=choices.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [choices[i],choices[j]]=[choices[j],choices[i]]; }
+
+                const btns = document.createElement('div');
+                btns.style.display = 'flex';
+                btns.style.justifyContent = 'center';
+                btns.style.gap = '12px';
+                choices.forEach(ch => {
+                    const b = document.createElement('button');
+                    b.textContent = ch;
+                    b.className = 'back-button';
+                    b.style.padding = '10px 14px';
+                    b.addEventListener('click', () => {
+                        if (ch === target.name){
+                            if (typeof speakText === 'function') speakText(`Yes! That's ${ch}. Great job!`);
+                            b.style.background = '#9ef2b6';
+                        } else {
+                            if (typeof speakText === 'function') speakText(`Not quite. That's ${target.name}. Try another one.`);
+                            b.style.background = '#ffd1d1';
+                        }
+                        setTimeout(() => startRound(), 900);
+                    });
+                    btns.appendChild(b);
+                });
+                gameArea.appendChild(btns);
+            }
+
+            gameBtn.addEventListener('click', () => startRound());
+        });
+        </script>
+    </body>
 </html>
 

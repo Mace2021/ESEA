@@ -129,4 +129,9 @@ function addSpeakButton() {
 document.addEventListener('DOMContentLoaded', () => {
   addLessonNav();
   addSpeakButton();
+  // If a page has a question trigger element, auto-start it for learners
+  try {
+    const q = document.getElementById('question') || document.querySelector('[data-question-start]');
+    if (q) setTimeout(() => { try { q.click(); } catch(e){} }, 600);
+  } catch(e) {}
 });

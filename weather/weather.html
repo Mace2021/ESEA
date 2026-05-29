@@ -167,7 +167,20 @@
         </footer>
     </div>
 
-    <script src="app.js"></script>
-  <script src="../lesson-support.js"></script>`n</body>
+        <script src="app.js"></script>
+        <script src="../lesson-support.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelectorAll('.weather-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const name = card.querySelector('.weather-name')?.textContent?.trim();
+                    if (name && typeof speakText === 'function') speakText(name);
+                    card.style.transform = 'scale(1.03)';
+                    setTimeout(() => card.style.transform = '', 220);
+                });
+            });
+        });
+        </script>
+    </body>
 </html>
 
