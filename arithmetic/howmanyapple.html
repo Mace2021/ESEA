@@ -160,10 +160,9 @@ padding: 2px;
 </head>
 
 <body>
-    <a href="../index.html" id="linkto">How Many Apples</a>
+    <a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
 
     <hr>
-    <p onclick="askQuestion()" id="questions" ;>Click To Ask The Question</p>
     <div id="questiondiv">
         <div id="numOfApples"></div>
 
@@ -202,6 +201,7 @@ padding: 2px;
     <script>
         function askQuestion() {
             const numApples = Math.floor(Math.random() * 20) + 1;
+            document.getElementById("numOfApples").innerHTML = '';
 
             // Generate random number of apples
             for (let i = 0; i < numApples; i++) {
@@ -261,6 +261,8 @@ padding: 2px;
             document.getElementById("answerInput").value = "";
             document.getElementById("message").innerHTML = "";
         }
+
+        document.addEventListener('DOMContentLoaded', askQuestion);
     </script>
   <script src="../lesson-support.js"></script>`n</body>
 

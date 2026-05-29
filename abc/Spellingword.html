@@ -130,10 +130,6 @@
       >spelling</a
     >
     <hr>
-  <div onclick="askQuestion()" id="questions"
->Click To Ask The Question</div>
-
-
  <div id="questionpic">
   <img src="" alt="">
 
@@ -197,10 +193,15 @@
     const messageElement = document.getElementById('message');
 
     if (userSpelling === answer) {
-        messageElement.textContent = 'Correct!';
+        messageElement.textContent = 'Correct! Next word coming...';
         messageElement.style.color = 'darkgreen';
         playSound(true); 
         console.log('That is correct');// Play sound for correct spelling
+        setTimeout(() => {
+            messageElement.textContent = '';
+            document.getElementById('spellingInput').value = '';
+            askQuestion();
+        }, 1400);
     } else {
         messageElement.textContent = 'Incorrect. Try again.';
         messageElement.style.color = 'red';
@@ -221,6 +222,8 @@ function clearLastLetter() {
         speechSynthesis.speak(utterance);
 
     }
+
+    document.addEventListener('DOMContentLoaded', askQuestion);
     function startGame() {
             askQuestion();
             // Add click event listeners to the letter elements

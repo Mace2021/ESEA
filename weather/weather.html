@@ -172,12 +172,16 @@
         <script>
         document.addEventListener('DOMContentLoaded', function(){
             document.querySelectorAll('.weather-card').forEach(card => {
-                card.addEventListener('click', () => {
+                card.setAttribute('role','button');
+                card.setAttribute('tabindex','0');
+                const announce = () => {
                     const name = card.querySelector('.weather-name')?.textContent?.trim();
                     if (name && typeof speakText === 'function') speakText(name);
                     card.style.transform = 'scale(1.03)';
                     setTimeout(() => card.style.transform = '', 220);
-                });
+                };
+                card.addEventListener('click', announce);
+                card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); announce(); } });
             });
         });
         </script>

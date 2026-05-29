@@ -159,13 +159,19 @@
         <script src="../lesson-support.js"></script>
         <script>
         document.addEventListener('DOMContentLoaded', function(){
-            // Speak color on click
+            // Speak color on click and make keyboard accessible
             document.querySelectorAll('.color-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const name = card.querySelector('.color-name')?.textContent?.trim();
-                    if (name && typeof speakText === 'function') speakText(name);
-                    card.style.transform = 'scale(1.03)';
-                    setTimeout(() => card.style.transform = '', 220);
+                card.setAttribute('role','button');
+                card.setAttribute('tabindex','0');
+                const speakCard = () => {
+                  const name = card.querySelector('.color-name')?.textContent?.trim();
+                  if (name && typeof speakText === 'function') speakText(name);
+                  card.style.transform = 'scale(1.03)';
+                  setTimeout(() => card.style.transform = '', 220);
+                };
+                card.addEventListener('click', speakCard);
+                card.addEventListener('keydown', (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); speakCard(); }
                 });
             });
 

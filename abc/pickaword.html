@@ -92,7 +92,6 @@
     <hr style="height: 10px; background-color: #5e3737;"/>
   
    
-    <button id="question" onclick="startGame()" >Click Here To Ask the Question</button>
     <div id="questionpic"></div>
     <div id="message"></div>
    <div id="board-containers">
@@ -144,17 +143,21 @@
             const clickedWord = event.target.textContent;
             
             if (clickedWord === currentWord) {
-                messageElement.textContent = 'Correct!';
-                messageElement.style.color = 'green';
-                playSound(true);
-                console.log('That is correct');
-            } else {
-                messageElement.textContent = 'Incorrect. Try again.';
-                messageElement.style.color = 'red';
-                playSound(false);
-                console.log('That is Incorrect');
-            }
-            
+            messageElement.textContent = 'Correct! Next one coming...';
+            messageElement.style.color = 'green';
+            playSound(true);
+            console.log('That is correct');
+            setTimeout(() => {
+                messageElement.textContent = '';
+                askQuestion();
+            }, 1200);
+        } else {
+            messageElement.textContent = 'Incorrect. Try again.';
+            messageElement.style.color = 'red';
+            playSound(false);
+            console.log('That is Incorrect');
+        }
+        
             clearPicture();
             // Re-enable click event listeners
             const letterElements = document.querySelectorAll('.countwords');
@@ -199,6 +202,8 @@
                 element.addEventListener('click', handleClick);
             });
         }
+
+document.addEventListener('DOMContentLoaded', startGame);
         function playSound(isCorrect) {
     const correctAudio = document.getElementById("Correct");
     const incorrectAudio = document.getElementById("Incorrect");

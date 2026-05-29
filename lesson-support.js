@@ -134,4 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const q = document.getElementById('question') || document.querySelector('[data-question-start]');
     if (q) setTimeout(() => { try { q.click(); } catch(e){} }, 600);
   } catch(e) {}
+
+  // Ensure back-button anchors have accessible labels
+  try {
+    document.querySelectorAll('a.back-button').forEach(a => {
+      if (!a.getAttribute('aria-label')) a.setAttribute('aria-label','Back to Home');
+    });
+  } catch(e) {}
 });

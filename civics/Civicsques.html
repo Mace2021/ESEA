@@ -106,7 +106,6 @@ align-items: center;
     
     
     <br>
-    <button id="question" onclick="askQuestion() " >Click To Ask The Question</button>
     <div id="message"></div>
     <hr style="height: 2px; background-color: #750101;"/>
    
@@ -211,11 +210,14 @@ align-items: center;
             const correctCapital = currentState.capital.toLowerCase();
 
             if (selectedCapital === correctCapital) {
-                document.getElementById("message").innerHTML = "Correct!";
+                document.getElementById("message").innerHTML = "Correct! Next question coming...";
                 document.getElementById("message").style.color = "green";
                
                 announceResult(true);
-                setTimeout(askQuestion, 1000); // Auto reset after 1 second
+                setTimeout(() => {
+                    document.getElementById("message").innerHTML = "";
+                    askQuestion();
+                }, 1200);
             } else {
                 document.getElementById("message").innerHTML = "Incorrect. Try again";
                 document.getElementById("message").style.color = "red";
@@ -246,6 +248,8 @@ align-items: center;
             const utterance = new SpeechSynthesisUtterance(announcement);
             speechSynthesis.speak(utterance);
         }
+
+        document.addEventListener('DOMContentLoaded', askQuestion);
     </script>
 </script>
 

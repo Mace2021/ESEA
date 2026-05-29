@@ -99,13 +99,11 @@
 </head>
 
 <body>
-    <a href="../index.html" id="linkto">What is the shape</a>
+    <a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
     
     <hr style="height: 10px; background-color: #5e3737;"/>
    
    
-    <button id="questions" onclick="startGame()" >Click Here To Ask the Question</button>
-  
     <div id="questiondiv"></div>
     <div id="message"></div>
     <div id="shapes-container">
@@ -238,19 +236,23 @@
     shapeElements.forEach(element => {
         element.addEventListener('click', () => {
             if (element === correctShapeElement) {
-                document.getElementById("message").innerHTML = "Correct!";
+                document.getElementById("message").innerHTML = "Correct! Next one coming...";
                 document.getElementById("message").style.color = "green";
                 playSound(true);
-              
+                setTimeout(() => {
+                    document.getElementById("message").innerHTML = "";
+                    askQuestion();
+                }, 1200);
             } else {
                 document.getElementById("message").innerHTML = "Incorrect. Try again";
                 document.getElementById("message").style.color = "red";
                 playSound(false);
-               
             }
         });
     });
 }
+
+document.addEventListener('DOMContentLoaded', startGame);
 
 function playSound(isCorrect) {
     const correctAudio = document.getElementById("Correct");

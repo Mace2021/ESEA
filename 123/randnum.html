@@ -162,7 +162,6 @@
    
     <br> <br> <br>
     
-    <div id="question" onclick="startGame()">Click To Ask The Question</div>
     <br> <br> 
     <div id="message"></div>
     <br> 
@@ -257,6 +256,8 @@
         function startGame() {
             askQuestion();
         }
+
+        document.addEventListener('DOMContentLoaded', startGame);
     </script>    
 
     <script src="../lesson-support.js"></script>`n</body>

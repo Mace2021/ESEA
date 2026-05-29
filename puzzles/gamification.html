@@ -176,10 +176,10 @@
 
         <!-- Main Content -->
         <div class="container page-content">
-            <a href="index.html" class="back-button">← Back to Home</a>
+            <a href="index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
 
             <!-- Quick Stats -->
-            <div class="dashboard-grid">
+            <div class="dashboard-grid" role="region" aria-label="Progress statistics">
                 <div class="stat-card">
                     <div class="stat-label">Total Points</div>
                     <div class="stat-value" id="totalPoints">0</div>
@@ -215,20 +215,21 @@
             <!-- Badges & Achievements -->
             <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
                 <h3>🎖️ Badges & Achievements</h3>
-                <div class="badges-container">
-                    <div class="badge badge-locked" title="First Steps - Earn 50 points">
+                <div class="badges-container" aria-label="Achievement badges">
+                    <div class="badge badge-locked" role="img" aria-label="First Steps badge locked" data-badge-name="first-steps" data-badge-title="First Steps - Earn 50 points">
                         👣
                     </div>
-                    <div class="badge badge-locked" title="Century - Earn 100 points">
+                    <div class="badge badge-locked" role="img" aria-label="Century badge locked" data-badge-name="century" data-badge-title="Century - Earn 100 points">
                         💯
                     </div>
-                    <div class="badge badge-locked" title="Scholar - Earn 500 points">
+                    <div class="badge badge-locked" role="img" aria-label="Scholar badge locked" data-badge-name="scholar" data-badge-title="Scholar - Earn 500 points">
                         📚
                     </div>
-                    <div class="badge badge-locked" title="Master - Earn 1000 points">
+                    <div class="badge badge-locked" role="img" aria-label="Master badge locked" data-badge-name="master" data-badge-title="Master - Earn 1000 points">
                         🏅
                     </div>
                 </div>
+                <div id="dashboardAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
             </div>
 
             <!-- Module Statistics -->
@@ -249,7 +250,7 @@
             <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
                 <h3>🎉 Keep Learning!</h3>
                 <p>Every lesson completed is a step towards becoming a learning champion!</p>
-                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Learning</a>
+                <a href="index.html" class="back-button" style="margin-top: 15px;" aria-label="Back to Learning">← Back to Learning</a>
             </div>
         </div>
 
@@ -260,8 +261,14 @@
         </footer>
     </div>
 
-    <script src="app.js"></script>
+<script src="../app.js"></script>
     <script>
+        let lastDashboardStatus = {
+            points: null,
+            level: null,
+            badges: []
+        };
+
         function updateDashboard() {
             const scoring = GameScoring.load();
             const streak = StreakTracker.load();
@@ -283,26 +290,34 @@
             document.getElementById('progressText').textContent = `${scoring.totalPoints} / ${nextThreshold} points`;
 
             // Update badges
-            const badgeEmojis = ['👣', '💯', '📚', '🏅'];
-            const badgeNames = ['first-steps', 'century', 'scholar', 'master'];
-            const badgeTitles = [
+            const badgeLabels = [
                 'First Steps - Earn 50 points',
                 'Century - Earn 100 points',
                 'Scholar - Earn 500 points',
                 'Master - Earn 1000 points'
             ];
-            
+            const badgeEmojis = ['👣', '💯', '📚', '🏅'];
             const badges = document.querySelectorAll('.badge');
             badges.forEach((badge, index) => {
-                badge.title = badgeTitles[index];
+                const badgeName = badge.dataset.badgeName;
+                const isUnlocked = scoring.badges.includes(badgeName);
+                badge.title = badgeLabels[index];
+                badge.setAttribute('aria-label', `${badgeLabels[index]} ${isUnlocked ? 'unlocked' : 'locked'}`);
                 badge.textContent = badgeEmojis[index];
-                
-                if (scoring.badges.includes(badgeNames[index])) {
-                    badge.classList.remove('badge-locked');
-                } else {
-                    badge.classList.add('badge-locked');
-                }
+                badge.classList.toggle('badge-locked', !isUnlocked);
             });
+
+            // Announce when progress changes
+            if (scoring.totalPoints !== lastDashboardStatus.points || scoring.level !== lastDashboardStatus.level) {
+                const announcement = `You have ${scoring.totalPoints} points and are at ${GameScoring.getLevelName(scoring.level)} level.`;
+                A11y.announce(announcement);
+                const announcementTarget = document.getElementById('dashboardAnnouncement');
+                if (announcementTarget) {
+                    announcementTarget.textContent = announcement;
+                }
+                lastDashboardStatus.points = scoring.totalPoints;
+                lastDashboardStatus.level = scoring.level;
+            }
 
             // Update module stats
             const moduleStatsList = document.getElementById('moduleStatsList');
@@ -337,6 +352,7 @@
                 GameScoring.reset();
                 StreakTracker.reset();
                 updateDashboard();
+                A11y.announce('Progress has been reset. Start learning again.');
                 alert('✅ Progress has been reset!');
             }
         }

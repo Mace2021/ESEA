@@ -86,12 +86,8 @@
 <body>
     
 
-    <a href="../index.html" style="width: 100%; justify-content: center;background-color: #bffaf0;
-    margin: 0 auto; width: 200px;border-radius: 5px;">What is the Number</a>
    
-    <br>
     
-    <button id="question" onclick="startGame()">Click To Ask The Question</button>
     <div id="message"></div>
     <div id="board-container">
       <div id="1" class="count123">1</div>
@@ -226,13 +222,17 @@
             const messageElement = document.getElementById('message');
             const clickedNumber = event.target.id;
             if (clickedNumber === currentNumber) {
-                messageElement.textContent = 'Correct!';
-        messageElement.style.color = 'green';
+                messageElement.textContent = 'Correct! Next question coming...';
+                messageElement.style.color = 'green';
                 playSound(true);
                 console.log('That is correct');
+                setTimeout(() => {
+                    messageElement.textContent = '';
+                    askQuestion();
+                }, 1200);
             } else {
                 messageElement.textContent = 'Incorrect. Try again.';
-        messageElement.style.color = 'red';
+                messageElement.style.color = 'red';
                 playSound(false);
                 console.log('That is Incorrect');
             }
@@ -254,7 +254,10 @@
             numberElements.forEach(element => {
                 element.addEventListener('click', handleClick);
             });
-        } 
+        }
+
+        document.addEventListener('DOMContentLoaded', startGame);
+
         function playSound(isCorrect) {
     const correctAudio = document.getElementById("Correct");
     const incorrectAudio = document.getElementById("Incorrect");

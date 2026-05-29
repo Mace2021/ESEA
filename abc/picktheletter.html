@@ -75,7 +75,6 @@
     
     <hr style="height: 2px; background-color: #f5a8a8;"/>
 
-    <button id="question" onclick="startGame()" >Click Here To Ask the Question</button>
     <div id="message"></div>
    
    <div id="board-containers">
@@ -123,13 +122,17 @@
             const messageElement = document.getElementById('message');
             const clickedLetter = event.target.id;
             if (clickedLetter === currentLetter) {
-                messageElement.textContent = 'Correct!';
-        messageElement.style.color = 'green';
+                messageElement.textContent = 'Correct! Next question coming...';
+                messageElement.style.color = 'green';
                 playSound(true);
                 console.log('That is correct');
+                setTimeout(() => {
+                    messageElement.textContent = '';
+                    askQuestion();
+                }, 1200);
             } else {
                 messageElement.textContent = 'Incorrect. Try again.';
-        messageElement.style.color = 'red';
+                messageElement.style.color = 'red';
                 playSound(false);
                 console.log('That is Incorrect');
             }
@@ -151,7 +154,9 @@
             letterElements.forEach(element => {
                 element.addEventListener('click', handleClick);
             });
-        } 
+        }
+
+        document.addEventListener('DOMContentLoaded', startGame);
         function playSound(isCorrect) {
     const correctAudio = document.getElementById("Correct");
     const incorrectAudio = document.getElementById("Incorrect");

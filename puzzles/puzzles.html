@@ -113,66 +113,55 @@
 
         <!-- Main Content -->
         <div class="container page-content">
-            <a href="index.html" class="back-button">← Back to Home</a>
+            <a href="index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
 
             <h2>Choose a Puzzle!</h2>
             <p>Click on a puzzle to play!</p>
 
-            <div class="puzzle-grid">
-                <!-- Shape Matching -->
-                <div class="puzzle-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="puzzle-grid" role="list">
+                <button type="button" class="puzzle-card" aria-label="Play shape matching puzzle" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                     <div class="puzzle-emoji">⬜</div>
                     <div class="puzzle-name">SHAPE MATCH</div>
-                </div>
+                </button>
 
-                <!-- Number Matching -->
-                <div class="puzzle-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <button type="button" class="puzzle-card" aria-label="Play number matching puzzle" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
                     <div class="puzzle-emoji">🔢</div>
                     <div class="puzzle-name">NUMBER MATCH</div>
-                </div>
+                </button>
 
-                <!-- Letter Matching -->
-                <div class="puzzle-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <button type="button" class="puzzle-card" aria-label="Play letter matching puzzle" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                     <div class="puzzle-emoji">🔤</div>
                     <div class="puzzle-name">LETTER MATCH</div>
-                </div>
+                </button>
 
-                <!-- Animal Matching -->
-                <div class="puzzle-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">
+                <button type="button" class="puzzle-card" aria-label="Play animal matching puzzle" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">
                     <div class="puzzle-emoji">🦁</div>
                     <div class="puzzle-name">ANIMAL MATCH</div>
-                </div>
+                </button>
 
-                <!-- Sorting Game -->
-                <div class="puzzle-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">
+                <button type="button" class="puzzle-card" aria-label="Play sorting game puzzle" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">
                     <div class="puzzle-emoji">📦</div>
                     <div class="puzzle-name">SORT GAME</div>
-                </div>
+                </button>
 
-                <!-- Find the Pair -->
-                <div class="puzzle-card" style="background: linear-gradient(135deg, #b993fe 0%, #a78bfa 100%);">
+                <button type="button" class="puzzle-card" aria-label="Play pair finding puzzle" style="background: linear-gradient(135deg, #b993fe 0%, #a78bfa 100%);">
                     <div class="puzzle-emoji">🎯</div>
                     <div class="puzzle-name">FIND PAIRS</div>
-                </div>
+                </button>
             </div>
 
-            <h2 style="margin-top: 50px;">Shape Matching Tutorial</h2>
-            <p>Can you match the shapes on the left with shapes on the right?</p>
+            <h2 style="margin-top: 50px;">Shape Matching Challenge</h2>
+            <p>Choose the correct shape answer. Each correct match earns points and helps unlock badges.</p>
 
-            <div class="matching-area">
-                <div class="match-item">
-                    🔵 CIRCLE
-                </div>
-                <div class="match-item">
-                    ⬜ SQUARE
-                </div>
-                <div class="match-item">
-                    🔺 TRIANGLE
-                </div>
-                <div class="match-item">
-                    ⬜ SQUARE
-                </div>
+            <div class="matching-area" id="matchingGame" role="application" aria-label="Shape matching challenge">
+                <div class="match-item" id="matchPrompt" style="font-size: 1.1rem; font-weight: bold; background: rgba(255,255,255,0.95); padding: 15px; border-radius: 12px;">Tap the matching shape for: <span id="targetShape">CIRCLE</span></div>
+                <button type="button" class="match-item" data-answer="circle" aria-label="Circle" style="background: #e0f7fa; color: #005661;">🔵 CIRCLE</button>
+                <button type="button" class="match-item" data-answer="square" aria-label="Square" style="background: #fff8e1; color: #5d4037;">⬜ SQUARE</button>
+                <button type="button" class="match-item" data-answer="triangle" aria-label="Triangle" style="background: #f3e5f5; color: #4a148c;">🔺 TRIANGLE</button>
+                <button type="button" class="match-item" data-answer="star" aria-label="Star" style="background: #fff3e0; color: #e65100;">⭐ STAR</button>
             </div>
+            <div id="matchFeedback" class="match-feedback" role="status" aria-live="polite" style="font-weight: bold; margin-top: 10px; min-height: 2rem; color: #333;"></div>
+            <button type="button" id="resetMatch" class="back-button" style="margin-top: 15px;">🔄 Try another shape</button>
 
             <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
                 <h3>🎉 Great Matching Skills!</h3>
@@ -188,7 +177,61 @@
         </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="../app.js"></script>
+    <script>
+        (function() {
+            const matchOptions = document.querySelectorAll('.match-item[data-answer]');
+            const targetShape = document.getElementById('targetShape');
+            const feedback = document.getElementById('matchFeedback');
+            const resetButton = document.getElementById('resetMatch');
+            const promptContainer = document.getElementById('matchPrompt');
+
+            const shapeChallenges = [
+                { key: 'circle', label: 'CIRCLE' },
+                { key: 'square', label: 'SQUARE' },
+                { key: 'triangle', label: 'TRIANGLE' },
+                { key: 'star', label: 'STAR' }
+            ];
+
+            let currentChallenge = null;
+
+            function chooseChallenge() {
+                currentChallenge = GameUtils.random(shapeChallenges);
+                targetShape.textContent = currentChallenge.label;
+                feedback.textContent = '';
+                matchOptions.forEach(button => {
+                    button.disabled = false;
+                    button.classList.remove('correct', 'incorrect');
+                });
+                A11y.announce(`New challenge: find the ${currentChallenge.label}.`);
+            }
+
+            function handleAnswer(event) {
+                const selected = event.currentTarget.dataset.answer;
+                if (!currentChallenge) return;
+
+                if (selected === currentChallenge.key) {
+                    feedback.textContent = `✅ Great job! You matched the ${currentChallenge.label}.`;
+                    feedback.style.color = '#2e7d32';
+                    event.currentTarget.classList.add('correct');
+                    matchOptions.forEach(button => button.disabled = true);
+                    GameScoring.awardPoints('puzzles-shapes', 20, `Correct! You earned 20 points.`);
+                } else {
+                    feedback.textContent = `❌ Try again!`;
+                    feedback.style.color = '#c62828';
+                    event.currentTarget.classList.add('incorrect');
+                    StreakTracker.recordFailure();
+                    A11y.announce('Not quite. Try again.');
+                }
+            }
+
+            matchOptions.forEach(button => {
+                button.addEventListener('click', handleAnswer);
+            });
+            resetButton.addEventListener('click', chooseChallenge);
+            chooseChallenge();
+        })();
+    </script>
   <script src="../lesson-support.js"></script>`n</body>
 </html>
 

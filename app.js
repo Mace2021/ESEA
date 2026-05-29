@@ -223,6 +223,15 @@ const GameScoring = {
     return badges;
   },
 
+  awardPoints(moduleId, points, message) {
+    const scoring = this.addPoints(moduleId, points);
+    StreakTracker.recordSuccess();
+    if (message) {
+      A11y.announce(message);
+    }
+    return scoring;
+  },
+
   reset() {
     localStorage.removeItem('esea_scoring');
   }
