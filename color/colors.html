@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Learn Colors - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
 </head>
@@ -41,5 +42,160 @@
         };
     </script>
     <script src="../early-lesson.js"></script>
+=======
+    <meta name="description" content="Learn colors with ESEA - Interactive color recognition game">
+    <meta name="theme-color" content="#667eea">
+    
+    <title>Learn Colors - ESEA</title>
+    <link rel="stylesheet" href="responsive.css">
+    
+    <style>
+        .color-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .color-card {
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            border: 4px solid #333;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .color-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-name {
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+
+        .color-emoji {
+            font-size: 3rem;
+        }
+
+        @media (min-width: 480px) {
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .color-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .color-card {
+                min-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header role="banner">
+            <div class="logo-container">
+                <img src="images/ESEA.png" alt="ESEA Logo">
+                <div>
+                    <h1>Learn Colors</h1>
+                    <p>🎨 Explore beautiful colors!</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container page-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+
+            <h2>Can you identify these colors?</h2>
+            <p>Click on each color to see its name!</p>
+
+            <div class="color-grid">
+                <!-- Red -->
+                <div class="color-card" style="background-color: #FF0000; color: white;">
+                    <div class="color-emoji">🔴</div>
+                    <div class="color-name">RED</div>
+                </div>
+
+                <!-- Blue -->
+                <div class="color-card" style="background-color: #0000FF; color: white;">
+                    <div class="color-emoji">🔵</div>
+                    <div class="color-name">BLUE</div>
+                </div>
+
+                <!-- Yellow -->
+                <div class="color-card" style="background-color: #FFFF00; color: #333;">
+                    <div class="color-emoji">🟡</div>
+                    <div class="color-name">YELLOW</div>
+                </div>
+
+                <!-- Green -->
+                <div class="color-card" style="background-color: #008000; color: white;">
+                    <div class="color-emoji">🟢</div>
+                    <div class="color-name">GREEN</div>
+                </div>
+
+                <!-- Purple -->
+                <div class="color-card" style="background-color: #800080; color: white;">
+                    <div class="color-emoji">🟣</div>
+                    <div class="color-name">PURPLE</div>
+                </div>
+
+                <!-- Orange -->
+                <div class="color-card" style="background-color: #FFA500; color: white;">
+                    <div class="color-emoji">🟠</div>
+                    <div class="color-name">ORANGE</div>
+                </div>
+
+                <!-- Pink -->
+                <div class="color-card" style="background-color: #FFC0CB; color: #333;">
+                    <div class="color-emoji">💗</div>
+                    <div class="color-name">PINK</div>
+                </div>
+
+                <!-- Black -->
+                <div class="color-card" style="background-color: #000000; color: white;">
+                    <div class="color-emoji">⚫</div>
+                    <div class="color-name">BLACK</div>
+                </div>
+
+                <!-- White -->
+                <div class="color-card" style="background-color: #FFFFFF; color: #333; border: 3px solid #333;">
+                    <div class="color-emoji">⚪</div>
+                    <div class="color-name">WHITE</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
+                <h3>🎉 Great Job Learning Colors!</h3>
+                <p>You've learned 9 beautiful colors! Practice them again or explore other subjects.</p>
+                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Home</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <p>ESEA - Early Start Education App</p>
+            <p>📧 earlystarteducationapp@gmail.com</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 </body>
 </html>

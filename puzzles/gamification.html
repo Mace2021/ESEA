@@ -176,10 +176,17 @@
 
         <!-- Main Content -->
         <div class="container page-content">
+<<<<<<< HEAD
             <a href="index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
 
             <!-- Quick Stats -->
             <div class="dashboard-grid" role="region" aria-label="Progress statistics">
+=======
+            <a href="index.html" class="back-button">← Back to Home</a>
+
+            <!-- Quick Stats -->
+            <div class="dashboard-grid">
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
                 <div class="stat-card">
                     <div class="stat-label">Total Points</div>
                     <div class="stat-value" id="totalPoints">0</div>
@@ -215,6 +222,7 @@
             <!-- Badges & Achievements -->
             <div style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
                 <h3>🎖️ Badges & Achievements</h3>
+<<<<<<< HEAD
                 <div class="badges-container" aria-label="Achievement badges">
                     <div class="badge badge-locked" role="img" aria-label="First Steps badge locked" data-badge-name="first-steps" data-badge-title="First Steps - Earn 50 points">
                         👣
@@ -230,6 +238,22 @@
                     </div>
                 </div>
                 <div id="dashboardAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+=======
+                <div class="badges-container">
+                    <div class="badge badge-locked" title="First Steps - Earn 50 points">
+                        👣
+                    </div>
+                    <div class="badge badge-locked" title="Century - Earn 100 points">
+                        💯
+                    </div>
+                    <div class="badge badge-locked" title="Scholar - Earn 500 points">
+                        📚
+                    </div>
+                    <div class="badge badge-locked" title="Master - Earn 1000 points">
+                        🏅
+                    </div>
+                </div>
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
             </div>
 
             <!-- Module Statistics -->
@@ -250,7 +274,11 @@
             <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 15px; text-align: center;">
                 <h3>🎉 Keep Learning!</h3>
                 <p>Every lesson completed is a step towards becoming a learning champion!</p>
+<<<<<<< HEAD
                 <a href="index.html" class="back-button" style="margin-top: 15px;" aria-label="Back to Learning">← Back to Learning</a>
+=======
+                <a href="index.html" class="back-button" style="margin-top: 15px;">← Back to Learning</a>
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
             </div>
         </div>
 
@@ -261,6 +289,7 @@
         </footer>
     </div>
 
+<<<<<<< HEAD
 <script src="../app.js"></script>
     <script>
         let lastDashboardStatus = {
@@ -269,6 +298,10 @@
             badges: []
         };
 
+=======
+    <script src="app.js"></script>
+    <script>
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
         function updateDashboard() {
             const scoring = GameScoring.load();
             const streak = StreakTracker.load();
@@ -290,12 +323,19 @@
             document.getElementById('progressText').textContent = `${scoring.totalPoints} / ${nextThreshold} points`;
 
             // Update badges
+<<<<<<< HEAD
             const badgeLabels = [
+=======
+            const badgeEmojis = ['👣', '💯', '📚', '🏅'];
+            const badgeNames = ['first-steps', 'century', 'scholar', 'master'];
+            const badgeTitles = [
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
                 'First Steps - Earn 50 points',
                 'Century - Earn 100 points',
                 'Scholar - Earn 500 points',
                 'Master - Earn 1000 points'
             ];
+<<<<<<< HEAD
             const badgeEmojis = ['👣', '💯', '📚', '🏅'];
             const badges = document.querySelectorAll('.badge');
             badges.forEach((badge, index) => {
@@ -318,6 +358,20 @@
                 lastDashboardStatus.points = scoring.totalPoints;
                 lastDashboardStatus.level = scoring.level;
             }
+=======
+            
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach((badge, index) => {
+                badge.title = badgeTitles[index];
+                badge.textContent = badgeEmojis[index];
+                
+                if (scoring.badges.includes(badgeNames[index])) {
+                    badge.classList.remove('badge-locked');
+                } else {
+                    badge.classList.add('badge-locked');
+                }
+            });
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 
             // Update module stats
             const moduleStatsList = document.getElementById('moduleStatsList');
@@ -352,7 +406,10 @@
                 GameScoring.reset();
                 StreakTracker.reset();
                 updateDashboard();
+<<<<<<< HEAD
                 A11y.announce('Progress has been reset. Start learning again.');
+=======
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
                 alert('✅ Progress has been reset!');
             }
         }
@@ -363,6 +420,11 @@
         // Update dashboard every second (to show real-time updates if another tab changes data)
         setInterval(updateDashboard, 1000);
     </script>
+<<<<<<< HEAD
   <script src="../lesson-support.js"></script>`n</body>
 </html>
 
+=======
+</body>
+</html>
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1

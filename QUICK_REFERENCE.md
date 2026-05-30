@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎓 ESEA Quick Reference Guide - Updated May 28, 2026
 
 ## ✅ What Was Fixed
@@ -45,19 +46,31 @@
 - Videos & Tutorials (3 options)
 
 ---
+=======
+# ESEA Quick Reference Card
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 
 ## 🚀 Getting Started
 
 ```bash
 1. Open index.html in your browser
+<<<<<<< HEAD
 2. Click any subject card to expand dropdown
 3. Click a lesson in dropdown to start learning
+=======
+2. Click any subject card to expand
+3. Click a lesson to start learning
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 4. Progress is automatically saved
 ```
 
 ---
 
+<<<<<<< HEAD
 ## 📱 Responsive Design
+=======
+## 📱 Responsive Breakpoints
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 
 ```
 ┌─────────────────────────────────────┐
@@ -65,12 +78,22 @@
 │ Single Column Grid                  │
 │                                     │
 │  ┌────────────────────────┐         │
+<<<<<<< HEAD
 │  │  🔢 Card 1             │         │
 │  │  Description text      │         │
 │  └────────────────────────┘         │
 │  ┌────────────────────────┐         │
 │  │  🔤 Card 2             │         │
 │  │  Description text      │         │
+=======
+│  │  Card 1                │         │
+│  └────────────────────────┘         │
+│  ┌────────────────────────┐         │
+│  │  Card 2                │         │
+│  └────────────────────────┘         │
+│  ┌────────────────────────┐         │
+│  │  Card 3                │         │
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 │  └────────────────────────┘         │
 └─────────────────────────────────────┘
 
@@ -79,17 +102,25 @@
 │ Two Column Grid                     │
 │                                     │
 │  ┌──────────────┬──────────────┐   │
+<<<<<<< HEAD
 │  │  🔢 Card 1   │  🔤 Card 2   │   │
 │  │  Desc        │  Desc        │   │
 │  └──────────────┴──────────────┘   │
 │  ┌──────────────┬──────────────┐   │
 │  │  ✏️ Card 3   │  ➕ Card 4   │   │
 │  │  Desc        │  Desc        │   │
+=======
+│  │  Card 1      │  Card 2      │   │
+│  └──────────────┴──────────────┘   │
+│  ┌──────────────┬──────────────┐   │
+│  │  Card 3      │  Card 4      │   │
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 │  └──────────────┴──────────────┘   │
 └─────────────────────────────────────┘
 
 ┌─────────────────────────────────────┐
 │ Desktop (768px+)                    │
+<<<<<<< HEAD
 │ Four Column Grid                    │
 │                                     │
 │  ┌───┬───┬───┬───┐                 │
@@ -98,6 +129,13 @@
 │  ┌───┬───┬───┬───┐                 │
 │  │ 5 │ 6 │ 7 │ 8 │                 │
 │  └───┴───┴───┴───┘                 │
+=======
+│ Three/Four Column Grid              │
+│                                     │
+│  ┌──────┬──────┬──────┬──────┐     │
+│  │  C1  │  C2  │  C3  │  C4  │     │
+│  └──────┴──────┴──────┴──────┘     │
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 │  ┌──────┬──────┬──────┬──────┐     │
 │  │  C5  │  C6  │  C7  │  C8  │     │
 │  └──────┴──────┴──────┴──────┘     │

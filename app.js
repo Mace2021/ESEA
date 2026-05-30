@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const cards = document.querySelectorAll('.card');
   
   cards.forEach(card => {
+<<<<<<< HEAD
     // Click handler for card (not on dropdown items)
     card.addEventListener('click', function(e) {
       // If clicking on a dropdown item (link), let it navigate naturally
@@ -16,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // Prevent default only for card itself
+=======
+    card.addEventListener('click', function(e) {
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
       e.preventDefault();
       
       // Close other dropdowns
@@ -39,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+<<<<<<< HEAD
   // Handle dropdown item clicks - ensure they navigate
   const dropdownItems = document.querySelectorAll('.dropdown-item');
   dropdownItems.forEach(item => {
@@ -52,6 +57,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
         e.preventDefault();
       }
+=======
+  // Handle dropdown item clicks
+  const dropdownItems = document.querySelectorAll('.dropdown-item');
+  dropdownItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      // Let the link navigate naturally
+      // Optionally add any custom logic here
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
     });
   });
 
@@ -223,6 +236,7 @@ const GameScoring = {
     return badges;
   },
 
+<<<<<<< HEAD
   awardPoints(moduleId, points, message) {
     const scoring = this.addPoints(moduleId, points);
     StreakTracker.recordSuccess();
@@ -232,6 +246,8 @@ const GameScoring = {
     return scoring;
   },
 
+=======
+>>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
   reset() {
     localStorage.removeItem('esea_scoring');
   }
