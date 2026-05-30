@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Rainbow - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <style>
+        .video-stage { padding: 1rem; }
+        .rainbow-scene { min-height: 360px; border-radius: 20px; background: linear-gradient(180deg, #f2f9ff, #e8f2ff); position: relative; overflow: hidden; }
+        .balloon { position: absolute; width: 80px; height: 110px; border-radius: 50% 50% 50% 50%; background: #ff8f91; box-shadow: inset -8px -8px 0 rgba(0,0,0,0.08); animation: floatBalloon 8s ease-in-out infinite alternate; }
+        .balloon:nth-child(1){ left: 10%; top: 65%; background: #ffb347; animation-delay: 0s; }
+        .balloon:nth-child(2){ left: 40%; top: 70%; background: #7ed6df; animation-delay: 1s; }
+        .balloon:nth-child(3){ left: 70%; top: 60%; background: #9c88ff; animation-delay: 2s; }
+        .number-label { position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.92); padding: 0.75rem 1rem; border-radius: 999px; font-size: 1.3rem; font-weight: 700; color: #2d2a67; }
+        .video-controls { margin-top: 1rem; display:flex; gap:1rem; flex-wrap:wrap; }
+        .video-controls button { padding: 0.85rem 1.2rem; border-radius: 999px; border:none; background: #9c6bff; color:#fff; font-weight:700; cursor:pointer; }
+        @keyframes floatBalloon { from { transform: translateY(0);} to { transform: translateY(-40px);} }
+    </style>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Counting Rainbow</h1>
+            <p>Watch bright balloons float by and count the colorful objects out loud.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel video-stage">
+                <div class="rainbow-scene" id="rainbowScene">
+                    <div class="number-label" id="countLabel">Count: 0</div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                </div>
+                <div class="video-controls">
+                    <button id="playBtn">Play Video</button>
+                    <button id="replayBtn">Replay</button>
+                </div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        const countLabel = document.getElementById('countLabel');
+        const playBtn = document.getElementById('playBtn');
+        const replayBtn = document.getElementById('replayBtn');
+        const scenes = [
+            { count: 1, phrase: 'One bright yellow balloon.' },
+            { count: 2, phrase: 'Two blue balloons float up.' },
+            { count: 3, phrase: 'Three purple balloons wave hello.' }
+        ];
+        let current = 0;
+        let timer = null;
+
+        function speakText(text) {
+            if (!window.speechSynthesis || !text) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.95;
+            utterance.pitch = 1.05;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function showScene(index) {
+            const scene = scenes[index];
+            countLabel.textContent = 'Count: ' + scene.count;
+            speakText(scene.phrase);
+        }
+
+        function playVideo() {
+            window.speechSynthesis.cancel();
+            current = 0;
+            showScene(current);
+            clearInterval(timer);
+            timer = setInterval(() => {
+                current += 1;
+                if (current >= scenes.length) {
+                    clearInterval(timer);
+                    speakText('Great counting! You can watch again anytime.');
+                    return;
+                }
+                showScene(current);
+            }, 4200);
+        }
+
+        playBtn.addEventListener('click', playVideo);
+        replayBtn.addEventListener('click', playVideo);
+    </script>
+</body>
+</html>

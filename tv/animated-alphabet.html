@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Adventure - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <style>
+        .video-stage { padding: 1rem; }
+        .scene { min-height: 320px; display: grid; place-items: center; background: linear-gradient(180deg, #fff8f3, #f7e6ff); border-radius: 20px; position: relative; overflow: hidden; }
+        .letter { font-size: clamp(5rem, 8vw, 8rem); font-weight: 900; color: #7d3cff; opacity: 0; transform: translateY(50px); animation: floatUp 0.8s ease forwards; }
+        .word { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.85); padding: 0.8rem 1rem; border-radius: 999px; font-size: 1.3rem; color: #333; }
+        .cloud { position: absolute; width: 120px; height: 70px; background: #fff; border-radius: 60px; opacity: 0.75; animation: drift 8s linear infinite; }
+        .cloud:nth-child(1){ top: 20px; left: 10%; animation-duration: 9s; }
+        .cloud:nth-child(2){ top: 70px; right: 10%; width: 140px; height: 80px; animation-duration: 11s; }
+        .video-controls { margin-top: 1rem; display:flex; gap:1rem; flex-wrap:wrap; }
+        .video-controls button { padding: 0.85rem 1.2rem; border-radius: 999px; border:none; background: #9c6bff; color:#fff; font-weight:700; cursor:pointer; }
+        @keyframes floatUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes drift { 0% { transform: translateX(0);} 100% { transform: translateX(120vw);} }
+    </style>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Alphabet Adventure</h1>
+            <p>Watch letters come to life and hear a short phonics story.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel video-stage">
+                <div class="scene" id="scene">
+                    <div class="cloud"></div>
+                    <div class="cloud"></div>
+                    <div class="letter" id="bigLetter">A</div>
+                    <div class="word" id="wordLabel">A is for Apple</div>
+                </div>
+                <div class="video-controls">
+                    <button id="playBtn">Play Video</button>
+                    <button id="replayBtn">Replay</button>
+                </div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        const scenes = [
+            { letter: 'A', phrase: 'A is for apple', voice: 'A as in apple' },
+            { letter: 'B', phrase: 'B is for ball', voice: 'B as in ball' },
+            { letter: 'C', phrase: 'C is for cat', voice: 'C as in cat' }
+        ];
+        const bigLetter = document.getElementById('bigLetter');
+        const wordLabel = document.getElementById('wordLabel');
+        const playBtn = document.getElementById('playBtn');
+        const replayBtn = document.getElementById('replayBtn');
+        let current = 0;
+        let timer = null;
+
+        function speakText(text) {
+            if (!window.speechSynthesis || !text) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.95;
+            utterance.pitch = 1.05;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function showScene(index) {
+            const scene = scenes[index];
+            bigLetter.textContent = scene.letter;
+            wordLabel.textContent = scene.phrase;
+            bigLetter.style.animation = 'none';
+            void bigLetter.offsetWidth;
+            bigLetter.style.animation = 'floatUp 0.8s ease forwards';
+            speakText(scene.voice);
+        }
+
+        function playVideo() {
+            window.speechSynthesis.cancel();
+            current = 0;
+            showScene(current);
+            clearInterval(timer);
+            timer = setInterval(() => {
+                current += 1;
+                if (current >= scenes.length) {
+                    clearInterval(timer);
+                    speakText('Great job! Let us watch again anytime.');
+                    return;
+                }
+                showScene(current);
+            }, 4200);
+        }
+
+        playBtn.addEventListener('click', playVideo);
+        replayBtn.addEventListener('click', playVideo);
+    </script>
+</body>
+</html>

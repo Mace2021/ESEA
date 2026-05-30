@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Parade - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <style>
+        .video-stage { padding: 1rem; }
+        .parade-scene { min-height: 360px; background: linear-gradient(180deg, #fff7f2, #ffe8e4); border-radius: 20px; padding: 1rem; position: relative; overflow: hidden; }
+        .parade-track { position: absolute; bottom: 2rem; left: -120px; display: flex; gap: 1rem; animation: march 12s linear infinite; }
+        .animal { width: 120px; height: 120px; background: #fff; border-radius: 22px; display: grid; place-items: center; font-size: 2rem; font-weight: 700; color: #3b2d6f; box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+        .caption { position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.95); padding: 0.8rem 1rem; border-radius: 999px; font-size: 1.15rem; color: #2d2a67; }
+        .video-controls { margin-top: 1rem; display:flex; gap:1rem; flex-wrap:wrap; }
+        .video-controls button { padding: 0.85rem 1.2rem; border-radius: 999px; border:none; background: #9c6bff; color:#fff; font-weight:700; cursor:pointer; }
+        .sound-chip { display:inline-flex; min-width: 110px; justify-content: center; padding:0.7rem 1rem; border-radius:999px; border:none; background:#ffd6e8; color:#2b0a3d; cursor:pointer; font-size:0.95rem; }
+        @keyframes march { from { transform: translateX(0);} to { transform: translateX(140vw);} }
+    </style>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Sound Parade</h1>
+            <p>See the animals march and hear the sounds they make together.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel video-stage">
+                <div class="parade-scene">
+                    <div class="caption" id="paradeCaption">Tap Play to hear the parade.</div>
+                    <div class="parade-track" id="paradeTrack">
+                        <div class="animal">🐶</div>
+                        <div class="animal">🐱</div>
+                        <div class="animal">🐭</div>
+                        <div class="animal">🦁</div>
+                    </div>
+                </div>
+                <div class="video-controls">
+                    <button id="playBtn">Play Parade</button>
+                    <button id="replayBtn">Replay</button>
+                    <button class="sound-chip" data-sound="Dog says woof">Dog</button>
+                    <button class="sound-chip" data-sound="Cat says meow">Cat</button>
+                </div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        const paradeCaption = document.getElementById('paradeCaption');
+        const playBtn = document.getElementById('playBtn');
+        const replayBtn = document.getElementById('replayBtn');
+        const sceneSounds = [
+            'A happy dog says woof',
+            'A playful cat says meow',
+            'A little mouse says squeak',
+            'A lion says roar'
+        ];
+        let current = 0;
+        let timer = null;
+
+        function speakText(text) {
+            if (!window.speechSynthesis || !text) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.95;
+            utterance.pitch = 1.05;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function showStep(index) {
+            paradeCaption.textContent = 'Step ' + (index + 1) + ': ' + sceneSounds[index];
+            speakText(sceneSounds[index]);
+        }
+
+        function playVideo() {
+            window.speechSynthesis.cancel();
+            current = 0;
+            showStep(current);
+            clearInterval(timer);
+            timer = setInterval(() => {
+                current += 1;
+                if (current >= sceneSounds.length) {
+                    clearInterval(timer);
+                    speakText('The parade is finished. Great listening!');
+                    return;
+                }
+                showStep(current);
+            }, 4200);
+        }
+
+        playBtn.addEventListener('click', playVideo);
+        replayBtn.addEventListener('click', playVideo);
+
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('.sound-chip')) {
+                speakText(event.target.dataset.sound);
+            }
+        });
+    </script>
+</body>
+</html>

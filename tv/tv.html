@@ -3,164 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
-    <title>TV</title>
+    <title>Watch & Listen - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
     <style>
-        *{
-            
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 30px;
-            font-weight: bolder;
-           
-        }
-        #linkto {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-            margin: 0 auto;
-            background-color: #eee6c2;
-            border-radius: 5px;
-            width: 50%;
-            justify-self: center;
-        }
-            @media (max-width: 768px) {
-        #iframe-container {
-            height: auto;
-            padding: 20px;
-            border-radius: 15px;
-        }
-        
-        iframe {
-            width: 100%;
-            height: 40vw;
-        }
-    }
-    #container {
-        display: flex;
-        justify-content: space-between;
-    }
-    #sidebar {
-        width: 25%;
-        padding: 20px;
-        background-color: #f0f0f0;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    #sidebar h3 {
-        color: #333;
-        border-bottom: 2px solid #ddd;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-    }
-    #mytv {
-        width: 70%;
-    }
-    #videoList {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    #videoList li:nth-child(odd) {
-        margin-bottom: 10px;
-        padding: 8px;
-        background-color: #94fd63;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
-    #videoList li:nth-child(even) {
-        margin-bottom: 10px;
-        padding: 8px;
-        background-color: #f0f0f0;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
-    #videoList li:hover {
-        background-color: #d0d0d0;
-        cursor: pointer;
-    }
+        .lesson-shell { max-width: 1000px; margin: 0 auto; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .video-card { background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 18px; padding: 1rem; box-shadow: 0 16px 32px rgba(0,0,0,0.05); }
+        .video-card h3 { margin: 0 0 0.5rem; }
+        .video-card p { margin: 0 0 1rem; color: #444; }
+        .video-card a { display: inline-flex; text-decoration: none; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 999px; background: #9c6bff; color: #fff; font-weight: 700; }
     </style>
 </head>
 <body>
-    <a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
-
-
-
-
-
-
-    <div id="container">
-        <div id="sidebar">
-            <h3>Next Videos</h3>
-            <ul id="videoList"></ul>
-        </div>
-        <div id="mytv">
-            <video id="videoPlayer" width="100%" height="500" controls>
-                <source src="" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Watch & Listen</h1>
+            <p>Choose a short animated learning video. These experiences are designed for adult-guided listening and early thinking.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel">
+                <article class="lesson-card">
+                    <h2>Animated Learning Videos</h2>
+                    <p>Select one of the short video-style lessons below, then press Play to watch the animation and hear the narration.</p>
+                </article>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <h3>Alphabet Adventure</h3>
+                        <p>Meet three friendly letters and hear them sound like a mini alphabet song.</p>
+                        <a href="animated-alphabet.html">Play Alphabet Adventure</a>
+                    </div>
+                    <div class="video-card">
+                        <h3>Counting Colors</h3>
+                        <p>Watch colorful objects appear and count them aloud with a friendly narrator.</p>
+                        <a href="counting-rainbow.html">Play Counting Colors</a>
+                    </div>
+                    <div class="video-card">
+                        <h3>Sound Parade</h3>
+                        <p>A playful parade of animals that shows how letter sounds and words move together.</p>
+                        <a href="sound-parade.html">Play Sound Parade</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
-
-<script>
-    const videoPlayer = document.getElementById('videoPlayer');
-    const videoSource = videoPlayer.querySelector('source');
-    const videoList = document.getElementById('videoList');
-    const videos = [
-
-        'videos/Introduction To Early Start Education App (ESEA).mp4',
-        'videos/Arithmetic.mp4',
-        'videos/ABC.mp4',
-        'videos/Games.mp4',
-        'videos/SPELLING.mp4',
-        // Add more video paths as needed
-    ];
-    let currentVideoIndex = 0;
-
-
-
-
-
-    function playVideo(index) {
-        currentVideoIndex = index;
-        videoSource.src = videos[currentVideoIndex];
-        videoPlayer.load();
-        videoPlayer.play();
-        updateSidebar();
-    }
-
-    function playNextVideo() {
-        currentVideoIndex++;
-        if (currentVideoIndex >= videos.length) {
-            currentVideoIndex = 0;
-        }
-        playVideo(currentVideoIndex);
-    }
-
-    function updateSidebar() {
-        videoList.innerHTML = '';
-
-
-
-
-        for (let i = 0; i < videos.length; i++) {
-            if (i !== currentVideoIndex) {
-                const li = document.createElement('li');
-                li.textContent = videos[i].split('/').pop().replace('.mp4', '');
-                li.addEventListener('click', () => playVideo(i));
-                videoList.appendChild(li);
-            }
-        }
-    }
-
-    videoPlayer.addEventListener('ended', playNextVideo);
-
-
-    // Start playing the first video and initialize sidebar
-
-    playVideo(0);
-</script>
-
-
-  <script src="../lesson-support.js"></script>`n</body>
+</body>
 </html>
-
