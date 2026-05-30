@@ -117,7 +117,6 @@ header img {
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
-<<<<<<< HEAD
   margin-bottom: 5px;
   color: #333;
 }
@@ -140,10 +139,6 @@ header img {
 .card.yellow .card-subtitle,
 .card.pink .card-subtitle {
   color: rgba(51, 51, 51, 0.85);
-=======
-  margin-bottom: 10px;
-  color: #333;
->>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 }
 
 .card-icon {
@@ -431,10 +426,7 @@ footer p {
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid white;
-<<<<<<< HEAD
   text-align: center;
-=======
->>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 }
 
 .back-button:hover {
@@ -442,7 +434,6 @@ footer p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-<<<<<<< HEAD
 /* Accessibility: visible focus state for keyboard users */
 .back-button:focus,
 .card:focus-visible,
@@ -500,8 +491,6 @@ button, .nav-btn {
   cursor: pointer;
 }
 
-=======
->>>>>>> 49210c12cbc39a21b7e01e86c1394d58a6fa1cd1
 /* ==========================================
    Responsive Breakpoints
    ========================================== */
