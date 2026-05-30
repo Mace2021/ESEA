@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Game - ESEA</title>
+    <link rel="stylesheet" href="../responsive.css">
+    <link rel="stylesheet" href="puzzle-lesson.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header role="banner"><div class="logo-container"><img src="../images/ESEA.png" alt="ESEA logo"><div><h1>Sort Game</h1><p>Sort familiar things into groups.</p></div></div></header>
+        <main class="container page-content">
+            <a href="puzzles.html" class="back-button">Back to Puzzles</a>
+            <section class="lesson-panel" aria-labelledby="lessonTitle">
+                <div class="lesson-top"><div class="lesson-copy"><h2 id="lessonTitle">Sort Game</h2><p id="lessonGoal">Sort familiar things into food, animal, or toy groups.</p></div><div class="progress-wrap" aria-label="Lesson progress"><div class="progress-meta"><span class="pill" id="roundText">1 of 6</span><span class="pill" id="scoreText">0 correct</span></div><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div></div></div>
+                <div class="activity-area" id="activityArea"></div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+                <div class="actions"><button type="button" class="primary-action" id="nextButton">Next</button><button type="button" class="secondary-action" id="restartButton">Restart</button></div>
+                <div class="complete-box" id="completeBox" aria-live="polite"><h3>Great work!</h3><p id="completeText">You finished the lesson.</p></div>
+            </section>
+        </main>
+        <footer role="contentinfo"><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="../app.js"></script>
+    <script>
+        window.PuzzleLessonConfig = {
+            id: 'sort-game',
+            title: 'Sort Game',
+            goal: 'Sort familiar things into food, animal, or toy groups.',
+            type: 'sort',
+            categories: [
+                { value: 'food', label: 'Food', art: '&#127822;' },
+                { value: 'animal', label: 'Animal', art: '&#128008;' },
+                { value: 'toy', label: 'Toy', art: '&#9917;' }
+            ],
+            rounds: [
+                { answer: 'food', label: 'Apple', art: '&#127822;' },
+                { answer: 'animal', label: 'Dog', art: '&#128021;' },
+                { answer: 'toy', label: 'Ball', art: '&#9917;' },
+                { answer: 'animal', label: 'Cat', art: '&#128008;' },
+                { answer: 'food', label: 'Banana', art: '&#127820;' },
+                { answer: 'toy', label: 'Block', art: '&#129513;' }
+            ]
+        };
+    </script>
+    <script src="puzzle-lesson.js"></script>
+</body>
+</html>

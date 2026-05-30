@@ -3,266 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How Many Apples</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        *{
-            font: 3em;
-            font-size: x-large;
-            font-weight: bolder;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-        body {
-          
-          margin: 0;
-          padding: 0;
-            text-align: center;
-        }
-
-        #math-container {
-
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-margin:0 auto;
-        }
-
-
-    
-
-    button {
-      width: auto;
-      background-color: #4CAF50;
-padding: 2px;
-      color: #0a0400;
-      
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-     
-    }
-
-    button:hover {
-      background-color: #c0f09f;
-    }
-
-
-    .letters {
-      width: 35px;
-     font: 1em ;
-      margin: 1px;
-      border: 1px solid #53add6;
-      border-radius: 5px;
-      background-color: aquamarine;
-      cursor: pointer;
-    }
-
-    .letters:hover {
-      background-color: #2cfc60;
-    }
-
-
-  
-    #questions {
-      justify-self: center;
-      margin: 0 auto;
-      width: 200px;
-    padding: 5px;
-   font: 1em sans-serif;
-      color: #0a0400;
-      background-color: lightgoldenrodyellow;
-      text-align: center;
-      box-shadow: #0703c7 0px 0px 20px;
-      border-radius: 5px;
-    }
-    #message {
-      position: relative;
-      width: 180px;
-      font-weight: bolder;
-      font-size: 1em;
-      color: #0a0400;
-      background-color: lightgoldenrodyellow;
-      justify-content: center;
-      margin-bottom: 20px;
-      margin: 0 auto;
-    }
-
-    #tablenum {
-      width: 90%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-   
-      font: 1em ;
-      
-    }
-
-        #linkto {
-            font-size: 1em;
-            font-weight: bold;
-            text-align: center;
-            margin: 0 auto;
-            background-color: #53add6;
-            border-radius: 5px;
-            width: 150px;
-            justify-self: center;
-        }
-
-
-        #answerInput {
-      width: 180px;
-     
-      margin: 4px 0;
-      box-sizing: border-box;
-      border: 2px solid #0f0101;
-      border-radius: 4px;
-      color: #000000;
-      text-align: right;
-      font-size: 1em;
-      font-weight: bolder;
-      background-color: rgb(211, 203, 203);
-    }
-    img {
-      width: 100px;
-      height: 80px;
-   box-shadow: 0px 0px 15px 5px;
-      /* Replace 'apple.png' with your apple image file */
-      background-size: contain;
-      margin-top: 10px;
-      margin: 5px;
-
-    }
-        #numOfApples {
-            display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    margin: 2px;
-      margin: 0 auto;
-      width: 100%;
-        }
-        #linkto {
-            font-size: 1em;
-            
-            text-align: center;
-       
-            background-color: #c0fad6;
-            border-radius: 5px;
-        width: auto;
-            justify-self: center;
-        }
-    </style>
-
+    <title>Count the Apples - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
 </head>
-
 <body>
-    <a href="../index.html" id="linkto">How Many Apples</a>
-
-    <hr>
-    <p onclick="askQuestion()" id="questions" ;>Click To Ask The Question</p>
-    <div id="questiondiv">
-        <div id="numOfApples"></div>
-
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Count the Apples</h1>
+            <p>Count the apples with your finger, then tap the number.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
-    <div id="math-container">
-
-
-        <div id="answer-button">
-            <div id="answerInput-cont">
-                <input id="answerInput">
-
-            </div>
-            <button onclick="checkAnswer()">Check</button>
-            <button onclick="clearAnswer()" style="background-color: brown; width: auto;">Clear</button>
-            <div id="message" style="font-weight: bolder;"></div>
-        </div>
-
-
-        <div id="tablenum" style="display: flex; justify-content: center; align-items: center; ">
-            <p onclick="document.getElementById('answerInput').value += '0'" class="letters">0</p>
-            <p onclick="document.getElementById('answerInput').value += '1'" class="letters">1</p>
-            <p onclick="document.getElementById('answerInput').value += '2'" class="letters">2</p>
-            <p onclick="document.getElementById('answerInput').value += '3'" class="letters">3</p>
-            <p onclick="document.getElementById('answerInput').value += '4'" class="letters">4</p>
-            <p onclick="document.getElementById('answerInput').value += '5'" class="letters">5</p>
-            <p onclick="document.getElementById('answerInput').value += '6'" class="letters">6</p>
-            <p onclick="document.getElementById('answerInput').value += '7'" class="letters">7</p>
-            <p onclick="document.getElementById('answerInput').value += '8'" class="letters">8</p>
-            <p onclick="document.getElementById('answerInput').value += '9'" class="letters">9</p>
-
-        </div>
-    </div>
-    <audio id="Correct" src="./audio/That is correct.mp3"></audio>
-    <audio id="Incorrect" src="./audio/That is Incorrect.mp3"></audio>
-
     <script>
-        function askQuestion() {
-            const numApples = Math.floor(Math.random() * 20) + 1;
-
-            // Generate random number of apples
-            for (let i = 0; i < numApples; i++) {
-                document.getElementById("numOfApples").innerHTML += '<img src="./images/apple.png">';
-            }
-
-            // Added speak() call to ask aloud
-            const utterance = new SpeechSynthesisUtterance(`How many apples are in the picture? `);
-            speechSynthesis.speak(utterance);
-
+        var numberChoices = [1, 2, 3, 4, 5].map(function(number) {
+            return { value: String(number), label: String(number), symbol: String(number) };
+        });
+        function appleRound(count) {
+            return {
+                prompt: 'How many apples?',
+                speak: 'How many apples do you see?',
+                answer: String(count),
+                target: { countImage: '../images/apple.png', count: count, alt: 'Apple' },
+                options: numberChoices
+            };
         }
-
-        function checkAnswer() {
-            const userAnswer = document.getElementById("answerInput").value;
-            const numApples = document.getElementById("numOfApples").childElementCount;
-
-            if (userAnswer == numApples) {
-                document.getElementById("message").innerHTML = "Correct!";
-                document.getElementById("message").style.color = "green";
-                document.getElementById("numOfApples").innerHTML = ""; // Clear image after answer
-                playSound(true);
-                console.log('That is Correct');
-                
-                // Automatically ask a new question after a short delay
-                setTimeout(() => {
-                    clearAnswer();
-                    askQuestion();
-                }, 2000); // 2 second delay
-            } else {
-                document.getElementById("message").innerHTML = "Incorrect. Try again";
-                document.getElementById("message").style.color = "red";
-                playSound(false);
-                console.log('That is Incorrect');
-            }
-        }
-
-
-        function playSound(isCorrect) {
-    const correctAudio = document.getElementById("Correct");
-    const incorrectAudio = document.getElementById("Incorrect");
-
-    // Pause any currently playing audio
-    correctAudio.pause();
-    correctAudio.currentTime = 0;
-    incorrectAudio.pause();
-    incorrectAudio.currentTime = 0;
-
-    // Play the appropriate audio based on correctness
-    if (isCorrect) {
-        correctAudio.play();
-    } else {
-        incorrectAudio.play();
-    }
-}
-
-        function clearAnswer() {
-            document.getElementById("answerInput").value = "";
-            document.getElementById("message").innerHTML = "";
-        }
+        window.EarlyLesson = {
+            title: 'Count Objects',
+            instructions: 'Use small groups first. Count each apple one time.',
+            type: 'quiz',
+            rounds: [1, 2, 3, 4, 5].map(appleRound)
+        };
     </script>
+    <script src="../early-lesson.js"></script>
 </body>
-
-
 </html>

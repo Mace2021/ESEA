@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Match - ESEA</title>
+    <link rel="stylesheet" href="../responsive.css">
+    <link rel="stylesheet" href="puzzle-lesson.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header role="banner"><div class="logo-container"><img src="../images/ESEA.png" alt="ESEA logo"><div><h1>Animal Match</h1><p>Match animal sounds to animals.</p></div></div></header>
+        <main class="container page-content">
+            <a href="puzzles.html" class="back-button">Back to Puzzles</a>
+            <section class="lesson-panel" aria-labelledby="lessonTitle">
+                <div class="lesson-top"><div class="lesson-copy"><h2 id="lessonTitle">Animal Match</h2><p id="lessonGoal">Connect animal sounds and names to familiar animals.</p></div><div class="progress-wrap" aria-label="Lesson progress"><div class="progress-meta"><span class="pill" id="roundText">1 of 4</span><span class="pill" id="scoreText">0 correct</span></div><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div></div></div>
+                <div class="activity-area" id="activityArea"></div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+                <div class="actions"><button type="button" class="primary-action" id="nextButton">Next</button><button type="button" class="secondary-action" id="restartButton">Restart</button></div>
+                <div class="complete-box" id="completeBox" aria-live="polite"><h3>Great work!</h3><p id="completeText">You finished the lesson.</p></div>
+            </section>
+        </main>
+        <footer role="contentinfo"><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="../app.js"></script>
+    <script>
+        var animals = [
+            { value: 'cow', label: 'Cow', art: '&#128004;' },
+            { value: 'cat', label: 'Cat', art: '&#128008;' },
+            { value: 'dog', label: 'Dog', art: '&#128021;' },
+            { value: 'lion', label: 'Lion', art: '&#129409;' }
+        ];
+        function animalRound(prompt, answer, sound) {
+            return { prompt: prompt, answer: answer, target: '<div class="sound-target" aria-label="' + sound + ' sound">' + sound + '</div>', options: animals };
+        }
+        window.PuzzleLessonConfig = {
+            id: 'animal-match',
+            title: 'Animal Match',
+            goal: 'Connect animal sounds and names to familiar animals.',
+            type: 'choice',
+            rounds: [
+                animalRound('Who says moo?', 'cow', 'MOO'),
+                animalRound('Who says meow?', 'cat', 'MEOW'),
+                animalRound('Who says woof?', 'dog', 'WOOF'),
+                animalRound('Who roars?', 'lion', 'ROAR')
+            ]
+        };
+    </script>
+    <script src="puzzle-lesson.js"></script>
+</body>
+</html>

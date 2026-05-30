@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Pairs - ESEA</title>
+    <link rel="stylesheet" href="../responsive.css">
+    <link rel="stylesheet" href="puzzle-lesson.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header role="banner"><div class="logo-container"><img src="../images/ESEA.png" alt="ESEA logo"><div><h1>Find Pairs</h1><p>Turn cards over and find matching pairs.</p></div></div></header>
+        <main class="container page-content">
+            <a href="puzzles.html" class="back-button">Back to Puzzles</a>
+            <section class="lesson-panel" aria-labelledby="lessonTitle">
+                <div class="lesson-top"><div class="lesson-copy"><h2 id="lessonTitle">Find Pairs</h2><p id="lessonGoal">Build memory by finding two cards that match.</p></div><div class="progress-wrap" aria-label="Lesson progress"><div class="progress-meta"><span class="pill" id="roundText">0 of 4 pairs</span><span class="pill" id="scoreText">0 correct</span></div><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div></div></div>
+                <div class="activity-area" id="activityArea"></div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+                <div class="actions"><button type="button" class="primary-action" id="nextButton">Next</button><button type="button" class="secondary-action" id="restartButton">Restart</button></div>
+                <div class="complete-box" id="completeBox" aria-live="polite"><h3>Great work!</h3><p id="completeText">You finished the lesson.</p></div>
+            </section>
+        </main>
+        <footer role="contentinfo"><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="../app.js"></script>
+    <script>
+        window.PuzzleLessonConfig = {
+            id: 'find-pairs',
+            title: 'Find Pairs',
+            goal: 'Build memory by finding two cards that match.',
+            type: 'pairs',
+            pairs: [
+                { value: 'sun', label: 'Sun', art: '&#9728;' },
+                { value: 'star', label: 'Star', art: '&#9733;' },
+                { value: 'heart', label: 'Heart', art: '&#9829;' },
+                { value: 'ball', label: 'Ball', art: '&#9917;' }
+            ]
+        };
+    </script>
+    <script src="puzzle-lesson.js"></script>
+</body>
+</html>

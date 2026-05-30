@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
     *{
             font: 45px;
@@ -167,8 +167,6 @@
     >Math</a
   >
   <hr>
-  <button onclick="askQuestion()" style="width: 400px; ">Click Here To Ask the Question</button>
-
   <div id="math-container">
     <div id="mathboard">
       <div id="numerator">
@@ -287,15 +285,19 @@
       if (isCorrect) {
         document.getElementById('message').textContent = "Correct!";
         playSound(true);
+        setTimeout(() => {
+          document.getElementById('message').textContent = "";
+          clearAnswer();
+          askQuestion();
+        }, 1200);
       } else {
         document.getElementById('message').textContent = "Incorrect!";
         playSound(false);
       }
 
-      
-      // Set voice to female
+      // Set voice to female and speak feedback
+      const resultUtterance = new SpeechSynthesisUtterance(isCorrect ? 'Correct!' : 'Incorrect!');
       resultUtterance.voice = speechSynthesis.getVoices().filter(voice => voice.name === 'Google UK English Female')[0];
-
       speechSynthesis.speak(resultUtterance);
     }
 
@@ -323,12 +325,15 @@
     function clearAnswer() {
       document.getElementById('answerInput').value = '';
     }
+
+    document.addEventListener('DOMContentLoaded', askQuestion);
 </script>
 
 
 
 
 
-</body>
+  <script src="../lesson-support.js"></script>`n</body>
 
 </html>
+

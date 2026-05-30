@@ -3,173 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pick the Letter</title>
-    <link rel="stylesheet" href="style.css">
-<style>
-  *{
-           
-            font-size: x-large;
-           font-weight: bolder;
-           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font: 55px;
-        }
-    #board-containers {
-          display: flex;
-          flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin: 0 auto;
-        }
-      .countabc {              border: 4px solid rgb(34, 1, 1);
-              border-style: double;
-              width: 210px;
-              height: auto;
-              padding: 10px;
-
-              background-image: linear-gradient(to right, rgb(80, 69, 69), rgba(145, 123, 123, 0.575));
-              color: rgb(34, 1, 1);
-              border-radius: 10px;
-              cursor: pointer;
-              margin: 10px;
-              box-shadow: 0 0 10px rgba(34, 1, 1, 0.5);
-              transition: all 0.3s ease;
-              font-size: 2em;
-              font-weight: bolder;
-              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-              justify-content: center;
-            
-
-      }
-      button{
-        
-        width: 400px;
-        background-color: #aaf5fa;
-        color: rgb(3, 0, 0);
-        
-   
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      
-        margin-bottom: 10px;
-    }
-    #message {
-       
-       position: relative;
-       width: 200px;
-      
-       background-color: lightgoldenrodyellow;
-       justify-content: center;
-      
-     }
-        @media screen and (max-width: 568px) {
-          button {
-            width: 100%;
-          }
-        }
-</style>
-    </head>
+    <title>Pick the Letter - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+</head>
 <body>
-    <a href="../index.html" style="background-color: rgb(203, 203, 206); border-radius: 5px; box-shadow: 0px -4px 5px 2px  #474141;">What is the Letter</a>
-    
-    <hr style="height: 2px; background-color: #f5a8a8;"/>
-
-    <button id="question" onclick="startGame()" >Click Here To Ask the Question</button>
-    <div id="message"></div>
-   
-   <div id="board-containers">
-      <div id="A" class="countabc">A (a)</div>
-      <div id="B" class="countabc">B (b)</div>
-      <div id="C" class="countabc">C (c)</div>
-      <div id="D" class="countabc">D (d)</div>
-      <div id="E" class="countabc">E (e)</div>
-      <div id="F" class="countabc">F (f)</div>
-      <div id="G" class="countabc">G (g)</div>
-      <div id="H" class="countabc">H (h)</div>
-      <div id="I" class="countabc">I (i)</div>
-      <div id="J" class="countabc">J (j)</div>
-      <div id="K" class="countabc">K (k)</div>
-      <div id="L" class="countabc">L (l)</div>
-      <div id="M" class="countabc">M (m)</div>
-      <div id="N" class="countabc">N (n)</div>
-      <div id="O" class="countabc">O (o)</div>
-      <div id="P" class="countabc">P (p)</div>
-      <div id="Q" class="countabc">Q (q)</div>
-      <div id="R" class="countabc">R (r)</div>
-      <div id="S" class="countabc">S (s)</div>
-      <div id="T" class="countabc">T (t)</div>
-      <div id="U" class="countabc">U (u)</div>
-      <div id="V" class="countabc">V (v)</div>
-      <div id="W" class="countabc">W (w)</div>
-      <div id="X" class="countabc">X (x)</div>
-      <div id="Y" class="countabc">Y (y)</div>
-      <div id="Z" class="countabc">Z (z)</div>
-
-      
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Pick the Letter</h1>
+            <p>Look at the letter, listen, and tap the match.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
-  
-    <audio id="Correct" src="../audio/That is correct.mp3"></audio>
-    <audio id="Incorrect" src="../audio/That is Incorrect.mp3"></audio>
-
     <script>
-        // Array of letters
-        const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-      
-
-        // Function to handle the click event
-        function handleClick(event) {
-            const messageElement = document.getElementById('message');
-            const clickedLetter = event.target.id;
-            if (clickedLetter === currentLetter) {
-                messageElement.textContent = 'Correct!';
-        messageElement.style.color = 'green';
-                playSound(true);
-                console.log('That is correct');
-            } else {
-                messageElement.textContent = 'Incorrect. Try again.';
-        messageElement.style.color = 'red';
-                playSound(false);
-                console.log('That is Incorrect');
-            }
+        function letterOption(letter) {
+            return { value: letter, label: letter, symbol: letter };
         }
-
-        // Function to ask a question
-        function askQuestion() {
-            currentLetter = letters[Math.floor(Math.random() * letters.length)];
-            // Speak the question using speech synthesis
-            const utterance = new SpeechSynthesisUtterance(`Which letter is ${currentLetter}?`);
-            speechSynthesis.speak(utterance);
+        function letterRound(letter, choices) {
+            return {
+                prompt: 'Tap letter ' + letter + '.',
+                speak: 'Which letter is ' + letter + '?',
+                answer: letter,
+                target: { text: letter },
+                options: choices.map(letterOption)
+            };
         }
-
-        // Function to start the game
-        function startGame() {
-            askQuestion();
-            // Add click event listeners to the letter elements
-            const letterElements = document.querySelectorAll('.countabc');
-            letterElements.forEach(element => {
-                element.addEventListener('click', handleClick);
-            });
-        } 
-        function playSound(isCorrect) {
-    const correctAudio = document.getElementById("Correct");
-    const incorrectAudio = document.getElementById("Incorrect");
-
-    // Pause any currently playing audio
-    correctAudio.pause();
-    correctAudio.currentTime = 0;
-    incorrectAudio.pause();
-    incorrectAudio.currentTime = 0;
-
-    // Play the appropriate audio based on correctness
-    if (isCorrect) {
-        correctAudio.play();
-    } else {
-        incorrectAudio.play();
-    }
-}  
+        window.EarlyLesson = {
+            title: 'Find the Letter',
+            instructions: 'Choose from a small group so the page does not feel crowded.',
+            type: 'quiz',
+            rounds: [
+                letterRound('A', ['A', 'B', 'C', 'D']),
+                letterRound('B', ['A', 'B', 'E', 'F']),
+                letterRound('C', ['C', 'O', 'S', 'G']),
+                letterRound('D', ['B', 'D', 'P', 'Q']),
+                letterRound('E', ['E', 'F', 'L', 'T']),
+                letterRound('M', ['M', 'N', 'W', 'V'])
+            ]
+        };
     </script>
-
-  </body>
+    <script src="../early-lesson.js"></script>
+</body>
 </html>

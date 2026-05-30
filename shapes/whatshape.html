@@ -3,309 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>What Shapes is this</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-         *{
-            
-            font-size: x-large;
-           font-weight: bolder;
-           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-         body {
-          margin: 0;
-          padding: 0;
-        }
-
-        #shapes-container {
-
-            margin: 0 auto;
-          width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-
-
-        img {
-            width: 90px;
-            height: 90px;
-            box-shadow: 0px 3px 25px 0px rgba(0,0,0,0.17);
-        background-color: darkgrey;
-        border-style: double;
-        }
-        #questions {
-      justify-self: center;
-      margin: 0 auto;
-      width: 390px;
-      color: #0a0400;
-      background-color: lightgoldenrodyellow;
-      text-align: center;
-      box-shadow: #0703c7 0px 0px 20px;
-      border-radius: 5px;
-    }
-
-    #message {
-        margin: 0 auto;
-      position: relative;
-      width: 180px;;
-    
-     text-align: center;
-      background-color: rgb(13, 250, 179);
-      justify-content: center;
-      margin-bottom: 20px;
-      border-radius: 5px;
-    }
-    
-
-   
-    #linkto {
-           
-            text-align: center;
-            margin: 0 auto;
-            background-color: #eee6c2;
-            border-radius: 5px;
-            width:400px;
-            justify-self: center;
-        }
-        #shapes {
-            margin: 5px;
-            margin: 0 auto;
-            width:200px;
-            color: #0a0400;
-            background-color: rgb(210, 223, 250);
-            text-align: center;
-            box-shadow: #0703c7 0px 0px 20px;
-            border-radius: 5px;
-        }
-.shape {
-    width: 400px;
-    height: 80px;
-font-size: 2em ;
-    display: flex;
-    background-image: linear-gradient(to right, #f7f7de, #ebe5cf);
-    margin: 5px;
-    justify-content: center;
-  
-    border: rgb(231, 129, 4);
-    border-radius: 5px;
-    border-style: double;
-    box-shadow: 0px 0px 15px  rgb(10, 121, 0);
-    
-}
-#questiondiv{
-    margin: 5px;
-            margin: 0 auto;
-            width: 400px;
-
-         
-            color: #0a0400;
-            background-color: rgb(191, 255, 182);
-            text-align: center;
-            box-shadow: #0703c7 0px 0px 20px;
-            border-radius: 5px;
-}
-
-
-    </style>
+    <title>What Shape Is This? - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
 </head>
-
 <body>
-    <a href="../index.html" id="linkto">Pick the shape</a>
-    
-    <hr style="height: 2px; background-color: #5e3737;"/>
-   
-   
-    <button id="questions" onclick="startGame()" >Click Here To Ask the Question</button>
-  
-    <div id="questiondiv"></div>
-    <div id="shapes"></div>
-    <div id="message"></div>
-    <div id="shapes-container">
-        <div class="shape square">
-            square
-        </div>
-        <div class="shape circle">
-           circle
-        </div>
-
-        <div class="shape triangle">
-            triangle
-        </div>
-
-      
-
-        <div class="shape heart">
-           heart
-        </div>
-
-        <div class="shape pentagon">
-            pentagon
-        </div>
-
-        <div class="shape hexagon">
-           hexagon
-        </div>
-
-        <div class="shape heptagon">
-            heptagon
-        </div>
-
-        <div class="shape octagon">
-            octagon
-        </div>
-
-        <div class="shape parallelogram">
-            parallelogram
-        </div>
-
-        <div class="shape star">
-            star
-        </div>
-
-        <div class="shape cross">
-            cross
-        </div>
-
-        <div class="shape cube">
-            cube
-        </div>
-
-        <div class="shape cone">
-            cone
-        </div>
-
-        <div class="shape cylinder">
-            cylinder
-        </div>
-
-        <div class="shape semicircle">
-            semicircle
-        </div>
-
-        <div class="shape oval">
-            oval
-        </div>
-
-        <div class="shape rectangle">
-            rectangle
-        </div>
-
-        <div class="shape rhombus">
-            rhombus
-        </div>
-
-        <div class="shape trapezoid">
-           trapezoid
-        </div>
-
-        <div class="shape kite">
-            kite
-        </div>
-
-        <div class="shape nonagon">
-          nonagon
-        </div>
-
-        <div class="shape decagon">
-            decagon
-        </div>
-
-        <div class="shape cuboid">
-            cuboid
-        </div>
-
-        <div class="shape sphere">
-            sphere
-        </div>
-
-        <div class="shape pyramid">
-            pyramid
-        </div>
-
-        <div class="shape right-triangle">
-            right triangle
-        </div>
-
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>What Shape Is This?</h1>
+            <p>Look at the picture and tap the shape name.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
-   
-    <audio id="Correct" src="../audio/That is correct.mp3"></audio>
-    <audio id="Incorrect" src="../audio/That is Incorrect.mp3"></audio>
     <script>
-  const shapes = ['circle', 'triangle', 'heart', 'pentagon', 'hexagon', 'heptagon', 'octagon',
-    'parallelogram', 'star', 'cross', 'cube', 'cone', 'cylinder', 'semicircle', 'oval', 'rectangle', 'rhombus',
-    'trapezoid', 'kite', 'square', 'nonagon', 'decagon', 'cuboid', 'sphere', 'pyramid', 'right-triangle'];
-
-
-    function startGame() {
-    // Choose a random shape from the array
-    const randomIndex = Math.floor(Math.random() * shapes.length);
-    const shape = shapes[randomIndex];
-
-    // Display the shape name in the question div
-    document.getElementById("questiondiv").innerText = `Which shape is this picture?`;
-
-    // Create an img element for the shape image
-    const shapeImage = document.createElement("img");
-    shapeImage.src = `./images/${shape}.png`; // Assuming the images are named after the shape
-
-    // Clear any existing content in the .shapes div
-    document.getElementById("shapes").innerHTML = "";
-
-    // Append the shape image to the #shapes div
-    document.querySelector("#shapes").appendChild(shapeImage); // Use querySelector instead of getElementById
-
-    // Speak the question aloud
-    const utterance = new SpeechSynthesisUtterance(`Which shape is this picture?`);
-    speechSynthesis.speak(utterance);
-
-    // Add click event listeners to all shape elements
-    const shapeElements = document.querySelectorAll('.shape');
-    shapeElements.forEach(element => {
-        element.addEventListener('click', () => {
-            const selectedShape = element.classList[1]; // Extract the shape class from the clicked element
-            if (selectedShape === shape) {
-                document.getElementById("message").innerHTML = "Correct!";
-                document.getElementById("message").style.color = "green";
-                playSound(true);
-            } else {
-                document.getElementById("message").innerHTML = "Incorrect. Try again";
-                document.getElementById("message").style.color = "red";
-                playSound(false);
-            }
-           
-          
-        });
-    });
-}
-
-
-
-
-function playSound(isCorrect) {
-    const correctAudio = document.getElementById("Correct");
-    const incorrectAudio = document.getElementById("Incorrect");
-
-    // Pause any currently playing audio
-    correctAudio.pause();
-    correctAudio.currentTime = 0;
-    incorrectAudio.pause();
-    incorrectAudio.currentTime = 0;
-
-    // Play the appropriate audio based on correctness
-    if (isCorrect) {
-        correctAudio.play();
-    } else {
-        incorrectAudio.play();
-    }
-}
-
-
-   
-</script>
+        var shapeOptions = [
+            { value: 'circle', label: 'Circle', image: '../images/circle.png' },
+            { value: 'square', label: 'Square', image: '../images/square.png' },
+            { value: 'triangle', label: 'Triangle', image: '../images/triangle.png' },
+            { value: 'rectangle', label: 'Rectangle', image: '../images/rectangle.png' }
+        ];
+        function shapeRound(item, choices) {
+            return {
+                prompt: 'What shape is this?',
+                speak: 'What shape is this?',
+                answer: item.value,
+                target: { image: item.image, alt: item.label },
+                options: choices
+            };
+        }
+        window.EarlyLesson = {
+            title: 'Shape Matching',
+            instructions: 'Four choices keeps this lesson calm and easy to scan.',
+            type: 'quiz',
+            rounds: [
+                shapeRound(shapeOptions[0], shapeOptions),
+                shapeRound(shapeOptions[1], shapeOptions),
+                shapeRound(shapeOptions[2], shapeOptions),
+                shapeRound(shapeOptions[3], shapeOptions),
+                shapeRound({ value: 'star', label: 'Star', image: '../images/star.png' }, [
+                    { value: 'star', label: 'Star', image: '../images/star.png' },
+                    { value: 'heart', label: 'Heart', image: '../images/heart.png' },
+                    { value: 'oval', label: 'Oval', image: '../images/oval.png' },
+                    { value: 'circle', label: 'Circle', image: '../images/circle.png' }
+                ])
+            ]
+        };
+    </script>
+    <script src="../early-lesson.js"></script>
 </body>
-
 </html>

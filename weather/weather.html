@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather and Seasons - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Weather and Seasons</h1>
+            <p>Look outside, name the weather, and talk about what to wear.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        window.EarlyLesson = {
+            title: 'Weather Words',
+            instructions: 'Tap a card, then ask: What is the weather today?',
+            type: 'explore',
+            sections: [
+                {
+                    title: 'Weather',
+                    items: [
+                        { label: 'Sunny', emoji: '&#9728;', note: 'The sun is shining.', speak: 'Sunny. The sun is shining.' },
+                        { label: 'Rainy', emoji: '&#127783;', note: 'Rain is falling.', speak: 'Rainy. Rain is falling.' },
+                        { label: 'Cloudy', emoji: '&#9729;', note: 'Clouds cover the sky.', speak: 'Cloudy. Clouds cover the sky.' },
+                        { label: 'Snowy', emoji: '&#10052;', note: 'Snow is falling.', speak: 'Snowy. Snow is falling.' },
+                        { label: 'Windy', emoji: '&#128168;', note: 'The air is moving.', speak: 'Windy. The air is moving.' },
+                        { label: 'Stormy', emoji: '&#9928;', note: 'Stay safe inside.', speak: 'Stormy. Stay safe inside.' }
+                    ]
+                },
+                {
+                    title: 'Seasons',
+                    items: [
+                        { label: 'Spring', emoji: '&#127800;', note: 'Flowers can grow.', speak: 'Spring. Flowers can grow.' },
+                        { label: 'Summer', emoji: '&#127774;', note: 'Days can feel hot.', speak: 'Summer. Days can feel hot.' },
+                        { label: 'Fall', emoji: '&#127810;', note: 'Leaves can change color.', speak: 'Fall. Leaves can change color.' },
+                        { label: 'Winter', emoji: '&#10052;', note: 'Days can feel cold.', speak: 'Winter. Days can feel cold.' }
+                    ]
+                }
+            ]
+        };
+    </script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capital</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
              *{
           
@@ -82,7 +82,6 @@
     
     
     <br>
-    <button id="question" onclick="askQuestion() " >Click To Ask The Question</button>
     <div id="message"></div>
     <hr style="height: 2px; background-color: #750101;"/>
    <div id="board-container">
@@ -228,9 +227,13 @@ function handleClick(event) {
         const correctCapital = currentState.capital.toLowerCase(); // Use the global variable
 
         if (selectedCapital === correctCapital) {
-            document.getElementById("message").innerHTML = "Correct!";
+            document.getElementById("message").innerHTML = "Correct! Next one coming...";
                 document.getElementById("message").style.color = "green";
                 playSound(true);
+                setTimeout(() => {
+                    document.getElementById("message").innerHTML = "";
+                    askQuestion();
+                }, 1200);
         } else {
             document.getElementById("message").innerHTML = "Incorrect. Try again";
                 document.getElementById("message").style.color = "red";
@@ -240,6 +243,7 @@ function handleClick(event) {
         currentAnswer = null;
     }
 }
+document.addEventListener('DOMContentLoaded', askQuestion);
 function playSound(isCorrect) {
     const correctAudio = document.getElementById("Correct");
     const incorrectAudio = document.getElementById("Incorrect");
@@ -259,5 +263,6 @@ function playSound(isCorrect) {
 }
 </script>
 
-</body>
+  <script src="../lesson-support.js"></script>`n</body>
 </html>
+

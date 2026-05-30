@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fill The missing letter</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
     *{
             font: 45px;
@@ -135,14 +135,9 @@ input {
 
 
 <body>
-<a href="../index.html" id="linkto">Fill The blank</a>
+<a href="../index.html" class="back-button" aria-label="Back to Home">← Back to Home</a>
 
 <hr style="height: 2px; background-color: #5e3737;" />
-    <p onclick="askQuestion()" style=" justify-content: center;background-color: #94e6e1;
-margin: 0 auto; 
-width:400px;
-border-radius: 5px;
-box-shadow:0px 3px 3px lightsteelblue;">Click To Ask The Question</p>
     <div id="present"></div>
 
     <div id="board-containers">
@@ -239,6 +234,8 @@ box-shadow:0px 3px 3px lightsteelblue;">Click To Ask The Question</p>
             populateSpellCells(currentWord);
         }
 
+        document.addEventListener('DOMContentLoaded', askQuestion);
+
         // Function to populate spelling cells with the given word
         function populateSpellCells(word) {
             var spellCells = document.querySelectorAll("#spell-contating input");
@@ -285,13 +282,18 @@ function checkSpelling() {
 
     // Compare the userFilledWord with the currentWord
 if (userFilledWord === currentWord) {
-document.getElementById("message").innerText = "Correct!";
-document.getElementById("message").style.color = "green";
-document.getElementById("Correct").play();
+    document.getElementById("message").innerText = "Correct! Next word coming...";
+    document.getElementById("message").style.color = "green";
+    document.getElementById("Correct").play();
+    setTimeout(() => {
+        document.getElementById("message").innerText = "";
+        document.getElementById("spellingInput").value = "";
+        askQuestion();
+    }, 1400);
 } else {
-document.getElementById("message").innerText = "Incorrect!";
-document.getElementById("message").style.color = "red";
-document.getElementById("Incorrect").play();
+    document.getElementById("message").innerText = "Incorrect!";
+    document.getElementById("message").style.color = "red";
+    document.getElementById("Incorrect").play();
 }
 }
 
@@ -334,5 +336,6 @@ document.getElementById("Incorrect").play();
 
 
 </script>
-</body>
+  <script src="../lesson-support.js"></script>`n</body>
 </html>
+

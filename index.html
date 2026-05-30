@@ -3,177 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="style.css">
-    <title>Early Start Education App <img src="./images/ESEA.png"></title>
+    <meta name="description" content="ESEA is an early childhood learning app for playful practice with letters, numbers, shapes, colors, feelings, stories, and simple discovery.">
+    <meta name="author" content="ESEA Team">
+    <meta name="theme-color" content="#245f73">
+
+    <title>ESEA - Early Start Education App</title>
+
+    <link rel="stylesheet" href="responsive.css">
 
     <style>
-        img {
-            max-width: 100px;
+        body {
+            background:
+                linear-gradient(rgba(248, 253, 255, 0.86), rgba(248, 253, 255, 0.86)),
+                linear-gradient(135deg, #d9f4f2 0%, #fff3c7 48%, #ffd7d7 100%);
+            color: #17323a;
+        }
+
+        header {
+            background: #245f73;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 8px 20px rgba(23, 50, 58, 0.18);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .logo-container img {
+            max-width: 78px;
             height: auto;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
         }
 
-        img:hover {
-            transform: scale(1.5);
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: #ffffff;
+            letter-spacing: 0;
         }
 
-.dropdown{
-    height: 100px;
-    font-size: 2.5em;
-    font-weight: bold;
-    text-align: center;
-}
+        header p {
+            margin: 0;
+            font-size: 1rem;
+            color: #eefcff;
+        }
 
-.dropdown-content{
-    height: auto;
-    text-align: center;
-}
+        .welcome-message,
+        .educator-note {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 26px;
+            text-align: center;
+            box-shadow: 0 8px 18px rgba(23, 50, 58, 0.12);
+            border: 2px solid rgba(36, 95, 115, 0.18);
+        }
 
+        .welcome-message h2,
+        .educator-note h2 {
+            color: #245f73;
+            font-size: 1.55rem;
+            margin: 0 0 8px 0;
+        }
+
+        .welcome-message p,
+        .educator-note p {
+            color: #31484f;
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            font-size: 1.55rem;
+            font-weight: 800;
+            margin: 22px 0 12px 0;
+            color: #17323a;
+            text-shadow: none;
+        }
+
+        .section-title span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid rgba(36, 95, 115, 0.18);
+        }
+
+        .card {
+            border: 0;
+            border-radius: 12px;
+            min-height: 250px;
+            box-shadow: 0 10px 22px rgba(23, 50, 58, 0.14);
+        }
+
+        .card-grid {
+            align-items: start;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            font-size: 2.8rem;
+            line-height: 1;
+        }
+
+        .card-title {
+            font-size: 1.45rem;
+            letter-spacing: 0;
+        }
+
+        .card-subtitle {
+            font-size: 0.98rem;
+            line-height: 1.45;
+        }
+
+        .card.blue {
+            background: #bfe8ef;
+            color: #17323a;
+        }
+
+        .card.orange {
+            background: #ffd2a6;
+            color: #17323a;
+        }
+
+        .card.green {
+            background: #ccefc6;
+            color: #17323a;
+        }
+
+        .card.yellow {
+            background: #fff0a6;
+            color: #17323a;
+        }
+
+        .card.pink {
+            background: #ffd1da;
+            color: #17323a;
+        }
+
+        .card.purple {
+            background: #d9d2ff;
+            color: #17323a;
+        }
+
+        .card.blue .card-title,
+        .card.orange .card-title,
+        .card.green .card-title,
+        .card.yellow .card-title,
+        .card.pink .card-title,
+        .card.purple .card-title {
+            color: #17323a;
+        }
+
+        .card.blue .card-subtitle,
+        .card.orange .card-subtitle,
+        .card.green .card-subtitle,
+        .card.yellow .card-subtitle,
+        .card.pink .card-subtitle,
+        .card.purple .card-subtitle {
+            color: #31484f;
+        }
+
+        .dropdown-menu {
+            background: rgba(255, 255, 255, 0.94);
+            border: 2px solid rgba(23, 50, 58, 0.16);
+            border-radius: 10px;
+        }
+
+        .dropdown-item {
+            background: #245f73;
+            border: 0;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .dropdown-item:hover {
+            background: #1d4c5c;
+            transform: scale(1.02);
+        }
+
+        .footer-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-actions img {
+            max-width: 96px;
+            height: auto;
+            border-radius: 8px;
+            background: #ffffff;
+            padding: 6px;
+        }
+
+        @media (min-width: 768px) {
+            .welcome-message h2,
+            .educator-note h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <img src="./images/ESEA.png"><h1 style="background-color: #e3d5ca; font: 1.5em sans-serif; font-weight: bolder; "> Early Start Education App (ESEA)</h1>
-   
-    <div id="board-container">
-        <div class="dropdown" >
-        <a id="boards" class="count123" >123</a>
-        <div class="dropdown-content" style="width: 100%; max-width: 350px; margin: 0 auto; box-sizing: border-box;">
-            <!-- dropdown menu content here -->
-            <a class="count123s" href="./123/123.html" style="display: block; padding: 0.5em 0; width: 100%;">Count your 123s</a>
-            <a class="abc" href="./123/pickthenum.html" style="display: block; padding: 0.5em 0; width: 100%;">Pick the number</a>
-            <a class="abcpic" href="./123/ran1-10.html" style="display: block; padding: 0.5em 0; width: 100%;">Random number 1-10</a>
-            <a class="countnum" href="./123/randnum.html" style="display: block; padding: 0.5em 0; width: 100%;">Random number 1-100</a>
-        </div>
-        </div>
-        <div class="dropdown" style="background-color: #ffecd1d3;">
-            <a id="boards" >  ABC </a>
-            <div class="dropdown-content">
-                <!-- dropdown menu content here -->
-                <a class="abc" href="./abc/abc.html">Say Your ABCs</a>
-                <a class="words3" href="./abc/ranABC.html">Which is correct </a>
-                <a class="abcpick" href="./abc/picktheletter.html">Pick the correct letter</a>
-                <a class="abcpic" href="./abc/abcpic.html">Learn ABCs with pictures</a>
-                
+    <div class="page-wrapper">
+        <header role="banner">
+            <div class="logo-container">
+                <img src="./images/ESEA.png" alt="ESEA logo">
+                <div>
+                    <h1>ESEA</h1>
+                    <p>Early Start Education App</p>
+                </div>
             </div>
-        </div>
+        </header>
 
-      
+        <main class="container page-content">
+            <section class="welcome-message" aria-labelledby="welcome-title">
+                <h2 id="welcome-title">A playful start for young learners</h2>
+                <p>Simple practice for children ages 3-6: listen, look, touch, name, count, match, and celebrate small wins.</p>
+            </section>
 
-        <div class="dropdown" style="background-color: rgba(6, 117, 245, 0.753);">
-            <a id="boards" >SPELLING</a>
-            <div class="dropdown-content">
-                <!-- dropdown menu content here -->
-                <a class="words1" href="./abc/pickaword.html">Pick The Word</a>
-                <a class="words2" href="./abc/Spellingword.html">Spell The Word</a>
-                <a class="words3" href="./abc/pickthepic.html">Pick The Picture</a>
-            <a class="FillTheblank" href="./abc/filltheletter.html">Fill the blank</a>
+            <section class="categories-section" aria-labelledby="foundations-title">
+                <h2 class="section-title" id="foundations-title"><span aria-hidden="true">&#127775;</span> Early Foundations</h2>
+                <div class="card-grid">
+                    <article class="card blue" role="button" tabindex="0" aria-label="Numbers and counting">
+                        <div class="card-icon" aria-hidden="true">&#128290;</div>
+                        <div class="card-title">Numbers & Counting</div>
+                        <div class="card-subtitle">Recognize numbers, count objects, and practice 1-10 first.</div>
+                        <div class="dropdown-menu">
+                            <a href="./123/ran1-10.html" class="dropdown-item">Hear Numbers 1-10</a>
+                            <a href="./123/pickthenum.html" class="dropdown-item">Pick the Number</a>
+                            <a href="./arithmetic/howmanyapple.html" class="dropdown-item">Count the Apples</a>
+                        </div>
+                    </article>
+
+                    <article class="card orange" role="button" tabindex="0" aria-label="ABC and letters">
+                        <div class="card-icon" aria-hidden="true">&#128292;</div>
+                        <div class="card-title">ABC & Letters</div>
+                        <div class="card-subtitle">Name letters, hear sounds, and connect letters to pictures.</div>
+                        <div class="dropdown-menu">
+                            <a href="./abc/abc.html" class="dropdown-item">Say Your ABCs</a>
+                            <a href="./abc/picktheletter.html" class="dropdown-item">Pick the Letter</a>
+                            <a href="./abc/abcpic.html" class="dropdown-item">Letters with Pictures</a>
+                        </div>
+                    </article>
+
+                    <article class="card green" role="button" tabindex="0" aria-label="Colors">
+                        <div class="card-icon" aria-hidden="true">&#127912;</div>
+                        <div class="card-title">Colors</div>
+                        <div class="card-subtitle">Build color names through bright, concrete visual choices.</div>
+                        <div class="dropdown-menu">
+                            <a href="./color/colors.html" class="dropdown-item">Learn Colors</a>
+                        </div>
+                    </article>
+
+                    <article class="card yellow" role="button" tabindex="0" aria-label="Shapes">
+                        <div class="card-icon" aria-hidden="true">&#128313;</div>
+                        <div class="card-title">Shapes</div>
+                        <div class="card-subtitle">Find circles, squares, triangles, and other everyday shapes.</div>
+                        <div class="dropdown-menu">
+                            <a href="./shapes/shapes.html" class="dropdown-item">Learn Shapes</a>
+                            <a href="./shapes/whatshape.html" class="dropdown-item">What Shape Is This?</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="categories-section" aria-labelledby="language-title">
+                <h2 class="section-title" id="language-title"><span aria-hidden="true">&#128214;</span> Language & Story</h2>
+                <div class="card-grid">
+                    <article class="card pink" role="button" tabindex="0" aria-label="First words">
+                        <div class="card-icon" aria-hidden="true">&#9997;</div>
+                        <div class="card-title">First Words</div>
+                        <div class="card-subtitle">Practice picture-word matching before moving into spelling.</div>
+                        <div class="dropdown-menu">
+                            <a href="./abc/pickaword.html" class="dropdown-item">Pick the Word</a>
+                            <a href="./abc/pickthepic.html" class="dropdown-item">Pick the Picture</a>
+                            <a href="./abc/kiddictionary.html" class="dropdown-item">Kid Word Book</a>
+                        </div>
+                    </article>
+
+                    <article class="card purple" role="button" tabindex="0" aria-label="Stories">
+                        <div class="card-icon" aria-hidden="true">&#128218;</div>
+                        <div class="card-title">Stories</div>
+                        <div class="card-subtitle">Shared reading builds attention, vocabulary, memory, and joy.</div>
+                        <div class="dropdown-menu">
+                            <a href="./books/lego.html" class="dropdown-item">Who Took My Legos?</a>
+                            <a href="./tv/storytime.html" class="dropdown-item">Story Time</a>
+                        </div>
+                    </article>
+
+                    <article class="card blue" role="button" tabindex="0" aria-label="Calendar routines">
+                        <div class="card-icon" aria-hidden="true">&#128197;</div>
+                        <div class="card-title">Daily Routines</div>
+                        <div class="card-subtitle">Introduce days, months, and seasons through familiar routines.</div>
+                        <div class="dropdown-menu">
+                            <a href="./abc/calendar.html" class="dropdown-item">Calendar Words</a>
+                            <a href="./weather/weather.html" class="dropdown-item">Weather & Seasons</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="categories-section" aria-labelledby="whole-child-title">
+                <h2 class="section-title" id="whole-child-title"><span aria-hidden="true">&#128155;</span> Whole Child Growth</h2>
+                <div class="card-grid">
+                    <article class="card orange" role="button" tabindex="0" aria-label="Feelings">
+                        <div class="card-icon" aria-hidden="true">&#128522;</div>
+                        <div class="card-title">Feelings</div>
+                        <div class="card-subtitle">Name emotions and practice gentle self-expression.</div>
+                        <div class="dropdown-menu">
+                            <a href="./emotions/emotions.html" class="dropdown-item">Learn Emotions</a>
+                        </div>
+                    </article>
+
+                    <article class="card green" role="button" tabindex="0" aria-label="Nature discovery">
+                        <div class="card-icon" aria-hidden="true">&#127807;</div>
+                        <div class="card-title">Nature Discovery</div>
+                        <div class="card-subtitle">Observe plants, animals, weather, and simple living things.</div>
+                        <div class="dropdown-menu">
+                            <a href="./science/bio.html" class="dropdown-item">Living Things</a>
+                            <a href="./weather/weather.html" class="dropdown-item">Weather Watching</a>
+                        </div>
+                    </article>
+
+                    <article class="card yellow" role="button" tabindex="0" aria-label="Matching games">
+                        <div class="card-icon" aria-hidden="true">&#129513;</div>
+                        <div class="card-title">Matching Games</div>
+                        <div class="card-subtitle">Build memory, attention, turn-taking, and visual matching.</div>
+                        <div class="dropdown-menu">
+                            <a href="./puzzles/puzzles.html" class="dropdown-item">Picture Matching</a>
+                            <a href="./games/whatshape.html" class="dropdown-item">Shape Hunter</a>
+                            <a href="./games/catchme.html" class="dropdown-item">Catch Me</a>
+                        </div>
+                    </article>
+
+                    <article class="card pink" role="button" tabindex="0" aria-label="Learning videos">
+                        <div class="card-icon" aria-hidden="true">&#128250;</div>
+                        <div class="card-title">Watch & Listen</div>
+                        <div class="card-subtitle">Use short videos and songs as adult-guided learning moments.</div>
+                        <div class="dropdown-menu">
+                            <a href="./tv/tv.html" class="dropdown-item">Learning Videos</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="educator-note" aria-labelledby="educator-title">
+                <h2 id="educator-title">Designed for early development</h2>
+                <p>This pathway favors concrete, sensory, short activities. Advanced civics, state capitals, chemistry, computer science, full dictionaries, leaderboards, and higher arithmetic are kept out of the child-facing flow.</p>
+            </section>
+        </main>
+
+        <footer role="contentinfo">
+            <div class="footer-panel">
+                <div>
+                    <h3>Support ESEA</h3>
+                    <p>Help create free learning tools for children and families.</p>
+                </div>
+                <div class="footer-actions">
+                    <button class="btn btn-primary btn-large" onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=VD3YGDBNY6CUA')">
+                        Donate
+                    </button>
+                    <img src="./images/QR Code.png" alt="Scan to donate with QR code">
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p>earlystarteducationapp@gmail.com</p>
+                </div>
             </div>
-        </div>
-        <div class="dropdown" style="background-color: #ffffffc7; display: none;">
-            <a id="boards" class="countcomp"  >COMPUTER</a>
-            <div class="dropdown-content">
-                <!-- dropdown menu content here -->
-                <a class="words1" href="#">computers</a>
-                <a class="words2" href="#">Programming</a>
-            </div>
-        </div>
-        <div class="dropdown" style="background-color: #8d98a7c2;">
-        <a id="boards" class="countdict"  >DICTIONARY</a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="words1" href="./abc/kiddictionary.html">Kid Dictionary</a>
-            <a class="words2" href="./abc/dictionary.html">Dictionary</a>
-        </div>
+        </footer>
     </div>
-    <div class="dropdown" style="background-color: rgba(6, 197, 245, 0.692);">
-        <a id="boards" class="countarth"  >ARITHMETIC</a>
-        <div class="dropdown-content">
-            
-        <a href="./arithmetic/Arithmetic.html" class="Arithmetic">ARITHMETIC</a>
-        <a href="./arithmetic/math.html" class="Arithmetic1">MATH</a>
-        <a class="words1" href="./arithmetic/howmanyapple.html">Count The Apples</a>
-        </div>
-    </div>
-    <div class="dropdown" style="background-color: #a5ffd6b9;">
-        <a id="boards" class="countcivic"  >CIVICS</a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="words1" href="./civics/civic.html">USA Civics</a>
-            <a class="words2" href="./civics/CivicsGame.html">State Capital</a>
-            <a class="abcpic" href="./civics/Civicsques.html">State Capital ABC</a>
-        </div>
-    </div>
-    <div class="dropdown" style="background-color: #f6b02db9;">
-        <a id="boards" class="countscience"  >SCIENCE</a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="words1" href="./science/bio.html">Biology</a>
-            <a class="words2" href="#" style="display: none;">Chemistry</a>
-        </div>
-    </div>
-    <div class="dropdown" style="background-color: #ffecd1d3;">
-        <a id="boards" > BOOKS </a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="abc" href="./books/lego.html">Who Took My Legos?</a>
-            <a class="abcpick" href="#" style="display: none;">Book </a>
-            <a class="abcpic" href="#" style="display: none;">Book</a>
-        </div>
-    </div>
-    <div class="dropdown" style="background-color: rgba(5, 224, 52, 0.63);">
-        <a id="boards" class="countgames"  >GAMES</a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="words3" href="./games/catchme.html">Got Reflex? Catch Me</a>
-            <a class="words1" href="./games/tictactoe.html">Tic-Tac-Toe</a>
-            <a class="words2" href="./games/rps.html">Rock Paper Scissors</a>
-        </div>
-    </div>
-    <div class="dropdown"  style="background-color: #ff82aaa9;">
-        <a id="boards" class="counttv" >TV</a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="words1" href="./tv/tv.html">How to use ESEA </a>
-            <a class="words2" href="./tv/storytime.html">Story Time</a>
-        </div>
-    </div>
-    <div class="dropdown" style="background-color: #788affbd;">
-        <a id="boards" class="counttv"  >SHAPES </a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="words3" href="./shapes/shapes.html">Shapes</a>
-            <a class="words2" href="./shapes/whatshape.html">What Shape is this</a>
-        </div>
-    </div>
-    <div class="dropdown" style="background-color: #0c5212ef;">
-        <a id="boards" class="counttv"  >Calendar</a>
-        <div class="dropdown-content">
-            <!-- dropdown menu content here -->
-            <a class="words3" href="./abc/calendar.html">Calendar</a>
-            
-        </div>
-    </div>
-</div>
 
-
-
-    <footer style="justify-content: center; display: flex; flex-wrap: wrap; background-color: lemonchiffon; box-shadow: 0 4px 8px 0 rgba(0, 1, 0, 0.2); width: auto;">
-        <div id="divgr" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <button id="donate" onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=VD3YGDBNY6CUA')"
-
-
-
-
-
-
-                    style="background-color: rgb(52, 228, 52); font: 1em sans-serif; font-weight: bolder; width: 100px; height: 100px; margin: 15px; border-radius: 5px; box-shadow: 0px 5px 10px 0px rgb(241, 8, 8);">Donate!</button>
-            <img id="catchmeqr" src="./images/QR Code.png" alt="Scan to Donate" style="background-color: darkkhaki; font: 1em sans-serif; font-weight: bold; width: 100px; height: 100px; margin: 15px;">
-        </div>
-        <div style="display: block; background-color: rgb(52, 202, 228); font: 1em sans-serif; font-weight: bolder; margin: 15px; border-radius: 5px; box-shadow: 0px 5px 10px 0px rgb(241, 8, 8); width: auto;">
-            <h3>contact us</h3>
-            <p>earlystarteducationapp@gmail.com</p>
-        </div>
-    </footer>
+    <script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Colors - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Learn Colors</h1>
+            <p>Tap a color, hear its name, and find something nearby with that color.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        window.EarlyLesson = {
+            title: 'Color Names',
+            instructions: 'Tap, listen, and say each color. Then look around the room for a match.',
+            type: 'explore',
+            sections: [{
+                title: 'Colors',
+                items: [
+                    { label: 'Red', emoji: '&#128308;', speak: 'Red' },
+                    { label: 'Blue', emoji: '&#128309;', speak: 'Blue' },
+                    { label: 'Yellow', emoji: '&#128993;', speak: 'Yellow' },
+                    { label: 'Green', emoji: '&#128994;', speak: 'Green' },
+                    { label: 'Orange', emoji: '&#128992;', speak: 'Orange' },
+                    { label: 'Purple', emoji: '&#128995;', speak: 'Purple' },
+                    { label: 'Pink', emoji: '&#128150;', speak: 'Pink' },
+                    { label: 'Black', emoji: '&#9899;', speak: 'Black' },
+                    { label: 'White', emoji: '&#9898;', speak: 'White' }
+                ]
+            }]
+        };
+    </script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

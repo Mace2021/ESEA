@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random number</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <style>
         * {
           font-size: x-large;
@@ -162,7 +162,6 @@
    
     <br> <br> <br>
     
-    <div id="question" onclick="startGame()">Click To Ask The Question</div>
     <br> <br> 
     <div id="message"></div>
     <br> 
@@ -257,7 +256,10 @@
         function startGame() {
             askQuestion();
         }
+
+        document.addEventListener('DOMContentLoaded', startGame);
     </script>    
 
-  </body>
+    <script src="../lesson-support.js"></script>`n</body>
 </html>
+

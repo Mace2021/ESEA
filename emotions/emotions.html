@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feelings - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Feelings</h1>
+            <p>All feelings are okay. Naming feelings helps children understand themselves.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        window.EarlyLesson = {
+            title: 'Name My Feelings',
+            instructions: 'Tap a feeling. Make the face together and talk about when it happens.',
+            type: 'explore',
+            sections: [{
+                title: 'Feelings Words',
+                items: [
+                    { label: 'Happy', emoji: '&#128522;', note: 'I feel good.', speak: 'Happy. I feel good.' },
+                    { label: 'Sad', emoji: '&#128546;', note: 'I may need comfort.', speak: 'Sad. I may need comfort.' },
+                    { label: 'Angry', emoji: '&#128544;', note: 'I can stop and breathe.', speak: 'Angry. I can stop and breathe.' },
+                    { label: 'Scared', emoji: '&#128552;', note: 'I can ask for help.', speak: 'Scared. I can ask for help.' },
+                    { label: 'Surprised', emoji: '&#128562;', note: 'Something unexpected happened.', speak: 'Surprised. Something unexpected happened.' },
+                    { label: 'Calm', emoji: '&#128524;', note: 'My body feels quiet.', speak: 'Calm. My body feels quiet.' },
+                    { label: 'Excited', emoji: '&#129321;', note: 'I have big happy energy.', speak: 'Excited. I have big happy energy.' },
+                    { label: 'Proud', emoji: '&#128522;', note: 'I tried hard.', speak: 'Proud. I tried hard.' }
+                ]
+            }]
+        };
+    </script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

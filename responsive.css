@@ -1,0 +1,717 @@
+/* ==========================================
+   ESEA - Responsive CSS Framework
+   Mobile-First Approach
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 10px;
+}
+
+/* ==========================================
+   Container & Layout
+   ========================================== */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  padding: 20px 0;
+}
+
+/* ==========================================
+   Header & Navigation
+   ========================================== */
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header img {
+  max-width: 60px;
+  height: auto;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================
+   Card System (Learning Modules)
+   ========================================== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  padding: 15px 0;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 4px solid #333;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  opacity: 0.85;
+  color: #666;
+}
+
+.card.blue .card-subtitle,
+.card.orange .card-subtitle,
+.card.green .card-subtitle,
+.card.purple .card-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.card.yellow .card-subtitle,
+.card.pink .card-subtitle {
+  color: rgba(51, 51, 51, 0.85);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+/* Card Color Variants */
+.card.blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.card.blue .card-title {
+  color: white;
+}
+
+.card.orange {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.card.orange .card-title {
+  color: white;
+}
+
+.card.green {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.card.green .card-title {
+  color: white;
+}
+
+.card.yellow {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: #333;
+}
+
+.card.yellow .card-title {
+  color: #333;
+}
+
+.card.pink {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #333;
+}
+
+.card.pink .card-title {
+  color: #333;
+}
+
+.card.purple {
+  background: linear-gradient(135deg, #b993fe 0%, #a78bfa 100%);
+  color: white;
+}
+
+.card.purple .card-title {
+  color: white;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none;
+  background: rgba(0, 0, 0, 0.95);
+  border: 3px solid #667eea;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  position: static;
+  width: 100%;
+}
+
+.card.active .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 12px 15px;
+  margin: 8px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.dropdown-item:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================
+   Buttons
+   ========================================== */
+
+button,
+.btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active,
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: #333;
+}
+
+.btn-danger {
+  background: #ff6b6b;
+  color: white;
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 1.2rem;
+  min-height: 50px;
+}
+
+/* ==========================================
+   Input Elements
+   ========================================== */
+
+input[type='text'],
+input[type='number'],
+textarea,
+select {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 3px solid #667eea;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type='text']:focus,
+input[type='number']:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #764ba2;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* ==========================================
+   Text & Typography
+   ========================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+
+footer {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+  border-top: 4px solid #667eea;
+}
+
+footer h3 {
+  color: white;
+  font-size: 1.3rem;
+}
+
+footer p {
+  color: #ddd;
+  margin: 5px 0;
+}
+
+/* ==========================================
+   Back Button
+   ========================================== */
+
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+  text-align: center;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Accessibility: visible focus state for keyboard users */
+.back-button:focus,
+.card:focus-visible,
+.puzzle-card:focus-visible,
+.match-item:focus-visible {
+  outline: 3px solid #ffd57a;
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Center main containers for better readability */
+.page-wrapper,
+.container,
+.page-content,
+.center-container,
+.lesson-card,
+.main,
+.content {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-align: center;
+}
+
+/* Number tile sizing and alignment */
+.count123 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: clamp(18px, 2.6vw, 28px) !important;
+  padding: clamp(6px, 1.5vw, 12px) !important;
+}
+
+/* Ensure buttons and interactive elements are reachable and readable */
+button, .nav-btn {
+  font-size: 1rem;
+  padding: 10px 14px;
+}
+
+/* Improve contrast for clickable cards */
+.color-card, .weather-card, .element-card, .concept-card, .shape {
+  cursor: pointer;
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+/* Tablet: 480px and above */
+@media (min-width: 480px) {
+  body {
+    padding: 15px;
+  }
+
+  header {
+    padding: 25px 15px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .card {
+    padding: 25px;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Tablet: 768px and above */
+@media (min-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  header {
+    padding: 30px 20px;
+  }
+
+  header h1 {
+    font-size: 2.3rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 25px 0;
+  }
+
+  .card {
+    padding: 30px;
+  }
+
+  .card-title {
+    font-size: 1.7rem;
+  }
+
+  .dropdown-item {
+    font-size: 1.15rem;
+    padding: 14px 18px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Desktop: 1024px and above */
+@media (min-width: 1024px) {
+  body {
+    padding: 25px;
+  }
+
+  header {
+    padding: 35px 25px;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 30px 0;
+  }
+
+  .card {
+    padding: 35px;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+  }
+
+  .dropdown-item {
+    font-size: 1.2rem;
+    padding: 15px 20px;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
+
+  h2 {
+    font-size: 2.6rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+}
+
+/* ==========================================
+   Utility Classes
+   ========================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/* ==========================================
+   Accessibility
+   ========================================== */
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+  .card {
+    border-width: 5px;
+  }
+
+  button,
+  .btn {
+    border: 2px solid #333;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+  outline: 3px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none;
+  }
+}
