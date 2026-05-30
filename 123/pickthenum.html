@@ -23,31 +23,33 @@
         function numberOption(number) {
             return { value: String(number), label: String(number), symbol: String(number) };
         }
-        function numberRound(number, choices) {
+        function makeOptions(number) {
+            var options = [number];
+            var offsets = [-1, 1, -2, 2, 10, -10, 3, -3, 20, -20];
+            for (var i = 0; i < offsets.length && options.length < 4; i++) {
+                var candidate = number + offsets[i];
+                if (candidate >= 1 && candidate <= 100 && options.indexOf(candidate) === -1) {
+                    options.push(candidate);
+                }
+            }
+            return options.sort(function(a, b) { return a - b; }).map(numberOption);
+        }
+        function numberRound(number) {
             return {
                 prompt: 'Tap number ' + number + '.',
                 speak: 'Which number is ' + number + '?',
                 answer: String(number),
                 target: { text: String(number) },
-                options: choices.map(numberOption)
+                options: makeOptions(number)
             };
         }
         window.EarlyLesson = {
-            title: 'Find the Number',
-            instructions: 'Choose the number you see. Each round has only a few choices.',
+            title: 'Find the Number 1 to 100',
+            instructions: 'Choose the matching number from a few choices and practice 1-100.',
             type: 'quiz',
-            rounds: [
-                numberRound(1, [1, 2, 3, 4]),
-                numberRound(2, [1, 2, 5, 6]),
-                numberRound(3, [3, 4, 7, 8]),
-                numberRound(4, [1, 4, 6, 9]),
-                numberRound(5, [2, 5, 8, 10]),
-                numberRound(6, [3, 5, 6, 9]),
-                numberRound(7, [1, 7, 8, 10]),
-                numberRound(8, [2, 4, 8, 9]),
-                numberRound(9, [5, 7, 9, 10]),
-                numberRound(10, [1, 6, 9, 10])
-            ]
+            rounds: Array.from({ length: 100 }, function(_, index) {
+                return numberRound(index + 1);
+            })
         };
     </script>
     <script src="../early-lesson.js"></script>
