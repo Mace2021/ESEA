@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Phonics - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>ABC Phonics</h1>
+            <p>Learn the sound each letter makes. Tap a letter, hear the sound, and say the word that begins with it.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var letterSounds = [
+            { letter: 'A', sound: 'A as in apple' },
+            { letter: 'B', sound: 'B as in ball' },
+            { letter: 'C', sound: 'C as in cat' },
+            { letter: 'D', sound: 'D as in dog' },
+            { letter: 'E', sound: 'E as in elephant' },
+            { letter: 'F', sound: 'F as in frog' },
+            { letter: 'G', sound: 'G as in goat' },
+            { letter: 'H', sound: 'H as in horse' },
+            { letter: 'I', sound: 'I as in iguana' },
+            { letter: 'J', sound: 'J as in jaguar' },
+            { letter: 'K', sound: 'K as in kangaroo' },
+            { letter: 'L', sound: 'L as in lion' },
+            { letter: 'M', sound: 'M as in monkey' },
+            { letter: 'N', sound: 'N as in nest' },
+            { letter: 'O', sound: 'O as in orange' },
+            { letter: 'P', sound: 'P as in penguin' },
+            { letter: 'Q', sound: 'Q as in queen' },
+            { letter: 'R', sound: 'R as in rabbit' },
+            { letter: 'S', sound: 'S as in snake' },
+            { letter: 'T', sound: 'T as in tiger' },
+            { letter: 'U', sound: 'U as in umbrella' },
+            { letter: 'V', sound: 'V as in vacuum' },
+            { letter: 'W', sound: 'W as in whale' },
+            { letter: 'X', sound: 'X as in x-ray' },
+            { letter: 'Y', sound: 'Y as in yak' },
+            { letter: 'Z', sound: 'Z as in zebra' }
+        ];
+        window.EarlyLesson = {
+            title: 'ABC Phonics',
+            instructions: 'Tap a letter to hear its phonics sound and the beginning word. Say the sound aloud before you move to the next letter.',
+            type: 'explore',
+            sections: [{
+                title: 'Letters and Sounds',
+                compact: true,
+                items: letterSounds.map(function(item) {
+                    return { label: item.letter + ' ' + item.letter.toLowerCase(), symbol: item.letter, note: item.sound, speak: item.sound };
+                })
+            }]
+        };
+    </script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>
