@@ -1,8 +1,7 @@
 const lessonNavMap = {
   '/123/123.html': { prev: '../index.html', next: 'pickthenum.html' },
-  '/123/pickthenum.html': { prev: '123.html', next: 'ran1-10.html' },
-  '/123/ran1-10.html': { prev: 'pickthenum.html', next: 'randnum.html' },
-  '/123/randnum.html': { prev: 'ran1-10.html' },
+  '/123/pickthenum.html': { prev: '123.html', next: 'randnum.html' },
+  '/123/randnum.html': { prev: 'pickthenum.html' },
   '/abc/abc.html': { prev: '../index.html', next: 'alphabet-sounds.html' },
   '/abc/alphabet-sounds.html': { prev: 'abc.html', next: 'abcpic.html' },
   '/abc/abcpic.html': { prev: 'alphabet-sounds.html', next: 'pronunciation-symbols.html' },
