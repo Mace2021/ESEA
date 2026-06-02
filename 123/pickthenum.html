@@ -36,8 +36,8 @@
         }
         function numberRound(number) {
             return {
-                prompt: 'Tap number ' + number + '.',
-                speak: 'Which number is ' + number + '?',
+                prompt: 'Tap ' + number + '.',
+                speak: String(number),
                 answer: String(number),
                 target: { text: String(number) },
                 options: makeOptions(number)
