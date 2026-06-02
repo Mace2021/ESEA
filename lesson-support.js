@@ -1,19 +1,19 @@
 const lessonNavMap = {
-  '/123/123.html': { prev: '../index.html', next: 'pickthenum.html' },
-  '/123/pickthenum.html': { prev: '123.html', next: 'ran1-10.html' },
-  '/123/ran1-10.html': { prev: 'pickthenum.html', next: 'randnum.html' },
-  '/123/randnum.html': { prev: 'ran1-10.html' },
-  '/abc/abc.html': { prev: '../index.html', next: 'abcpic.html' },
-  '/abc/abcpic.html': { prev: 'abc.html', next: 'picktheletter.html' },
-  '/abc/picktheletter.html': { prev: 'abcpic.html', next: 'pickthepic.html' },
-  '/abc/pickthepic.html': { prev: 'picktheletter.html', next: 'ranABC.html' },
-  '/abc/ranABC.html': { prev: 'pickthepic.html', next: 'pickaword.html' },
-  '/abc/pickaword.html': { prev: 'ranABC.html', next: 'Spellingword.html' },
-  '/abc/Spellingword.html': { prev: 'pickaword.html', next: 'filltheletter.html' },
-  '/abc/filltheletter.html': { prev: 'Spellingword.html', next: 'kiddictionary.html' },
-  '/abc/kiddictionary.html': { prev: 'filltheletter.html', next: 'dictionary.html' },
-  '/abc/dictionary.html': { prev: 'kiddictionary.html', next: 'calendar.html' },
-  '/abc/calendar.html': { prev: 'dictionary.html' },
+  '/123/123.html': { home: '../index.html' },
+  '/123/pickthenum.html': { home: '../index.html' },
+  '/123/ran1-10.html': { home: '../index.html' },
+  '/123/randnum.html': { home: '../index.html' },
+  '/abc/abc.html': { home: '../index.html' },
+  '/abc/abcpic.html': { home: '../index.html' },
+  '/abc/picktheletter.html': { home: '../index.html' },
+  '/abc/pickthepic.html': { home: '../index.html' },
+  '/abc/ranABC.html': { home: '../index.html' },
+  '/abc/pickaword.html': { home: '../index.html' },
+  '/abc/Spellingword.html': { home: '../index.html' },
+  '/abc/filltheletter.html': { home: '../index.html' },
+  '/abc/kiddictionary.html': { home: '../index.html' },
+  '/abc/dictionary.html': { home: '../index.html' },
+  '/abc/calendar.html': { home: '../index.html' },
   '/arithmetic/Arithmetic.html': { prev: '../index.html', next: 'math.html' },
   '/arithmetic/math.html': { prev: 'Arithmetic.html', next: 'howmanyapple.html' },
   '/arithmetic/howmanyapple.html': { prev: 'math.html' },
@@ -21,8 +21,8 @@ const lessonNavMap = {
   '/civics/CivicsGame.html': { prev: 'civic.html', next: 'Civicsques.html' },
   '/civics/Civicsques.html': { prev: 'CivicsGame.html' },
   '/books/lego.html': { prev: '../index.html' },
-  '/color/colors.html': { prev: '../index.html' },
-  '/emotions/emotions.html': { prev: '../index.html' },
+  '/color/colors.html': { home: '../index.html' },
+  '/emotions/emotions.html': { home: '../index.html' },
   '/games/catchme.html': { prev: '../index.html', next: 'tictactoe.html' },
   '/games/tictactoe.html': { prev: 'catchme.html', next: 'rps.html' },
   '/games/rps.html': { prev: 'tictactoe.html', next: 'shapes.html' },
@@ -30,14 +30,14 @@ const lessonNavMap = {
   '/games/whatshape.html': { prev: 'shapes.html' },
   '/puzzles/puzzles.html': { prev: '../index.html', next: 'gamification.html' },
   '/puzzles/gamification.html': { prev: 'puzzles.html' },
-  '/science/bio.html': { prev: '../index.html', next: 'chem.html' },
+  '/science/bio.html': { home: '../index.html' },
   '/science/chem.html': { prev: 'bio.html', next: 'compute.html' },
   '/science/compute.html': { prev: 'chem.html' },
-  '/shapes/shapes.html': { prev: '../index.html', next: 'whatshape.html' },
-  '/shapes/whatshape.html': { prev: 'shapes.html' },
+  '/shapes/shapes.html': { home: '../index.html' },
+  '/shapes/whatshape.html': { home: '../index.html' },
   '/tv/tv.html': { prev: '../index.html', next: 'storytime.html' },
   '/tv/storytime.html': { prev: 'tv.html' },
-  '/weather/weather.html': { prev: '../index.html' },
+  '/weather/weather.html': { home: '../index.html' },
 };
 
 function getPageKey() {
@@ -52,12 +52,13 @@ function getPageKey() {
 function createNavButton(href, label, extraClass = '') {
   const button = document.createElement('a');
   button.href = href;
-  button.className = `nav-btn ${extraClass}`.trim();
+  button.className = `nav-button ${extraClass}`.trim();
   button.textContent = label;
   return button;
 }
 
 function addLessonNav() {
+  if (document.querySelector('.page-nav') || document.querySelector('a.back-button')) return;
   const pageKey = getPageKey();
   if (!pageKey) return;
   const navConfig = lessonNavMap[pageKey];
@@ -65,7 +66,7 @@ function addLessonNav() {
 
   const nav = document.createElement('nav');
   nav.id = 'lesson-nav';
-  nav.className = 'lesson-nav';
+  nav.className = 'page-nav lesson-nav';
   if (navConfig.prev) {
     nav.appendChild(createNavButton(navConfig.prev, '← Previous', 'prev-btn'));
   }
