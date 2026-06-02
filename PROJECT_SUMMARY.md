@@ -121,8 +121,8 @@ ESEA Project/
 │
 ├── 📁 123/                          📋 Numbers & Counting
 │   ├── 123.html                    (existing - needs update)
+│   ├── countto100.html              (existing - needs update)
 │   ├── pickthenum.html             (existing - needs update)
-│   ├── ran1-10.html                (existing - needs update)
 │   └── randnum.html                (existing - needs update)
 │
 ├── 📁 abc/                          📋 Letters & Language
