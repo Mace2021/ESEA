@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect old ran1-10.html to countto100.html
+    RewriteRule ^123/ran1-10\.html$ 123/countto100.html [R=301,L]
+</IfModule>
