@@ -65,6 +65,8 @@
   ].join('');
 
   function character(container) {
+    // The shared Pip (pip.js) has expressions; fall back to the built-in drawing.
+    if (global.ESEAPip) return global.ESEAPip.character(container);
     container.classList.add('pip');
     container.innerHTML = PIP_SVG;
     var pose = null;

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="feelings.css">
     <script src="../speech.js"></script>
     <script src="../family.js"></script>
+    <script src="../pip.js"></script>
 </head>
 <body>
     <div class="lesson-shell">
@@ -25,7 +26,7 @@
                     <a class="feel-step on" href="calm-corner.html"><span aria-hidden="true">&#127800;</span>Calm Down Corner</a>
                 </nav>
 
-                <div class="okay-banner">&#127800; Pick a calm tool. Do it together with a grown-up.</div>
+                <div class="okay-banner" data-pip-spot>&#127800; Pick a calm tool. Do it together with a grown-up.</div>
 
                 <div class="calm-tools" role="group" aria-label="Calm tools">
                     <button type="button" class="calm-tool" data-tool="flower"><span aria-hidden="true">&#127800;</span>Flower breathing</button>
@@ -137,9 +138,13 @@
             button.addEventListener('click', function() {
                 stop();
                 button.setAttribute('aria-pressed', 'true');
+                var pip = window.ESEAPip && ESEAPip.buddy();
+                if (pip) pip.feel('calm');
                 var myRun = run;
                 Promise.resolve(TOOLS[button.dataset.tool](myRun)).then(function() {
-                    if (myRun !== run || !window.ESEAFamily) return;
+                    if (myRun !== run) return;
+                    if (pip) { pip.feel('happy'); pip.jump(1600); }
+                    if (!window.ESEAFamily) return;
                     var back = ESEAFamily.finished('emotions/calm-corner');
                     if (back && !document.getElementById('planBack')) {
                         back.id = 'planBack';

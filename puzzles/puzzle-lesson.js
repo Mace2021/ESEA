@@ -192,6 +192,7 @@
       event.currentTarget.classList.add('correct');
       choiceButtons().forEach(function(button) { button.disabled = true; });
       if (window.SkillTracker) SkillTracker.record(lessonId, itemKey(round), firstTry);
+      if (window.ESEAPip) ESEAPip.lessonEvent('correct');
       var praise = PRAISE[Math.floor(Math.random() * PRAISE.length)];
       setFeedback(praise, 'good');
       var token = state.roundIndex;
@@ -212,6 +213,7 @@
       event.currentTarget.classList.add('incorrect');
       event.currentTarget.disabled = true;
       if (state.misses === 1) {
+        if (window.ESEAPip) ESEAPip.lessonEvent('miss');
         // Missed items come back once more later in this session.
         var key = itemKey(round);
         if (!state.requeued[key] && Object.keys(state.requeued).length < 3) {
@@ -221,6 +223,7 @@
         setFeedback('Look again.', 'try');
         speak('Hmm, not quite. Let\u2019s look again... ' + promptText(round));
       } else {
+        if (window.ESEAPip) ESEAPip.lessonEvent('reveal');
         choiceButtons().forEach(function(button) {
           if (button.dataset.value === round.answer) button.classList.add('reveal');
         });
@@ -260,6 +263,7 @@
     if (ideaBox) ideaBox.innerHTML = '<strong>Grown-ups, try this at home:</strong> ' + idea;
     speak('All done! You worked so hard today. Great job!');
     completeBox.classList.add('show');
+    if (window.ESEAPip) ESEAPip.lessonEvent('done');
     if (window.ESEAFamily && !document.getElementById('planBack')) {
       var back = ESEAFamily.finished(config.id || lessonId);
       if (back) { back.id = 'planBack'; completeBox.appendChild(back); }

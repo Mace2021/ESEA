@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="feelings.css">
     <script src="../speech.js"></script>
     <script src="../family.js"></script>
+    <script src="../pip.js"></script>
 </head>
 <body>
     <div class="lesson-shell">
@@ -27,7 +28,7 @@
 
                 <div class="okay-banner">&#128155; Every feeling is okay. Some feelings are big, and grown-ups can help.</div>
 
-                <h2 class="feel-heading">Tap a feeling</h2>
+                <h2 class="feel-heading" data-pip-spot>Tap a feeling</h2>
                 <div class="feel-grid" id="feelGrid"></div>
 
                 <article class="feel-detail" id="feelDetail" aria-live="polite" hidden>
@@ -83,6 +84,9 @@
             void detail.offsetWidth;
             detail.classList.add('pop-detail');
             detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Pip shows the feeling on its own face (excited and proud look happy).
+            var pip = window.ESEAPip && ESEAPip.buddy();
+            if (pip) pip.feel(ESEAPip.feelings.indexOf(f.id) !== -1 ? f.id : 'happy');
             speak(storyFor(f));
         }
 

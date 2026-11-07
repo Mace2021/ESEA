@@ -38,6 +38,7 @@
     </style>
     <script src="../speech.js"></script>
     <script src="../family.js"></script>
+    <script src="../pip.js"></script>
     <script src="../skill-tracker.js"></script>
 </head>
 <body>
@@ -55,7 +56,7 @@
                     <button type="button" class="hear-again" id="hearAgain" aria-label="Hear it again">&#128264;</button>
                     <span class="pill" id="starPill">&#11088; 0</span>
                 </div>
-                <div class="pop-prompt" id="prompt" aria-live="polite"></div>
+                <div class="pop-prompt" id="prompt" aria-live="polite" data-pip-spot></div>
                 <div class="sky" id="sky"><div class="cloud a"></div><div class="cloud b"></div></div>
                 <div class="done-box" id="doneBox" aria-live="polite">
                     <div class="stars" id="doneStars" aria-hidden="true"></div>
@@ -190,6 +191,7 @@
                 var tapped = COLORS.filter(function(c) { return c.id === b.dataset.id; })[0];
                 if (tapped.id === target.id) {
                     state.busy = true;
+                    if (window.ESEAPip) ESEAPip.lessonEvent('correct');
                     var first = state.misses === 0;
                     if (window.SkillTracker) SkillTracker.record(lessonId, target.id, first);
                     state.stars += 1;
@@ -211,10 +213,12 @@
                 b.classList.add('wrong');
                 sky.classList.add('clues');
                 if (state.misses === 1) {
+                    if (window.ESEAPip) ESEAPip.lessonEvent('miss');
                     speak(fill(T.thatIs, tapped) + ' ' + fill(T.find, target));
                 } else {
                     var right = sky.querySelector('.balloon[data-id="' + target.id + '"]');
                     if (right) right.classList.add('glow');
+                    if (window.ESEAPip) ESEAPip.lessonEvent('reveal');
                     speak(fill(T.here, target));
                 }
             }
@@ -244,6 +248,7 @@
                     var back = ESEAFamily.finished(lessonId);
                     if (back) { back.id = 'planBack'; document.getElementById('doneActions').insertBefore(back, document.getElementById('againButton')); }
                 }
+                if (window.ESEAPip) ESEAPip.lessonEvent('done');
                 speak(T.doneSay);
             }
 

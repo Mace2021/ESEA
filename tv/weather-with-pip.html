@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather & Seasons with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .board-things span { font-size: clamp(2.3rem, 10vw, 3rem); line-height: 1; background: rgba(255,255,255,0.92); border-radius: 14px; padding: 4px 6px; }
+        .board-things { display: flex; gap: 8px; justify-content: center; min-height: 3.2rem; flex-wrap: wrap; }
+
+        .board { position: relative; overflow: hidden; transition: background 0.8s ease; }
+        .board.sunny { background: #3a86c8; } .board.cloudy { background: #6f8796; } .board.rainy { background: #46627a; }
+        .board.windy { background: #4d8fa8; } .board.snowy { background: #7aa3c2; } .board.stormy { background: #2b3446; }
+        .board.spring { background: #4f9a5d; } .board.summer { background: #d98b1a; } .board.autumn { background: #a0522d; } .board.winter { background: #5f86a8; }
+        .wx-big { position: relative; font-size: clamp(4rem, 18vw, 5.5rem); line-height: 1; z-index: 1; }
+        .wx-name { position: relative; font-size: clamp(1.8rem, 8vw, 2.4rem); font-weight: 950; color: #fff; z-index: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.35); }
+        .fx { position: absolute; inset: 0; pointer-events: none; }
+        .fx.rain { background-image: repeating-linear-gradient(105deg, transparent 0 14px, rgba(200,230,255,0.75) 14px 16px, transparent 16px 30px); background-size: 30px 40px; animation: rainfx 0.5s linear infinite; }
+        .fx.snow { background-image: radial-gradient(circle, #fff 2.5px, transparent 3px), radial-gradient(circle, #fff 2px, transparent 2.5px); background-size: 40px 40px, 26px 26px; animation: snowfx 3s linear infinite; }
+        .fx.wind span { position: absolute; font-size: 1.8rem; animation: windfx 2.2s linear infinite; }
+        .fx.flash { animation: flash 2.4s infinite; background: #fff; opacity: 0; }
+        @keyframes rainfx { to { background-position: -8px 40px; } }
+        @keyframes snowfx { to { background-position: 0 40px, 0 26px; } }
+        @keyframes windfx { from { transform: translateX(-60px) rotate(0); } to { transform: translateX(420px) rotate(360deg); } }
+        @keyframes flash { 0%, 88%, 100% { opacity: 0; } 90% { opacity: 0.7; } 93% { opacity: 0; } 95% { opacity: 0.5; } }
+        @media (prefers-reduced-motion: reduce) { .fx { animation: none !important; } .fx.wind span { animation: none; } }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Weather & Seasons with Pip</h1>
+            <p>Sunny, rainy, windy, snowy... Pip shows the weather and what to wear!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        async function popThings(ctx, row, things, lead) {
+            for (var k = 0; k < things.length; k += 1) {
+                var t = el('span', 'pop-in', things[k][0]);
+                t.setAttribute('aria-hidden', 'true');
+                row.appendChild(t);
+                var last = k === things.length - 1;
+                await ctx.say((k === 0 && lead ? lead + ' ' : (last && k > 0 ? 'and ' : '')) + things[k][1] + (last ? '!' : ','));
+            }
+        }
+
+        var WEATHER = [
+            { id: 'sunny', icon: '☀️', name: 'Sunny', about: 'When it is sunny, the sun shines bright and warm.', wear: 'On a sunny day, we can wear', things: [['🧢', 'a sun hat'], ['🕶️', 'sunglasses']] },
+            { id: 'cloudy', icon: '☁️', name: 'Cloudy', about: 'When it is cloudy, clouds cover the sun. Some clouds look like animals!', wear: 'Look up! I see a cloud shaped like', things: [['🐑', 'a sheep'], ['🐳', 'a whale']] },
+            { id: 'rainy', icon: '🌧️', name: 'Rainy', fx: 'rain', about: 'When it is rainy, water falls from the clouds. Pitter, patter!', wear: 'On a rainy day, we wear', things: [['🧥', 'a raincoat'], ['☂️', 'an umbrella'], ['👢', 'boots for splashing']] },
+            { id: 'windy', icon: '💨', name: 'Windy', fx: 'wind', about: 'When it is windy, the air moves fast. Whoosh! Leaves fly through the sky.', wear: 'On a windy day, hold on to', things: [['🧢', 'your hat'], ['🎈', 'your balloon']] },
+            { id: 'snowy', icon: '❄️', name: 'Snowy', fx: 'snow', about: 'When it is snowy, soft white snowflakes fall. Brrr, it is cold!', wear: 'On a snowy day, we wear', things: [['🧣', 'a scarf'], ['🧤', 'gloves'], ['⛄', 'we can build a snowman']] },
+            { id: 'stormy', icon: '⛈️', name: 'Stormy', fx: 'flash', about: 'When it is stormy, there is thunder and lightning. Boom!', wear: 'In a storm, we stay safe', things: [['🏠', 'inside our home']] }
+        ];
+        var SEASONS = [
+            { id: 'spring', icon: '🌷', name: 'Spring', say: 'In spring, flowers grow and baby animals are born.', things: [['🌷', 'flowers'], ['🐣', 'baby chicks']] },
+            { id: 'summer', icon: '🏖️', name: 'Summer', say: 'In summer, it is hot and sunny. Time to play outside!', things: [['🍉', 'watermelon'], ['🏊', 'swimming']] },
+            { id: 'autumn', icon: '🍂', name: 'Autumn', say: 'In autumn, also called fall, the leaves change color and fall down.', things: [['🍂', 'falling leaves'], ['🎃', 'pumpkins']] },
+            { id: 'winter', icon: '❄️', name: 'Winter', say: 'In winter, it is cold. In some places, it snows!', things: [['🧣', 'warm scarves'], ['☕', 'warm drinks']] }
+        ];
+        function setBoard(cls, fx) {
+            board.className = 'board ' + cls;
+            var layer = '';
+            if (fx === 'wind') layer = '<div class="fx wind"><span style="top:15%">🍃</span><span style="top:45%;animation-delay:-0.8s">🍂</span><span style="top:72%;animation-delay:-1.5s">🍃</span></div>';
+            else if (fx) layer = '<div class="fx ' + fx + '"></div>';
+            return layer;
+        }
+        var scenes = [async function(ctx) {
+            board.className = 'board';
+            show('<div class="board-title pop-in">Weather with Pip</div>');
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Let’s look out the window and learn about the weather!');
+        }];
+        WEATHER.forEach(function(w) {
+            scenes.push(async function(ctx) {
+                var layer = setBoard(w.id, w.fx);
+                show(layer + '<div class="wx-big pop-in" aria-hidden="true">' + w.icon + '</div><div class="wx-name pop-in">' + w.name + '</div><div class="board-things" id="things" style="position:relative;z-index:1"></div>');
+                pip.point();
+                await ctx.say('This is ' + w.name.toLowerCase() + ' weather.');
+                await ctx.say(w.about);
+                await popThings(ctx, document.getElementById('things'), w.things, w.wear);
+                pip.rest();
+                await ctx.wait(700);
+            });
+        });
+        scenes.push(async function(ctx) {
+            board.className = 'board';
+            show('<div class="board-title pop-in">The four seasons</div><div class="board-things" style="font-size:2.6rem">🌷 🏖️ 🍂 ❄️</div>');
+            pip.wave();
+            await ctx.say('In many places, the year has four seasons: spring, summer, autumn, and winter. Let’s meet them!');
+        });
+        SEASONS.forEach(function(s) {
+            scenes.push(async function(ctx) {
+                setBoard(s.id);
+                show('<div class="wx-big pop-in" aria-hidden="true">' + s.icon + '</div><div class="wx-name pop-in">' + s.name + '</div><div class="board-things" id="things"></div>');
+                pip.point();
+                await ctx.say(s.say);
+                await popThings(ctx, document.getElementById('things'), s.things, 'We see');
+                await ctx.wait(500);
+            });
+        });
+        scenes.push(async function(ctx) {
+            board.className = 'board sunny';
+            show('<div class="board-title pop-in">What is the weather today? &#127780;</div>');
+            pip.jump(2000);
+            await ctx.say('What is the weather like today? Look out the window, and tell a grown-up! Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Weather with Pip</div>');
+    </script>
+</body>
+</html>
