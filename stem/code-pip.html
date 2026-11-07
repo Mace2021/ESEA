@@ -148,7 +148,7 @@
 
             function drawLevel() {
                 var L = cur();
-                gridEl.style.gridTemplateColumns = 'repeat(' + L.n + ', 1fr)';
+                gridEl.style.gridTemplateColumns = gridEl.style.gridTemplateRows = 'repeat(' + L.n + ', 1fr)';
                 gridEl.innerHTML = '';
                 for (var r = 0; r < L.n; r += 1) {
                     for (var c = 0; c < L.n; c += 1) {

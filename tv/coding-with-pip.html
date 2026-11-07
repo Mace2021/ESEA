@@ -28,7 +28,7 @@
             .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
             .board { min-height: 220px; }
         }
-        .cgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; width: min(100%, 240px); aspect-ratio: 1; background: #a0703c; border-radius: 12px; padding: 4px; position: relative; box-sizing: border-box; }
+        .cgrid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 4px; width: min(100%, 240px); aspect-ratio: 1; background: #a0703c; border-radius: 12px; padding: 4px; position: relative; box-sizing: border-box; }
         .cgrid .c { background: #fff7e6; border-radius: 8px; display: grid; place-items: center; font-size: clamp(1.4rem, 6vw, 1.9rem); }
         .cgrid .c.trail { background: #ffe9a8; }
         .robot { position: absolute; width: calc((100% - 8px) / 4); height: calc((100% - 8px) / 4); display: grid; place-items: center; font-size: clamp(1.6rem, 7vw, 2.1rem); transition: left 0.5s, top 0.5s; }
