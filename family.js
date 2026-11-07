@@ -33,7 +33,10 @@
           setupTimeNote: 'Health experts advise short screen time for young children, ideally shared with a grown-up. ESEA shows a calm break screen when time is up.',
           minutes: '{n} min', noLimit: 'No limit', recommended: 'recommended', next: 'Next', back: 'Back', skip: 'Skip for now',
           setupDone: 'All set!', setupDoneText: 'Tap \u201cToday\u2019s learning\u201d for a short daily plan made for {name}. You can change these answers any time in the Grown-ups area.',
-          start: 'Let\u2019s go!', yourChild: 'your child', gateTitle: 'For grown-ups', gateText: 'Setting up ESEA is a job for a grown-up. Please answer to continue:', gateWrong: 'Not quite. Here is another one.', setupFirst: 'Before your child starts, please take a minute to set up ESEA.', backToPlan: '\u2b50 Back to today\u2019s plan' },
+          start: 'Let\u2019s go!', yourChild: 'your child', gateTitle: 'For grown-ups', gateText: 'Setting up ESEA is a job for a grown-up. Please answer to continue:', gateWrong: 'Not quite. Here is another one.', setupFirst: 'Before your child starts, please take a minute to set up ESEA.', backToPlan: '\u2b50 Back to today\u2019s plan',
+          addAnother: '+ Add another child', addAnotherNote: 'Brothers and sisters each get their own progress, level and daily plan.',
+          childN: 'Child {n}', notNow: 'Not now', readyKids: 'Ready to play: {names}.', whoDone: 'Today: {n} of 3 done',
+          addChildGrown: 'Grown-ups: add or change children', change: 'Change player', playing: 'Playing: {name}' },
     es: { who: '¿Quién va a jugar?', hi: '¡Hola, {name}!', grownupsAdd: 'Los adultos pueden añadir niños en el área de adultos.',
           breakTitle: '¡Hora de descansar!', breakText: '¡Aprendiste mucho hoy, {name}! Jugamos otra vez mañana.',
           breakSay: '¡Hora de descansar! Aprendiste mucho hoy. Jugamos otra vez mañana.', grownups: 'Adultos',
@@ -45,7 +48,10 @@
           setupTimeNote: 'Los expertos en salud recomiendan ratos cortos de pantalla para los niños pequeños, mejor acompañados de un adulto. ESEA muestra una pantalla de descanso al terminar el tiempo.',
           minutes: '{n} min', noLimit: 'Sin límite', recommended: 'recomendado', next: 'Siguiente', back: 'Atrás', skip: 'Omitir por ahora',
           setupDone: '¡Todo listo!', setupDoneText: 'Toca «Aprender hoy» para ver un plan corto hecho para {name}. Puedes cambiar estas respuestas cuando quieras en el área de adultos.',
-          start: '¡Vamos!', yourChild: 'tu hijo o hija', gateTitle: 'Para adultos', gateText: 'La configuración de ESEA la hace un adulto. Responde para continuar:', gateWrong: 'No exactamente. Aquí tienes otra.', setupFirst: 'Antes de que tu hijo o hija empiece, dedica un minuto a configurar ESEA.', backToPlan: '\u2b50 Volver al plan de hoy' },
+          start: '¡Vamos!', yourChild: 'tu hijo o hija', gateTitle: 'Para adultos', gateText: 'La configuración de ESEA la hace un adulto. Responde para continuar:', gateWrong: 'No exactamente. Aquí tienes otra.', setupFirst: 'Antes de que tu hijo o hija empiece, dedica un minuto a configurar ESEA.', backToPlan: '\u2b50 Volver al plan de hoy',
+          addAnother: '+ Añadir otro niño o niña', addAnotherNote: 'Cada hermano o hermana tiene su propio progreso, nivel y plan diario.',
+          childN: 'Niño {n}', notNow: 'Ahora no', readyKids: 'Listos para jugar: {names}.', whoDone: 'Hoy: {n} de 3 hechas',
+          addChildGrown: 'Adultos: añadir o cambiar niños', change: 'Cambiar de jugador', playing: 'Juega: {name}' },
     fr: { who: 'Qui joue ?', hi: 'Bonjour, {name} !', grownupsAdd: 'Les adultes peuvent ajouter des enfants dans l\u2019espace adultes.',
           breakTitle: 'C\u2019est l\u2019heure de la pause !', breakText: 'Tu as bien appris aujourd\u2019hui, {name}. On rejoue demain.',
           breakSay: 'C\u2019est l\u2019heure de la pause ! Tu as bien appris aujourd\u2019hui. On rejoue demain.', grownups: 'Adultes',
@@ -57,12 +63,15 @@
           setupTimeNote: 'Les experts de santé conseillent des moments d\u2019écran courts pour les jeunes enfants, idéalement avec un adulte. ESEA affiche une pause calme quand le temps est écoulé.',
           minutes: '{n} min', noLimit: 'Sans limite', recommended: 'conseillé', next: 'Suivant', back: 'Retour', skip: 'Passer pour l\u2019instant',
           setupDone: 'C\u2019est prêt !', setupDoneText: 'Touchez « Apprendre aujourd\u2019hui » pour un petit programme fait pour {name}. Vous pouvez changer ces réponses à tout moment dans l\u2019espace adultes.',
-          start: 'C\u2019est parti !', yourChild: 'votre enfant', gateTitle: 'Pour les adultes', gateText: 'La configuration d\u2019ESEA est faite par un adulte. Répondez pour continuer :', gateWrong: 'Pas tout à fait. En voici une autre.', setupFirst: 'Avant que votre enfant commence, prenez une minute pour configurer ESEA.', backToPlan: '\u2b50 Retour au programme du jour' }
+          start: 'C\u2019est parti !', yourChild: 'votre enfant', gateTitle: 'Pour les adultes', gateText: 'La configuration d\u2019ESEA est faite par un adulte. Répondez pour continuer :', gateWrong: 'Pas tout à fait. En voici une autre.', setupFirst: 'Avant que votre enfant commence, prenez une minute pour configurer ESEA.', backToPlan: '\u2b50 Retour au programme du jour',
+          addAnother: '+ Ajouter un autre enfant', addAnotherNote: 'Chaque frère et sœur a ses propres progrès, son niveau et son programme du jour.',
+          childN: 'Enfant {n}', notNow: 'Pas maintenant', readyKids: 'Prêts à jouer : {names}.', whoDone: 'Aujourd\u2019hui : {n} sur 3',
+          addChildGrown: 'Adultes : ajouter ou modifier les enfants', change: 'Changer de joueur', playing: 'Joue : {name}' }
   };
   function word(key, name) {
     var lang = currentLang();
     var text = (WORDS[lang] || WORDS.en)[key] || WORDS.en[key];
-    return name === undefined ? text : text.replace('{name}', name).replace('{n}', name);
+    return name === undefined ? text : text.replace('{name}', name).replace('{n}', name).replace('{names}', name);
   }
   function currentLang() {
     var lang = load().language;
@@ -118,6 +127,14 @@
     }
     if (!findProfile(data, data.active)) data.active = data.profiles[0].id;
     data.usage = data.usage || {};
+    // Scores saved before they were kept per child belong to the first child.
+    ['esea_puzzle_lessons', 'esea_progress'].forEach(function(k) {
+      var shared = getItem(k);
+      if (shared === null) return;
+      var mine = k + ':' + data.profiles[0].id;
+      if (!getItem(mine)) setItem(mine, shared);
+      removeItem(k);
+    });
     return data;
   }
 
@@ -427,7 +444,13 @@
     '.esea-row .esea-btn{flex:1;}',
     '.esea-avatars.small{grid-template-columns:repeat(5,1fr);gap:6px;}',
     '.esea-avatars.small .esea-avatar{padding:6px 0;}',
-    '.esea-avatars.small .esea-avatar span{font-size:2rem;}'
+    '.esea-avatars.small .esea-avatar span{font-size:2rem;}',
+    '.esea-avatar small{display:block;font-size:.78rem;font-weight:700;color:#1c6b46;margin-top:2px;}',
+    '.esea-kids{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;}',
+    '.esea-kids span{background:#d9f4f2;border-radius:14px;padding:6px 10px;font-weight:800;}',
+    '.esea-kids span b{display:block;font-size:2rem;line-height:1.1;}',
+    '.player-badge{display:inline-flex;align-items:center;gap:6px;min-height:44px;border:2px solid rgba(23,50,58,.16);border-radius:999px;background:#fff;color:#17323a;font-weight:800;font-size:.95rem;padding:2px 12px 2px 6px;cursor:pointer;font-family:inherit;margin:4px;vertical-align:middle;}',
+    '.player-badge span{font-size:1.6rem;line-height:1;}'
   ].join('');
 
   function ensureStyle() {
@@ -497,33 +520,76 @@
   }
 
   // ---------- Profiles ----------
+  function planDoneCount(d, id) {
+    var plan = d.plans && d.plans[id];
+    return plan && plan.date === today() ? Object.keys(plan.done || {}).length : 0;
+  }
+
   function profilePicker(onDone) {
     var data = load();
     var overlay = openModal([
       '<h2>' + word('who') + '</h2>',
       '<div class="esea-avatars">',
       data.profiles.map(function(p) {
+        var n = planDoneCount(data, p.id);
         return '<button type="button" class="esea-avatar' + (p.id === data.active ? ' on' : '') + '" data-id="' + p.id + '">' +
-          '<span aria-hidden="true">' + p.avatar + '</span>' + escapeHtml(p.name) + '</button>';
+          '<span aria-hidden="true">' + p.avatar + '</span>' + escapeHtml(p.name) +
+          (n ? '<small>' + word('whoDone', n) + '</small>' : '') + '</button>';
       }).join(''),
       '</div>',
-      '<p style="font-size:.9rem;margin:0">' + word('grownupsAdd') + '</p>'
+      IS_PARENT_PAGE ? '' : '<button type="button" class="esea-btn link" data-grownup>' + word('addChildGrown') + '</button>'
     ].join(''));
     speak(word('who'));
     overlay.addEventListener('click', function(e) {
+      if (e.target.closest('[data-grownup]')) {
+        parentGate(function() { global.location.href = ROOT + 'parents.html#kids-title'; });
+        return;
+      }
       var t = e.target.closest('.esea-avatar');
       if (!t) {
         if (e.target === overlay) overlay.remove();
         return;
       }
       var d = load();
+      var changed = d.active !== t.getAttribute('data-id');
       d.active = t.getAttribute('data-id');
       save(d);
       var p = findProfile(d, d.active);
       speak(word('hi', p.name));
       overlay.remove();
-      if (onDone) onDone(p);
+      if (onDone) onDone(p, changed);
     });
+  }
+
+  // With brothers and sisters on one device, ask who is playing once per visit,
+  // so progress, level and daily plan always go to the right child.
+  function askWhoOnce() {
+    if (IS_PARENT_PAGE || !setupComplete() || load().profiles.length < 2) return;
+    try {
+      if (global.sessionStorage.getItem('esea_who_asked')) return;
+      global.sessionStorage.setItem('esea_who_asked', '1');
+    } catch (e) { /* private mode: ask anyway */ }
+    profilePicker(function(p, changed) { if (changed) global.location.reload(); else renderChip(); });
+  }
+
+  // On lesson and video pages, show whose turn it is (only with 2+ children).
+  function playerBadge() {
+    if (IS_PARENT_PAGE || doc.getElementById('profileChip') || load().profiles.length < 2) return;
+    var spot = doc.querySelector('.lesson-nav') || doc.querySelector('.back-button');
+    if (!spot) return;
+    ensureStyle();
+    var p = ESEAFamily.activeProfile();
+    var b = doc.createElement('button');
+    b.type = 'button';
+    b.className = 'player-badge';
+    b.innerHTML = '<span aria-hidden="true">' + p.avatar + '</span>' + escapeHtml(p.name);
+    b.setAttribute('aria-label', word('playing', p.name) + '. ' + word('change'));
+    b.title = word('change');
+    b.addEventListener('click', function() {
+      profilePicker(function(np, changed) { if (changed) global.location.reload(); });
+    });
+    if (spot.classList.contains('lesson-nav')) spot.appendChild(b);
+    else spot.parentNode.insertBefore(b, spot.nextSibling);
   }
 
   // ---------- First-run setup for grown-ups ----------
@@ -555,6 +621,7 @@
     var gate = null;
     var gateMiss = false;
     var gatePassed = false;
+    var extra = 0; // brothers and sisters added after the first child
     ensureStyle();
     var overlay = doc.createElement('div');
     overlay.className = 'esea-overlay';
@@ -580,13 +647,15 @@
       return '<button type="button" class="esea-choice' + (on ? ' on' : '') + '" data-v="' + value + '">' + label + (extra ? '<small>' + extra + '</small>' : '') + '</button>';
     }
     function nav(withNext) {
+      var first = extra && STEPS[step] === 'name';
       return '<div class="esea-row">' +
-        (step > 0 ? '<button type="button" class="esea-btn light" data-act="back">' + word('back') + '</button>' : '') +
+        (first ? '<button type="button" class="esea-btn light" data-act="cancelExtra">' + word('notNow') + '</button>' :
+          step > 0 ? '<button type="button" class="esea-btn light" data-act="back">' + word('back') + '</button>' : '') +
         (withNext === false ? '' : '<button type="button" class="esea-btn" data-act="next">' + word('next') + '</button>') + '</div>';
     }
     function render() {
       var kind = STEPS[step];
-      var html = kind ? '<div class="esea-step">' + (step + 1) + ' / ' + STEPS.length + '</div>' : '';
+      var html = kind ? '<div class="esea-step">' + (extra ? word('childN', extra + 1) : (step + 1) + ' / ' + STEPS.length) + '</div>' : '';
       if (kind === 'lang') {
         html += '<h2>' + word('setupTitle') + '</h2><p>' + word('setupFirst') + ' ' + word('setupIntro') + '</p><h3>' + word('setupLang') + '</h3><div class="esea-choices" data-field="lang">' +
           Object.keys(LANGUAGES).map(function(code) { return choice(code, LANGUAGES[code].name.split(' (')[0], code === currentLang()); }).join('') + '</div>' + nav();
@@ -608,8 +677,13 @@
           [15, 20, 30, 0].map(function(n) { return choice(n, n ? word('minutes', n) : word('noLimit'), n === answers.limit, n === rec ? word('recommended') : ''); }).join('') +
           '</div><p class="esea-note">' + word('setupTimeNote') + '</p>' + nav();
       } else {
-        html += '<div class="esea-break" aria-hidden="true">' + answers.avatar + '</div><h2>' + word('setupDone') + '</h2><p>' + word('setupDoneText', escapeHtml(childName())) + '</p>' +
-          '<button type="button" class="esea-btn" data-act="finish" style="width:100%">' + word('start') + '</button>';
+        var kids = load().profiles;
+        html += (kids.length > 1 ? '<h2>' + word('setupDone') + '</h2><div class="esea-kids">' + kids.map(function(k) { return '<span><b aria-hidden="true">' + k.avatar + '</b>' + escapeHtml(k.name) + '</span>'; }).join('') + '</div>' +
+            '<p>' + word('readyKids', kids.map(function(k) { return escapeHtml(k.name); }).join(', ')) + '</p>'
+          : '<div class="esea-break" aria-hidden="true">' + answers.avatar + '</div><h2>' + word('setupDone') + '</h2><p>' + word('setupDoneText', escapeHtml(childName())) + '</p>') +
+          '<button type="button" class="esea-btn" data-act="finish" style="width:100%">' + word('start') + '</button>' +
+          (kids.length < 8 ? '<button type="button" class="esea-btn light" data-act="another" style="width:100%;margin-top:10px">' + word('addAnother') + '</button>' +
+            '<p class="esea-note" style="margin-top:8px">' + word('addAnotherNote') + '</p>' : '');
       }
       box.innerHTML = html;
       var input = box.querySelector('#eseaName');
@@ -656,6 +730,7 @@
       if (a === 'next') {
         step += 1;
         if (STEPS[step] === 'gate' && gatePassed) step += 1; // answered once is enough
+        if (extra && STEPS[step] === 'time') step += 1; // the daily limit is shared, asked once
         if (step === STEPS.length) saveAnswers();
         render();
       }
@@ -664,7 +739,35 @@
         if (STEPS[step] === 'gate') step -= 1; // never step back into the check once passed
         render();
       }
-      else if (a === 'finish') close();
+      else if (a === 'another') {
+        // Start a new child with the same questions (name, animal, age).
+        var dd = load();
+        var used = dd.profiles.map(function(x) { return x.avatar; });
+        var avatar = AVATARS.filter(function(x) { return used.indexOf(x) === -1; })[0] || AVATARS[dd.profiles.length % AVATARS.length];
+        var id = 'p' + Date.now().toString(36);
+        dd.profiles.push({ id: id, name: word('childN', dd.profiles.length + 1), avatar: avatar, age: 4 });
+        dd.active = id;
+        save(dd);
+        extra = dd.profiles.length - 1;
+        answers = { name: '', avatar: avatar, age: 4, limit: answers.limit };
+        step = STEPS.indexOf('name');
+        render();
+      }
+      else if (a === 'cancelExtra') {
+        var dc = load();
+        dc.profiles = dc.profiles.filter(function(x) { return x.id !== dc.active; });
+        dc.active = dc.profiles[0].id;
+        save(dc);
+        extra = 0;
+        step = STEPS.length;
+        render();
+      }
+      else if (a === 'finish') {
+        // Everyone starts from the first child; "Who is playing?" comes next.
+        var df = load();
+        if (df.profiles.length > 1) { df.active = df.profiles[0].id; save(df); }
+        close();
+      }
     });
     render();
   }
@@ -809,6 +912,8 @@
     },
 
     profiles: function() { return load().profiles; },
+    /** How many of today's three plan activities a child has finished. */
+    planDone: function(id) { return planDoneCount(load(), id || load().active); },
     activeProfile: function() {
       var d = load();
       return findProfile(d, d.active);
@@ -838,8 +943,11 @@
       d.profiles = d.profiles.filter(function(p) { return p.id !== id; });
       if (d.active === id) d.active = d.profiles[0].id;
       delete d.usage[id];
+      if (d.plans) delete d.plans[id];
       save(d);
       removeItem('esea_skills:' + id);
+      removeItem('esea_puzzle_lessons:' + id);
+      removeItem('esea_progress:' + id);
       return true;
     },
 
@@ -917,13 +1025,15 @@
     }
     guardLinks();
     trackTime();
+    playerBadge();
+    if (!(doc.body && doc.body.getAttribute('data-page') === 'home' && !setupComplete())) askWhoOnce();
     if (doc.body && doc.body.getAttribute('data-page') === 'home' && !setupComplete()) {
       setupWizard(function(result) {
         var next = new URLSearchParams(global.location.search).get('next');
         // Only continue to pages inside the app.
         if (next && /^[\w\-\/]+\.html(\?[\w=&%\-]*)?$/.test(next)) global.location.href = ROOT + next;
         else if (result.languageChanged) global.location.replace(ROOT + 'index.html');
-        else { renderChip(); doc.dispatchEvent(new Event('esea-setup-done')); }
+        else { renderChip(); doc.dispatchEvent(new Event('esea-setup-done')); askWhoOnce(); }
       });
     }
   });
