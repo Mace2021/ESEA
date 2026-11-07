@@ -16,6 +16,7 @@
         .sound-chip { display:inline-flex; min-width: 110px; justify-content: center; padding:0.7rem 1rem; border-radius:999px; border:none; background:#ffd6e8; color:#2b0a3d; cursor:pointer; font-size:0.95rem; }
         @keyframes march { from { transform: translateX(0);} to { transform: translateX(140vw);} }
     </style>
+    <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
 <body>
@@ -51,43 +52,52 @@
         const paradeCaption = document.getElementById('paradeCaption');
         const playBtn = document.getElementById('playBtn');
         const replayBtn = document.getElementById('replayBtn');
-        const sceneSounds = [
-            'A happy dog says woof',
-            'A playful cat says meow',
-            'A little mouse says squeak',
-            'A lion says roar'
+        const scenes = [
+            { caption: 'A happy dog says woof', voice: 'Here comes a happy dog. The dog says... woof, woof!' },
+            { caption: 'A playful cat says meow', voice: 'Next, a playful cat. The cat says... meow!' },
+            { caption: 'A little mouse says squeak', voice: 'Here is a little mouse. The mouse says... squeak, squeak!' },
+            { caption: 'A lion says roar', voice: 'And last, a big lion. The lion says... roar!' }
         ];
-        let current = 0;
-        let timer = null;
+        const ENDING = 'The parade is finished. Great listening!';
 
-        function speakText(text) {
-            if (!window.speechSynthesis || !text) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.95;
-            utterance.pitch = 1.05;
-            window.speechSynthesis.speak(utterance);
+        function showScene(index) {
+            paradeCaption.textContent = 'Step ' + (index + 1) + ': ' + scenes[index].caption;
         }
 
-        function showStep(index) {
-            paradeCaption.textContent = 'Step ' + (index + 1) + ': ' + sceneSounds[index];
-            speakText(sceneSounds[index]);
+        // Narration uses the shared calm voice (speech.js). Each scene waits
+        // for the narrator to finish, then pauses briefly before the next one.
+        function speakText(text, onend) {
+            if (window.ESEASpeech) {
+                ESEASpeech.speak(text, { onend: onend });
+                return;
+            }
+            if (window.speechSynthesis && text) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+            if (onend) setTimeout(onend, 3500);
         }
 
+        let playId = 0;
         function playVideo() {
-            window.speechSynthesis.cancel();
-            current = 0;
-            showStep(current);
-            clearInterval(timer);
-            timer = setInterval(() => {
-                current += 1;
-                if (current >= sceneSounds.length) {
-                    clearInterval(timer);
-                    speakText('The parade is finished. Great listening!');
+            const id = ++playId;
+            let current = 0;
+            function step() {
+                if (id !== playId) return;
+                if (current >= scenes.length) {
+                    speakText(ENDING);
                     return;
                 }
-                showStep(current);
-            }, 4200);
+                showScene(current);
+                speakText(scenes[current].voice, () => setTimeout(() => {
+                    if (id !== playId) return;
+                    current += 1;
+                    step();
+                }, 900));
+            }
+            step();
         }
 
         playBtn.addEventListener('click', playVideo);
@@ -95,6 +105,7 @@
 
         document.addEventListener('click', function(event) {
             if (event.target.matches('.sound-chip')) {
+                playId += 1;
                 speakText(event.target.dataset.sound);
             }
         });

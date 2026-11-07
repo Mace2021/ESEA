@@ -16,13 +16,19 @@
   var lessonId = config.id || (window.SkillTracker ? SkillTracker.lessonId() : location.pathname);
   var PRAISE = ['Yes!', 'You got it!', 'Great job!', 'Well done!', 'Super!'];
 
-  function speak(text) {
-    if (!text || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    var msg = new SpeechSynthesisUtterance(text);
-    msg.rate = 0.9;
-    msg.pitch = 1.05;
-    window.speechSynthesis.speak(msg);
+  // All speech goes through speech.js: one calm, natural voice with pauses.
+  function speak(text, onend) {
+    if (window.ESEASpeech) {
+      ESEASpeech.speak(text, { lang: 'en', onend: onend });
+      return;
+    }
+    if (window.speechSynthesis && text) {
+      window.speechSynthesis.cancel();
+      var msg = new SpeechSynthesisUtterance(text);
+      msg.rate = 0.85;
+      window.speechSynthesis.speak(msg);
+    }
+    if (onend) setTimeout(onend, 900);
   }
 
   function itemKey(round) {
@@ -183,11 +189,19 @@
       if (window.SkillTracker) SkillTracker.record(lessonId, itemKey(round), firstTry);
       var praise = PRAISE[Math.floor(Math.random() * PRAISE.length)];
       setFeedback(praise, 'good');
-      speak(praise + ' ' + labelFor(round) + '.');
+      var token = state.roundIndex;
+      var advance = function() {
+        if (state.roundIndex === token && state.answered) moveNext();
+      };
+      // Move on once the praise has been said (safety net if speech stalls).
+      speak(praise + ' ' + labelFor(round) + '!', function() {
+        clearTimeout(state.advanceTimer);
+        state.advanceTimer = setTimeout(advance, 700);
+      });
       nextButton.disabled = false;
       saveProgress(false);
       // Move on by itself so children who cannot read are never stuck.
-      state.advanceTimer = setTimeout(moveNext, 2200);
+      state.advanceTimer = setTimeout(advance, 7000);
     } else {
       state.misses += 1;
       event.currentTarget.classList.add('incorrect');
@@ -200,13 +214,13 @@
           config.rounds.push(round);
         }
         setFeedback('Look again.', 'try');
-        speak('Look again. ' + promptText(round));
+        speak('Hmm, not quite. Let\u2019s look again... ' + promptText(round));
       } else {
         choiceButtons().forEach(function(button) {
           if (button.dataset.value === round.answer) button.classList.add('reveal');
         });
         setFeedback('This one! Tap ' + labelFor(round) + '.', 'try');
-        speak('This one is ' + labelFor(round) + '. Tap ' + labelFor(round) + '.');
+        speak('Look, here it is... ' + labelFor(round) + '. Can you tap ' + labelFor(round) + '?');
       }
     }
 
@@ -239,7 +253,7 @@
       completeBox.appendChild(ideaBox);
     }
     if (ideaBox) ideaBox.innerHTML = '<strong>Grown-ups, try this at home:</strong> ' + idea;
-    speak('All done! Great learning today.');
+    speak('All done! You worked so hard today. Great job!');
     completeBox.classList.add('show');
     setFeedback('Lesson complete.', 'good');
     nextButton.disabled = true;

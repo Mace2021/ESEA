@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pick the Word - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
 <body>
@@ -34,7 +35,7 @@
         function wordRound(item, options) {
             return {
                 prompt: 'Which word matches the picture?',
-                speak: 'Which word is ' + item.label + '?',
+                speak: 'Which word says ' + item.label.toLowerCase() + '?',
                 answer: item.value,
                 target: { image: item.image, alt: item.label },
                 options: options

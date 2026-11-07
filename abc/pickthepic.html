@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pick the Picture - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
 <body>
@@ -34,7 +35,7 @@
         function pictureRound(item, options) {
             return {
                 prompt: 'Find: ' + item.label,
-                speak: 'Find the picture of ' + item.label + '.',
+                speak: 'Can you find the ' + item.label.toLowerCase() + '?',
                 answer: item.value,
                 target: { text: item.label },
                 options: options

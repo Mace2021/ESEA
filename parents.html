@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-title" content="ESEA">
     <title>Grown-ups - ESEA</title>
     <link rel="stylesheet" href="early-lesson.css">
+    <script src="speech.js"></script>
     <script src="family.js"></script>
     <script src="skill-tracker.js"></script>
     <style>
@@ -165,6 +166,31 @@
                         <span>Language:</span>
                         <select class="small-btn" id="language"></select>
                     </label>
+                </section>
+
+                <section class="panel" aria-labelledby="voice-title">
+                    <h2 id="voice-title">Voice</h2>
+                    <p>ESEA speaks with a voice built into this device. It picks the most natural-sounding one it
+                        can find, but you can choose another and set how fast it talks. Voices named
+                        &ldquo;Natural&rdquo;, &ldquo;Enhanced&rdquo; or &ldquo;Premium&rdquo; usually sound the
+                        most human. More voices can often be added in the device's settings (for example on iPhone:
+                        Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices).</p>
+                    <div class="row" style="margin-bottom:10px">
+                        <label class="row"><span>Speed:</span>
+                            <select class="small-btn" id="voiceRate">
+                                <option value="slower">Extra slow</option>
+                                <option value="slow">Slow (recommended)</option>
+                                <option value="normal">Normal</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="row" style="width:100%"><span>Voice:</span>
+                            <select class="small-btn" id="voiceName" style="flex:1 1 200px;min-width:0;max-width:100%"></select>
+                        </label>
+                        <button type="button" class="small-btn primary" id="voiceTest">&#128264; Hear a sample</button>
+                    </div>
+                    <p id="voiceNote" class="kid-meta" style="margin:10px 0 0"></p>
                 </section>
 
                 <section class="panel" aria-labelledby="install-title">
@@ -438,7 +464,55 @@
                 langSelect.appendChild(opt);
             });
             langSelect.value = F.lang();
-            langSelect.addEventListener('change', function() { F.setLanguage(langSelect.value); });
+            langSelect.addEventListener('change', function() {
+                F.setLanguage(langSelect.value);
+                renderVoices();
+            });
+
+            // ----- Voice -----
+            var SAMPLES = {
+                en: 'Hi there! Let\u2019s count together. One... two... three. Great job!',
+                es: '¡Hola! Vamos a contar juntos. Uno... dos... tres. ¡Muy bien!',
+                fr: 'Bonjour ! Comptons ensemble. Un... deux... trois. Bravo !'
+            };
+            var rateSelect = document.getElementById('voiceRate');
+            var voiceSelect = document.getElementById('voiceName');
+            var voiceNote = document.getElementById('voiceNote');
+            function renderVoices() {
+                if (!window.ESEASpeech || !ESEASpeech.supported) {
+                    voiceSelect.disabled = true;
+                    voiceNote.textContent = 'This browser cannot speak. Try Chrome, Edge or Safari.';
+                    return;
+                }
+                var lang = F.lang();
+                var list = ESEASpeech.voicesFor(lang);
+                var chosen = ESEASpeech.settings().voices[lang] || '';
+                voiceSelect.innerHTML = '<option value="">Automatic (most natural)</option>' + list.map(function(v) {
+                    return '<option value="' + esc(v.name) + '"' + (v.name === chosen ? ' selected' : '') + '>' +
+                        esc(v.name) + (v.localService ? '' : ' (needs internet)') + '</option>';
+                }).join('');
+                var best = ESEASpeech.currentVoice(lang);
+                voiceNote.textContent = list.length
+                    ? 'Now using: ' + (best ? best.name : 'device default') + ' \u00b7 ' + list.length + ' ' + F.languages[lang].name.split(' ')[0] + ' voice' + (list.length === 1 ? '' : 's') + ' on this device.'
+                    : 'No ' + F.languages[lang].name + ' voice was found on this device, so the default voice is used.';
+            }
+            if (window.ESEASpeech) {
+                rateSelect.value = ESEASpeech.settings().rate;
+                rateSelect.addEventListener('change', function() { ESEASpeech.setRate(rateSelect.value); });
+                voiceSelect.addEventListener('change', function() {
+                    ESEASpeech.setVoice(F.lang(), voiceSelect.value);
+                    renderVoices();
+                    ESEASpeech.speak(SAMPLES[F.lang()] || SAMPLES.en, { lang: F.lang() });
+                });
+                document.getElementById('voiceTest').addEventListener('click', function() {
+                    ESEASpeech.speak(SAMPLES[F.lang()] || SAMPLES.en, { lang: F.lang() });
+                });
+                ESEASpeech.onVoicesReady(renderVoices);
+                if (window.speechSynthesis && speechSynthesis.addEventListener) {
+                    speechSynthesis.addEventListener('voiceschanged', renderVoices);
+                }
+            }
+            renderVoices();
 
             var installButton = document.getElementById('installButton');
             function updateInstall() { installButton.hidden = !F.canInstall(); }

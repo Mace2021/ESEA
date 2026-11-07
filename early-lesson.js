@@ -38,19 +38,23 @@
   }
 
   // speak() interrupts whatever is being said; queue: true waits its turn.
-  function speak(text, queue) {
-    if (!text || !window.speechSynthesis) return;
-    if (!queue) window.speechSynthesis.cancel();
-    var msg;
-    if (window.ESEAFamily) {
-      msg = ESEAFamily.utterance(text, lang);
-    } else {
-      msg = new SpeechSynthesisUtterance(text);
-      msg.rate = 0.9;
-      msg.pitch = 1.05;
+  // All speech goes through speech.js: one calm, natural voice with pauses.
+  // onend runs when the voice has finished (or right away without speech).
+  function speak(text, queue, onend) {
+    if (window.ESEASpeech) {
+      ESEASpeech.speak(text, { lang: lang, queue: Boolean(queue), onend: onend });
+      return;
     }
-    window.speechSynthesis.speak(msg);
+    if (window.speechSynthesis && text) {
+      if (!queue) window.speechSynthesis.cancel();
+      var msg = new SpeechSynthesisUtterance(text);
+      msg.rate = 0.85;
+      window.speechSynthesis.speak(msg);
+    }
+    if (onend) setTimeout(onend, 900);
   }
+
+  var canSpeak = Boolean(window.ESEASpeech ? ESEASpeech.supported : window.speechSynthesis);
 
   function later(fn, ms) {
     state.timers.push(setTimeout(fn, ms));
@@ -153,27 +157,30 @@
       praiseFirst: ['Yes!', 'You got it!', 'Great job!', 'That is right!', 'Super!', 'Well done!'],
       praiseRetry: ['You did it!', 'Yes, you found it!', 'Good trying!', 'There it is!'],
       countTogether: 'Let’s count together.', howMany: 'How many?', lookAgain: 'Look again.',
-      thisOne: 'This one! Tap {x}.', thisOneSay: 'This one is {x}. Tap {x}.',
+      lookAgainSay: 'Hmm, not quite. Let’s look again...',
+      thisOne: 'This one! Tap {x}.', thisOneSay: 'Look, here it is... {x}. Can you tap {x}?',
       allDone: 'All done!', doneText: 'Great learning today. Come back tomorrow to practise again.',
-      doneSay: 'All done! Great learning today.', again: 'Play Again', home: 'Home', next: 'Next',
+      doneSay: 'All done! You worked so hard today. Great job!', again: 'Play Again', home: 'Home', next: 'Next',
       newSet: 'New Set', hear: 'Hear the question again', of: 'of', stars: 'stars'
     },
     es: {
       praiseFirst: ['¡Sí!', '¡Muy bien!', '¡Excelente!', '¡Correcto!', '¡Súper!', '¡Lo lograste!'],
       praiseRetry: ['¡Lo hiciste!', '¡Sí, lo encontraste!', '¡Buen intento!', '¡Ahí está!'],
       countTogether: 'Vamos a contar juntos.', howMany: '¿Cuántos?', lookAgain: 'Mira otra vez.',
-      thisOne: '¡Este! Toca {x}.', thisOneSay: 'Es este: {x}. Toca {x}.',
+      lookAgainSay: 'Mmm, casi. Miremos otra vez...',
+      thisOne: '¡Este! Toca {x}.', thisOneSay: 'Mira, aquí está... {x}. ¿Puedes tocar {x}?',
       allDone: '¡Terminaste!', doneText: 'Aprendiste mucho hoy. Vuelve mañana para practicar más.',
-      doneSay: '¡Terminaste! Aprendiste mucho hoy.', again: 'Jugar otra vez', home: 'Inicio', next: 'Siguiente',
+      doneSay: '¡Terminaste! Trabajaste muy bien hoy. ¡Bravo!', again: 'Jugar otra vez', home: 'Inicio', next: 'Siguiente',
       newSet: 'Otra serie', hear: 'Escuchar otra vez', of: 'de', stars: 'estrellas'
     },
     fr: {
       praiseFirst: ['Oui !', 'Bravo !', 'Super !', 'C’est juste !', 'Très bien !', 'Génial !'],
       praiseRetry: ['Tu as réussi !', 'Oui, tu l’as trouvé !', 'Bel effort !', 'Le voilà !'],
       countTogether: 'Comptons ensemble.', howMany: 'Combien ?', lookAgain: 'Regarde encore.',
-      thisOne: 'Celui-ci ! Touche {x}.', thisOneSay: 'C’est celui-ci : {x}. Touche {x}.',
+      lookAgainSay: 'Hmm, pas tout à fait. Regardons encore...',
+      thisOne: 'Celui-ci ! Touche {x}.', thisOneSay: 'Regarde, le voilà... {x}. Tu peux toucher {x} ?',
       allDone: 'C’est fini !', doneText: 'Tu as bien appris aujourd’hui. Reviens demain pour t’entraîner.',
-      doneSay: 'C’est fini ! Tu as bien appris aujourd’hui.', again: 'Rejouer', home: 'Accueil', next: 'Suivant',
+      doneSay: 'C’est fini ! Tu as très bien travaillé aujourd’hui. Bravo !', again: 'Rejouer', home: 'Accueil', next: 'Suivant',
       newSet: 'Nouvelle série', hear: 'Réécouter la question', of: 'sur', stars: 'étoiles'
     }
   };
@@ -281,19 +288,29 @@
     document.getElementById('targetBox').classList.remove('peek-hidden');
     buttons.forEach(function(b) { b.classList.add('waiting'); });
     setFeedback(t('countTogether'), 'try');
-    speak(t('countTogether'));
-    items.forEach(function(item, i) {
-      later(function() {
-        item.classList.add('counted');
-        setFeedback(String(i + 1), 'try');
-        speak(String(i + 1), true);
-      }, 900 + i * 900);
-    });
-    later(function() {
-      buttons.forEach(function(b) { b.classList.remove('waiting'); });
-      setFeedback(t('howMany'), 'try');
-      speak(roundSpeech(round), true);
-    }, 900 + items.length * 900 + 400);
+    var token = state.roundIndex;
+    function stillHere() { return state.roundIndex === token && !state.answered; }
+    // Light up each object as its number is spoken, in a steady rhythm.
+    function countFrom(i) {
+      if (!stillHere()) return;
+      if (i >= items.length) {
+        later(function() {
+          if (!stillHere()) return;
+          buttons.forEach(function(b) { b.classList.remove('waiting'); });
+          setFeedback(t('howMany'), 'try');
+          speak(roundSpeech(round));
+        }, 350);
+        return;
+      }
+      items[i].classList.add('counted');
+      setFeedback(String(i + 1), 'try');
+      if (canSpeak) {
+        speak(String(i + 1), false, function() { later(function() { countFrom(i + 1); }, 220); });
+      } else {
+        later(function() { countFrom(i + 1); }, 800);
+      }
+    }
+    speak(t('countTogether'), false, function() { later(function() { countFrom(0); }, 250); });
   }
 
   // Hint for other questions: take one more wrong choice away.
@@ -306,7 +323,7 @@
       fade.disabled = true;
       fade.classList.add('faded');
     }
-    var hint = round.hint || (t('lookAgain') + ' ' + roundSpeech(round));
+    var hint = round.hint || (t('lookAgainSay') + ' ' + roundSpeech(round));
     setFeedback(t('lookAgain'), 'try');
     speak(tappedPrefix() + hint);
   }
@@ -351,10 +368,15 @@
       var praise = pick(firstTry ? t('praiseFirst') : t('praiseRetry'));
       setFeedback(praise, 'good');
       var said = correctOption(round).say || correctOption(round).label;
-      speak(said ? praise + ' ' + said + '.' : praise);
+      var token = state.roundIndex;
+      function advance() {
+        if (state.roundIndex === token && state.answered) nextRound();
+      }
       document.getElementById('nextButton').disabled = false;
-      // Move on by itself, so children who cannot read yet are never stuck.
-      later(nextRound, 2200);
+      // Move on by itself once the praise has been said, so children who
+      // cannot read yet are never stuck (with a safety net if speech stalls).
+      speak(said ? praise + ' ' + said + '!' : praise, false, function() { later(advance, 700); });
+      later(advance, 7000);
     } else {
       state.misses += 1;
       state.tapped = button.getAttribute('aria-label');

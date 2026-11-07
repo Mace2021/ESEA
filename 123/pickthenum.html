@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pick the Number - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
 <body>
@@ -38,7 +39,7 @@
         function numberRound(number) {
             return {
                 prompt: 'Tap ' + number + '.',
-                speak: String(number),
+                speak: 'Can you find ' + number + '?',
                 answer: String(number),
                 target: { text: String(number) },
                 options: makeOptions(number)
