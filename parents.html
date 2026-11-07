@@ -458,7 +458,7 @@
             });
 
             document.getElementById('rerunSetup').addEventListener('click', function() {
-                F.setupWizard(function() { location.reload(); });
+                F.setupWizard(function() { location.reload(); }, { skipGate: true });
             });
 
             document.getElementById('resetProgress').addEventListener('click', function() {

@@ -57,7 +57,7 @@ Lesson pages can set `maxRounds: N` or `keepOrder: true` in their config to chan
 
 ## Getting Started (for families)
 
-- **First visit:** a 30-second setup asks for the language, the child's name and animal, their age (which sets where the reading and math paths start) and a daily time limit. It can be run again from the Grown-ups area.
+- **First visit (required):** before the app can be used, a grown-up completes a short setup: language, a grown-ups check (a multiplication question), the child's name and animal, their age (which sets where the reading and math paths start) and a daily time limit. Opening any page before setup goes to setup first and then continues to that page. It can be run again from the Grown-ups area.
 - **Today's learning** (`today.html`): a daily plan of three short activities (the next reading step, the next math step, and a video or feelings activity), about 10 minutes. Activities tick themselves off and lead back to the plan.
 - **About & privacy** (`about.html`): who ESEA is for, how and why it teaches, privacy in plain words, screen-time guidance, accessibility and languages.
 - **Languages:** the home screen, Today's learning and setup are in English, Spanish and French (`ui-text.js`); English-only activities are marked EN.
