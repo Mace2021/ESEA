@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Match with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .shape-top { height: clamp(90px, 24vw, 120px); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .shape-top svg, .hole svg { width: clamp(76px, 20vw, 104px); height: clamp(76px, 20vw, 104px); display: block; }
+        .shape-top svg.small { width: clamp(44px, 12vw, 60px); height: clamp(44px, 12vw, 60px); }
+        .flying { position: relative; z-index: 3; transition: transform 0.9s cubic-bezier(.45,.05,.4,1); }
+        .holes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; background: #a0703c; border-radius: 16px; padding: 8px 6px; }
+        .hole { display: flex; flex-direction: column; align-items: center; gap: 2px; border-radius: 12px; transition: transform 0.25s, box-shadow 0.25s; }
+        .hole svg { width: 100%; max-width: 92px; height: auto; aspect-ratio: 1; }
+        .hole .shape { fill: rgba(0, 0, 0, 0.35); stroke: #fff7c2; stroke-width: 4; stroke-dasharray: 8 6; transition: fill 0.4s; }
+        .hole b { color: #fff7c2; font-size: clamp(0.8rem, 3.6vw, 1rem); min-height: 1.3em; }
+        .hole.glow { transform: scale(1.1); box-shadow: 0 0 0 4px #ffc94d; }
+        .hole.filled .shape { stroke-dasharray: none; stroke: #fff; }
+        .things { display: flex; align-items: center; justify-content: center; gap: 14px; }
+        .thing { font-size: clamp(4rem, 17vw, 5.6rem); line-height: 1; }
+        .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; }
+        .tile { background: rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 6px 2px; transition: transform 0.25s, background 0.25s; }
+        .tile svg { width: 100%; max-width: 64px; height: auto; aspect-ratio: 1; }
+        .tile b { display: block; color: #fff7c2; font-size: clamp(0.8rem, 3.6vw, 1rem); }
+        .tile.lit { background: #ffc94d; transform: scale(1.12); }
+        .tile.lit b { color: #2d2a67; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Shape Match with Pip</h1>
+            <p>Which hole does each shape fit? Match shapes with Pip!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+
+        // The same four shapes as the Shape Match game.
+        var SHAPES = {
+            circle: { name: 'circle', color: '#e53935', svg: '<circle class="shape" cx="50" cy="50" r="40"/>', why: 'It is round, with no corners at all.' },
+            square: { name: 'square', color: '#1e88e5', svg: '<rect class="shape" x="13" y="13" width="74" height="74" rx="3"/>', why: 'It has four sides, all the same size, and four corners.' },
+            triangle: { name: 'triangle', color: '#43a047', svg: '<polygon class="shape" points="50,10 92,88 8,88"/>', why: 'It has three sides and three corners.' },
+            star: { name: 'star', color: '#fbc02d', svg: '<polygon class="shape" points="50,5 61,38 96,38 68,58 79,93 50,72 21,93 32,58 4,38 39,38"/>', why: 'It has five points, like a star in the sky.' }
+        };
+        var HOLE_ORDER = ['star', 'circle', 'triangle', 'square'];
+        var ASK_ORDER = ['circle', 'square', 'triangle', 'star'];
+
+        function shapeSvg(id, opts) {
+            opts = opts || {};
+            var s = SHAPES[id];
+            var fill = opts.color || s.color;
+            return '<svg viewBox="0 0 100 100" class="' + (opts.cls || '') + '" role="img" aria-label="' + (opts.label || s.name) + '"' +
+                (opts.rotate ? ' style="transform:rotate(' + opts.rotate + 'deg)"' : '') + '>' +
+                s.svg.replace('class="shape"', 'class="shape" fill="' + fill + '" stroke="#fff" stroke-width="3"') + '</svg>';
+        }
+        function holesHtml() {
+            return '<div class="holes">' + HOLE_ORDER.map(function(id) {
+                return '<div class="hole" data-s="' + id + '"><svg viewBox="0 0 100 100" role="img" aria-label="' + id + ' hole">' + SHAPES[id].svg + '</svg><b></b></div>';
+            }).join('') + '</div>';
+        }
+        function sorterBoard() {
+            show('<div class="board-title" id="title">Shape Match</div><div class="shape-top" id="top"></div>' + holesHtml());
+        }
+        // Slide the shape at the top down into its hole, then fill the hole.
+        async function dropInto(ctx, id) {
+            var piece = document.querySelector('#top svg');
+            var hole = board.querySelector('.hole[data-s="' + id + '"]');
+            var target = hole.querySelector('svg');
+            if (piece) {
+                var a = piece.getBoundingClientRect(), b = target.getBoundingClientRect();
+                piece.classList.add('flying');
+                piece.style.transform = 'translate(' + ((b.left + b.width / 2) - (a.left + a.width / 2)) + 'px,' +
+                    ((b.top + b.height / 2) - (a.top + a.height / 2)) + 'px) scale(' + (b.width / a.width) + ')';
+                await ctx.wait(950);
+                piece.remove();
+            }
+            hole.classList.add('filled', 'glow');
+            hole.querySelector('.shape').setAttribute('fill', SHAPES[id].color);
+            hole.querySelector('.shape').style.fill = SHAPES[id].color;
+            hole.querySelector('b').textContent = cap(SHAPES[id].name);
+        }
+
+        var scenes = [async function(ctx) {
+            sorterBoard();
+            document.getElementById('top').innerHTML = '<span class="thing" aria-hidden="true">&#129513;</span>';
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Let’s play Shape Match. Every shape has its very own hole.');
+            pip.point();
+            await ctx.say('Look at the holes: a star, a circle, a triangle, and a square. Let’s find where each shape fits!');
+        }];
+        ASK_ORDER.forEach(function(id, i) {
+            scenes.push(async function(ctx) {
+                if (i === 0 || !board.querySelector('.holes')) sorterBoard();
+                var s = SHAPES[id];
+                document.getElementById('top').innerHTML = shapeSvg(id, { cls: 'pop-in', label: s.name });
+                pip.point();
+                await ctx.say('Here’s a shape. Which hole does it fit?');
+                await ctx.wait(1800); // time to point and answer
+                await dropInto(ctx, id);
+                pip.jump(1200);
+                await ctx.say('The ' + s.name + '! ' + s.why);
+                board.querySelector('.hole[data-s="' + id + '"]').classList.remove('glow');
+            });
+        });
+        scenes.push(async function(ctx) {
+            pip.wave();
+            await ctx.say('All the shapes fit! You are a great shape matcher.');
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Still a triangle?</div><div class="shape-top" style="height:auto">' +
+                shapeSvg('triangle', { label: 'big green triangle' }) +
+                shapeSvg('triangle', { cls: 'small', color: '#8e24aa', label: 'small purple triangle' }) +
+                shapeSvg('triangle', { color: '#fb8c00', rotate: 180, label: 'upside-down orange triangle' }) + '</div>');
+            pip.point();
+            await ctx.say('Look! A big triangle, a small triangle, and an upside-down triangle. Are they all triangles?');
+            await ctx.wait(1600);
+            pip.jump(1200);
+            await ctx.say('Yes! Big or small, any color, any way it turns. Three sides and three corners make a triangle.');
+        });
+        var THINGS = [['🍪', 'a cookie', 'circle'], ['🍕', 'a slice of pizza', 'triangle'], ['🎁', 'a present', 'square'], ['🕐', 'a clock', 'circle']];
+        scenes.push(async function(ctx) {
+            for (var i = 0; i < THINGS.length; i += 1) {
+                var t = THINGS[i];
+                show('<div class="board-title">Shapes all around!</div><div class="things"><span class="thing pop-in" role="img" aria-label="' + t[1] + '">' + t[0] + '</span></div>' +
+                    '<div class="tiles">' + ASK_ORDER.map(function(id) {
+                        return '<div class="tile" data-s="' + id + '">' + shapeSvg(id) + '<b>' + cap(id) + '</b></div>';
+                    }).join('') + '</div>');
+                if (i === 0) { pip.wave(); await ctx.say('Shapes are hiding in things all around us!'); }
+                pip.point();
+                await ctx.say('What shape is ' + t[1] + '?');
+                await ctx.wait(1500);
+                board.querySelector('.tile[data-s="' + t[2] + '"]').classList.add('lit');
+                pip.jump(1000);
+                await ctx.say(cap(t[1]) + ' is shaped like a ' + t[2] + '!');
+            }
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Your turn! &#11088;</div><div class="shape-top" style="height:auto">' +
+                ASK_ORDER.map(function(id) { return shapeSvg(id, { cls: 'small' }); }).join('') + '</div>');
+            pip.wave(4000);
+            await ctx.say('Now it’s your turn! Try the Shape Match game, then go on a shape hunt at home. Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Shape Match with Pip</div>');
+    </script>
+</body>
+</html>
