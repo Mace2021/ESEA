@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grown-ups - ESEA</title>
+    <link rel="stylesheet" href="early-lesson.css">
+    <script src="family.js"></script>
+    <script src="skill-tracker.js"></script>
+    <style>
+        .parent-main { max-width: 860px; }
+        .panel {
+            background: rgba(255, 255, 255, 0.97);
+            border: 2px solid var(--line);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+        .panel h2 { margin: 0 0 6px; color: var(--navy); font-size: 1.4rem; }
+        .panel > p { margin: 0 0 12px; color: var(--muted); line-height: 1.45; }
+        .kids { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+        .kid {
+            border: 2px solid var(--line);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #fbfeff;
+        }
+        .kid.active { border-color: var(--navy); background: #f1fafb; }
+        .kid-top { display: flex; align-items: center; gap: 10px; }
+        .kid-avatar {
+            font-size: 2.4rem; line-height: 1; border: 0; background: #fff3c7; border-radius: 12px;
+            width: 60px; height: 60px; cursor: pointer; flex: 0 0 auto;
+        }
+        .kid-name {
+            font: inherit; font-weight: 800; font-size: 1.1rem; border: 2px solid var(--line);
+            border-radius: 8px; padding: 8px; width: 100%; min-width: 0;
+        }
+        .kid-meta { color: var(--muted); font-size: 0.95rem; }
+        .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .small-btn {
+            border: 2px solid var(--line); background: #fff; color: var(--ink); border-radius: 999px;
+            padding: 8px 14px; font: inherit; font-weight: 700; cursor: pointer; min-height: 40px;
+        }
+        .small-btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .small-btn.danger { color: #a33434; }
+        select.small-btn { padding-right: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .tab[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .next-list { margin: 0; padding-left: 20px; line-height: 1.6; }
+        .area-title { margin: 18px 0 8px; font-size: 1.1rem; color: var(--ink); }
+        .lesson {
+            border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: #fff;
+        }
+        .lesson-head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+        .lesson-head a { color: var(--navy); font-weight: 800; font-size: 1.05rem; }
+        .lesson-head span { color: var(--muted); font-size: 0.9rem; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+        .chips b { font-size: 0.85rem; margin-right: 2px; min-width: 92px; }
+        .chip { border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: 0.9rem; }
+        .chip.known { background: #dff4cf; color: #1f5f2e; }
+        .chip.learning { background: #d9f4f2; color: #17323a; }
+        .chip.practising { background: #ffe1c2; color: #7a3c00; }
+        .idea { margin-top: 8px; font-size: 0.93rem; color: var(--muted); line-height: 1.4; }
+        details summary { cursor: pointer; font-weight: 800; color: var(--navy); }
+        .ideas dt { font-weight: 800; margin-top: 10px; }
+        .ideas dd { margin: 2px 0 0; color: var(--muted); line-height: 1.4; }
+        #locked { text-align: center; padding: 40px 16px; }
+        .empty { color: var(--muted); font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="images/ESEA.png" alt="ESEA logo">
+            <h1>Grown-ups</h1>
+            <p>Progress, time limits and ideas to try at home.</p>
+        </header>
+        <main class="lesson-main parent-main">
+            <nav class="lesson-nav"><a class="home-button" href="index.html">Back to the app</a></nav>
+
+            <div id="locked" class="panel">
+                <p>This area is for grown-ups.</p>
+                <button type="button" class="small-btn primary" id="unlockButton">Open grown-ups area</button>
+            </div>
+
+            <div id="content" hidden>
+                <section class="panel" aria-labelledby="next-title">
+                    <h2 id="next-title">What to do next</h2>
+                    <div id="nextSteps"></div>
+                </section>
+
+                <section class="panel" aria-labelledby="progress-title">
+                    <h2 id="progress-title">Progress</h2>
+                    <p>Each item a child plays is marked <span class="chip known">knows</span> after a few right
+                        first tries, <span class="chip learning">learning</span> while it settles, and
+                        <span class="chip practising">practising</span> right after a miss. Lessons automatically
+                        show practising items more often.</p>
+                    <div class="tabs" id="childTabs" role="group" aria-label="Choose a child"></div>
+                    <div id="progress"></div>
+                </section>
+
+                <section class="panel" aria-labelledby="kids-title">
+                    <h2 id="kids-title">Children</h2>
+                    <p>Each child gets their own progress. Tap the animal to change it. Children choose who is
+                        playing from the home screen.</p>
+                    <div class="kids" id="kids"></div>
+                    <div class="row" style="margin-top:12px">
+                        <input class="kid-name" style="max-width:240px" id="newName" placeholder="Child's name" maxlength="20" aria-label="New child's name">
+                        <button type="button" class="small-btn primary" id="addKid">Add child</button>
+                    </div>
+                </section>
+
+                <section class="panel" aria-labelledby="time-title">
+                    <h2 id="time-title">Daily time limit</h2>
+                    <p>When time is up, your child sees a calm "Time for a break" screen. You can add 15 more
+                        minutes from that screen with the grown-ups check. The limit is per child, per day.</p>
+                    <label class="row">
+                        <span>Limit:</span>
+                        <select class="small-btn" id="limit">
+                            <option value="0">No limit</option>
+                            <option value="10">10 minutes</option>
+                            <option value="15">15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes</option>
+                        </select>
+                    </label>
+                </section>
+
+                <section class="panel" aria-labelledby="ideas-title">
+                    <h2 id="ideas-title">Try this at home</h2>
+                    <p>Children learn the most when a grown-up joins in. These take a few minutes and no screen.</p>
+                    <details>
+                        <summary>Show all ideas</summary>
+                        <dl class="ideas" id="ideas"></dl>
+                    </details>
+                </section>
+
+                <section class="panel" aria-labelledby="privacy-title">
+                    <h2 id="privacy-title">Privacy</h2>
+                    <p>ESEA has no ads, no accounts and no tracking. Names and progress are saved only in this
+                        browser on this device. They are not sent anywhere, and clearing the browser's data
+                        removes them.</p>
+                    <button type="button" class="small-btn danger" id="resetProgress">Reset progress for this child</button>
+                </section>
+            </div>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+
+    <script>
+        (function() {
+            var F = window.ESEAFamily;
+            var viewing = F.activeProfile().id;
+
+            function esc(text) {
+                return String(text).replace(/[&<>"']/g, function(c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                });
+            }
+
+            function ago(time) {
+                if (!time) return '';
+                var days = Math.floor((Date.now() - time) / 86400000);
+                if (days <= 0) return 'played today';
+                if (days === 1) return 'played yesterday';
+                return 'played ' + days + ' days ago';
+            }
+
+            function lessonStats(lessonId, profileId) {
+                var items = SkillTracker.summary(lessonId, profileId);
+                var groups = { known: [], learning: [], practising: [] };
+                var last = 0;
+                items.forEach(function(item) {
+                    groups[item.status].push(item.key);
+                    last = Math.max(last, item.last);
+                });
+                Object.keys(groups).forEach(function(k) {
+                    groups[k].sort(function(a, b) {
+                        return isNaN(a) || isNaN(b) ? String(a).localeCompare(String(b)) : a - b;
+                    });
+                });
+                return { groups: groups, last: last, count: items.length };
+            }
+
+            function chipRow(label, keys, cls) {
+                if (!keys.length) return '';
+                return '<div class="chips"><b>' + label + '</b>' + keys.map(function(k) {
+                    return '<span class="chip ' + cls + '">' + esc(k) + '</span>';
+                }).join('') + '</div>';
+            }
+
+            function renderTabs() {
+                var tabs = document.getElementById('childTabs');
+                tabs.innerHTML = F.profiles().map(function(p) {
+                    return '<button type="button" class="small-btn tab" aria-pressed="' + (p.id === viewing) + '" data-id="' + p.id + '">' +
+                        p.avatar + ' ' + esc(p.name) + '</button>';
+                }).join('');
+            }
+
+            function renderProgress() {
+                var html = '';
+                var area = '';
+                F.catalog.filter(function(l) { return l.tracked; }).forEach(function(lesson) {
+                    if (lesson.area !== area) {
+                        area = lesson.area;
+                        html += '<h3 class="area-title">' + esc(area) + '</h3>';
+                    }
+                    var s = lessonStats(lesson.id, viewing);
+                    html += '<div class="lesson"><div class="lesson-head"><a href="' + lesson.href + '">' + esc(lesson.name) + '</a>' +
+                        '<span>' + (s.count ? ago(s.last) : 'not started yet') + '</span></div>';
+                    if (s.count) {
+                        html += chipRow('Practising', s.groups.practising, 'practising') +
+                            chipRow('Learning', s.groups.learning, 'learning') +
+                            chipRow('Knows', s.groups.known, 'known');
+                    }
+                    html += '<div class="idea">At home: ' + esc(lesson.home) + '</div></div>';
+                });
+                document.getElementById('progress').innerHTML = html;
+            }
+
+            function renderNext() {
+                var p = F.profiles().filter(function(x) { return x.id === viewing; })[0];
+                var tracked = F.catalog.filter(function(l) { return l.tracked; });
+                var steps = [];
+                tracked.map(function(l) { return { lesson: l, stats: lessonStats(l.id, viewing) }; })
+                    .filter(function(x) { return x.stats.groups.practising.length; })
+                    .sort(function(a, b) { return b.stats.groups.practising.length - a.stats.groups.practising.length; })
+                    .slice(0, 2)
+                    .forEach(function(x) {
+                        steps.push('Practise <strong>' + x.stats.groups.practising.slice(0, 5).map(esc).join(', ') +
+                            '</strong> in <a href="' + x.lesson.href + '">' + esc(x.lesson.name) + '</a>. ' +
+                            'At home: ' + esc(x.lesson.home));
+                    });
+                tracked.filter(function(l) { return !lessonStats(l.id, viewing).count; })
+                    .slice(0, 3 - steps.length)
+                    .forEach(function(l) {
+                        steps.push('Try something new: <a href="' + l.href + '">' + esc(l.name) + '</a>.');
+                    });
+                var minutes = F.minutesToday(viewing);
+                document.getElementById('nextSteps').innerHTML =
+                    '<p>' + p.avatar + ' <strong>' + esc(p.name) + '</strong> has played about ' + minutes +
+                    ' minute' + (minutes === 1 ? '' : 's') + ' today.</p>' +
+                    (steps.length ? '<ul class="next-list"><li>' + steps.join('</li><li>') + '</li></ul>'
+                        : '<p class="empty">Great work: nothing to practise right now. Keep playing to unlock more.</p>');
+            }
+
+            function renderKids() {
+                var active = F.activeProfile().id;
+                var single = F.profiles().length === 1;
+                document.getElementById('kids').innerHTML = F.profiles().map(function(p) {
+                    return '<div class="kid' + (p.id === active ? ' active' : '') + '" data-id="' + p.id + '">' +
+                        '<div class="kid-top"><button type="button" class="kid-avatar" data-act="avatar" aria-label="Change animal">' + p.avatar + '</button>' +
+                        '<input class="kid-name" data-act="name" value="' + esc(p.name) + '" maxlength="20" aria-label="Name"></div>' +
+                        '<div class="kid-meta">' + F.minutesToday(p.id) + ' min today' + (p.id === active ? ' &middot; playing now' : '') + '</div>' +
+                        '<div class="row">' +
+                        (p.id === active ? '' : '<button type="button" class="small-btn" data-act="play">Set as playing now</button>') +
+                        (single ? '' : '<button type="button" class="small-btn danger" data-act="remove">Remove</button>') +
+                        '</div></div>';
+                }).join('');
+            }
+
+            function renderIdeas() {
+                document.getElementById('ideas').innerHTML = F.catalog.map(function(l) {
+                    return '<dt>' + esc(l.name) + '</dt><dd>' + esc(l.home) + '</dd>';
+                }).join('');
+            }
+
+            function renderAll() {
+                if (!F.profiles().some(function(p) { return p.id === viewing; })) viewing = F.activeProfile().id;
+                renderTabs();
+                renderNext();
+                renderProgress();
+                renderKids();
+                document.getElementById('limit').value = String(F.data().limitMinutes || 0);
+            }
+
+            document.getElementById('childTabs').addEventListener('click', function(e) {
+                var t = e.target.closest('[data-id]');
+                if (!t) return;
+                viewing = t.getAttribute('data-id');
+                renderAll();
+            });
+
+            document.getElementById('kids').addEventListener('click', function(e) {
+                var t = e.target.closest('[data-act]');
+                if (!t) return;
+                var id = t.closest('.kid').getAttribute('data-id');
+                var act = t.getAttribute('data-act');
+                if (act === 'avatar') {
+                    var p = F.profiles().filter(function(x) { return x.id === id; })[0];
+                    var next = F.avatars[(F.avatars.indexOf(p.avatar) + 1) % F.avatars.length];
+                    F.updateProfile(id, null, next);
+                } else if (act === 'play') {
+                    F.setActive(id);
+                } else if (act === 'remove') {
+                    var who = t.closest('.kid').querySelector('.kid-name').value;
+                    if (!confirm('Remove ' + who + ' and all of their progress? This cannot be undone.')) return;
+                    F.removeProfile(id);
+                } else {
+                    return;
+                }
+                renderAll();
+            });
+
+            document.getElementById('kids').addEventListener('change', function(e) {
+                if (e.target.getAttribute('data-act') !== 'name') return;
+                var name = e.target.value.trim();
+                if (!name) return;
+                F.updateProfile(e.target.closest('.kid').getAttribute('data-id'), name, null);
+                renderAll();
+            });
+
+            document.getElementById('addKid').addEventListener('click', function() {
+                var input = document.getElementById('newName');
+                var name = input.value.trim();
+                if (!name) { input.focus(); return; }
+                viewing = F.addProfile(name);
+                input.value = '';
+                renderAll();
+            });
+
+            document.getElementById('limit').addEventListener('change', function(e) {
+                F.setLimit(e.target.value);
+            });
+
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                var p = F.profiles().filter(function(x) { return x.id === viewing; })[0];
+                if (!confirm('Reset all progress for ' + p.name + '? This cannot be undone.')) return;
+                SkillTracker.reset(viewing);
+                renderAll();
+            });
+
+            function show() {
+                document.getElementById('locked').hidden = true;
+                document.getElementById('content').hidden = false;
+                renderIdeas();
+                renderAll();
+            }
+            function unlock() {
+                if (F.recentlyVerified()) show();
+                else F.parentGate(show);
+            }
+            document.getElementById('unlockButton').addEventListener('click', unlock);
+            unlock();
+        })();
+    </script>
+</body>
+</html>

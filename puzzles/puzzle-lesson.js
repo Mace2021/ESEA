@@ -230,6 +230,15 @@
 
   function finishLesson() {
     completeText.textContent = 'All done! Great learning today.';
+    var idea = window.ESEAFamily ? ESEAFamily.homeIdea(lessonId) : '';
+    var ideaBox = document.getElementById('homeIdea');
+    if (idea && !ideaBox) {
+      ideaBox = document.createElement('div');
+      ideaBox.id = 'homeIdea';
+      ideaBox.className = 'home-idea';
+      completeBox.appendChild(ideaBox);
+    }
+    if (ideaBox) ideaBox.innerHTML = '<strong>Grown-ups, try this at home:</strong> ' + idea;
     speak('All done! Great learning today.');
     completeBox.classList.add('show');
     setFeedback('Lesson complete.', 'good');

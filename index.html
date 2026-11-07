@@ -212,6 +212,24 @@
             transform: scale(1.02);
         }
 
+        .player-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 6px;
+        }
+        .grownups-row {
+            margin: 14px 0 8px !important;
+        }
+        .grownups-link {
+            display: inline-block;
+            background: #245f73;
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 999px;
+        }
         .footer-panel {
             display: flex;
             flex-direction: column;
@@ -247,6 +265,7 @@
             }
         }
     </style>
+    <script src="./family.js"></script>
 </head>
 
 <body>
@@ -258,6 +277,9 @@
                     <h1>ESEA</h1>
                     <p>Early Start Education App</p>
                 </div>
+            </div>
+            <div class="player-row">
+                <button type="button" id="profileChip" class="profile-chip">Who is playing?</button>
             </div>
         </header>
 
@@ -411,6 +433,8 @@
                 <p>This pathway favors concrete, sensory, short activities. Advanced civics, state capitals, chemistry,
                     computer science, full dictionaries, leaderboards, and higher arithmetic are kept out of the
                     child-facing flow.</p>
+                <p class="grownups-row"><a href="parents.html" id="grownupsLink" class="grownups-link">&#128106; Grown-ups area</a></p>
+                <p>See what your child has learned, set a daily time limit, add siblings, and get ideas to try at home.</p>
             </section>
         </main>
 
@@ -422,7 +446,7 @@
                 </div>
                 <div class="footer-actions">
                     <button class="btn btn-primary btn-large"
-                        onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=VD3YGDBNY6CUA')">
+                        onclick="ESEAFamily.parentGate(function () { window.open('https://www.paypal.com/donate/?hosted_button_id=VD3YGDBNY6CUA'); })">
                         Donate
                     </button>
                     <img src="./images/QR Code.png" alt="Scan to donate with QR code">

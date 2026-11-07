@@ -11,15 +11,18 @@
    Everything stays in this browser (localStorage). Nothing is sent anywhere.
    ========================================== */
 (function(global) {
-  var STORAGE_KEY = 'esea_skills';
+  // Each child profile (family.js) has its own progress.
+  function storageKey(profileId) {
+    return global.ESEAFamily ? global.ESEAFamily.skillsKey(profileId) : 'esea_skills';
+  }
   var MAX_BOX = 5;
   var DAY = 24 * 60 * 60 * 1000;
   // Days to wait before a known item is due for review, by box.
   var REVIEW_DAYS = [0, 0, 1, 2, 4, 7];
 
-  function load() {
+  function load(profileId) {
     try {
-      var data = JSON.parse(global.localStorage.getItem(STORAGE_KEY));
+      var data = JSON.parse(global.localStorage.getItem(storageKey(profileId)));
       if (data && data.lessons) return data;
     } catch (e) { /* storage blocked or corrupt: start fresh */ }
     return { version: 1, lessons: {} };
@@ -27,7 +30,7 @@
 
   function save(data) {
     try {
-      global.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      global.localStorage.setItem(storageKey(), JSON.stringify(data));
     } catch (e) { /* storage full or blocked: progress just isn't kept */ }
   }
 
@@ -89,8 +92,8 @@
     },
 
     /** Per-item progress for one lesson, e.g. for a parent view. */
-    summary: function(lessonId) {
-      var lesson = load().lessons[lessonId] || {};
+    summary: function(lessonId, profileId) {
+      var lesson = load(profileId).lessons[lessonId] || {};
       return Object.keys(lesson).map(function(key) {
         var item = lesson[key];
         return {
@@ -103,9 +106,11 @@
       });
     },
 
-    all: function() { return load().lessons; },
+    all: function(profileId) { return load(profileId).lessons; },
 
-    reset: function() { save({ version: 1, lessons: {} }); }
+    reset: function(profileId) {
+      try { global.localStorage.removeItem(storageKey(profileId)); } catch (e) {}
+    }
   };
 
   global.SkillTracker = SkillTracker;

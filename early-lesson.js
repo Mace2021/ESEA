@@ -317,6 +317,11 @@
     renderQuiz();
   }
 
+  function homeIdeaHtml() {
+    var idea = window.ESEAFamily ? ESEAFamily.homeIdea(lessonId) : '';
+    return idea ? '<div class="home-idea"><strong>Grown-ups, try this at home:</strong> ' + idea + '</div>' : '';
+  }
+
   function renderDone() {
     var stars = '';
     for (var i = 0; i < state.score; i += 1) stars += '⭐';
@@ -325,6 +330,7 @@
       '<div class="done-stars" aria-label="' + state.score + ' stars">' + stars + '</div>',
       '<h2>All done!</h2>',
       '<p>Great learning today. Come back tomorrow to practise again.</p>',
+      homeIdeaHtml(),
       '<div class="actions">',
       '<button type="button" class="lesson-action" id="againButton">Play Again</button>',
       '<a class="lesson-action secondary" href="../index.html">Home</a>',

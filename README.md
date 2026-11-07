@@ -55,6 +55,18 @@ ESEA favors:
 
 Lesson pages can set `maxRounds: N` or `keepOrder: true` in their config to change this.
 
+## For Grown-ups
+
+The **Grown-ups area** (`parents.html`, linked at the bottom of the home screen) is behind a simple grown-ups check, a multiplication question young children cannot answer. It offers:
+
+- **What to do next:** the items each child is practising, plus lessons they have not tried yet
+- **Progress per child:** every letter, number and shape marked *knows*, *learning* or *practising*
+- **Child profiles:** siblings each get their own progress; children pick "Who is playing?" on the home screen
+- **Daily time limit:** a calm "Time for a break" screen when time is up (a grown-up can add 15 minutes)
+- **Try this at home:** a short screen-free idea for each lesson, also shown at the end of each lesson
+
+Links that leave the app, such as the book link and the donate button, also go through the grown-ups check.
+
 ## Quick Start
 
 Open `index.html` in a modern browser. No installation is required.
@@ -65,7 +77,10 @@ Open `index.html` in a modern browser. No installation is required.
 ESEA/
 ├── index.html          Main early childhood dashboard
 ├── responsive.css      Shared responsive styles
-├── app.js              Card interactions and local progress helpers
+├── app.js              Card interactions and spoken labels
+├── family.js           Child profiles, grown-ups check, time limit, at-home ideas
+├── skill-tracker.js    Per-child, per-item progress and adaptive question choice
+├── parents.html        Grown-ups area
 ├── 123/                Number activities
 ├── abc/                Letters, words, and calendar activities
 ├── arithmetic/         Counting-object activities and older math pages
@@ -85,7 +100,9 @@ ESEA/
 - No ads
 - No external tracking
 - No account required
-- Progress is stored locally in the browser
+- Names and progress are stored only in this browser on this device
+- Grown-ups check before the parent area and before any link that leaves the app
+- Optional daily time limit
 - Main pathway uses age-appropriate topics and wording
 
 ## Contact

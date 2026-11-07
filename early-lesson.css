@@ -466,3 +466,16 @@ footer p {
   .choice-card.reveal { animation: none; }
   .dot, .cloud-image { transition: none; }
 }
+
+/* "Try this at home" idea shown to grown-ups at the end of a lesson */
+.home-idea {
+  margin: 18px auto 0;
+  max-width: 520px;
+  text-align: left;
+  background: #fff8df;
+  border: 2px dashed rgba(36, 95, 115, 0.35);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
