@@ -74,6 +74,10 @@ The new reading lessons only speak whole words, never single letter sounds, beca
 
 Grown-ups can choose **English, Spanish or French** for practice. The math lessons, lesson buttons and praise, the "Who is playing?" picker and the break screen follow that choice, using a voice for that language if the device has one. Reading lessons stay in English because rhymes and letter sounds differ between languages. To translate another lesson, set `lang: ESEAFamily.lessonLang(['en', 'es', 'fr'])` and `hero` in its config (see `math/quicklook.html`).
 
+## Publishing
+
+Everything is merged into **`main`**. The website (https://mace2021.github.io/ESEA/) updates automatically: the **Publish main to the website** workflow (`.github/workflows/publish-main.yml`) copies `main` to the `newer-update` branch that GitHub Pages publishes from, and asks Pages to rebuild. Simpler alternative: set Settings -> Pages -> Branch to `main`, then the workflow is no longer needed.
+
 ## Offline and Install
 
 ESEA works offline after it has been opened once with internet, and it can be added to a phone or tablet home screen like an app (`manifest.json`, `service-worker.js`). **After adding, removing or changing files, run:**
