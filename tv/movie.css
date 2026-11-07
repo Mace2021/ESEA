@@ -32,7 +32,7 @@
 .movie-progress-fill {
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, #9c6bff, #ff7a59);
+  background: linear-gradient(90deg, #7445d6, #ff7a59);
   transition: width 0.4s ease;
 }
 
@@ -49,7 +49,7 @@
   padding: 0.85rem 1.4rem;
   border-radius: 999px;
   border: none;
-  background: #9c6bff;
+  background: #7445d6;
   color: #fff;
   font-weight: 800;
   font-size: 1.1rem;
@@ -85,7 +85,7 @@
 }
 
 .movie-chip.on {
-  background: #9c6bff;
+  background: #7445d6;
   color: #fff;
 }
 

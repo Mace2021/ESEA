@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.toggle('active');
       if (this.classList.contains('active')) {
         var title = this.querySelector('.card-title');
-        if (title) speakLabel(title.textContent + '. Pick a game.');
+        if (title) speakLabel(title.textContent + '. ' + ((window.ESEAUI && ESEAUI.t('pickGame')) || 'Pick a game.'));
       }
     });
   });
@@ -87,7 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function speakLabel(text) {
   // Shared calm, natural voice (speech.js), with a plain fallback.
   if (window.ESEASpeech) {
-    ESEASpeech.speak(text);
+    // Speak in the language grown-ups chose (the home screen is translated too).
+    ESEASpeech.speak(text, { lang: window.ESEAFamily ? ESEAFamily.lang() : 'en' });
     return;
   }
   if (!text || !window.speechSynthesis) return;

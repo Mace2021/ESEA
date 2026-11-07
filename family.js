@@ -24,18 +24,45 @@
   var WORDS = {
     en: { who: 'Who is playing?', hi: 'Hi, {name}!', grownupsAdd: 'Grown-ups can add children in the Grown-ups area.',
           breakTitle: 'Time for a break!', breakText: 'Great learning today, {name}. Let\u2019s play again tomorrow.',
-          breakSay: 'Time for a break! Great learning today. Let\u2019s play again tomorrow.', grownups: 'Grown-ups' },
+          breakSay: 'Time for a break! Great learning today. Let\u2019s play again tomorrow.', grownups: 'Grown-ups',
+          setupTitle: 'Welcome to ESEA!', setupIntro: 'A few quick questions so ESEA fits your child. It takes about 30 seconds.',
+          setupLang: 'Which language would you like?', setupName: 'What is your child\u2019s name?', setupNamePh: 'First name',
+          setupAnimal: 'Pick an animal for them', setupAge: 'How old is {name}?',
+          setupAgeNote: 'This sets where the reading and math steps begin. ESEA keeps adjusting as your child plays.',
+          years: '{n} years', setupTime: 'Daily screen time',
+          setupTimeNote: 'Health experts advise short screen time for young children, ideally shared with a grown-up. ESEA shows a calm break screen when time is up.',
+          minutes: '{n} min', noLimit: 'No limit', recommended: 'recommended', next: 'Next', back: 'Back', skip: 'Skip for now',
+          setupDone: 'All set!', setupDoneText: 'Tap \u201cToday\u2019s learning\u201d for a short daily plan made for {name}. You can change these answers any time in the Grown-ups area.',
+          start: 'Let\u2019s go!', yourChild: 'your child', backToPlan: '\u2b50 Back to today\u2019s plan' },
     es: { who: '¿Quién va a jugar?', hi: '¡Hola, {name}!', grownupsAdd: 'Los adultos pueden añadir niños en el área de adultos.',
           breakTitle: '¡Hora de descansar!', breakText: '¡Aprendiste mucho hoy, {name}! Jugamos otra vez mañana.',
-          breakSay: '¡Hora de descansar! Aprendiste mucho hoy. Jugamos otra vez mañana.', grownups: 'Adultos' },
+          breakSay: '¡Hora de descansar! Aprendiste mucho hoy. Jugamos otra vez mañana.', grownups: 'Adultos',
+          setupTitle: '¡Bienvenidos a ESEA!', setupIntro: 'Unas preguntas rápidas para adaptar ESEA a tu hijo o hija. Tarda unos 30 segundos.',
+          setupLang: '¿Qué idioma prefieres?', setupName: '¿Cómo se llama tu hijo o hija?', setupNamePh: 'Nombre',
+          setupAnimal: 'Elige un animal', setupAge: '¿Cuántos años tiene {name}?',
+          setupAgeNote: 'Así sabemos por dónde empezar en lectura y matemáticas. ESEA se sigue ajustando mientras juega.',
+          years: '{n} años', setupTime: 'Tiempo de pantalla al día',
+          setupTimeNote: 'Los expertos en salud recomiendan ratos cortos de pantalla para los niños pequeños, mejor acompañados de un adulto. ESEA muestra una pantalla de descanso al terminar el tiempo.',
+          minutes: '{n} min', noLimit: 'Sin límite', recommended: 'recomendado', next: 'Siguiente', back: 'Atrás', skip: 'Omitir por ahora',
+          setupDone: '¡Todo listo!', setupDoneText: 'Toca «Aprender hoy» para ver un plan corto hecho para {name}. Puedes cambiar estas respuestas cuando quieras en el área de adultos.',
+          start: '¡Vamos!', yourChild: 'tu hijo o hija', backToPlan: '\u2b50 Volver al plan de hoy' },
     fr: { who: 'Qui joue ?', hi: 'Bonjour, {name} !', grownupsAdd: 'Les adultes peuvent ajouter des enfants dans l\u2019espace adultes.',
           breakTitle: 'C\u2019est l\u2019heure de la pause !', breakText: 'Tu as bien appris aujourd\u2019hui, {name}. On rejoue demain.',
-          breakSay: 'C\u2019est l\u2019heure de la pause ! Tu as bien appris aujourd\u2019hui. On rejoue demain.', grownups: 'Adultes' }
+          breakSay: 'C\u2019est l\u2019heure de la pause ! Tu as bien appris aujourd\u2019hui. On rejoue demain.', grownups: 'Adultes',
+          setupTitle: 'Bienvenue sur ESEA !', setupIntro: 'Quelques questions rapides pour adapter ESEA à votre enfant. Environ 30 secondes.',
+          setupLang: 'Quelle langue préférez-vous ?', setupName: 'Comment s\u2019appelle votre enfant ?', setupNamePh: 'Prénom',
+          setupAnimal: 'Choisissez un animal', setupAge: 'Quel âge a {name} ?',
+          setupAgeNote: 'Cela fixe le point de départ en lecture et en maths. ESEA continue de s\u2019adapter pendant le jeu.',
+          years: '{n} ans', setupTime: 'Temps d\u2019écran par jour',
+          setupTimeNote: 'Les experts de santé conseillent des moments d\u2019écran courts pour les jeunes enfants, idéalement avec un adulte. ESEA affiche une pause calme quand le temps est écoulé.',
+          minutes: '{n} min', noLimit: 'Sans limite', recommended: 'conseillé', next: 'Suivant', back: 'Retour', skip: 'Passer pour l\u2019instant',
+          setupDone: 'C\u2019est prêt !', setupDoneText: 'Touchez « Apprendre aujourd\u2019hui » pour un petit programme fait pour {name}. Vous pouvez changer ces réponses à tout moment dans l\u2019espace adultes.',
+          start: 'C\u2019est parti !', yourChild: 'votre enfant', backToPlan: '\u2b50 Retour au programme du jour' }
   };
   function word(key, name) {
     var lang = currentLang();
     var text = (WORDS[lang] || WORDS.en)[key] || WORDS.en[key];
-    return name === undefined ? text : text.replace('{name}', name);
+    return name === undefined ? text : text.replace('{name}', name).replace('{n}', name);
   }
   function currentLang() {
     var lang = load().language;
@@ -184,13 +211,110 @@
     { id: 'find-pairs', area: 'Games & Stories', name: 'Find Pairs', href: 'puzzles/find-pairs.html',
       home: 'Play memory with pairs of socks or matching cups turned upside down.' },
     { id: 'books/lego', area: 'Games & Stories', name: 'Who Took My Legos?', href: 'books/lego.html',
-      home: 'After the story, ask "What happened first? What happened next?"' }
+      home: 'After the story, ask "What happened first? What happened next?"' },
+    { id: 'tv/abc-with-pip', area: 'Watch & Listen', name: 'ABC with Pip', href: 'tv/abc-with-pip.html', video: true,
+      home: 'Sing the alphabet together in the car or at bath time, and point to letters you see on signs.' },
+    { id: 'tv/count-with-pip', area: 'Watch & Listen', name: 'Count with Pip', href: 'tv/count-with-pip.html', video: true,
+      home: 'Count everyday things out loud together: stairs, spoons, toys going into the box.' },
+    { id: 'tv/animated-alphabet', area: 'Watch & Listen', name: 'Alphabet Adventure', href: 'tv/animated-alphabet.html', video: true,
+      home: 'Pick a letter and find three things at home that start with it.' },
+    { id: 'tv/counting-rainbow', area: 'Watch & Listen', name: 'Counting Rainbow', href: 'tv/counting-rainbow.html', video: true,
+      home: 'Go on a color hunt: find something red, orange, yellow, green, blue and purple.' },
+    { id: 'tv/sound-parade', area: 'Watch & Listen', name: 'Sound Parade', href: 'tv/sound-parade.html', video: true,
+      home: 'Take turns making an animal sound and guessing the animal.' }
   ];
 
   function lessonById(id) {
     for (var i = 0; i < CATALOG.length; i += 1) if (CATALOG[i].id === id) return CATALOG[i];
     return null;
   }
+
+  // ---------- Learning paths and Today's Plan ----------
+  // Where each path starts for a child's age (step numbers). The path then
+  // moves on as each step is going well, whatever the starting point.
+  var PATH_START = { 3: { reading: 1, math: 1 }, 4: { reading: 1, math: 1 }, 5: { reading: 2, math: 2 }, 6: { reading: 3, math: 3 } };
+  // The third activity of the day rotates through videos and feelings.
+  var PLAN_EXTRAS = ['tv/abc-with-pip', 'emotions/feelings-quiz', 'tv/count-with-pip', 'tv/sound-parade',
+    'emotions/calm-corner', 'tv/animated-alphabet', 'tv/counting-rainbow'];
+
+  function pathSteps(path) {
+    return CATALOG.filter(function(l) { return l.path === path && l.tracked; })
+      .sort(function(a, b) { return a.step - b.step; });
+  }
+
+  // A step is going well when the child knows some items and is practising none.
+  function stepGoingWell(lessonId, profileId) {
+    if (!global.SkillTracker) return false;
+    var items = global.SkillTracker.summary(lessonId, profileId);
+    var known = 0;
+    for (var i = 0; i < items.length; i += 1) {
+      if (items[i].status === 'practising') return false;
+      if (items[i].status === 'known') known += 1;
+    }
+    return known > 0;
+  }
+
+  function nextStep(path, profileId) {
+    var d = load();
+    var p = findProfile(d, profileId || d.active) || d.profiles[0];
+    var start = (PATH_START[p.age] || PATH_START[4])[path] || 1;
+    var steps = pathSteps(path);
+    for (var i = 0; i < steps.length; i += 1) {
+      if (steps[i].step < start) continue;
+      if (!stepGoingWell(steps[i].id, p.id)) return steps[i];
+    }
+    return steps[steps.length - 1];
+  }
+
+  function dayNumber() {
+    var now = new Date();
+    return Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000);
+  }
+
+  // Today's plan stays the same all day: next reading step, next math step,
+  // and one video or feelings activity.
+  function todayPlan(profileId) {
+    var d = load();
+    var pid = profileId || d.active;
+    d.plans = d.plans || {};
+    var plan = d.plans[pid];
+    if (!plan || plan.date !== today()) {
+      var idx = d.profiles.map(function(x) { return x.id; }).indexOf(pid);
+      plan = {
+        date: today(),
+        items: [nextStep('reading', pid).id, nextStep('math', pid).id, PLAN_EXTRAS[(dayNumber() + Math.max(idx, 0)) % PLAN_EXTRAS.length]],
+        done: {}
+      };
+      d.plans[pid] = plan;
+      save(d);
+    }
+    return plan;
+  }
+
+  function planIfMade() {
+    var d = load();
+    var plan = d.plans && d.plans[d.active];
+    return plan && plan.date === today() ? plan : null;
+  }
+
+  function markDone(lessonId) {
+    var d = load();
+    var plan = d.plans && d.plans[d.active];
+    if (!plan || plan.date !== today() || plan.items.indexOf(lessonId) === -1) return false;
+    plan.done[lessonId] = true;
+    save(d);
+    return true;
+  }
+
+  function lessonIdFromPath() {
+    var parts = global.location.pathname.split('/').filter(Boolean);
+    var file = (parts.pop() || 'index').replace(/\.html?$/i, '');
+    var folder = parts.pop() || '';
+    return folder ? folder + '/' + file : file;
+  }
+
+  // Pages opened from Today's Plan carry ?plan=1 so they can lead back to it.
+  function inPlan() { return /[?&]plan=1\b/.test(global.location.search); }
 
   // ---------- Modal helpers ----------
   var STYLE = [
@@ -208,7 +332,21 @@
     '.esea-avatar.on{border-color:#245f73;background:#fff3c7;}',
     '.esea-break{font-size:4rem;line-height:1;margin-bottom:8px;}',
     '.profile-chip{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;background:#fff;color:#17323a;font-weight:800;font-size:1.05rem;padding:6px 16px 6px 8px;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.15);font-family:inherit;}',
-    '.profile-chip span{font-size:2rem;line-height:1;}'
+    '.profile-chip span{font-size:2rem;line-height:1;}',
+    '.esea-wiz{max-width:460px;text-align:center;max-height:calc(100vh - 32px);overflow:auto;}',
+    '.esea-wiz .esea-step{font-size:.85rem;font-weight:800;color:#4a6067;margin-bottom:6px;}',
+    '.esea-wiz h3{margin:14px 0 8px;font-size:1.15rem;color:#17323a;}',
+    '.esea-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px;}',
+    '.esea-choice{min-height:52px;border:3px solid rgba(23,50,58,.14);border-radius:14px;background:#fff;font-family:inherit;font-weight:800;font-size:1.05rem;cursor:pointer;color:#17323a;padding:8px;}',
+    '.esea-choice small{display:block;font-size:.75rem;color:#1c6b46;}',
+    '.esea-choice.on{border-color:#245f73;background:#fff3c7;}',
+    '.esea-input{width:100%;min-height:52px;border:2px solid rgba(23,50,58,.2);border-radius:12px;font:inherit;font-size:1.15rem;padding:10px 12px;margin-bottom:12px;box-sizing:border-box;}',
+    '.esea-note{font-size:.92rem !important;color:#4a6067;}',
+    '.esea-row{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:8px;}',
+    '.esea-row .esea-btn{flex:1;}',
+    '.esea-avatars.small{grid-template-columns:repeat(5,1fr);gap:6px;}',
+    '.esea-avatars.small .esea-avatar{padding:6px 0;}',
+    '.esea-avatars.small .esea-avatar span{font-size:2rem;}'
   ].join('');
 
   function ensureStyle() {
@@ -307,6 +445,106 @@
     });
   }
 
+  // ---------- First-run setup for grown-ups ----------
+  function setupWizard(onDone) {
+    var d = load();
+    var p = findProfile(d, d.active);
+    var answers = {
+      name: p.name === 'My child' ? '' : p.name,
+      avatar: p.avatar,
+      age: p.age || 4,
+      limit: d.limitMinutes || (p.age === 3 ? 15 : 20)
+    };
+    var startLang = currentLang();
+    var step = 0;
+    var STEPS = 4;
+    ensureStyle();
+    var overlay = doc.createElement('div');
+    overlay.className = 'esea-overlay';
+    var box = doc.createElement('div');
+    box.className = 'esea-modal esea-wiz';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    overlay.appendChild(box);
+    doc.body.appendChild(overlay);
+
+    function childName() { return answers.name || word('yourChild'); }
+    function choice(value, label, on, extra) {
+      return '<button type="button" class="esea-choice' + (on ? ' on' : '') + '" data-v="' + value + '">' + label + (extra ? '<small>' + extra + '</small>' : '') + '</button>';
+    }
+    function nav(nextLabel) {
+      return '<div class="esea-row">' +
+        (step > 0 ? '<button type="button" class="esea-btn light" data-act="back">' + word('back') + '</button>' : '') +
+        '<button type="button" class="esea-btn" data-act="next">' + (nextLabel || word('next')) + '</button></div>' +
+        (step < STEPS ? '<button type="button" class="esea-btn link" data-act="skip">' + word('skip') + '</button>' : '');
+    }
+    function render() {
+      var html = step < STEPS ? '<div class="esea-step">' + (step + 1) + ' / ' + STEPS + '</div>' : '';
+      if (step === 0) {
+        html += '<h2>' + word('setupTitle') + '</h2><p>' + word('setupIntro') + '</p><h3>' + word('setupLang') + '</h3><div class="esea-choices" data-field="lang">' +
+          Object.keys(LANGUAGES).map(function(code) { return choice(code, LANGUAGES[code].name.split(' (')[0], code === currentLang()); }).join('') + '</div>' + nav();
+      } else if (step === 1) {
+        html += '<h2>' + word('setupName') + '</h2><input class="esea-input" id="eseaName" maxlength="20" autocomplete="off" placeholder="' + word('setupNamePh') + '" value="' + escapeHtml(answers.name) + '">' +
+          '<h3>' + word('setupAnimal') + '</h3><div class="esea-avatars small" data-field="avatar">' +
+          AVATARS.map(function(a) { return '<button type="button" class="esea-avatar' + (a === answers.avatar ? ' on' : '') + '" data-v="' + a + '"><span>' + a + '</span></button>'; }).join('') + '</div>' + nav();
+      } else if (step === 2) {
+        html += '<h2>' + word('setupAge', escapeHtml(childName())) + '</h2><div class="esea-choices" data-field="age">' +
+          [3, 4, 5, 6].map(function(n) { return choice(n, word('years', n), n === answers.age); }).join('') + '</div><p class="esea-note">' + word('setupAgeNote') + '</p>' + nav();
+      } else if (step === 3) {
+        var rec = answers.age === 3 ? 15 : 20;
+        html += '<h2>' + word('setupTime') + '</h2><div class="esea-choices" data-field="limit">' +
+          [15, 20, 30, 0].map(function(n) { return choice(n, n ? word('minutes', n) : word('noLimit'), n === answers.limit, n === rec ? word('recommended') : ''); }).join('') +
+          '</div><p class="esea-note">' + word('setupTimeNote') + '</p>' + nav();
+      } else {
+        html += '<div class="esea-break" aria-hidden="true">' + answers.avatar + '</div><h2>' + word('setupDone') + '</h2><p>' + word('setupDoneText', escapeHtml(childName())) + '</p>' +
+          '<button type="button" class="esea-btn" data-act="finish" style="width:100%">' + word('start') + '</button>';
+      }
+      box.innerHTML = html;
+      var input = box.querySelector('#eseaName');
+      if (input) {
+        input.addEventListener('input', function() { answers.name = input.value.trim(); });
+        setTimeout(function() { input.focus(); }, 50);
+      }
+    }
+    function saveAnswers() {
+      var data = load();
+      var prof = findProfile(data, data.active);
+      if (answers.name) prof.name = answers.name;
+      prof.avatar = answers.avatar;
+      prof.age = answers.age;
+      data.limitMinutes = answers.limit;
+      data.setupDone = true;
+      save(data);
+    }
+    function close() {
+      overlay.remove();
+      if (onDone) onDone({ languageChanged: currentLang() !== startLang });
+    }
+    box.addEventListener('click', function(e) {
+      var pick = e.target.closest('[data-v]');
+      if (pick) {
+        var field = pick.parentNode.getAttribute('data-field');
+        var v = pick.getAttribute('data-v');
+        if (field === 'lang') {
+          var data = load();
+          data.language = v;
+          save(data);
+        } else if (field === 'avatar') answers.avatar = v;
+        else answers[field] = Number(v);
+        render();
+        return;
+      }
+      var act = e.target.closest('[data-act]');
+      if (!act) return;
+      var a = act.getAttribute('data-act');
+      if (a === 'next') { step += 1; if (step === STEPS) saveAnswers(); render(); }
+      else if (a === 'back') { step -= 1; render(); }
+      else if (a === 'skip') { var data2 = load(); data2.setupDone = true; save(data2); close(); }
+      else if (a === 'finish') close();
+    });
+    render();
+  }
+
   function renderChip() {
     var chip = doc.getElementById('profileChip');
     if (!chip) return;
@@ -398,6 +636,37 @@
 
     data: load,
     save: save,
+    word: word,
+
+    // Learning paths and Today's Plan
+    pathSteps: pathSteps,
+    nextStep: nextStep,
+    stepGoingWell: stepGoingWell,
+    todayPlan: todayPlan,
+    planIfMade: planIfMade,
+    markDone: markDone,
+    inPlan: inPlan,
+    lessonIdFromPath: lessonIdFromPath,
+    setupWizard: setupWizard,
+    /**
+     * Call when an activity is finished: ticks it off today's plan and, if the
+     * page was opened from the plan, returns a "Back to today's plan" link to
+     * show (otherwise null).
+     */
+    finished: function(lessonId, className) {
+      markDone(lessonId || lessonIdFromPath());
+      if (!inPlan()) return null;
+      var a = doc.createElement('a');
+      a.href = ROOT + 'today.html';
+      a.className = className || 'lesson-action';
+      a.textContent = word('backToPlan');
+      return a;
+    },
+    setAge: function(id, age) {
+      var d = load();
+      var p = findProfile(d, id);
+      if (p) { p.age = Number(age) || undefined; save(d); }
+    },
 
     profiles: function() { return load().profiles; },
     activeProfile: function() {
@@ -508,5 +777,11 @@
     }
     guardLinks();
     trackTime();
+    if (doc.body && doc.body.getAttribute('data-page') === 'home' && !load().setupDone) {
+      setupWizard(function(result) {
+        if (result.languageChanged) global.location.reload();
+        else { renderChip(); doc.dispatchEvent(new Event('esea-setup-done')); }
+      });
+    }
   });
 })(window);

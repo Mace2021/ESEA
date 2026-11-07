@@ -206,6 +206,33 @@
             gap: 12px;
             min-height: 56px;
         }
+        .section-title .section-text {
+            width: auto;
+            height: auto;
+            border: 0;
+            background: none;
+            border-radius: 0;
+        }
+        .today-button {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 0 0 22px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #245f73, #2f7d73);
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 10px 22px rgba(23, 50, 58, 0.22);
+        }
+        .today-button:hover { transform: translateY(-2px); }
+        .today-icon { font-size: 2.6rem; line-height: 1; }
+        .today-text { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+        .today-text b { font-size: 1.45rem; }
+        .today-text small { font-size: 1rem; color: #e6fbf7; }
+        .today-go { font-size: 1.8rem; background: #ffc94d; color: #17323a; border-radius: 50%; width: 52px; height: 52px; display: grid; place-items: center; }
+        .en-tag { font-size: 0.7rem; font-weight: 900; background: #fff3c7; color: #17323a; border-radius: 6px; padding: 2px 6px; margin-left: 6px; }
+        .about-link { color: #245f73; font-weight: 800; }
         .step-badge {
             display: inline-flex;
             align-items: center;
@@ -284,16 +311,17 @@
     </style>
     <script src="./speech.js"></script>
     <script src="./family.js"></script>
+    <script src="./ui-text.js"></script>
 </head>
 
-<body>
+<body data-page="home">
     <div class="page-wrapper">
         <header role="banner">
             <div class="logo-container">
                 <img src="./images/ESEA.png" alt="ESEA logo">
                 <div>
                     <h1>ESEA</h1>
-                    <p>Early Start Education App</p>
+                    <p data-i18n="tagline">Early Start Education App</p>
                 </div>
             </div>
             <div class="player-row">
@@ -303,19 +331,24 @@
 
         <main class="container page-content">
             <section class="welcome-message" aria-labelledby="welcome-title">
-                <h2 id="welcome-title">A playful start for young learners</h2>
-                <p>Simple practice for children ages 3-6: listen, look, touch, name, count, match, and celebrate small
-                    wins.</p>
+                <h2 id="welcome-title" data-i18n="welcome.title">A playful start for young learners</h2>
+                <p data-i18n="welcome.text">Simple practice for children ages 3-6: listen, look, touch, name, count, match, and celebrate small wins.</p>
             </section>
 
+            <a class="today-button" id="todayButton" href="today.html">
+                <span class="today-icon" aria-hidden="true">&#11088;</span>
+                <span class="today-text"><b data-i18n="today.title">Today&rsquo;s learning</b>
+                <small id="todayStatus" data-i18n="today.sub">Three short activities, about 10 minutes.</small></span>
+                <span class="today-go" aria-hidden="true">&#9654;</span>
+            </a>
+
             <section class="categories-section" aria-labelledby="foundations-title">
-                <h2 class="section-title" id="foundations-title"><span aria-hidden="true">&#127775;</span> Early
-                    Foundations</h2>
+                <h2 class="section-title" id="foundations-title"><span aria-hidden="true">&#127775;</span> <span class="section-text" data-i18n="section.foundations">Early Foundations</span></h2>
                 <div class="card-grid">
                     <article class="card blue" role="button" tabindex="0" aria-label="Numbers and counting">
                         <div class="card-icon" aria-hidden="true">&#128290;</div>
-                        <div class="card-title">Numbers & Counting</div>
-                        <div class="card-subtitle">Follow the numbered steps: see small amounts, count, compare, and put numbers in order.</div>
+                        <div class="card-title" data-i18n="card.numbers">Numbers & Counting</div>
+                        <div class="card-subtitle" data-i18n="card.numbers.sub">Follow the numbered steps: see small amounts, count, compare, and put numbers in order.</div>
                         <div class="dropdown-menu">
                             <a href="./math/quicklook.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">👀</span>Quick Look<span class="step-badge" aria-label="Step 1">1</span></a>
                             <a href="./arithmetic/howmanyapple.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🍎</span>Count the Apples<span class="step-badge" aria-label="Step 2">2</span></a>
@@ -330,8 +363,8 @@
 
                     <article class="card orange" role="button" tabindex="0" aria-label="ABC and letters">
                         <div class="card-icon" aria-hidden="true">&#128292;</div>
-                        <div class="card-title">ABC & Letters</div>
-                        <div class="card-subtitle">Follow the numbered steps: rhymes, word parts, first sounds, then letters.</div>
+                        <div class="card-title" data-i18n="card.abc">ABC & Letters</div>
+                        <div class="card-subtitle" data-i18n="card.abc.sub">Follow the numbered steps: rhymes, word parts, first sounds, then letters.</div>
                         <div class="dropdown-menu">
                             <a href="./reading/rhyme.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🎩</span>Rhyme Time<span class="step-badge" aria-label="Step 1">1</span></a>
                             <a href="./reading/wordparts.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🌻</span>Word Parts<span class="step-badge" aria-label="Step 2">2</span></a>
@@ -347,8 +380,8 @@
 
                     <article class="card green" role="button" tabindex="0" aria-label="Colors">
                         <div class="card-icon" aria-hidden="true">&#127912;</div>
-                        <div class="card-title">Colors</div>
-                        <div class="card-subtitle">Build color names through bright, concrete visual choices.</div>
+                        <div class="card-title" data-i18n="card.colors">Colors</div>
+                        <div class="card-subtitle" data-i18n="card.colors.sub">Build color names through bright, concrete visual choices.</div>
                         <div class="dropdown-menu">
                             <a href="./color/colors.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🎨</span>Learn Colors</a>
                         </div>
@@ -356,8 +389,8 @@
 
                     <article class="card yellow" role="button" tabindex="0" aria-label="Shapes">
                         <div class="card-icon" aria-hidden="true">&#128313;</div>
-                        <div class="card-title">Shapes</div>
-                        <div class="card-subtitle">Find circles, squares, triangles, and other everyday shapes.</div>
+                        <div class="card-title" data-i18n="card.shapes">Shapes</div>
+                        <div class="card-subtitle" data-i18n="card.shapes.sub">Find circles, squares, triangles, and other everyday shapes.</div>
                         <div class="dropdown-menu">
                             <a href="./shapes/shapes.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔺</span>Learn Shapes</a>
                             <a href="./shapes/whatshape.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🟦</span>What Shape Is This?</a>
@@ -368,13 +401,12 @@
             </section>
 
             <section class="categories-section" aria-labelledby="language-title">
-                <h2 class="section-title" id="language-title"><span aria-hidden="true">&#128214;</span> Language & Story
-                </h2>
+                <h2 class="section-title" id="language-title"><span aria-hidden="true">&#128214;</span> <span class="section-text" data-i18n="section.language">Language & Story</span></h2>
                 <div class="card-grid">
                     <article class="card pink" role="button" tabindex="0" aria-label="First words">
                         <div class="card-icon" aria-hidden="true">&#9997;</div>
-                        <div class="card-title">First Words</div>
-                        <div class="card-subtitle">Practice picture-word matching before moving into spelling.</div>
+                        <div class="card-title" data-i18n="card.words">First Words</div>
+                        <div class="card-subtitle" data-i18n="card.words.sub">Practice picture-word matching before moving into spelling.</div>
                         <div class="dropdown-menu">
                             <a href="./abc/pickaword.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📝</span>Pick the Word</a>
                             <a href="./abc/pickthepic.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🖼️</span>Pick the Picture</a>
@@ -384,8 +416,8 @@
 
                     <article class="card purple" role="button" tabindex="0" aria-label="Stories">
                         <div class="card-icon" aria-hidden="true">&#128218;</div>
-                        <div class="card-title">Stories</div>
-                        <div class="card-subtitle">Shared reading builds attention, vocabulary, memory, and joy.</div>
+                        <div class="card-title" data-i18n="card.stories">Stories</div>
+                        <div class="card-subtitle" data-i18n="card.stories.sub">Shared reading builds attention, vocabulary, memory, and joy.</div>
                         <div class="dropdown-menu">
                             <a href="./books/lego.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🧱</span>Who Took My Legos?</a>
                         </div>
@@ -393,8 +425,8 @@
 
                     <article class="card blue" role="button" tabindex="0" aria-label="Calendar routines">
                         <div class="card-icon" aria-hidden="true">&#128197;</div>
-                        <div class="card-title">Daily Routines</div>
-                        <div class="card-subtitle">Introduce days, months, and seasons through familiar routines.</div>
+                        <div class="card-title" data-i18n="card.routines">Daily Routines</div>
+                        <div class="card-subtitle" data-i18n="card.routines.sub">Introduce days, months, and seasons through familiar routines.</div>
                         <div class="dropdown-menu">
                             <a href="./abc/calendar.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📅</span>Calendar Words</a>
                             <a href="./weather/weather.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">⛅</span>Weather & Seasons</a>
@@ -404,13 +436,12 @@
             </section>
 
             <section class="categories-section" aria-labelledby="whole-child-title">
-                <h2 class="section-title" id="whole-child-title"><span aria-hidden="true">&#128155;</span> Whole Child
-                    Growth</h2>
+                <h2 class="section-title" id="whole-child-title"><span aria-hidden="true">&#128155;</span> <span class="section-text" data-i18n="section.whole">Whole Child Growth</span></h2>
                 <div class="card-grid">
                     <article class="card orange" role="button" tabindex="0" aria-label="Feelings">
                         <div class="card-icon" aria-hidden="true">&#128522;</div>
-                        <div class="card-title">Feelings</div>
-                        <div class="card-subtitle">Name feelings, spot them in others, and practise calming down.</div>
+                        <div class="card-title" data-i18n="card.feelings">Feelings</div>
+                        <div class="card-subtitle" data-i18n="card.feelings.sub">Name feelings, spot them in others, and practise calming down.</div>
                         <div class="dropdown-menu">
                             <a href="./emotions/emotions.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">😊</span>Name My Feelings</a>
                             <a href="./emotions/feelings-quiz.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔍</span>How Do They Feel?</a>
@@ -420,8 +451,8 @@
 
                     <article class="card green" role="button" tabindex="0" aria-label="Nature discovery">
                         <div class="card-icon" aria-hidden="true">&#127807;</div>
-                        <div class="card-title">Nature Discovery</div>
-                        <div class="card-subtitle">Observe plants, animals, weather, and simple living things.</div>
+                        <div class="card-title" data-i18n="card.nature">Nature Discovery</div>
+                        <div class="card-subtitle" data-i18n="card.nature.sub">Observe plants, animals, weather, and simple living things.</div>
                         <div class="dropdown-menu">
                             <a href="./science/bio.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🌱</span>Living Things</a>
                             <a href="./weather/weather.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">⛅</span>Weather Watching</a>
@@ -430,8 +461,8 @@
 
                     <article class="card yellow" role="button" tabindex="0" aria-label="Matching games">
                         <div class="card-icon" aria-hidden="true">&#129513;</div>
-                        <div class="card-title">Matching Games</div>
-                        <div class="card-subtitle">Build memory, attention, turn-taking, and visual matching.</div>
+                        <div class="card-title" data-i18n="card.matching">Matching Games</div>
+                        <div class="card-subtitle" data-i18n="card.matching.sub">Build memory, attention, turn-taking, and visual matching.</div>
                         <div class="dropdown-menu">
                             <a href="./puzzles/puzzles.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🧩</span>Puzzle Lessons</a>
                             <a href="./puzzles/animal-match.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🐶</span>Animal Match</a>
@@ -442,8 +473,8 @@
 
                     <article class="card pink" role="button" tabindex="0" aria-label="Learning videos">
                         <div class="card-icon" aria-hidden="true">&#128250;</div>
-                        <div class="card-title">Watch & Listen</div>
-                        <div class="card-subtitle">Use short videos and songs as adult-guided learning moments.</div>
+                        <div class="card-title" data-i18n="card.videos">Watch & Listen</div>
+                        <div class="card-subtitle" data-i18n="card.videos.sub">Use short videos and songs as adult-guided learning moments.</div>
                         <div class="dropdown-menu">
                             <a href="./tv/tv.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📺</span>Watch & Listen</a>
                             <a href="./tv/abc-with-pip.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🧒</span>ABC with Pip</a>
@@ -457,12 +488,11 @@
             </section>
 
             <section class="educator-note" aria-labelledby="educator-title">
-                <h2 id="educator-title">Designed for early development</h2>
-                <p>This pathway favors concrete, sensory, short activities. Advanced civics, state capitals, chemistry,
-                    computer science, full dictionaries, leaderboards, and higher arithmetic are kept out of the
-                    child-facing flow.</p>
-                <p class="grownups-row"><a href="parents.html" id="grownupsLink" class="grownups-link">&#128106; Grown-ups area</a></p>
-                <p>See what your child has learned, set a daily time limit, add siblings, and get ideas to try at home.</p>
+                <h2 id="educator-title" data-i18n="educator.title">Designed for early development</h2>
+                <p data-i18n="educator.text">Short, concrete activities in the order young children usually learn. No ads, no accounts, and no rankings.</p>
+                <p class="grownups-row"><a href="parents.html" id="grownupsLink" class="grownups-link" data-i18n="grownups.link">&#128106; Grown-ups area</a></p>
+                <p><a class="about-link" href="about.html" data-i18n="about">About ESEA &amp; privacy</a></p>
+                <p data-i18n="grownups.text">See what your child has learned, set a daily time limit, add siblings, and get ideas to try at home.</p>
             </section>
         </main>
 
@@ -487,6 +517,20 @@
         </footer>
     </div>
 
+    <script>
+        // Today's learning: show how much of today's plan is done.
+        (function() {
+            function update() {
+                var plan = window.ESEAFamily && ESEAFamily.planIfMade();
+                var status = document.getElementById('todayStatus');
+                if (!plan || !window.ESEAUI) return;
+                var done = plan.items.filter(function(id) { return plan.done[id]; }).length;
+                status.textContent = ESEAUI.t('today.count', { done: done });
+            }
+            document.addEventListener('DOMContentLoaded', update);
+            window.addEventListener('pageshow', update);
+        })();
+    </script>
     <script src="app.js"></script>
 </body>
 

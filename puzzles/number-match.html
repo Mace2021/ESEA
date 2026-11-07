@@ -25,7 +25,7 @@
             <section class="lesson-panel" aria-labelledby="lessonTitle">
                 <div class="lesson-top">
                     <div class="lesson-copy"><h2 id="lessonTitle">Number Match</h2><p id="lessonGoal">Count small groups and choose the matching number.</p></div>
-                    <div class="progress-wrap" aria-label="Lesson progress"><div class="progress-meta"><span class="pill" id="roundText">1 of 5</span><span class="pill" id="scoreText">0 correct</span></div><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div></div>
+                    <div class="progress-wrap" aria-label="Lesson progress"><div class="progress-meta"><span class="pill" id="roundText">1 of 5</span><span class="pill" id="scoreText">0 correct</span></div><div class="progress-track" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div></div>
                 </div>
                 <div class="activity-area" id="activityArea"></div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
                 <div class="actions"><button type="button" class="primary-action" id="nextButton">Next</button><button type="button" class="secondary-action" id="restartButton">Restart</button></div>
@@ -39,7 +39,7 @@
         function dotCloud(count) {
             var dots = '';
             for (var i = 0; i < count; i += 1) dots += '<span class="dot"></span>';
-            return '<div class="number-target"><div class="dot-cloud" aria-label="' + count + ' dots">' + dots + '</div></div>';
+            return '<div class="number-target"><div class="dot-cloud" role="img" aria-label="' + count + ' dots">' + dots + '</div></div>';
         }
         var numberOptions = [1, 2, 3, 4, 5].map(function(number) {
             return { value: String(number), label: String(number), art: '<span class="choice-art">' + number + '</span>' };

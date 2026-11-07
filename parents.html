@@ -129,8 +129,8 @@
 
                 <section class="panel" aria-labelledby="kids-title">
                     <h2 id="kids-title">Children</h2>
-                    <p>Each child gets their own progress. Tap the animal to change it. Children choose who is
-                        playing from the home screen.</p>
+                    <p>Each child gets their own progress. Tap the animal to change it. Age sets where the reading and math
+                        steps begin. Children choose who is playing from the home screen.</p>
                     <div class="kids" id="kids"></div>
                     <div class="row" style="margin-top:12px">
                         <input class="kid-name" style="max-width:240px" id="newName" placeholder="Child's name" maxlength="20" aria-label="New child's name">
@@ -221,7 +221,11 @@
                     <p>ESEA has no ads, no accounts and no tracking. Names and progress are saved only in this
                         browser on this device. They are not sent anywhere, and clearing the browser's data
                         removes them.</p>
-                    <button type="button" class="small-btn danger" id="resetProgress">Reset progress for this child</button>
+                    <div class="row">
+                        <a class="small-btn" href="about.html">About ESEA &amp; privacy</a>
+                        <button type="button" class="small-btn" id="rerunSetup">Run setup again</button>
+                        <button type="button" class="small-btn danger" id="resetProgress">Reset progress for this child</button>
+                    </div>
                 </section>
             </div>
         </main>
@@ -313,13 +317,9 @@
                     .sort(function(a, b) { return a.step - b.step; });
             }
 
-            // The first tracked step that is not going well yet.
+            // The next step for this child (starts by age; see family.js).
             function nextStep(path) {
-                var steps = pathSteps(path).filter(function(l) { return l.tracked; });
-                for (var i = 0; i < steps.length; i += 1) {
-                    if (!stepState(steps[i]).good) return steps[i];
-                }
-                return null;
+                return F.nextStep(path, viewing);
             }
 
             function langTag(lesson) {
@@ -377,6 +377,9 @@
                         '<div class="kid-top"><button type="button" class="kid-avatar" data-act="avatar" aria-label="Change animal">' + p.avatar + '</button>' +
                         '<input class="kid-name" data-act="name" value="' + esc(p.name) + '" maxlength="20" aria-label="Name"></div>' +
                         '<div class="kid-meta">' + F.minutesToday(p.id) + ' min today' + (p.id === active ? ' &middot; playing now' : '') + '</div>' +
+                        '<label class="row kid-meta">Age: <select class="small-btn" data-act="age">' +
+                        ['', 3, 4, 5, 6].map(function(a) { return '<option value="' + a + '"' + ((p.age || '') === a ? ' selected' : '') + '>' + (a ? a + ' years' : 'not set') + '</option>'; }).join('') +
+                        '</select></label>' +
                         '<div class="row">' +
                         (p.id === active ? '' : '<button type="button" class="small-btn" data-act="play">Set as playing now</button>') +
                         (single ? '' : '<button type="button" class="small-btn danger" data-act="remove">Remove</button>') +
@@ -429,6 +432,11 @@
             });
 
             document.getElementById('kids').addEventListener('change', function(e) {
+                if (e.target.getAttribute('data-act') === 'age') {
+                    F.setAge(e.target.closest('.kid').getAttribute('data-id'), e.target.value);
+                    renderAll();
+                    return;
+                }
                 if (e.target.getAttribute('data-act') !== 'name') return;
                 var name = e.target.value.trim();
                 if (!name) return;
@@ -447,6 +455,10 @@
 
             document.getElementById('limit').addEventListener('change', function(e) {
                 F.setLimit(e.target.value);
+            });
+
+            document.getElementById('rerunSetup').addEventListener('click', function() {
+                F.setupWizard(function() { location.reload(); });
             });
 
             document.getElementById('resetProgress').addEventListener('click', function() {

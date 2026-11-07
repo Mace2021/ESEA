@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ESEA &amp; privacy</title>
+    <meta name="description" content="How ESEA teaches young children, and how it protects their privacy.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="early-lesson.css">
+    <style>
+        .about-main { max-width: 820px; }
+        .about-panel { background: #fff; border: 2px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
+        .about-panel h2 { margin: 0 0 8px; color: var(--navy); font-size: 1.4rem; }
+        .about-panel p, .about-panel li { line-height: 1.55; color: #26414a; }
+        .about-panel ul { padding-left: 20px; margin: 8px 0 0; }
+        .about-panel li { margin-bottom: 6px; }
+        .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 0 0 16px; }
+        .fact { background: #dff5ea; border-radius: 14px; padding: 12px; text-align: center; font-weight: 800; color: #1c6b46; }
+        .fact span { display: block; font-size: 1.8rem; }
+        .paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+        .paths ol { margin: 6px 0 0; padding-left: 22px; }
+        .source { font-size: 0.92rem; color: #4a6067; }
+        .toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .toc a { background: #fff8df; border-radius: 999px; padding: 8px 14px; font-weight: 800; color: #17323a; text-decoration: none; }
+    </style>
+    <script src="speech.js"></script>
+    <script src="family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="images/ESEA.png" alt="ESEA logo">
+            <h1>About ESEA</h1>
+            <p>For parents, carers and teachers: how ESEA teaches, and how it keeps your child safe.</p>
+        </header>
+        <main class="lesson-main about-main">
+            <nav class="lesson-nav"><a class="home-button" href="index.html">Back to the app</a></nav>
+
+            <div class="facts">
+                <div class="fact"><span aria-hidden="true">&#128683;</span>No ads</div>
+                <div class="fact"><span aria-hidden="true">&#128100;</span>No accounts</div>
+                <div class="fact"><span aria-hidden="true">&#128065;</span>No tracking</div>
+                <div class="fact"><span aria-hidden="true">&#128176;</span>Free, no purchases</div>
+                <div class="fact"><span aria-hidden="true">&#128246;</span>Works offline</div>
+            </div>
+
+            <nav class="toc" aria-label="On this page">
+                <a href="#who">Who it is for</a><a href="#how">How it teaches</a><a href="#privacy">Privacy</a>
+                <a href="#screen">Screen time</a><a href="#access">Accessibility</a><a href="#lang">Languages</a><a href="#contact">Contact</a>
+            </nav>
+
+            <section class="about-panel" id="who">
+                <h2>Who ESEA is for</h2>
+                <p>ESEA is a free early-learning app for children aged <b>3 to 6</b>, made to be used <b>with a grown-up nearby</b>.
+                    Children learn early reading, numbers, shapes, colors, feelings and the world around them through short,
+                    spoken, picture-based activities. Your child does not need to read: every question is read aloud.</p>
+                <p>Start with <b>Today&rsquo;s learning</b> on the home screen. It picks three short activities each day
+                    (about 10 minutes), so you never have to choose.</p>
+            </section>
+
+            <section class="about-panel" id="how">
+                <h2>How ESEA teaches, and why</h2>
+                <div class="paths">
+                    <div>
+                        <b>Reading path</b>
+                        <ol>
+                            <li>Rhyming words</li>
+                            <li>Putting word parts together (sun + flower)</li>
+                            <li>First sounds in words</li>
+                            <li>Letter sounds</li>
+                            <li>Letters</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <b>Math path</b>
+                        <ol>
+                            <li>Seeing 1&ndash;5 at a glance</li>
+                            <li>Counting objects to 5</li>
+                            <li>Counting to 10</li>
+                            <li>Comparing: which has more?</li>
+                            <li>Number order: what comes next?</li>
+                            <li>Recognizing numbers</li>
+                        </ol>
+                    </div>
+                </div>
+                <ul>
+                    <li><b>Hearing sounds before reading letters.</b> Children who can hear rhymes and sounds in words find
+                        learning letters easier, so ESEA practises sounds first.</li>
+                    <li><b>Number sense before number names.</b> Seeing small amounts at a glance, counting real objects and
+                        comparing come before recognizing written numbers.</li>
+                    <li><b>Feelings in four steps:</b> recognize a feeling, understand what causes it, name it, and learn what
+                        helps, including calm-down tools.</li>
+                    <li><b>Practice that adapts.</b> ESEA remembers each letter, number and shape your child plays and
+                        brings back the ones they find hard. A mistake gets a hint, then the answer, never a &ldquo;you lose&rdquo;.</li>
+                    <li><b>No points, rankings or timers.</b> Children are praised for trying, and sessions end with &ldquo;All done&rdquo;.</li>
+                    <li><b>Learning off the screen.</b> Each activity comes with a short idea to try at home together.</li>
+                </ul>
+                <p class="source">These choices follow widely used early-childhood approaches, including research on early
+                    literacy summarized by the U.S. National Early Literacy Panel (2008), learning trajectories for early
+                    mathematics (Clements &amp; Sarama), and the social-emotional learning framework of CASEL. ESEA is
+                    a practice tool for home, not a replacement for play, books, or school.</p>
+            </section>
+
+            <section class="about-panel" id="privacy">
+                <h2>Privacy, in plain words</h2>
+                <ul>
+                    <li><b>Nothing is sent to us.</b> ESEA has no accounts, no sign-in, no ads, no analytics and no tracking.
+                        It does not load any third-party scripts.</li>
+                    <li><b>What is saved, and where.</b> Your child&rsquo;s first name (or any nickname), their chosen animal,
+                        their age, their progress and your settings are saved only in this browser, on this device.</li>
+                    <li><b>Deleting it.</b> In the Grown-ups area you can reset a child&rsquo;s progress or remove a child.
+                        Clearing this browser&rsquo;s data deletes everything.</li>
+                    <li><b>The voice.</b> ESEA speaks using voices built into your device. Some voices marked
+                        &ldquo;needs internet&rdquo; in the Grown-ups area (for example, some voices in Chrome and Edge)
+                        are run by the browser maker, so the words being spoken, which can include the first name you
+                        entered, go to their speech service. To keep everything on the device, choose a voice without
+                        &ldquo;needs internet&rdquo;.</li>
+                    <li><b>Links that leave the app</b> (a book shop and a donation page) are behind a grown-ups check.
+                        There is no chat, no messaging and nothing children can post.</li>
+                </ul>
+            </section>
+
+            <section class="about-panel" id="screen">
+                <h2>Healthy screen time</h2>
+                <p>The World Health Organization advises that children aged 2&ndash;4 have no more than one hour of
+                    sitting screen time a day, and less is better. ESEA is built for short sessions: lessons end after a
+                    few questions, Today&rsquo;s learning takes about 10 minutes, and you can set a <b>daily time limit</b>
+                    in the Grown-ups area. When time is up, your child sees a calm &ldquo;time for a break&rdquo; screen.
+                    Sitting with your child and talking about what they see makes screen time far more valuable.</p>
+            </section>
+
+            <section class="about-panel" id="access">
+                <h2>Accessibility</h2>
+                <ul>
+                    <li>Every question and answer can be heard, and there is a button to hear it again.</li>
+                    <li>Videos have captions of everything that is said.</li>
+                    <li>Large buttons, readable colors, and labels for screen readers.</li>
+                    <li>Animations are reduced when the device is set to reduce motion.</li>
+                    <li>The voice and its speed can be changed in the Grown-ups area.</li>
+                </ul>
+            </section>
+
+            <section class="about-panel" id="lang">
+                <h2>Languages</h2>
+                <p>The home screen, Today&rsquo;s learning and the setup are available in <b>English, Spanish and French</b>.
+                    The math lessons, including their praise and hints, also speak Spanish and French. Reading lessons teach English letters
+                    and sounds, and are marked <b>EN</b> when another language is chosen. Choose the language in setup or
+                    in the Grown-ups area.</p>
+            </section>
+
+            <section class="about-panel" id="contact">
+                <h2>Contact</h2>
+                <p>Questions, ideas, or something not working? Email <b>earlystarteducationapp@gmail.com</b>.</p>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+</body>
+</html>

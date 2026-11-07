@@ -138,7 +138,14 @@
                 stop();
                 button.setAttribute('aria-pressed', 'true');
                 var myRun = run;
-                TOOLS[button.dataset.tool](myRun);
+                Promise.resolve(TOOLS[button.dataset.tool](myRun)).then(function() {
+                    if (myRun !== run || !window.ESEAFamily) return;
+                    var back = ESEAFamily.finished('emotions/calm-corner');
+                    if (back && !document.getElementById('planBack')) {
+                        back.id = 'planBack';
+                        document.getElementById('stopBtn').parentNode.appendChild(back);
+                    }
+                });
             });
         });
         document.getElementById('stopBtn').addEventListener('click', stop);
