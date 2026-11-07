@@ -5,16 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sound Parade - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
     <style>
-        .video-stage { padding: 1rem; }
-        .parade-scene { min-height: 360px; background: linear-gradient(180deg, #fff7f2, #ffe8e4); border-radius: 20px; padding: 1rem; position: relative; overflow: hidden; }
-        .parade-track { position: absolute; bottom: 2rem; left: -120px; display: flex; gap: 1rem; animation: march 12s linear infinite; }
-        .animal { width: 120px; height: 120px; background: #fff; border-radius: 22px; display: grid; place-items: center; font-size: 2rem; font-weight: 700; color: #3b2d6f; box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
-        .caption { position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.95); padding: 0.8rem 1rem; border-radius: 999px; font-size: 1.15rem; color: #2d2a67; }
-        .video-controls { margin-top: 1rem; display:flex; gap:1rem; flex-wrap:wrap; }
-        .video-controls button { padding: 0.85rem 1.2rem; border-radius: 999px; border:none; background: #9c6bff; color:#fff; font-weight:700; cursor:pointer; }
-        .sound-chip { display:inline-flex; min-width: 110px; justify-content: center; padding:0.7rem 1rem; border-radius:999px; border:none; background:#ffd6e8; color:#2b0a3d; cursor:pointer; font-size:0.95rem; }
-        @keyframes march { from { transform: translateX(0);} to { transform: translateX(140vw);} }
+        .parade-stage { background: linear-gradient(180deg, #ffe9f1 0%, #fff6ec 62%, #b9dfa8 62%, #a3d38f 74%, #8d8d8d 74%, #7a7a7a 100%); min-height: 380px; }
+        .bunting { position: absolute; top: 0; left: 0; right: 0; height: 34px; background:
+            conic-gradient(from 135deg at 50% 0, #ff7a59 0 90deg, transparent 0) 0 0 / 40px 34px repeat-x,
+            conic-gradient(from 135deg at 50% 0, #ffc94d 0 90deg, transparent 0) 20px 0 / 40px 28px repeat-x; opacity: 0.9; }
+        .road-lines { position: absolute; left: 0; right: 0; bottom: 12%; height: 6px; background: repeating-linear-gradient(90deg, #fff 0 34px, transparent 34px 70px); opacity: 0.8; }
+        .float { position: absolute; left: 50%; bottom: 9%; width: clamp(170px, 46vw, 240px); transform: translateX(calc(-50% - 75vw)); transition: transform 1.8s cubic-bezier(0.45, 0.05, 0.35, 1); }
+        .float.center { transform: translateX(-50%); }
+        .float.exit { transform: translateX(calc(-50% + 75vw)); transition-timing-function: cubic-bezier(0.55, 0, 0.75, 0.4); }
+        .float-animal { background: #fff; border-radius: 24px; padding: 10px; box-shadow: 0 12px 24px rgba(0,0,0,0.15); animation: trot 0.45s ease-in-out infinite alternate; }
+        .float.center .float-animal { animation: none; }
+        .float.shout .float-animal { animation: shout 0.35s ease-in-out 4 alternate; }
+        .float-animal img { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 16px; display: block; }
+        .float-animal span { display: block; text-align: center; font-weight: 900; font-size: clamp(1.2rem, 5vw, 1.6rem); color: #2d2a67; margin-top: 4px; }
+        .float-base { height: 16px; margin: 0 12px; background: #ff7a59; border-radius: 0 0 12px 12px; }
+        .wheels { display: flex; justify-content: space-between; margin: -4px 26px 0; }
+        .wheels i { width: 26px; height: 26px; border-radius: 50%; background: #2d2a67; border: 5px solid #ddd; }
+        .float:not(.center) .wheels i { animation: spin 0.6s linear infinite; }
+        .bubble { position: absolute; left: 50%; top: 13%; transform: translateX(-50%); background: #fff; border-radius: 22px; padding: 10px 18px; font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 950; color: #ff7a59; box-shadow: 0 8px 18px rgba(0,0,0,0.12); white-space: nowrap; }
+        .parade-title { position: absolute; left: 0; right: 0; top: 30%; text-align: center; font-size: clamp(2rem, 9vw, 3.2rem); font-weight: 950; color: #ff7a59; }
+        @keyframes trot { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-10px) rotate(2deg); } }
+        @keyframes shout { from { transform: scale(1); } to { transform: scale(1.12) rotate(-3deg); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
     <script src="../speech.js"></script>
     <script src="../family.js"></script>
@@ -24,90 +38,83 @@
         <header class="lesson-hero">
             <img src="../images/ESEA.png" alt="ESEA logo">
             <h1>Sound Parade</h1>
-            <p>See the animals march and hear the sounds they make together.</p>
+            <p>The animals ride by one at a time. Listen to each animal’s sound!</p>
         </header>
         <main class="lesson-main">
-            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
-            <section class="lesson-card-panel video-stage">
-                <div class="parade-scene">
-                    <div class="caption" id="paradeCaption">Tap Play to hear the parade.</div>
-                    <div class="parade-track" id="paradeTrack">
-                        <div class="animal">🐶</div>
-                        <div class="animal">🐱</div>
-                        <div class="animal">🐭</div>
-                        <div class="animal">🦁</div>
-                    </div>
-                </div>
-                <div class="video-controls">
-                    <button id="playBtn">Play Parade</button>
-                    <button id="replayBtn">Replay</button>
-                    <button class="sound-chip" data-sound="Dog says woof">Dog</button>
-                    <button class="sound-chip" data-sound="Cat says meow">Cat</button>
-                </div>
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage parade-stage" id="stage"></div>
+                <div class="movie-chips" id="chips" aria-label="Choose an animal"></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
             </section>
         </main>
         <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
+    <script src="movie.js"></script>
     <script>
-        const paradeCaption = document.getElementById('paradeCaption');
-        const playBtn = document.getElementById('playBtn');
-        const replayBtn = document.getElementById('replayBtn');
-        const scenes = [
-            { caption: 'A happy dog says woof', voice: 'Here comes a happy dog. The dog says... woof, woof!' },
-            { caption: 'A playful cat says meow', voice: 'Next, a playful cat. The cat says... meow!' },
-            { caption: 'A little mouse says squeak', voice: 'Here is a little mouse. The mouse says... squeak, squeak!' },
-            { caption: 'A lion says roar', voice: 'And last, a big lion. The lion says... roar!' }
+        var ANIMALS = [
+            { name: 'dog', image: '../images/Dog.png', sound: 'Woof, woof!' },
+            { name: 'cat', image: '../images/cat.png', sound: 'Meow!' },
+            { name: 'horse', image: '../images/Horse.png', sound: 'Neigh!' },
+            { name: 'lion', image: '../images/Lion.png', sound: 'Roar!' },
+            { name: 'frog', image: '../images/Frog.png', sound: 'Ribbit, ribbit!' },
+            { name: 'goat', image: '../images/Goat.png', sound: 'Maa!' },
+            { name: 'elephant', image: '../images/Elephant.png', sound: 'Toot, toot!' },
+            { name: 'monkey', image: '../images/Monkey.png', sound: 'Ooh ooh, ah ah!' },
+            { name: 'snake', image: '../images/Snake.png', sound: 'Hiss!' },
+            { name: 'rat', image: '../images/Rat.png', sound: 'Squeak, squeak!' }
         ];
-        const ENDING = 'The parade is finished. Great listening!';
-
-        function showScene(index) {
-            paradeCaption.textContent = 'Step ' + (index + 1) + ': ' + scenes[index].caption;
+        var stage = document.getElementById('stage');
+        var el = ESEAMovie.el;
+        function setStage(extra) {
+            stage.innerHTML = '<div class="bunting"></div><div class="road-lines"></div>';
+            if (extra) stage.appendChild(extra);
         }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
 
-        // Narration uses the shared calm voice (speech.js). Each scene waits
-        // for the narrator to finish, then pauses briefly before the next one.
-        function speakText(text, onend) {
-            if (window.ESEASpeech) {
-                ESEASpeech.speak(text, { onend: onend });
-                return;
-            }
-            if (window.speechSynthesis && text) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = 0.85;
-                window.speechSynthesis.speak(utterance);
-            }
-            if (onend) setTimeout(onend, 3500);
+        var scenes = [async function(ctx) {
+            setStage(el('div', 'parade-title pop-in', 'Sound Parade!'));
+            await ctx.say('Welcome to the sound parade! The animals will come by one at a time. Listen!');
+        }];
+        ANIMALS.forEach(function(animal) {
+            scenes.push(async function(ctx) {
+                setStage();
+                markChip(animal.name);
+                // Only this animal is on the stage: it rides in, says its sound, and rides away.
+                var float = el('div', 'float', '<div class="float-animal"><img src="' + animal.image + '" alt="' + animal.name + '"><span>' + cap(animal.name) + '</span></div><div class="float-base"></div><div class="wheels"><i></i><i></i></div>');
+                stage.appendChild(float);
+                void float.offsetWidth;
+                float.classList.add('center');
+                await Promise.all([ctx.say('Here comes the ' + animal.name + '!'), ctx.wait(1900)]);
+                float.classList.add('shout');
+                var bubble = el('div', 'bubble pop-in', animal.sound);
+                stage.appendChild(bubble);
+                await ctx.say('The ' + animal.name + ' says... ' + animal.sound);
+                await ctx.wait(500);
+                bubble.remove();
+                float.classList.remove('shout', 'center');
+                float.classList.add('exit');
+                await ctx.wait(1700);
+            });
+        });
+        scenes.push(async function(ctx) {
+            setStage(el('div', 'parade-title pop-in', 'Bye-bye, animals! &#128075;'));
+            await ctx.say('That’s the end of the parade. Great listening! Can you make the sounds too?');
+        });
+
+        var chips = document.getElementById('chips');
+        function markChip(name) {
+            Array.prototype.forEach.call(chips.children, function(c) { c.classList.toggle('on', c.dataset.name === name); });
         }
-
-        let playId = 0;
-        function playVideo() {
-            const id = ++playId;
-            let current = 0;
-            function step() {
-                if (id !== playId) return;
-                if (current >= scenes.length) {
-                    speakText(ENDING);
-                    return;
-                }
-                showScene(current);
-                speakText(scenes[current].voice, () => setTimeout(() => {
-                    if (id !== playId) return;
-                    current += 1;
-                    step();
-                }, 900));
-            }
-            step();
-        }
-
-        playBtn.addEventListener('click', playVideo);
-        replayBtn.addEventListener('click', playVideo);
-
-        document.addEventListener('click', function(event) {
-            if (event.target.matches('.sound-chip')) {
-                playId += 1;
-                speakText(event.target.dataset.sound);
-            }
+        var player = ESEAMovie.create({ stage: stage, caption: document.getElementById('caption'), controls: document.getElementById('controls'), scenes: scenes });
+        setStage();
+        ANIMALS.forEach(function(animal, i) {
+            var b = el('button', 'movie-chip', cap(animal.name));
+            b.type = 'button';
+            b.dataset.name = animal.name;
+            b.addEventListener('click', function() { player.playFrom(i + 1); });
+            chips.appendChild(b);
         });
     </script>
 </body>

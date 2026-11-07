@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Count with Pip</h1>
+            <p>Pip counts from 1 to 10. Count out loud with Pip!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script>
+        var THINGS = [
+            { emoji: '⭐', one: 'star', many: 'stars' },
+            { emoji: '🍎', one: 'apple', many: 'apples' },
+            { emoji: '🎈', one: 'balloon', many: 'balloons' },
+            { emoji: '🐟', one: 'fish', many: 'fish' },
+            { emoji: '🌸', one: 'flower', many: 'flowers' },
+            { emoji: '🚗', one: 'car', many: 'cars' },
+            { emoji: '🍪', one: 'cookie', many: 'cookies' },
+            { emoji: '🐞', one: 'ladybug', many: 'ladybugs' },
+            { emoji: '🦆', one: 'duck', many: 'ducks' },
+            { emoji: '🍓', one: 'strawberry', many: 'strawberries' }
+        ];
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+
+        var scenes = [
+            async function(ctx) {
+                show('<div class="board-title pop-in">Count with Pip</div>');
+                pip.wave();
+                await ctx.say('Hi friends! It’s me, Pip! Today we’re going to count from 1 to 10.');
+                await ctx.say('Count out loud with me. Ready? Let’s go!');
+            }
+        ];
+        THINGS.forEach(function(thing, i) {
+            var n = i + 1;
+            scenes.push(async function(ctx) {
+                show('<div class="board-big pop-in">' + n + '</div>');
+                pip.point();
+                await ctx.say('This is the number ' + n + '.');
+                var row = el('div', 'board-things');
+                board.appendChild(row);
+                await ctx.say('Let’s count ' + n + ' ' + (n === 1 ? thing.one : thing.many) + '.');
+                // Each picture pops up as its number is said.
+                for (var k = 1; k <= n; k += 1) {
+                    var item = el('i', 'pop-in', thing.emoji);
+                    item.setAttribute('aria-hidden', 'true');
+                    row.appendChild(item);
+                    await ctx.say(String(k));
+                }
+                pip.rest();
+                await ctx.say(n + ' ' + (n === 1 ? thing.one : thing.many) + '!');
+                await ctx.wait(500);
+            });
+            if (n === 5) {
+                scenes.push(async function(ctx) {
+                    show('<div class="board-title pop-in">&#9995; High five!</div>');
+                    pip.wave(3200);
+                    await ctx.say('Hold up five fingers! Wiggle them! One, two, three, four, five. High five!');
+                    await ctx.wait(800);
+                    await ctx.say('Now let’s count even more!');
+                });
+            }
+        });
+        scenes.push(async function(ctx) {
+            var grid = el('div', 'board-grid');
+            for (var n = 1; n <= 10; n += 1) grid.appendChild(el('span', '', String(n)));
+            board.innerHTML = '<div class="board-title">All the way to 10!</div>';
+            board.appendChild(grid);
+            pip.point();
+            await ctx.say('Now let’s count all the way to 10 together!');
+            var cells = grid.children;
+            for (var i = 0; i < cells.length; i += 1) {
+                cells[i].classList.add('lit');
+                await ctx.say(String(i + 1));
+                cells[i].classList.remove('lit');
+            }
+            pip.jump(2400);
+            show('<div class="board-title pop-in">You counted to 10! &#127881;</div>');
+            await ctx.say('Hooray! You counted to 10! Great job. Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Count with Pip</div>');
+    </script>
+</body>
+</html>

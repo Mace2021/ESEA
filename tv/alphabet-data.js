@@ -1,0 +1,30 @@
+/* One word and picture for each letter, shared by the alphabet videos.
+   Pictures match the First Word Book. */
+window.ESEA_ALPHABET = [
+  { letter: 'A', word: 'apple', image: '../images/apple.png' },
+  { letter: 'B', word: 'ball', image: '../images/Ball.png' },
+  { letter: 'C', word: 'cat', image: '../images/cat.png' },
+  { letter: 'D', word: 'dog', image: '../images/Dog.png' },
+  { letter: 'E', word: 'elephant', image: '../images/Elephant.png' },
+  { letter: 'F', word: 'frog', image: '../images/Frog.png' },
+  { letter: 'G', word: 'goat', image: '../images/Goat.png' },
+  { letter: 'H', word: 'horse', image: '../images/Horse.png' },
+  { letter: 'I', word: 'ice cream', image: '../images/Ice-Cream.png' },
+  { letter: 'J', word: 'jellyfish', image: '../images/jellyfish.png' },
+  { letter: 'K', word: 'kangaroo', image: '../images/Kangaroo.png' },
+  { letter: 'L', word: 'lion', image: '../images/Lion.png' },
+  { letter: 'M', word: 'monkey', image: '../images/Monkey.png' },
+  { letter: 'N', word: 'nest', image: '../images/nest.png' },
+  { letter: 'O', word: 'orange', image: '../images/Orange.png' },
+  { letter: 'P', word: 'penguin', image: '../images/Penguin.png' },
+  { letter: 'Q', word: 'queen', image: '../images/Queen.png' },
+  { letter: 'R', word: 'rabbit', image: '../images/Rabbit.png' },
+  { letter: 'S', word: 'snake', image: '../images/Snake.png' },
+  { letter: 'T', word: 'tiger', image: '../images/Tiger.png' },
+  { letter: 'U', word: 'umbrella', image: '../images/Umbrella.jpg' },
+  { letter: 'V', word: 'vacuum', image: '../images/Vacuum.png' },
+  { letter: 'W', word: 'whale', image: '../images/Whale.png' },
+  { letter: 'X', word: 'x-ray', image: '../images/x-ray.png' },
+  { letter: 'Y', word: 'yak', image: '../images/Yak.png' },
+  { letter: 'Z', word: 'zebra', image: '../images/Zebra.png' }
+];
