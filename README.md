@@ -46,6 +46,15 @@ ESEA favors:
 - Positive feedback without ranking children against one another
 - Whole-child growth, including emotions and attention
 
+## How Lessons Adapt
+
+- **Short sessions:** each quiz is up to 8 questions, then an "All done!" screen.
+- **Practice what is hard:** `skill-tracker.js` remembers each item (each letter, number, shape) in this browser and picks more of the ones a child misses or has not met yet, plus some review of known ones.
+- **Help instead of "wrong":** first miss gives a hint (counting lessons count the objects aloud; other lessons remove one wrong choice). Second miss shows the answer. A missed item comes back later in the same session.
+- **No reading needed:** questions are spoken, a 🔊 button repeats them, correct answers move on by themselves, and home-screen activities have picture icons and say their names.
+
+Lesson pages can set `maxRounds: N` or `keepOrder: true` in their config to change this.
+
 ## Quick Start
 
 Open `index.html` in a modern browser. No installation is required.

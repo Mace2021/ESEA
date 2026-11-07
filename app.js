@@ -27,7 +27,21 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Toggle current dropdown
       this.classList.toggle('active');
+      if (this.classList.contains('active')) {
+        var title = this.querySelector('.card-title');
+        if (title) speakLabel(title.textContent + '. Pick a game.');
+      }
     });
+  });
+
+  // Say each activity's name when a child points at it (mouse or keyboard),
+  // so children who cannot read yet can still choose.
+  document.querySelectorAll('.dropdown-item').forEach(function(item) {
+    var icon = item.querySelector('.item-icon');
+    var label = item.textContent.replace(icon ? icon.textContent : '', '').trim();
+    var say = function() { speakLabel(label); };
+    item.addEventListener('mouseenter', say);
+    item.addEventListener('focus', say);
   });
 
   // Close dropdowns when clicking outside
@@ -66,6 +80,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// Speak a short label aloud (skipped where the browser has no speech).
+function speakLabel(text) {
+  if (!text || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  var msg = new SpeechSynthesisUtterance(text.replace(/&/g, 'and'));
+  msg.rate = 0.95;
+  msg.pitch = 1.1;
+  window.speechSynthesis.speak(msg);
+}
 
 // Utility function to add click feedback
 function addClickFeedback(element) {

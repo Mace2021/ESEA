@@ -454,3 +454,21 @@ footer {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* Answer shown after a second miss */
+.choice-button.reveal,
+.category-button.reveal {
+  border-color: #f2a20c;
+  box-shadow: 0 0 0 4px rgba(242, 162, 12, 0.45);
+  animation: reveal-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes reveal-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice-button.reveal,
+  .category-button.reveal { animation: none; }
+}
