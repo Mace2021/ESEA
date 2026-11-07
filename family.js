@@ -33,7 +33,7 @@
           setupTimeNote: 'Health experts advise short screen time for young children, ideally shared with a grown-up. ESEA shows a calm break screen when time is up.',
           minutes: '{n} min', noLimit: 'No limit', recommended: 'recommended', next: 'Next', back: 'Back', skip: 'Skip for now',
           setupDone: 'All set!', setupDoneText: 'Tap \u201cToday\u2019s learning\u201d for a short daily plan made for {name}. You can change these answers any time in the Grown-ups area.',
-          start: 'Let\u2019s go!', yourChild: 'your child', backToPlan: '\u2b50 Back to today\u2019s plan' },
+          start: 'Let\u2019s go!', yourChild: 'your child', gateTitle: 'For grown-ups', gateText: 'Setting up ESEA is a job for a grown-up. Please answer to continue:', gateWrong: 'Not quite. Here is another one.', setupFirst: 'Before your child starts, please take a minute to set up ESEA.', backToPlan: '\u2b50 Back to today\u2019s plan' },
     es: { who: '¿Quién va a jugar?', hi: '¡Hola, {name}!', grownupsAdd: 'Los adultos pueden añadir niños en el área de adultos.',
           breakTitle: '¡Hora de descansar!', breakText: '¡Aprendiste mucho hoy, {name}! Jugamos otra vez mañana.',
           breakSay: '¡Hora de descansar! Aprendiste mucho hoy. Jugamos otra vez mañana.', grownups: 'Adultos',
@@ -45,7 +45,7 @@
           setupTimeNote: 'Los expertos en salud recomiendan ratos cortos de pantalla para los niños pequeños, mejor acompañados de un adulto. ESEA muestra una pantalla de descanso al terminar el tiempo.',
           minutes: '{n} min', noLimit: 'Sin límite', recommended: 'recomendado', next: 'Siguiente', back: 'Atrás', skip: 'Omitir por ahora',
           setupDone: '¡Todo listo!', setupDoneText: 'Toca «Aprender hoy» para ver un plan corto hecho para {name}. Puedes cambiar estas respuestas cuando quieras en el área de adultos.',
-          start: '¡Vamos!', yourChild: 'tu hijo o hija', backToPlan: '\u2b50 Volver al plan de hoy' },
+          start: '¡Vamos!', yourChild: 'tu hijo o hija', gateTitle: 'Para adultos', gateText: 'La configuración de ESEA la hace un adulto. Responde para continuar:', gateWrong: 'No exactamente. Aquí tienes otra.', setupFirst: 'Antes de que tu hijo o hija empiece, dedica un minuto a configurar ESEA.', backToPlan: '\u2b50 Volver al plan de hoy' },
     fr: { who: 'Qui joue ?', hi: 'Bonjour, {name} !', grownupsAdd: 'Les adultes peuvent ajouter des enfants dans l\u2019espace adultes.',
           breakTitle: 'C\u2019est l\u2019heure de la pause !', breakText: 'Tu as bien appris aujourd\u2019hui, {name}. On rejoue demain.',
           breakSay: 'C\u2019est l\u2019heure de la pause ! Tu as bien appris aujourd\u2019hui. On rejoue demain.', grownups: 'Adultes',
@@ -57,7 +57,7 @@
           setupTimeNote: 'Les experts de santé conseillent des moments d\u2019écran courts pour les jeunes enfants, idéalement avec un adulte. ESEA affiche une pause calme quand le temps est écoulé.',
           minutes: '{n} min', noLimit: 'Sans limite', recommended: 'conseillé', next: 'Suivant', back: 'Retour', skip: 'Passer pour l\u2019instant',
           setupDone: 'C\u2019est prêt !', setupDoneText: 'Touchez « Apprendre aujourd\u2019hui » pour un petit programme fait pour {name}. Vous pouvez changer ces réponses à tout moment dans l\u2019espace adultes.',
-          start: 'C\u2019est parti !', yourChild: 'votre enfant', backToPlan: '\u2b50 Retour au programme du jour' }
+          start: 'C\u2019est parti !', yourChild: 'votre enfant', gateTitle: 'Pour les adultes', gateText: 'La configuration d\u2019ESEA est faite par un adulte. Répondez pour continuer :', gateWrong: 'Pas tout à fait. En voici une autre.', setupFirst: 'Avant que votre enfant commence, prenez une minute pour configurer ESEA.', backToPlan: '\u2b50 Retour au programme du jour' }
   };
   function word(key, name) {
     var lang = currentLang();
@@ -464,7 +464,18 @@
   }
 
   // ---------- First-run setup for grown-ups ----------
-  function setupWizard(onDone) {
+  // Setup is finished once a grown-up has completed it (older versions marked
+  // setupDone and saved the child's age when finished).
+  function setupComplete() {
+    var d = load();
+    if (d.setupComplete) return true;
+    var p = findProfile(d, d.active);
+    return Boolean(d.setupDone && p && p.age);
+  }
+
+  // ---------- Setup for grown-ups (required before the app is used) ----------
+  function setupWizard(onDone, opts) {
+    opts = opts || {};
     var d = load();
     var p = findProfile(d, d.active);
     var answers = {
@@ -474,8 +485,13 @@
       limit: d.limitMinutes || (p.age === 3 ? 15 : 20)
     };
     var startLang = currentLang();
+    // The grown-ups check comes right after the language, so a child cannot
+    // set things up. It is skipped when re-run from the Grown-ups area.
+    var STEPS = opts.skipGate ? ['lang', 'name', 'age', 'time'] : ['lang', 'gate', 'name', 'age', 'time'];
     var step = 0;
-    var STEPS = 4;
+    var gate = null;
+    var gateMiss = false;
+    var gatePassed = false;
     ensureStyle();
     var overlay = doc.createElement('div');
     overlay.className = 'esea-overlay';
@@ -486,29 +502,44 @@
     overlay.appendChild(box);
     doc.body.appendChild(overlay);
 
+    function newGate() {
+      var x = 3 + Math.floor(Math.random() * 7);
+      var y = 3 + Math.floor(Math.random() * 7);
+      var options = [x * y];
+      while (options.length < 4) {
+        var wrong = x * y + (Math.floor(Math.random() * 13) - 6);
+        if (wrong > 0 && options.indexOf(wrong) === -1) options.push(wrong);
+      }
+      gate = { x: x, y: y, answer: x * y, options: options.sort(function(m, n) { return m - n; }) };
+    }
     function childName() { return answers.name || word('yourChild'); }
     function choice(value, label, on, extra) {
       return '<button type="button" class="esea-choice' + (on ? ' on' : '') + '" data-v="' + value + '">' + label + (extra ? '<small>' + extra + '</small>' : '') + '</button>';
     }
-    function nav(nextLabel) {
+    function nav(withNext) {
       return '<div class="esea-row">' +
         (step > 0 ? '<button type="button" class="esea-btn light" data-act="back">' + word('back') + '</button>' : '') +
-        '<button type="button" class="esea-btn" data-act="next">' + (nextLabel || word('next')) + '</button></div>' +
-        (step < STEPS ? '<button type="button" class="esea-btn link" data-act="skip">' + word('skip') + '</button>' : '');
+        (withNext === false ? '' : '<button type="button" class="esea-btn" data-act="next">' + word('next') + '</button>') + '</div>';
     }
     function render() {
-      var html = step < STEPS ? '<div class="esea-step">' + (step + 1) + ' / ' + STEPS + '</div>' : '';
-      if (step === 0) {
-        html += '<h2>' + word('setupTitle') + '</h2><p>' + word('setupIntro') + '</p><h3>' + word('setupLang') + '</h3><div class="esea-choices" data-field="lang">' +
+      var kind = STEPS[step];
+      var html = kind ? '<div class="esea-step">' + (step + 1) + ' / ' + STEPS.length + '</div>' : '';
+      if (kind === 'lang') {
+        html += '<h2>' + word('setupTitle') + '</h2><p>' + word('setupFirst') + ' ' + word('setupIntro') + '</p><h3>' + word('setupLang') + '</h3><div class="esea-choices" data-field="lang">' +
           Object.keys(LANGUAGES).map(function(code) { return choice(code, LANGUAGES[code].name.split(' (')[0], code === currentLang()); }).join('') + '</div>' + nav();
-      } else if (step === 1) {
+      } else if (kind === 'gate') {
+        if (!gate) newGate();
+        html += '<h2>' + word('gateTitle') + '</h2><p>' + word('gateText') + '<br><strong style="font-size:1.6rem">' + gate.x + ' &times; ' + gate.y + ' = ?</strong></p>' +
+          (gateMiss ? '<p class="esea-note" role="alert">' + word('gateWrong') + '</p>' : '') +
+          '<div class="esea-choices" data-field="gate">' + gate.options.map(function(o) { return choice(o, String(o), false); }).join('') + '</div>' + nav(false);
+      } else if (kind === 'name') {
         html += '<h2>' + word('setupName') + '</h2><input class="esea-input" id="eseaName" maxlength="20" autocomplete="off" placeholder="' + word('setupNamePh') + '" value="' + escapeHtml(answers.name) + '">' +
           '<h3>' + word('setupAnimal') + '</h3><div class="esea-avatars small" data-field="avatar">' +
           AVATARS.map(function(a) { return '<button type="button" class="esea-avatar' + (a === answers.avatar ? ' on' : '') + '" data-v="' + a + '"><span>' + a + '</span></button>'; }).join('') + '</div>' + nav();
-      } else if (step === 2) {
+      } else if (kind === 'age') {
         html += '<h2>' + word('setupAge', escapeHtml(childName())) + '</h2><div class="esea-choices" data-field="age">' +
           [3, 4, 5, 6].map(function(n) { return choice(n, word('years', n), n === answers.age); }).join('') + '</div><p class="esea-note">' + word('setupAgeNote') + '</p>' + nav();
-      } else if (step === 3) {
+      } else if (kind === 'time') {
         var rec = answers.age === 3 ? 15 : 20;
         html += '<h2>' + word('setupTime') + '</h2><div class="esea-choices" data-field="limit">' +
           [15, 20, 30, 0].map(function(n) { return choice(n, n ? word('minutes', n) : word('noLimit'), n === answers.limit, n === rec ? word('recommended') : ''); }).join('') +
@@ -532,6 +563,7 @@
       prof.age = answers.age;
       data.limitMinutes = answers.limit;
       data.setupDone = true;
+      data.setupComplete = true;
       save(data);
     }
     function close() {
@@ -547,6 +579,9 @@
           var data = load();
           data.language = v;
           save(data);
+        } else if (field === 'gate') {
+          if (Number(v) === gate.answer) { gateMiss = false; gatePassed = true; step += 1; }
+          else { gateMiss = true; newGate(); }
         } else if (field === 'avatar') answers.avatar = v;
         else answers[field] = Number(v);
         render();
@@ -555,9 +590,17 @@
       var act = e.target.closest('[data-act]');
       if (!act) return;
       var a = act.getAttribute('data-act');
-      if (a === 'next') { step += 1; if (step === STEPS) saveAnswers(); render(); }
-      else if (a === 'back') { step -= 1; render(); }
-      else if (a === 'skip') { var data2 = load(); data2.setupDone = true; save(data2); close(); }
+      if (a === 'next') {
+        step += 1;
+        if (STEPS[step] === 'gate' && gatePassed) step += 1; // answered once is enough
+        if (step === STEPS.length) saveAnswers();
+        render();
+      }
+      else if (a === 'back') {
+        step -= 1;
+        if (STEPS[step] === 'gate') step -= 1; // never step back into the check once passed
+        render();
+      }
       else if (a === 'finish') close();
     });
     render();
@@ -645,6 +688,17 @@
     });
   }
 
+  // ---------- Setup comes first ----------
+  // Until a grown-up has finished setup, opening any part of the app goes to
+  // the home screen (where setup runs) and then on to the page that was opened.
+  (function requireSetup() {
+    if (setupComplete()) return;
+    var rel = global.location.href.split('#')[0].split('?')[0].slice(ROOT.length);
+    if (rel === '' || rel === 'index.html' || rel === 'about.html' || rel === 'parents.html') return;
+    if (rel.indexOf('/') === -1 && !/\.html$/.test(rel)) return;
+    global.location.replace(ROOT + 'index.html?next=' + encodeURIComponent(global.location.href.slice(ROOT.length)));
+  })();
+
   // ---------- Public API ----------
   var ESEAFamily = {
     root: ROOT,
@@ -666,6 +720,7 @@
     inPlan: inPlan,
     lessonIdFromPath: lessonIdFromPath,
     setupWizard: setupWizard,
+    setupComplete: setupComplete,
     /**
      * Call when an activity is finished: ticks it off today's plan and, if the
      * page was opened from the plan, returns a "Back to today's plan" link to
@@ -795,9 +850,12 @@
     }
     guardLinks();
     trackTime();
-    if (doc.body && doc.body.getAttribute('data-page') === 'home' && !load().setupDone) {
+    if (doc.body && doc.body.getAttribute('data-page') === 'home' && !setupComplete()) {
       setupWizard(function(result) {
-        if (result.languageChanged) global.location.reload();
+        var next = new URLSearchParams(global.location.search).get('next');
+        // Only continue to pages inside the app.
+        if (next && /^[\w\-\/]+\.html(\?[\w=&%\-]*)?$/.test(next)) global.location.href = ROOT + next;
+        else if (result.languageChanged) global.location.replace(ROOT + 'index.html');
         else { renderChip(); doc.dispatchEvent(new Event('esea-setup-done')); }
       });
     }
