@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .item { font-size: clamp(3.6rem, 16vw, 4.6rem); line-height: 1; min-height: 4.6rem; }
+        .item-name { font-size: clamp(1.4rem, 6vw, 1.9rem); font-weight: 950; color: #fff7c2; min-height: 2.2rem; }
+        .baskets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+        .basket { background: #a0703c; border-radius: 10px 10px 18px 18px; padding: 6px 4px; text-align: center; transition: transform 0.25s, box-shadow 0.25s; }
+        .basket b { display: block; color: #fff7c2; font-size: clamp(0.95rem, 4vw, 1.1rem); }
+        .basket .in { min-height: 2.4rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; font-size: clamp(1.4rem, 6vw, 1.8rem); line-height: 1.1; }
+        .basket.glow { transform: scale(1.08); box-shadow: 0 0 0 4px #ffc94d; }
+        .basket.red { background: #c62828; } .basket.blue { background: #1565c0; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Sorting with Pip</h1>
+            <p>Things that belong together go in the same group. Sort with Pip!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+
+        var GROUPS = [
+            { id: 'food', name: 'Food', icon: '🍎', why: 'We can eat it. Yum!' },
+            { id: 'animal', name: 'Animals', icon: '🐶', why: 'It is alive and it moves!' },
+            { id: 'toy', name: 'Toys', icon: '⚽', why: 'We play with it!' }
+        ];
+        var ITEMS = [
+            ['🍎', 'an apple', 'food'], ['🐶', 'a dog', 'animal'], ['⚽', 'a ball', 'toy'],
+            ['🍌', 'a banana', 'food'], ['🐱', 'a cat', 'animal'], ['🧸', 'a teddy bear', 'toy'],
+            ['🥕', 'a carrot', 'food'], ['🐟', 'a fish', 'animal'], ['🪁', 'a kite', 'toy']
+        ];
+        function basketsHtml(groups, cls) {
+            return '<div class="baskets">' + groups.map(function(g) {
+                return '<div class="basket ' + (g.cls || '') + '" data-g="' + g.id + '"><b>' + g.icon + ' ' + g.name + '</b><div class="in"></div></div>';
+            }).join('') + '</div>';
+        }
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Sorting with Pip</div>' + basketsHtml(GROUPS));
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Today we’re sorting. Sorting means putting things that belong together in the same group.');
+            pip.point();
+            await ctx.say('Here are three baskets: food, animals, and toys!');
+        }];
+        ITEMS.forEach(function(it, i) {
+            scenes.push(async function(ctx) {
+                if (i === 0 || !board.querySelector('.baskets')) {
+                    show('<div class="item" id="item"></div><div class="item-name" id="itemName"></div>' + basketsHtml(GROUPS));
+                }
+                // Keep what was already sorted when the scene is replayed.
+                var item = document.getElementById('item');
+                item.innerHTML = '<span class="pop-in" style="display:inline-block" aria-hidden="true">' + it[0] + '</span>';
+                document.getElementById('itemName').textContent = cap(it[1].replace(/^an? /, ''));
+                pip.point();
+                await ctx.say('Is ' + it[1] + ' a food, an animal, or a toy?');
+                await ctx.wait(1800); // time to answer
+                var g = GROUPS.filter(function(x) { return x.id === it[2]; })[0];
+                var basket = board.querySelector('.basket[data-g="' + g.id + '"]');
+                basket.classList.add('glow');
+                var dropped = el('span', 'pop-in', it[0]);
+                dropped.setAttribute('aria-hidden', 'true');
+                basket.querySelector('.in').appendChild(dropped);
+                item.innerHTML = '';
+                pip.jump(1200);
+                await ctx.say(cap(g.id === 'animal' ? 'an animal' : (g.id === 'toy' ? 'a toy' : 'food')) + '! ' + g.why);
+                basket.classList.remove('glow');
+            });
+        });
+        scenes.push(async function(ctx) {
+            pip.wave();
+            await ctx.say('Great sorting! Every basket has things that belong together.');
+        });
+        scenes.push(async function(ctx) {
+            var COLOR_GROUPS = [{ id: 'red', name: 'Red', icon: '🔴', cls: 'red' }, { id: 'blue', name: 'Blue', icon: '🔵', cls: 'blue' }];
+            show('<div class="board-title pop-in">Sort by color!</div><div class="item" id="item"></div>' +
+                '<div class="baskets" style="grid-template-columns:repeat(2,1fr)">' + COLOR_GROUPS.map(function(g) {
+                    return '<div class="basket ' + g.cls + '" data-g="' + g.id + '"><b>' + g.icon + ' ' + g.name + '</b><div class="in"></div></div>';
+                }).join('') + '</div>');
+            pip.point();
+            await ctx.say('We can sort in other ways too. Let’s sort by color: red, or blue!');
+            var THINGS = [['🍎', 'an apple', 'red'], ['🐳', 'a whale', 'blue'], ['🚒', 'a fire truck', 'red'], ['💧', 'a water drop', 'blue']];
+            for (var i = 0; i < THINGS.length; i += 1) {
+                var t = THINGS[i];
+                var item = document.getElementById('item');
+                item.innerHTML = '<span class="pop-in" style="display:inline-block" aria-hidden="true">' + t[0] + '</span>';
+                await ctx.say(cap(t[1]) + '. Red or blue?');
+                await ctx.wait(1300);
+                var basket = board.querySelector('.basket[data-g="' + t[2] + '"]');
+                var dropped = el('span', 'pop-in', t[0]); dropped.setAttribute('aria-hidden', 'true');
+                basket.querySelector('.in').appendChild(dropped);
+                item.innerHTML = '';
+                await ctx.say(cap(t[2]) + '!');
+            }
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Sorting at home! &#129510;</div><div class="item">🧦 🧸 🥄</div>');
+            pip.wave(4000);
+            await ctx.say('You can sort at home too! Put toys back in their box, or match socks by color. Now try the Sort Game! Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Sorting with Pip</div>');
+    </script>
+</body>
+</html>
