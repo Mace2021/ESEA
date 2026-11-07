@@ -62,7 +62,7 @@
             type: 'quiz',
             sayChoice: true,
             rounds: words.map(function(w, i) {
-                var others = shuffle(words.filter(function(x, j) { return j !== i; })).slice(0, 2);
+                var others = shuffle(words.filter(function(x, j) { return j !== i; })).slice(0, 3);
                 var options = [w].concat(others).map(wordOption);
                 return {
                     key: w.word,

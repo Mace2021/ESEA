@@ -35,18 +35,29 @@
                 options: choices.map(letterOption)
             };
         }
+        // Letters that are easy to mix up make the better wrong answers for older children.
+        var LOOKALIKE = { b: 'dpq', d: 'bpq', p: 'qbd', q: 'pdb', m: 'nw', n: 'mu', u: 'nv', w: 'mv', c: 'oe', o: 'ca', e: 'ca',
+            a: 'oe', f: 't', t: 'f', i: 'lj', l: 'i', j: 'i', g: 'q', h: 'n', k: 'x', r: 'n', s: 'z', z: 's', v: 'wy', y: 'v', x: 'k' };
+        function confusers(letter, pool, count) {
+            var lower = letter.toLowerCase();
+            var picks = (LOOKALIKE[lower] || '').split('').filter(function(c) { return c && c !== lower; })
+                .map(function(c) { return letter === lower ? c : c.toUpperCase(); });
+            var rest = pool.filter(function(c) { return c !== letter && picks.indexOf(c) === -1; });
+            for (var i = rest.length - 1; i > 0; i -= 1) { var j = Math.floor(Math.random() * (i + 1)); var t = rest[i]; rest[i] = rest[j]; rest[j] = t; }
+            return picks.concat(rest).slice(0, count);
+        }
+        // Age decides the letters: 3 yrs eight common capitals, 4 yrs A-M, 5 yrs A-Z,
+        // 6 yrs lowercase letters with look-alikes (b, d, p, q) as the other choices.
+        var F = window.ESEAFamily;
+        var CAPS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        var LETTERS = F ? F.byAge({ 3: 'ABCDEMOS'.split(''), 4: CAPS.slice(0, 13), 5: CAPS, 6: CAPS.map(function(c) { return c.toLowerCase(); }) }) : CAPS.slice(0, 13);
         window.EarlyLesson = {
             title: 'Find the Letter',
-            instructions: 'Choose from a small group so the page does not feel crowded.',
+            instructions: 'Listen to the letter name, then tap that letter.',
             type: 'quiz',
-            rounds: [
-                letterRound('A', ['A', 'B', 'C', 'D']),
-                letterRound('B', ['A', 'B', 'E', 'F']),
-                letterRound('C', ['C', 'O', 'S', 'G']),
-                letterRound('D', ['B', 'D', 'P', 'Q']),
-                letterRound('E', ['E', 'F', 'L', 'T']),
-                letterRound('M', ['M', 'N', 'W', 'V'])
-            ]
+            rounds: LETTERS.map(function(letter) {
+                return letterRound(letter, [letter].concat(confusers(letter, LETTERS, 3)));
+            })
         };
     </script>
     <script src="../skill-tracker.js"></script>

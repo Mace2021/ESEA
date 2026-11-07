@@ -16,7 +16,8 @@
   // Questions are chosen from what this child still finds hard (SkillTracker),
   // and never in a fixed order a child could simply memorise.
   var allRounds = (config.rounds || []).slice();
-  var maxRounds = config.maxRounds || 8;
+  // Session length follows the child's age (5 to 10 questions) unless the lesson sets it.
+  var maxRounds = config.maxRounds || (window.ESEAFamily ? ESEAFamily.level().rounds : 8);
   var MAX_REQUEUE = 3;
   // Lessons that offer translations set config.lang (see ESEAFamily.lessonLang).
   var lang = config.lang || 'en';
@@ -199,6 +200,22 @@
     return typeof value === 'string' && x !== undefined ? value.split('{x}').join(x) : value;
   }
 
+  // Fewer answer choices for younger children (from the child's age). Number
+  // answers keep the closest numbers, so the choice still needs counting.
+  function fitChoices(options, answer) {
+    var n = config.choices || (window.ESEAFamily ? ESEAFamily.level().choices : options.length);
+    if (config.keepAllChoices || options.length <= n) return options;
+    var right = options.filter(function(o) { return o.value === answer; });
+    var others = options.filter(function(o) { return o.value !== answer; });
+    var numeric = !isNaN(Number(answer)) && others.every(function(o) { return !isNaN(Number(o.value)); });
+    if (numeric) {
+      others.sort(function(a, b) { return Math.abs(a.value - answer) - Math.abs(b.value - answer); });
+    } else {
+      others = shuffle(others);
+    }
+    return right.concat(others.slice(0, n - 1));
+  }
+
   function progressPercent() {
     var total = config.rounds.length;
     var completed = Math.min(state.roundIndex + (state.answered ? 1 : 0), total);
@@ -223,7 +240,7 @@
   function renderQuiz() {
     clearTimers();
     var round = config.rounds[state.roundIndex];
-    var choices = shuffle(round.options);
+    var choices = shuffle(fitChoices(round.options, round.answer));
     state.misses = 0;
     root.innerHTML = [
       renderIntro(),

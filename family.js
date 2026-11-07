@@ -28,7 +28,7 @@
           setupTitle: 'Welcome to ESEA!', setupIntro: 'A few quick questions so ESEA fits your child. It takes about 30 seconds.',
           setupLang: 'Which language would you like?', setupName: 'What is your child\u2019s name?', setupNamePh: 'First name',
           setupAnimal: 'Pick an animal for them', setupAge: 'How old is {name}?',
-          setupAgeNote: 'This sets where the reading and math steps begin. ESEA keeps adjusting as your child plays.',
+          setupAgeNote: 'Lessons match this age: how many things to count, how many answer choices, and how long each lesson is. It also sets where the reading and math steps begin.',
           years: '{n} years', setupTime: 'Daily screen time',
           setupTimeNote: 'Health experts advise short screen time for young children, ideally shared with a grown-up. ESEA shows a calm break screen when time is up.',
           minutes: '{n} min', noLimit: 'No limit', recommended: 'recommended', next: 'Next', back: 'Back', skip: 'Skip for now',
@@ -40,7 +40,7 @@
           setupTitle: '¡Bienvenidos a ESEA!', setupIntro: 'Unas preguntas rápidas para adaptar ESEA a tu hijo o hija. Tarda unos 30 segundos.',
           setupLang: '¿Qué idioma prefieres?', setupName: '¿Cómo se llama tu hijo o hija?', setupNamePh: 'Nombre',
           setupAnimal: 'Elige un animal', setupAge: '¿Cuántos años tiene {name}?',
-          setupAgeNote: 'Así sabemos por dónde empezar en lectura y matemáticas. ESEA se sigue ajustando mientras juega.',
+          setupAgeNote: 'Las lecciones se adaptan a esta edad: cuántas cosas contar, cuántas opciones hay y cuánto dura cada lección. También indica por dónde empezar en lectura y matemáticas.',
           years: '{n} años', setupTime: 'Tiempo de pantalla al día',
           setupTimeNote: 'Los expertos en salud recomiendan ratos cortos de pantalla para los niños pequeños, mejor acompañados de un adulto. ESEA muestra una pantalla de descanso al terminar el tiempo.',
           minutes: '{n} min', noLimit: 'Sin límite', recommended: 'recomendado', next: 'Siguiente', back: 'Atrás', skip: 'Omitir por ahora',
@@ -52,7 +52,7 @@
           setupTitle: 'Bienvenue sur ESEA !', setupIntro: 'Quelques questions rapides pour adapter ESEA à votre enfant. Environ 30 secondes.',
           setupLang: 'Quelle langue préférez-vous ?', setupName: 'Comment s\u2019appelle votre enfant ?', setupNamePh: 'Prénom',
           setupAnimal: 'Choisissez un animal', setupAge: 'Quel âge a {name} ?',
-          setupAgeNote: 'Cela fixe le point de départ en lecture et en maths. ESEA continue de s\u2019adapter pendant le jeu.',
+          setupAgeNote: 'Les leçons s\u2019adaptent à cet âge : combien d\u2019objets compter, combien de choix et la durée de chaque leçon. Cela fixe aussi le point de départ en lecture et en maths.',
           years: '{n} ans', setupTime: 'Temps d\u2019écran par jour',
           setupTimeNote: 'Les experts de santé conseillent des moments d\u2019écran courts pour les jeunes enfants, idéalement avec un adulte. ESEA affiche une pause calme quand le temps est écoulé.',
           minutes: '{n} min', noLimit: 'Sans limite', recommended: 'conseillé', next: 'Suivant', back: 'Retour', skip: 'Passer pour l\u2019instant',
@@ -243,6 +243,38 @@
   function lessonById(id) {
     for (var i = 0; i < CATALOG.length; i += 1) if (CATALOG[i].id === id) return CATALOG[i];
     return null;
+  }
+
+  // ---------- Difficulty by age ----------
+  // Every lesson adapts to the active child's age (set in setup or the
+  // Grown-ups area): how many answer choices, how many questions per session,
+  // and each lesson's own content (number ranges, letters, shapes, colors).
+  var AGE_LEVELS = {
+    3: { choices: 2, rounds: 5 },
+    4: { choices: 3, rounds: 6 },
+    5: { choices: 4, rounds: 8 },
+    6: { choices: 4, rounds: 10 }
+  };
+
+  function childAge() {
+    var d = load();
+    var p = findProfile(d, d.active);
+    var age = p && Number(p.age);
+    return age >= 3 && age <= 6 ? age : 4;
+  }
+
+  /** Pick the value for the child's age from {3: ..., 4: ..., 5: ..., 6: ...} (nearest younger age if missing). */
+  function byAge(map) {
+    for (var a = childAge(); a >= 3; a -= 1) if (map[a] !== undefined) return map[a];
+    for (var b = 4; b <= 6; b += 1) if (map[b] !== undefined) return map[b];
+    return undefined;
+  }
+
+  /** Whole numbers from lo to hi. */
+  function range(lo, hi) {
+    var out = [];
+    for (var i = lo; i <= hi; i += 1) out.push(i);
+    return out;
   }
 
   // ---------- Learning paths and Today's Plan ----------
@@ -721,6 +753,10 @@
     lessonIdFromPath: lessonIdFromPath,
     setupWizard: setupWizard,
     setupComplete: setupComplete,
+    age: childAge,
+    level: function() { return AGE_LEVELS[childAge()]; },
+    byAge: byAge,
+    range: range,
     /**
      * Call when an activity is finished: ticks it off today's plan and, if the
      * page was opened from the plan, returns a "Back to today's plan" link to

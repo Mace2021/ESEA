@@ -34,13 +34,20 @@
                   speak: 'Compte-les. Combien y en a-t-il ?', intro: 'Touche chaque image une fois en comptant. Le dernier nombre que tu dis, c’est combien il y en a.' }
         }[L];
         var pictures = ['🍓', '🐟', '⭐', '🚗', '🎈', '🐞', '🍪', '🌸'];
-        function optionsFor(n) {
+        // Age decides the numbers (never above 10): 3 yrs 1-5, 4 yrs 3-8, 5 yrs 5-10, 6 yrs 4-10.
+        var F = window.ESEAFamily;
+        var COUNTS = F ? F.byAge({ 3: [1, 5], 4: [3, 8], 5: [5, 10], 6: [4, 10] }) : [1, 5];
+        function nearNumbers(n, lo, hi) {
             var nums = [n];
-            [-1, 1, -2, 2, 3, -3].forEach(function(d) {
+            [-1, 1, -2, 2, 3, -3, 4, -4].forEach(function(d) {
                 var c = n + d;
-                if (nums.length < 4 && c >= 1 && c <= 10) nums.push(c);
+                if (nums.length < 4 && c >= Math.max(1, lo) && c <= hi) nums.push(c);
             });
-            return nums.sort(function(a, b) { return a - b; }).map(function(x) {
+            return nums.sort(function(a, b) { return a - b; });
+        }
+        function seq(lo, hi) { var out = []; for (var i = lo; i <= hi; i += 1) out.push(i); return out; }
+        function optionsFor(n) {
+            return nearNumbers(n, 1, 10).map(function(x) {
                 return { value: String(x), label: String(x), symbol: String(x) };
             });
         }
@@ -50,7 +57,7 @@
             title: T.title,
             instructions: T.intro,
             type: 'quiz',
-            rounds: [3, 4, 5, 6, 7, 8, 9, 10].map(function(n, i) {
+            rounds: seq(COUNTS[0], COUNTS[1]).map(function(n, i) {
                 return { prompt: T.prompt, speak: T.speak, answer: String(n),
                          target: { countEmoji: pictures[i % pictures.length], count: n }, options: optionsFor(n) };
             })

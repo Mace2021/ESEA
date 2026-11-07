@@ -26,12 +26,15 @@
         function numberOption(number) {
             return { value: String(number), label: String(number), symbol: String(number) };
         }
+        // Age decides the numbers: 3 yrs 1-5, 4 yrs 1-10, 5 yrs 1-20, 6 yrs 1-50.
+        var F = window.ESEAFamily;
+        var TOP = F ? F.byAge({ 3: 5, 4: 10, 5: 20, 6: 50 }) : 100;
         function makeOptions(number) {
             var options = [number];
             var offsets = [-1, 1, -2, 2, 10, -10, 3, -3, 20, -20];
             for (var i = 0; i < offsets.length && options.length < 4; i++) {
                 var candidate = number + offsets[i];
-                if (candidate >= 1 && candidate <= 100 && options.indexOf(candidate) === -1) {
+                if (candidate >= 1 && candidate <= TOP && options.indexOf(candidate) === -1) {
                     options.push(candidate);
                 }
             }
@@ -47,10 +50,10 @@
             };
         }
         window.EarlyLesson = {
-            title: 'Find the Number 1 to 100',
-            instructions: 'Choose the matching number from a few choices and practice 1-100.',
+            title: 'Find the Number 1 to ' + TOP,
+            instructions: 'Listen, then tap the number you hear (1 to ' + TOP + ').',
             type: 'quiz',
-            rounds: Array.from({ length: 100 }, function(_, index) {
+            rounds: Array.from({ length: TOP }, function(_, index) {
                 return numberRound(index + 1);
             })
         };

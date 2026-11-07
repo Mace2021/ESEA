@@ -46,7 +46,8 @@
 
   // Shuffle question order (and cap length) so each play is a fresh, short set.
   var allRounds = (config.rounds || []).slice();
-  var maxRounds = config.maxRounds || 8;
+  // Session length follows the child's age (5 to 10 questions) unless the lesson sets it.
+  var maxRounds = config.maxRounds || (window.ESEAFamily ? ESEAFamily.level().rounds : 8);
 
   var title = document.getElementById('lessonTitle');
   var goal = document.getElementById('lessonGoal');
@@ -123,9 +124,25 @@
     progressTrack.setAttribute('aria-valuenow', String(progress));
   }
 
+  // Fewer answer choices for younger children (from the child's age). Number
+  // answers keep the closest numbers, so the choice still needs counting.
+  function fitChoices(options, answer) {
+    var n = config.choices || (window.ESEAFamily ? ESEAFamily.level().choices : options.length);
+    if (config.keepAllChoices || options.length <= n) return options;
+    var right = options.filter(function(o) { return o.value === answer; });
+    var others = options.filter(function(o) { return o.value !== answer; });
+    var numeric = !isNaN(Number(answer)) && others.every(function(o) { return !isNaN(Number(o.value)); });
+    if (numeric) {
+      others.sort(function(a, b) { return Math.abs(a.value - answer) - Math.abs(b.value - answer); });
+    } else {
+      others = shuffle(others);
+    }
+    return right.concat(others.slice(0, n - 1));
+  }
+
   function renderRound() {
     var round = config.rounds[state.roundIndex];
-    var options = config.type === 'sort' ? config.categories : round.options;
+    var options = config.type === 'sort' ? config.categories : fitChoices(round.options, round.answer);
 
     completeBox.classList.remove('show');
     nextButton.disabled = true;

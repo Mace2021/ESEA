@@ -61,7 +61,7 @@
             type: 'quiz',
             sayChoice: true,
             rounds: pairs.map(function(pair, i) {
-                var others = shuffle(pairs.filter(function(p, j) { return j !== i; })).slice(0, 2)
+                var others = shuffle(pairs.filter(function(p, j) { return j !== i; })).slice(0, 3)
                     .map(function(p) { return p[Math.floor(Math.random() * 2)]; });
                 var options = [pair[1]].concat(others).map(wordOption);
                 return {

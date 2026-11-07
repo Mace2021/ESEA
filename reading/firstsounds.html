@@ -57,7 +57,7 @@
             groups[letter].forEach(function(answer, i) {
                 // The example is another word with the same first sound.
                 var example = groups[letter][(i + 1) % groups[letter].length];
-                var others = shuffle(letters.filter(function(l) { return l !== letter; })).slice(0, 2)
+                var others = shuffle(letters.filter(function(l) { return l !== letter; })).slice(0, 3)
                     .map(function(l) { return groups[l][Math.floor(Math.random() * groups[l].length)]; });
                 var options = [answer].concat(others).map(wordOption);
                 rounds.push({
