@@ -58,7 +58,7 @@
                 title: 'Letters and Sounds',
                 compact: true,
                 items: letterSounds.map(function(item) {
-                    return { label: item.letter + ' ' + item.letter.toLowerCase(), symbol: item.letter, note: item.sound, speak: item.sound };
+                    return { label: item.letter + ' ' + item.letter.toLowerCase(), symbol: item.letter, note: item.sound, speak: item.sound.replace(/^([A-Z]) as in /, '[$1]... as in ') };
                 })
             }]
         };

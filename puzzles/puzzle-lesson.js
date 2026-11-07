@@ -24,11 +24,16 @@
     }
     if (window.speechSynthesis && text) {
       window.speechSynthesis.cancel();
-      var msg = new SpeechSynthesisUtterance(text);
+      var msg = new SpeechSynthesisUtterance(String(text).replace(/\[([A-Za-z])\]/g, '$1'));
       msg.rate = 0.85;
       window.speechSynthesis.speak(msg);
     }
     if (onend) setTimeout(onend, 900);
+  }
+
+  // A single letter as an answer is said as its letter name ("ay", not "uh").
+  function sayable(label) {
+    return /^[A-Za-z]$/.test(String(label || '')) ? '[' + label + ']' : label;
   }
 
   function itemKey(round) {
@@ -194,7 +199,7 @@
         if (state.roundIndex === token && state.answered) moveNext();
       };
       // Move on once the praise has been said (safety net if speech stalls).
-      speak(praise + ' ' + labelFor(round) + '!', function() {
+      speak(praise + ' ' + sayable(labelFor(round)) + '!', function() {
         clearTimeout(state.advanceTimer);
         state.advanceTimer = setTimeout(advance, 700);
       });
@@ -220,7 +225,7 @@
           if (button.dataset.value === round.answer) button.classList.add('reveal');
         });
         setFeedback('This one! Tap ' + labelFor(round) + '.', 'try');
-        speak('Look, here it is... ' + labelFor(round) + '. Can you tap ' + labelFor(round) + '?');
+        speak('Look, here it is... ' + sayable(labelFor(round)) + '. Can you tap ' + sayable(labelFor(round)) + '?');
       }
     }
 

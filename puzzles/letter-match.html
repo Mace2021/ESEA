@@ -28,6 +28,7 @@
         function letterRound(big, small, options) {
             return {
                 prompt: 'Match ' + big + ' with the little letter.',
+                speak: 'Find the little letter that matches big [' + big + '].',
                 answer: small,
                 target: '<div class="letter-target" aria-label="big letter ' + big + '">' + big + '</div>',
                 options: options.map(function(letter) {

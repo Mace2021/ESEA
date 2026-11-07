@@ -28,7 +28,7 @@
         function letterRound(letter, choices) {
             return {
                 prompt: 'Tap letter ' + letter + '.',
-                speak: 'Can you find the letter ' + letter + '?',
+                speak: 'Can you find the letter [' + letter + ']?',
                 answer: letter,
                 target: { text: letter },
                 options: choices.map(letterOption)
