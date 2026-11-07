@@ -47,11 +47,21 @@
     }
     if (window.speechSynthesis && text) {
       if (!queue) window.speechSynthesis.cancel();
-      var msg = new SpeechSynthesisUtterance(text);
+      var msg = new SpeechSynthesisUtterance(String(text).replace(/\[([A-Za-z])\]/g, '$1'));
       msg.rate = 0.85;
       window.speechSynthesis.speak(msg);
     }
     if (onend) setTimeout(onend, 900);
+  }
+
+  // A single letter as an answer is said as its letter name ("ay", not "uh").
+  function sayable(label) {
+    return /^[A-Za-z]$/.test(label || '') ? '[' + label + ']' : label;
+  }
+
+  // Speech text shown on screen without letter markers.
+  function plainText(text) {
+    return window.ESEASpeech ? ESEASpeech.plain(text) : String(text).replace(/\[([A-Za-z])\]/g, '$1');
   }
 
   var canSpeak = Boolean(window.ESEASpeech ? ESEASpeech.supported : window.speechSynthesis);
@@ -144,7 +154,7 @@
         var text = card.getAttribute('data-speak');
         speak(text);
         var feedback = document.getElementById('lessonFeedback');
-        feedback.textContent = text;
+        feedback.textContent = plainText(text);
         feedback.className = 'feedback good';
       });
     });
@@ -331,7 +341,7 @@
   // With config.sayChoice, a wrong tap first says what was tapped ("dog."),
   // so children who cannot read still hear the word they chose.
   function tappedPrefix() {
-    return config.sayChoice && state.tapped ? state.tapped + '. ' : '';
+    return config.sayChoice && state.tapped ? sayable(state.tapped) + '. ' : '';
   }
 
   function showAnswer(round) {
@@ -340,7 +350,7 @@
       if (b.dataset.value === round.answer) b.classList.add('reveal');
     });
     setFeedback(round.revealText || t('thisOne', label), 'try');
-    speak(tappedPrefix() + (round.revealSay || t('thisOneSay', label)));
+    speak(tappedPrefix() + (round.revealSay || t('thisOneSay', sayable(label))));
   }
 
   // Bring a missed item back once more near the end of this session.
@@ -375,7 +385,7 @@
       document.getElementById('nextButton').disabled = false;
       // Move on by itself once the praise has been said, so children who
       // cannot read yet are never stuck (with a safety net if speech stalls).
-      speak(said ? praise + ' ' + said + '!' : praise, false, function() { later(advance, 700); });
+      speak(said ? praise + ' ' + sayable(said) + '!' : praise, false, function() { later(advance, 700); });
       later(advance, 7000);
     } else {
       state.misses += 1;

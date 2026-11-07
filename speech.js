@@ -26,6 +26,8 @@
   var PAUSE_SENTENCE = 320;
   var PAUSE_QUESTION = 420;
   var PAUSE_BEAT = 600;
+  // Tiny gap around a letter name said on its own (see [A] below).
+  var PAUSE_LETTER = 140;
 
   // ---------- Settings ----------
   function loadSettings() {
@@ -97,18 +99,37 @@
   }
 
   // Split into short pieces so each gets its own natural pause.
+  // Letter names: write [A] in speech text to mean "the letter A".
+  // Voices read a capital A inside a sentence as the word "a" ("uh"), so a
+  // marked letter is spoken as its own tiny utterance, which every voice
+  // reads as the letter name ("ay"). On screen, use plain() to show just "A".
+  var LETTER_MARK = /\s*\[([A-Za-z])\]([.!?,;:]*)\s*/g;
+
+  function plain(text) {
+    return String(text || '').replace(/\[([A-Za-z])\]/g, '$1');
+  }
+
   function chunks(text) {
     var marked = clean(text)
+      .replace(LETTER_MARK, function(_, letter, punct) { return '\u0004' + letter.toUpperCase() + punct + '\u0004'; })
       .replace(/\.{3,}\s*/g, '...\u0001')
       .replace(/([!?¿¡]?[^.!?\u0001]*[!?])\s+/g, '$1\u0002')
       .replace(/([^.]\.)\s+(?=\S)/g, '$1\u0003');
     var out = [];
-    var re = /([^\u0001\u0002\u0003]+)([\u0001\u0002\u0003]?)/g;
+    var re = /([^\u0001\u0002\u0003\u0004]+)([\u0001\u0002\u0003\u0004]?)/g;
     var m;
     while ((m = re.exec(marked)) !== null) {
       var piece = m[1].trim();
       if (!piece) continue;
-      var pause = m[2] === '\u0001' ? PAUSE_BEAT : m[2] === '\u0002' ? PAUSE_QUESTION : PAUSE_SENTENCE;
+      // Punctuation left on its own just extends the previous pause.
+      if (/^[.!?,;:]+$/.test(piece)) {
+        if (out.length) out[out.length - 1].pause = Math.max(out[out.length - 1].pause, PAUSE_SENTENCE);
+        continue;
+      }
+      var pause = m[2] === '\u0001' ? PAUSE_BEAT
+        : m[2] === '\u0002' ? PAUSE_QUESTION
+        : m[2] === '\u0004' ? (/[.!?]$/.test(piece) ? PAUSE_SENTENCE : PAUSE_LETTER)
+        : PAUSE_SENTENCE;
       out.push({ text: piece.replace(/\.{3}$/, ''), pause: pause });
     }
     return out;
@@ -288,6 +309,8 @@
     },
     onVoicesReady: whenVoicesReady,
     // Exposed for tests.
+    /** Text for the screen: "[A] is for apple" -> "A is for apple". */
+    plain: plain,
     _chunks: chunks,
     _clean: clean
   };
