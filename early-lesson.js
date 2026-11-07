@@ -386,6 +386,7 @@
       document.getElementById('nextButton').disabled = false;
       // Move on by itself once the praise has been said, so children who
       // cannot read yet are never stuck (with a safety net if speech stalls).
+      if (window.ESEAPip) ESEAPip.lessonEvent('correct');
       var praiseText = said ? praise + ' ' + sayable(said) + '!' : praise;
       if (round.explain) praiseText += ' ' + round.explain;
       speak(praiseText, false, function() { later(advance, round.explain ? 1200 : 700); });
@@ -396,10 +397,12 @@
       button.classList.add('incorrect');
       button.disabled = true;
       if (state.misses === 1) {
+        if (window.ESEAPip) ESEAPip.lessonEvent('miss');
         requeue(round);
         if (isCountingRound(round)) countAlong(round);
         else narrowChoices(round);
       } else {
+        if (window.ESEAPip) ESEAPip.lessonEvent('reveal');
         showAnswer(round);
       }
     }
@@ -438,6 +441,7 @@
       '</section>'
     ].join('');
     document.getElementById('againButton').addEventListener('click', restartQuiz);
+    if (window.ESEAPip) ESEAPip.lessonEvent('done');
     // Tick off today's plan; when opened from it, lead back to it.
     if (window.ESEAFamily) {
       var back = ESEAFamily.finished(lessonId);

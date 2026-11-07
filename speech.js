@@ -144,10 +144,19 @@
   var blockedText = null;  // speech the browser refused before the first tap
   var userHasTapped = false;
 
+  // Tell the page when the voice starts and stops (Pip moves its mouth).
+  var announced = false;
+  function announce(on) {
+    if (on === announced) return;
+    announced = on;
+    try { global.dispatchEvent(new CustomEvent('esea-speaking', { detail: { on: on } })); } catch (e) {}
+  }
+
   function stop() {
     generation += 1;
     queue = [];
     speaking = false;
+    announce(false);
     clearTimeout(watchdog);
     if (synth) synth.cancel();
   }
@@ -157,9 +166,11 @@
     var item = queue.shift();
     if (!item) {
       speaking = false;
+      announce(false);
       return;
     }
     speaking = true;
+    announce(true);
     var u = new global.SpeechSynthesisUtterance(item.text);
     var lang = item.lang;
     u.lang = LANG_CODES[lang] || LANG_CODES.en;

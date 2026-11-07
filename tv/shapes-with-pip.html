@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .board-things span { font-size: clamp(2.3rem, 10vw, 3rem); line-height: 1; background: rgba(255,255,255,0.92); border-radius: 14px; padding: 4px 6px; }
+        .board-things { display: flex; gap: 8px; justify-content: center; min-height: 3.2rem; flex-wrap: wrap; }
+
+        .shape-draw { width: min(170px, 48%); }
+        .shape-draw svg { width: 100%; display: block; overflow: visible; }
+        .shape-draw .outline { fill: rgba(255, 247, 194, 0.15); stroke: #fff7c2; stroke-width: 6; stroke-linejoin: round; stroke-linecap: round;
+            stroke-dasharray: 700; stroke-dashoffset: 700; transition: stroke-dashoffset 1.3s ease; }
+        .shape-draw.drawn .outline { stroke-dashoffset: 0; }
+        .shape-draw .side { stroke: transparent; stroke-width: 12; stroke-linecap: round; transition: stroke 0.2s; }
+        .shape-draw .side.lit { stroke: #ff7a59; }
+        .shape-draw .tip { fill: transparent; transition: fill 0.2s; }
+        .shape-draw .tip.lit { fill: #ff7a59; }
+        .shape-name { font-size: clamp(1.8rem, 8vw, 2.5rem); font-weight: 950; color: #fff7c2; }
+        .shape-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .shape-row svg { width: 52px; height: 52px; transition: transform 0.2s; }
+        .shape-row svg.lit { transform: scale(1.35); }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Shapes with Pip</h1>
+            <p>Pip draws each shape, counts its sides, and finds shapes all around us!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        async function popThings(ctx, row, things, lead) {
+            for (var k = 0; k < things.length; k += 1) {
+                var t = el('span', 'pop-in', things[k][0]);
+                t.setAttribute('aria-hidden', 'true');
+                row.appendChild(t);
+                var last = k === things.length - 1;
+                await ctx.say((k === 0 && lead ? lead + ' ' : (last && k > 0 ? 'and ' : '')) + things[k][1] + (last ? '!' : ','));
+            }
+        }
+
+        // Each shape: an outline to draw, its sides (as lines) or star points to count, and things of that shape.
+        var SHAPES = [
+            { name: 'circle', outline: '<circle class="outline" cx="60" cy="60" r="50"/>', about: 'A circle is round, round, round. It has no corners at all!',
+              things: [['🍪', 'a cookie'], ['⚽', 'a ball'], ['🕐', 'a clock']] },
+            { name: 'square', outline: '<rect class="outline" x="12" y="12" width="96" height="96"/>', count: 'sides',
+              sides: [[12, 12, 108, 12], [108, 12, 108, 108], [108, 108, 12, 108], [12, 108, 12, 12]], about: 'All four sides are the same size.',
+              things: [['🎁', 'a present'], ['🎲', 'a dice'], ['🖼️', 'a picture frame']] },
+            { name: 'triangle', outline: '<polygon class="outline" points="60,8 112,108 8,108"/>', count: 'sides',
+              sides: [[60, 8, 112, 108], [112, 108, 8, 108], [8, 108, 60, 8]], about: 'It has three pointy corners too.',
+              things: [['🍕', 'a slice of pizza'], ['⛺', 'a tent'], ['🏔️', 'a mountain']] },
+            { name: 'rectangle', outline: '<rect class="outline" x="4" y="28" width="112" height="64"/>', count: 'sides',
+              sides: [[4, 28, 116, 28], [116, 28, 116, 92], [116, 92, 4, 92], [4, 92, 4, 28]], about: 'Two sides are long, and two sides are short.',
+              things: [['🚪', 'a door'], ['📱', 'a phone'], ['📗', 'a book']] },
+            { name: 'star', outline: '<polygon class="outline" points="60,4 74,44 116,44 82,68 95,110 60,84 25,110 38,68 4,44 46,44"/>', count: 'points',
+              tips: [[60, 4], [116, 44], [95, 110], [25, 110], [4, 44]], about: 'A star shines bright in the night sky.',
+              things: [['⭐', 'a gold star'], ['🌟', 'a shining star']] },
+            { name: 'heart', outline: '<path class="outline" d="M60 108 C20 80 4 56 18 32 C30 12 54 16 60 34 C66 16 90 12 102 32 C116 56 100 80 60 108 Z"/>',
+              about: 'A heart means love!', things: [['❤️', 'a red heart'], ['💌', 'a love letter']] }
+        ];
+        var NUM = ['zero', 'one', 'two', 'three', 'four', 'five'];
+        function shapeSvg(s) {
+            var extra = (s.sides || []).map(function(l) { return '<line class="side" x1="' + l[0] + '" y1="' + l[1] + '" x2="' + l[2] + '" y2="' + l[3] + '"/>'; }).join('') +
+                (s.tips || []).map(function(t) { return '<circle class="tip" cx="' + t[0] + '" cy="' + t[1] + '" r="8"/>'; }).join('');
+            return '<svg viewBox="0 0 120 120" aria-hidden="true">' + s.outline + extra + '</svg>';
+        }
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Shapes with Pip</div>');
+            pip.wave();
+            await ctx.say('Hi! It’s me, Pip! Shapes are everywhere. Let’s learn them together!');
+        }];
+        SHAPES.forEach(function(s) {
+            scenes.push(async function(ctx) {
+                show('<div class="shape-draw" id="draw">' + shapeSvg(s) + '</div><div class="shape-name pop-in">' + cap(s.name) + '</div><div class="board-things" id="things"></div>');
+                var draw = document.getElementById('draw');
+                void draw.offsetWidth;
+                draw.classList.add('drawn');
+                pip.point();
+                await ctx.say('This is a ' + s.name + '.');
+                await ctx.say(s.about);
+                if (s.count) {
+                    var parts = draw.querySelectorAll(s.count === 'sides' ? '.side' : '.tip');
+                    await ctx.say('A ' + s.name + ' has ' + NUM[parts.length] + ' ' + s.count + '. Let’s count!');
+                    for (var i = 0; i < parts.length; i += 1) {
+                        parts[i].classList.add('lit');
+                        await ctx.say(String(i + 1));
+                    }
+                    await ctx.say(cap(NUM[parts.length]) + ' ' + s.count + '!');
+                }
+                await popThings(ctx, document.getElementById('things'), s.things, 'I see ' + s.name + 's everywhere!');
+                pip.rest();
+                await ctx.say('Can you draw a ' + s.name + ' in the air with your finger?');
+                await ctx.wait(2000); // time to draw in the air
+            });
+        });
+        scenes.push(async function(ctx) {
+            var row = el('div', 'shape-row');
+            SHAPES.forEach(function(s) { var w = el('span', '', shapeSvg(s).replace('class="outline"', 'class="outline" style="stroke-dashoffset:0"')); row.appendChild(w.firstChild); });
+            board.innerHTML = '<div class="board-title">Name them with me!</div>';
+            board.appendChild(row);
+            pip.point();
+            for (var i = 0; i < SHAPES.length; i += 1) {
+                row.children[i].classList.add('lit');
+                await ctx.say(cap(SHAPES[i].name) + '!');
+                row.children[i].classList.remove('lit');
+            }
+            pip.wave(4000);
+            show('<div class="board-title pop-in">Go on a shape hunt! &#128269;</div>');
+            await ctx.say('Now go on a shape hunt! Look for circles, squares, and triangles all around you. Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Shapes with Pip</div>');
+    </script>
+</body>
+</html>

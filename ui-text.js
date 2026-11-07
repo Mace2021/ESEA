@@ -63,7 +63,9 @@
         'tv/count-with-pip.html': 'Contar con Pip', 'tv/animated-alphabet.html': 'Aventura del abecedario',
         'tv/counting-rainbow.html': 'Arcoíris de números', 'tv/sound-parade.html': 'Desfile de sonidos',
         'color/balloon-pop.html': 'Revienta globos', 'tv/colors-with-pip.html': 'Los colores con Pip',
-        'tv/luna-little-cloud.html': 'Luna, la nubecita'
+        'tv/luna-little-cloud.html': 'Luna, la nubecita', 'tv/shapes-with-pip.html': 'Las formas con Pip',
+        'tv/feelings-with-pip.html': 'Las emociones con Pip', 'tv/weather-with-pip.html': 'El tiempo con Pip',
+        'tv/days-with-pip.html': 'Los días de la semana con Pip', 'tv/rhymes-with-pip.html': 'Rimas con Pip'
       }
     },
     fr: {
@@ -121,7 +123,9 @@
         'tv/count-with-pip.html': 'Compter avec Pip', 'tv/animated-alphabet.html': 'L’aventure de l’alphabet',
         'tv/counting-rainbow.html': 'L’arc-en-ciel des nombres', 'tv/sound-parade.html': 'La parade des sons',
         'color/balloon-pop.html': 'Éclate les ballons', 'tv/colors-with-pip.html': 'Les couleurs avec Pip',
-        'tv/luna-little-cloud.html': 'Luna, le petit nuage'
+        'tv/luna-little-cloud.html': 'Luna, le petit nuage', 'tv/shapes-with-pip.html': 'Les formes avec Pip',
+        'tv/feelings-with-pip.html': 'Les émotions avec Pip', 'tv/weather-with-pip.html': 'La météo avec Pip',
+        'tv/days-with-pip.html': 'Les jours de la semaine avec Pip', 'tv/rhymes-with-pip.html': 'Les rimes avec Pip'
       }
     },
     en: {

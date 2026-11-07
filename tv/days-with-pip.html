@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Days of the Week with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .board-things span { font-size: clamp(2.3rem, 10vw, 3rem); line-height: 1; background: rgba(255,255,255,0.92); border-radius: 14px; padding: 4px 6px; }
+        .board-things { display: flex; gap: 8px; justify-content: center; min-height: 3.2rem; flex-wrap: wrap; }
+
+        .days { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; width: 100%; }
+        .day { border: 2px dashed rgba(255,255,255,0.35); border-radius: 10px; padding: 6px 2px; font-weight: 900; font-size: 0.95rem; text-align: center; transition: transform 0.2s, background 0.2s; }
+        .day i { display: block; font-style: normal; font-size: 1.6rem; }
+        .day.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.1); border-color: transparent; }
+        .day.today { background: #fff7c2; color: #2d2a67; }
+        .day small { display: block; font-size: 0.7rem; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Days of the Week with Pip</h1>
+            <p>Seven days in a week! Sing them with Pip, then find out what day it is today.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        async function popThings(ctx, row, things, lead) {
+            for (var k = 0; k < things.length; k += 1) {
+                var t = el('span', 'pop-in', things[k][0]);
+                t.setAttribute('aria-hidden', 'true');
+                row.appendChild(t);
+                var last = k === things.length - 1;
+                await ctx.say((k === 0 && lead ? lead + ' ' : (last && k > 0 ? 'and ' : '')) + things[k][1] + (last ? '!' : ','));
+            }
+        }
+
+        var DAYS = [
+            { name: 'Monday', icon: '🎨', fun: 'On Monday, I love to paint.' },
+            { name: 'Tuesday', icon: '🧱', fun: 'On Tuesday, I build with blocks.' },
+            { name: 'Wednesday', icon: '🎵', fun: 'On Wednesday, I sing a song.' },
+            { name: 'Thursday', icon: '📚', fun: 'On Thursday, I read a story.' },
+            { name: 'Friday', icon: '⚽', fun: 'On Friday, I play ball.' },
+            { name: 'Saturday', icon: '🌳', fun: 'On Saturday, I go to the park.' },
+            { name: 'Sunday', icon: '🥞', fun: 'On Sunday, I eat pancakes.' }
+        ];
+        function grid() {
+            var g = el('div', 'days');
+            DAYS.forEach(function(d) { g.appendChild(el('div', 'day', '<i aria-hidden="true">' + d.icon + '</i>' + d.name + '<small></small>')); });
+            return g;
+        }
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Days of the Week</div>');
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! There are seven days in a week. Let’s meet them all!');
+        }];
+        DAYS.forEach(function(d, i) {
+            scenes.push(async function(ctx) {
+                show('<div class="board-big pop-in" style="font-size:clamp(2.4rem,11vw,3.6rem)">' + d.name + '</div><div class="board-things"><span class="pop-in" aria-hidden="true">' + d.icon + '</span></div><div class="board-title" style="font-size:1.2rem">Day ' + (i + 1) + '</div>');
+                pip.point();
+                await ctx.say(d.name + '!');
+                await ctx.say(d.fun);
+                await ctx.wait(400);
+            });
+        });
+        scenes.push(async function(ctx) {
+            var g = grid();
+            board.innerHTML = '<div class="board-title">Sing them with me!</div>';
+            board.appendChild(g);
+            pip.jump(1500);
+            await ctx.say('Now let’s sing the days together!');
+            for (var i = 0; i < DAYS.length; i += 1) {
+                g.children[i].classList.add('lit');
+                await ctx.say(DAYS[i].name + '!');
+                g.children[i].classList.remove('lit');
+            }
+            await ctx.say('Seven days in a week!');
+        });
+        scenes.push(async function(ctx) {
+            // Use the real date: today, yesterday and tomorrow.
+            var js = new Date().getDay(); // 0 = Sunday
+            var t = (js + 6) % 7;
+            var y = (t + 6) % 7;
+            var n = (t + 1) % 7;
+            var g = grid();
+            board.innerHTML = '<div class="board-title">What day is it?</div>';
+            board.appendChild(g);
+            pip.point();
+            g.children[t].classList.add('lit');
+            g.children[t].querySelector('small').textContent = 'today';
+            await ctx.say('Today is ' + DAYS[t].name + '!');
+            g.children[t].classList.remove('lit');
+            g.children[t].classList.add('today');
+            g.children[y].classList.add('lit');
+            g.children[y].querySelector('small').textContent = 'yesterday';
+            await ctx.say('Yesterday was ' + DAYS[y].name + '.');
+            g.children[y].classList.remove('lit');
+            g.children[n].classList.add('lit');
+            g.children[n].querySelector('small').textContent = 'tomorrow';
+            await ctx.say('And tomorrow will be ' + DAYS[n].name + '.');
+            pip.wave(4000);
+            await ctx.say('What will you do today? Tell a grown-up! Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Days of the Week</div>');
+    </script>
+</body>
+</html>

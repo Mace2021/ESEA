@@ -224,6 +224,16 @@
       home: 'Go on a color hunt: find something red, orange, yellow, green, blue and purple.' },
     { id: 'tv/colors-with-pip', area: 'Watch & Listen', name: 'Colors with Pip', href: 'tv/colors-with-pip.html', video: true,
       home: 'Mix paints or play-dough together: what happens when you mix red and yellow? Blue and yellow?' },
+    { id: 'tv/shapes-with-pip', area: 'Watch & Listen', name: 'Shapes with Pip', href: 'tv/shapes-with-pip.html', video: true,
+      home: 'Shape hunt: find something round, something square, and something shaped like a triangle at home.' },
+    { id: 'tv/feelings-with-pip', area: 'Watch & Listen', name: 'Feelings with Pip', href: 'tv/feelings-with-pip.html', video: true,
+      home: 'Make feeling faces in a mirror together and guess each other\u2019s feeling.' },
+    { id: 'tv/weather-with-pip', area: 'Watch & Listen', name: 'Weather with Pip', href: 'tv/weather-with-pip.html', video: true,
+      home: 'Each morning, look outside together and choose clothes for the weather.' },
+    { id: 'tv/days-with-pip', area: 'Watch & Listen', name: 'Days of the Week with Pip', href: 'tv/days-with-pip.html', video: true,
+      home: 'At breakfast, say what day it is today, what day it was yesterday, and what day it will be tomorrow.' },
+    { id: 'tv/rhymes-with-pip', area: 'Watch & Listen', name: 'Rhymes with Pip', href: 'tv/rhymes-with-pip.html', video: true,
+      home: 'Rhyme game in the car: say a word and take turns finding words that rhyme with it.' },
     { id: 'tv/luna-little-cloud', area: 'Watch & Listen', name: 'Luna the Little Cloud', href: 'tv/luna-little-cloud.html', video: true,
       home: 'Ask "How did Luna help the flower?" Then find one small way your child can help someone today.' },
     { id: 'tv/sound-parade', area: 'Watch & Listen', name: 'Sound Parade', href: 'tv/sound-parade.html', video: true,
@@ -241,7 +251,8 @@
   var PATH_START = { 3: { reading: 1, math: 1 }, 4: { reading: 1, math: 1 }, 5: { reading: 2, math: 2 }, 6: { reading: 3, math: 3 } };
   // The third activity of the day rotates through videos and feelings.
   var PLAN_EXTRAS = ['tv/abc-with-pip', 'emotions/feelings-quiz', 'tv/count-with-pip', 'color/balloon-pop', 'tv/sound-parade',
-    'tv/colors-with-pip', 'tv/luna-little-cloud',
+    'tv/colors-with-pip', 'tv/luna-little-cloud', 'tv/shapes-with-pip', 'tv/feelings-with-pip', 'tv/weather-with-pip',
+    'tv/days-with-pip', 'tv/rhymes-with-pip',
     'emotions/calm-corner', 'tv/animated-alphabet', 'tv/counting-rainbow'];
 
   function pathSteps(path) {

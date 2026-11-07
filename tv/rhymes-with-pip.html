@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhymes with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .pair { display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .pair .card { background: #fff; border-radius: 16px; padding: 8px 10px; min-width: 96px; text-align: center; }
+        .pair .card i { display: block; font-style: normal; font-size: clamp(2.6rem, 12vw, 3.4rem); line-height: 1.1; }
+        .pair .card b { color: #2d2a67; font-size: 1.25rem; }
+        .pair .and { font-size: 2rem; color: #fff7c2; font-weight: 900; }
+        .silly { font-size: clamp(1.4rem, 6vw, 1.9rem); font-weight: 900; color: #fff7c2; min-height: 2.4rem; }
+        .verdict { font-size: clamp(3rem, 14vw, 4rem); line-height: 1; min-height: 4rem; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Rhymes with Pip</h1>
+            <p>Words that rhyme sound the same at the end. Cat, hat! Listen and rhyme with Pip.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        async function popThings(ctx, row, things, lead) {
+            for (var k = 0; k < things.length; k += 1) {
+                var t = el('span', 'pop-in', things[k][0]);
+                t.setAttribute('aria-hidden', 'true');
+                row.appendChild(t);
+                var last = k === things.length - 1;
+                await ctx.say((k === 0 && lead ? lead + ' ' : (last && k > 0 ? 'and ' : '')) + things[k][1] + (last ? '!' : ','));
+            }
+        }
+
+        var PAIRS = [
+            [['🐱', 'cat'], ['🎩', 'hat'], 'A cat in a hat!'],
+            [['🐶', 'dog'], ['🐸', 'frog'], 'A dog and a frog!'],
+            [['🐝', 'bee'], ['🌳', 'tree'], 'A bee in a tree!'],
+            [['🚗', 'car'], ['⭐', 'star'], 'A car on a star!'],
+            [['🐍', 'snake'], ['🎂', 'cake'], 'A snake eating cake!'],
+            [['🐭', 'mouse'], ['🏠', 'house'], 'A mouse in a house!'],
+            [['🐐', 'goat'], ['⛵', 'boat'], 'A goat in a boat!'],
+            [['🌙', 'moon'], ['🥄', 'spoon'], 'A spoon on the moon!']
+        ];
+        var GAME = [
+            [['🐻', 'bear'], ['🍐', 'pear'], true],
+            [['🐟', 'fish'], ['🌞', 'sun'], false],
+            [['🦊', 'fox'], ['📦', 'box'], true],
+            [['🐞', 'bug'], ['🍎', 'apple'], false]
+        ];
+        function card(w) { return '<div class="card pop-in"><i aria-hidden="true">' + w[0] + '</i><b>' + w[1] + '</b></div>'; }
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Rhymes with Pip</div>');
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Let’s play with rhymes. Rhyming words sound the same at the end.');
+            show('<div class="pair" id="pair">' + card(['🐱', 'cat']) + '<span class="and">+</span>' + card(['🎩', 'hat']) + '</div>');
+            await ctx.say('Listen. Cat... hat. Cat, hat! They sound the same at the end. They rhyme!');
+        }];
+        PAIRS.forEach(function(p) {
+            scenes.push(async function(ctx) {
+                show('<div class="pair" id="pair">' + card(p[0]) + '</div><div class="silly" id="silly"></div>');
+                pip.point();
+                await ctx.say(cap(p[0][1]) + '.');
+                var pair = document.getElementById('pair');
+                pair.insertAdjacentHTML('beforeend', '<span class="and">+</span>' + card(p[1]));
+                await ctx.say(cap(p[1][1]) + '.');
+                await ctx.say(cap(p[0][1]) + ', ' + p[1][1] + '. They rhyme!');
+                document.getElementById('silly').textContent = p[2];
+                pip.jump(1400);
+                await ctx.say(p[2]);
+                await ctx.wait(400);
+            });
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Does it rhyme?</div><div class="verdict">&#128077; &#128078;</div>');
+            pip.wave();
+            await ctx.say('Now it’s your turn! I’ll say two words. Thumbs up if they rhyme. Thumbs down if they don’t!');
+        });
+        GAME.forEach(function(g) {
+            scenes.push(async function(ctx) {
+                show('<div class="pair">' + card(g[0]) + '<span class="and">?</span>' + card(g[1]) + '</div><div class="verdict" id="verdict"></div>');
+                pip.point();
+                await ctx.say(cap(g[0][1]) + '... ' + g[1][1] + '. Do they rhyme?');
+                await ctx.wait(2000); // time for thumbs up or down
+                document.getElementById('verdict').innerHTML = '<span class="pop-in" style="display:inline-block">' + (g[2] ? '&#128077;' : '&#128078;') + '</span>';
+                if (g[2]) pip.jump(1400);
+                await ctx.say(g[2] ? 'Yes! ' + cap(g[0][1]) + ' and ' + g[1][1] + ' rhyme!' : 'No! ' + cap(g[0][1]) + ' and ' + g[1][1] + ' do not rhyme.');
+                await ctx.wait(400);
+            });
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">You’re a rhyme star! &#11088;</div>');
+            pip.wave(4000);
+            await ctx.say('You’re a rhyme star! Can you think of a word that rhymes with... cat? Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Rhymes with Pip</div>');
+    </script>
+</body>
+</html>
