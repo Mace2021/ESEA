@@ -85,11 +85,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Speak a short label aloud (skipped where the browser has no speech).
 function speakLabel(text) {
+  // Shared calm, natural voice (speech.js), with a plain fallback.
+  if (window.ESEASpeech) {
+    ESEASpeech.speak(text);
+    return;
+  }
   if (!text || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  var msg = new SpeechSynthesisUtterance(text.replace(/&/g, 'and'));
-  msg.rate = 0.95;
-  msg.pitch = 1.1;
+  var msg = new SpeechSynthesisUtterance(text);
+  msg.rate = 0.85;
   window.speechSynthesis.speak(msg);
 }
 

@@ -42,26 +42,17 @@
     return LANGUAGES[lang] ? lang : 'en';
   }
 
-  // Pick the best installed voice for a language (falls back to the default).
-  function voiceFor(langCode) {
-    try {
-      var voices = global.speechSynthesis.getVoices() || [];
-      var short = langCode.slice(0, 2);
-      return voices.filter(function(v) { return v.lang === langCode; })[0] ||
-        voices.filter(function(v) { return v.lang && v.lang.slice(0, 2) === short; })[0] || null;
-    } catch (e) { return null; }
-  }
-
-  /** Make a speech utterance in the given language ('en', 'es', 'fr'). */
-  function utterance(text, lang) {
-    var msg = new global.SpeechSynthesisUtterance(text);
-    var code = (LANGUAGES[lang] || LANGUAGES.en).speech;
-    msg.lang = code;
-    var voice = voiceFor(code);
-    if (voice) msg.voice = voice;
-    msg.rate = 0.9;
-    msg.pitch = 1.05;
-    return msg;
+  // Speech goes through speech.js (one calm, natural voice for the whole app).
+  function speakIn(text, lang, opts) {
+    opts = opts || {};
+    if (global.ESEASpeech) {
+      global.ESEASpeech.speak(text, { lang: lang, queue: opts.queue, onend: opts.onend });
+    } else if (global.speechSynthesis) {
+      global.speechSynthesis.cancel();
+      var msg = new global.SpeechSynthesisUtterance(text);
+      msg.rate = 0.85;
+      global.speechSynthesis.speak(msg);
+    }
   }
 
   // ---------- Storage ----------
@@ -240,10 +231,9 @@
   }
 
   function speak(text) {
-    if (!text || !global.speechSynthesis) return;
-    global.speechSynthesis.cancel();
-    global.speechSynthesis.speak(utterance(text, currentLang()));
+    speakIn(text, currentLang());
   }
+
 
   // ---------- Grown-ups check ----------
   // A multiplication question: easy for adults, not something a 3-6 year old
@@ -334,7 +324,7 @@
   function showBreak() {
     if (breakShown) return;
     breakShown = true;
-    try { global.speechSynthesis && global.speechSynthesis.cancel(); } catch (e) {}
+    if (global.ESEASpeech) global.ESEASpeech.stop();
     var name = ESEAFamily.activeProfile().name;
     var overlay = openModal([
       '<div class="esea-break" aria-hidden="true">🌙</div>',
@@ -474,7 +464,11 @@
       var lang = currentLang();
       return (supported || ['en']).indexOf(lang) !== -1 ? lang : 'en';
     },
-    utterance: utterance,
+    /** Speak in the chosen practice language (or opts.lang). */
+    speak: function(text, opts) {
+      opts = opts || {};
+      speakIn(text, opts.lang || currentLang(), opts);
+    },
 
     /** Offer to install the app (Chrome/Edge/Android). Returns false if not available. */
     canInstall: function() { return Boolean(installPrompt); },

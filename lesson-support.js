@@ -65,13 +65,16 @@ function addLessonNav() {
 }
 
 function speakText(text) {
-  if (!window.speechSynthesis || !text) return;
+  // Shared calm, natural voice (speech.js), with a plain fallback.
+  if (window.ESEASpeech) {
+    ESEASpeech.speak(text);
+    return;
+  }
+  if (!text || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 0.95;
-  utterance.pitch = 1.05;
-  utterance.volume = 1;
-  window.speechSynthesis.speak(utterance);
+  var msg = new SpeechSynthesisUtterance(text);
+  msg.rate = 0.85;
+  window.speechSynthesis.speak(msg);
 }
 
 function gatherLessonText() {

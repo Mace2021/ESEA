@@ -14,6 +14,7 @@
         .sound-chip { display: inline-flex; align-items: center; justify-content: center; margin-top: 0.5rem; padding: 0.4rem 0.8rem; border: none; border-radius: 999px; background: #ffd6e8; color: #2b0a3d; cursor: pointer; font-size: 0.95rem; }
         .chart-heading { margin-top: 1.5rem; }
     </style>
+    <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
 <body>
@@ -259,13 +260,16 @@
     </div>
     <script>
         function speakText(text) {
-            if (!window.speechSynthesis || !text) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.95;
-            utterance.pitch = 1.05;
-            utterance.volume = 1;
-            window.speechSynthesis.speak(utterance);
+          // Shared calm, natural voice (speech.js), with a plain fallback.
+          if (window.ESEASpeech) {
+            ESEASpeech.speak(text);
+            return;
+          }
+          if (!text || !window.speechSynthesis) return;
+          window.speechSynthesis.cancel();
+          var msg = new SpeechSynthesisUtterance(text);
+          msg.rate = 0.85;
+          window.speechSynthesis.speak(msg);
         }
         document.addEventListener('click', function(event) {
             if (event.target.matches('.sound-chip')) {

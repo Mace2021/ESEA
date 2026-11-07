@@ -18,6 +18,7 @@
         @keyframes floatUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes drift { 0% { transform: translateX(0);} 100% { transform: translateX(120vw);} }
     </style>
+    <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
 <body>
@@ -46,25 +47,15 @@
     </div>
     <script>
         const scenes = [
-            { letter: 'A', phrase: 'A is for apple', voice: 'A as in apple' },
-            { letter: 'B', phrase: 'B is for ball', voice: 'B as in ball' },
-            { letter: 'C', phrase: 'C is for cat', voice: 'C as in cat' }
+            { letter: 'A', phrase: 'A is for apple', voice: 'Here comes A! A is for... apple.' },
+            { letter: 'B', phrase: 'B is for ball', voice: 'Next is B. B is for... ball.' },
+            { letter: 'C', phrase: 'C is for cat', voice: 'And here is C. C is for... cat.' }
         ];
+        const ENDING = 'Great job! You can watch it again any time.';
         const bigLetter = document.getElementById('bigLetter');
         const wordLabel = document.getElementById('wordLabel');
         const playBtn = document.getElementById('playBtn');
         const replayBtn = document.getElementById('replayBtn');
-        let current = 0;
-        let timer = null;
-
-        function speakText(text) {
-            if (!window.speechSynthesis || !text) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.95;
-            utterance.pitch = 1.05;
-            window.speechSynthesis.speak(utterance);
-        }
 
         function showScene(index) {
             const scene = scenes[index];
@@ -73,23 +64,42 @@
             bigLetter.style.animation = 'none';
             void bigLetter.offsetWidth;
             bigLetter.style.animation = 'floatUp 0.8s ease forwards';
-            speakText(scene.voice);
         }
 
+        // Narration uses the shared calm voice (speech.js). Each scene waits
+        // for the narrator to finish, then pauses briefly before the next one.
+        function speakText(text, onend) {
+            if (window.ESEASpeech) {
+                ESEASpeech.speak(text, { onend: onend });
+                return;
+            }
+            if (window.speechSynthesis && text) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+            if (onend) setTimeout(onend, 3500);
+        }
+
+        let playId = 0;
         function playVideo() {
-            window.speechSynthesis.cancel();
-            current = 0;
-            showScene(current);
-            clearInterval(timer);
-            timer = setInterval(() => {
-                current += 1;
+            const id = ++playId;
+            let current = 0;
+            function step() {
+                if (id !== playId) return;
                 if (current >= scenes.length) {
-                    clearInterval(timer);
-                    speakText('Great job! Let us watch again anytime.');
+                    speakText(ENDING);
                     return;
                 }
                 showScene(current);
-            }, 4200);
+                speakText(scenes[current].voice, () => setTimeout(() => {
+                    if (id !== playId) return;
+                    current += 1;
+                    step();
+                }, 900));
+            }
+            step();
         }
 
         playBtn.addEventListener('click', playVideo);

@@ -17,6 +17,7 @@
         .video-controls button { padding: 0.85rem 1.2rem; border-radius: 999px; border:none; background: #9c6bff; color:#fff; font-weight:700; cursor:pointer; }
         @keyframes floatBalloon { from { transform: translateY(0);} to { transform: translateY(-40px);} }
     </style>
+    <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
 <body>
@@ -48,42 +49,50 @@
         const playBtn = document.getElementById('playBtn');
         const replayBtn = document.getElementById('replayBtn');
         const scenes = [
-            { count: 1, phrase: 'One bright yellow balloon.' },
-            { count: 2, phrase: 'Two blue balloons float up.' },
-            { count: 3, phrase: 'Three purple balloons wave hello.' }
+            { count: 1, voice: 'Let’s count! One... one bright yellow balloon.' },
+            { count: 2, voice: 'Two... two blue balloons float up.' },
+            { count: 3, voice: 'Three... three purple balloons wave hello!' }
         ];
-        let current = 0;
-        let timer = null;
-
-        function speakText(text) {
-            if (!window.speechSynthesis || !text) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.95;
-            utterance.pitch = 1.05;
-            window.speechSynthesis.speak(utterance);
-        }
+        const ENDING = 'Great counting! You can watch it again any time.';
 
         function showScene(index) {
-            const scene = scenes[index];
-            countLabel.textContent = 'Count: ' + scene.count;
-            speakText(scene.phrase);
+            countLabel.textContent = 'Count: ' + scenes[index].count;
         }
 
+        // Narration uses the shared calm voice (speech.js). Each scene waits
+        // for the narrator to finish, then pauses briefly before the next one.
+        function speakText(text, onend) {
+            if (window.ESEASpeech) {
+                ESEASpeech.speak(text, { onend: onend });
+                return;
+            }
+            if (window.speechSynthesis && text) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+            if (onend) setTimeout(onend, 3500);
+        }
+
+        let playId = 0;
         function playVideo() {
-            window.speechSynthesis.cancel();
-            current = 0;
-            showScene(current);
-            clearInterval(timer);
-            timer = setInterval(() => {
-                current += 1;
+            const id = ++playId;
+            let current = 0;
+            function step() {
+                if (id !== playId) return;
                 if (current >= scenes.length) {
-                    clearInterval(timer);
-                    speakText('Great counting! You can watch again anytime.');
+                    speakText(ENDING);
                     return;
                 }
                 showScene(current);
-            }, 4200);
+                speakText(scenes[current].voice, () => setTimeout(() => {
+                    if (id !== playId) return;
+                    current += 1;
+                    step();
+                }, 900));
+            }
+            step();
         }
 
         playBtn.addEventListener('click', playVideo);

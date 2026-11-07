@@ -1,0 +1,51 @@
+# Keeps the website in step with main.
+#
+# GitHub Pages for this repository publishes from the `newer-update` branch.
+# Whenever main changes, this copies main onto `newer-update` and asks Pages
+# to rebuild, so every merge into main shows up on
+# https://mace2021.github.io/ESEA/ without any manual step.
+#
+# If Pages is later switched to publish from main directly
+# (Settings -> Pages -> Branch: main), this workflow is harmless and can be removed.
+name: Publish main to the website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: publish-main
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main with full history
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Update the publishing branch to match main
+        run: |
+          git fetch origin newer-update || true
+          if git rev-parse --verify --quiet origin/newer-update >/dev/null; then
+            if ! git merge-base --is-ancestor origin/newer-update HEAD; then
+              echo "::error::newer-update has commits that are not on main. Merge them into main first so nothing is lost."
+              exit 1
+            fi
+          fi
+          git push origin HEAD:refs/heads/newer-update
+
+      - name: Ask GitHub Pages to rebuild
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method POST "repos/${{ github.repository }}/pages/builds" \
+            || echo "::warning::Could not request a Pages build; it may already be building from the push above."
