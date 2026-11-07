@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhyme Time - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Rhyme Time</h1>
+            <p>Find the word that sounds the same at the end.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        function shuffle(list) {
+            var copy = list.slice();
+            for (var i = copy.length - 1; i > 0; i -= 1) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var t = copy[i]; copy[i] = copy[j]; copy[j] = t;
+            }
+            return copy;
+        }
+        function wordOption(w) {
+            return { value: w.word, label: w.word, emoji: w.emoji };
+        }
+        function picture(w) {
+            return { html: '<span class="card-emoji" aria-hidden="true">' + w.emoji + '</span><span class="target-word">' + w.word + '</span>' };
+        }
+        function listWords(options) {
+            return shuffle(options).map(function(o) { return o.label; }).join('? ') + '?';
+        }
+
+        var pairs = [
+            [{ word: 'cat', emoji: '🐱' }, { word: 'hat', emoji: '🎩' }],
+            [{ word: 'dog', emoji: '🐶' }, { word: 'frog', emoji: '🐸' }],
+            [{ word: 'bee', emoji: '🐝' }, { word: 'tree', emoji: '🌳' }],
+            [{ word: 'car', emoji: '🚗' }, { word: 'star', emoji: '⭐' }],
+            [{ word: 'cake', emoji: '🎂' }, { word: 'snake', emoji: '🐍' }],
+            [{ word: 'mouse', emoji: '🐭' }, { word: 'house', emoji: '🏠' }],
+            [{ word: 'goat', emoji: '🐐' }, { word: 'boat', emoji: '⛵' }],
+            [{ word: 'bear', emoji: '🐻' }, { word: 'pear', emoji: '🍐' }],
+            [{ word: 'fox', emoji: '🦊' }, { word: 'box', emoji: '📦' }],
+            [{ word: 'king', emoji: '🤴' }, { word: 'ring', emoji: '💍' }],
+            [{ word: 'moon', emoji: '🌙' }, { word: 'spoon', emoji: '🥄' }],
+            [{ word: 'fish', emoji: '🐟' }, { word: 'dish', emoji: '🍽️' }]
+        ];
+        window.EarlyLesson = {
+            title: 'Rhyme Time',
+            instructions: 'Rhyming words sound the same at the end, like cat and hat. Say the words out loud together.',
+            type: 'quiz',
+            sayChoice: true,
+            rounds: pairs.map(function(pair, i) {
+                var others = shuffle(pairs.filter(function(p, j) { return j !== i; })).slice(0, 2)
+                    .map(function(p) { return p[Math.floor(Math.random() * 2)]; });
+                var options = [pair[1]].concat(others).map(wordOption);
+                return {
+                    key: pair[0].word,
+                    prompt: 'Which one rhymes with ' + pair[0].word + '?',
+                    speak: 'Which one rhymes with ' + pair[0].word + '? ' + listWords(options),
+                    hint: 'Listen: ' + pair[0].word + '... Which one sounds like ' + pair[0].word + ' at the end?',
+                    answer: pair[1].word,
+                    target: picture(pair[0]),
+                    options: options
+                };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="ESEA">
+    <title>Grown-ups - ESEA</title>
+    <link rel="stylesheet" href="early-lesson.css">
+    <script src="family.js"></script>
+    <script src="skill-tracker.js"></script>
+    <style>
+        .parent-main { max-width: 860px; }
+        .panel {
+            background: rgba(255, 255, 255, 0.97);
+            border: 2px solid var(--line);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+        .panel h2 { margin: 0 0 6px; color: var(--navy); font-size: 1.4rem; }
+        .panel > p { margin: 0 0 12px; color: var(--muted); line-height: 1.45; }
+        .kids { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+        .kid {
+            border: 2px solid var(--line);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #fbfeff;
+        }
+        .kid.active { border-color: var(--navy); background: #f1fafb; }
+        .kid-top { display: flex; align-items: center; gap: 10px; }
+        .kid-avatar {
+            font-size: 2.4rem; line-height: 1; border: 0; background: #fff3c7; border-radius: 12px;
+            width: 60px; height: 60px; cursor: pointer; flex: 0 0 auto;
+        }
+        .kid-name {
+            font: inherit; font-weight: 800; font-size: 1.1rem; border: 2px solid var(--line);
+            border-radius: 8px; padding: 8px; width: 100%; min-width: 0;
+        }
+        .kid-meta { color: var(--muted); font-size: 0.95rem; }
+        .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .small-btn {
+            border: 2px solid var(--line); background: #fff; color: var(--ink); border-radius: 999px;
+            padding: 8px 14px; font: inherit; font-weight: 700; cursor: pointer; min-height: 40px;
+        }
+        .small-btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .small-btn.danger { color: #a33434; }
+        select.small-btn { padding-right: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .tab[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .next-list { margin: 0; padding-left: 20px; line-height: 1.6; }
+        .area-title { margin: 18px 0 8px; font-size: 1.1rem; color: var(--ink); }
+        .lesson {
+            border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: #fff;
+        }
+        .lesson-head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+        .lesson-head a { color: var(--navy); font-weight: 800; font-size: 1.05rem; }
+        .lesson-head span { color: var(--muted); font-size: 0.9rem; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+        .chips b { font-size: 0.85rem; margin-right: 2px; min-width: 92px; }
+        .chip { border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: 0.9rem; }
+        .chip.known { background: #dff4cf; color: #1f5f2e; }
+        .chip.learning { background: #d9f4f2; color: #17323a; }
+        .chip.practising { background: #ffe1c2; color: #7a3c00; }
+        .idea { margin-top: 8px; font-size: 0.93rem; color: var(--muted); line-height: 1.4; }
+        details summary { cursor: pointer; font-weight: 800; color: var(--navy); }
+        .ideas dt { font-weight: 800; margin-top: 10px; }
+        .ideas dd { margin: 2px 0 0; color: var(--muted); line-height: 1.4; }
+        #locked { text-align: center; padding: 40px 16px; }
+        .path { margin-bottom: 14px; }
+        .path h3 { margin: 6px 0 8px; font-size: 1.1rem; }
+        .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+        .steps li { display: flex; gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #fff; }
+        .steps .num { width: 28px; height: 28px; border-radius: 50%; background: #fff3c7; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; flex: 0 0 auto; }
+        .steps a { color: var(--navy); font-weight: 800; }
+        .steps .state { margin-left: auto; font-size: 0.88rem; font-weight: 800; white-space: nowrap; }
+        .state.good { color: #1f5f2e; }
+        .state.work { color: #7a3c00; }
+        .state.new { color: var(--muted); }
+        .steps li.next { border-color: var(--navy); box-shadow: 0 0 0 2px rgba(36, 95, 115, 0.2); }
+        .lang-tag { font-size: 0.72rem; font-weight: 900; background: #d9f4f2; border-radius: 6px; padding: 2px 6px; margin-left: 6px; }
+        .empty { color: var(--muted); font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="images/ESEA.png" alt="ESEA logo">
+            <h1>Grown-ups</h1>
+            <p>Progress, time limits and ideas to try at home.</p>
+        </header>
+        <main class="lesson-main parent-main">
+            <nav class="lesson-nav"><a class="home-button" href="index.html">Back to the app</a></nav>
+
+            <div id="locked" class="panel">
+                <p>This area is for grown-ups.</p>
+                <button type="button" class="small-btn primary" id="unlockButton">Open grown-ups area</button>
+            </div>
+
+            <div id="content" hidden>
+                <section class="panel" aria-labelledby="next-title">
+                    <h2 id="next-title">What to do next</h2>
+                    <div id="nextSteps"></div>
+                </section>
+
+                <section class="panel" aria-labelledby="paths-title">
+                    <h2 id="paths-title">Learning paths</h2>
+                    <p>Two step-by-step paths, in the order young children usually learn. Each step is numbered on the
+                        home screen. Move on when a step is going well; it is fine to go back.</p>
+                    <div id="paths"></div>
+                </section>
+
+                <section class="panel" aria-labelledby="progress-title">
+                    <h2 id="progress-title">Progress</h2>
+                    <p>Each item a child plays is marked <span class="chip known">knows</span> after a few right
+                        first tries, <span class="chip learning">learning</span> while it settles, and
+                        <span class="chip practising">practising</span> right after a miss. Lessons automatically
+                        show practising items more often.</p>
+                    <div class="tabs" id="childTabs" role="group" aria-label="Choose a child"></div>
+                    <div id="progress"></div>
+                </section>
+
+                <section class="panel" aria-labelledby="kids-title">
+                    <h2 id="kids-title">Children</h2>
+                    <p>Each child gets their own progress. Tap the animal to change it. Children choose who is
+                        playing from the home screen.</p>
+                    <div class="kids" id="kids"></div>
+                    <div class="row" style="margin-top:12px">
+                        <input class="kid-name" style="max-width:240px" id="newName" placeholder="Child's name" maxlength="20" aria-label="New child's name">
+                        <button type="button" class="small-btn primary" id="addKid">Add child</button>
+                    </div>
+                </section>
+
+                <section class="panel" aria-labelledby="time-title">
+                    <h2 id="time-title">Daily time limit</h2>
+                    <p>When time is up, your child sees a calm "Time for a break" screen. You can add 15 more
+                        minutes from that screen with the grown-ups check. The limit is per child, per day.</p>
+                    <label class="row">
+                        <span>Limit:</span>
+                        <select class="small-btn" id="limit">
+                            <option value="0">No limit</option>
+                            <option value="10">10 minutes</option>
+                            <option value="15">15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes</option>
+                        </select>
+                    </label>
+                </section>
+
+                <section class="panel" aria-labelledby="lang-title">
+                    <h2 id="lang-title">Practice language</h2>
+                    <p>For bilingual families: the math lessons (marked <strong>ES FR</strong> below) speak and show
+                        their words in the language you choose. Reading lessons stay in English, because rhymes and
+                        letter sounds are different in every language. The voice depends on the voices installed on
+                        this device.</p>
+                    <label class="row">
+                        <span>Language:</span>
+                        <select class="small-btn" id="language"></select>
+                    </label>
+                </section>
+
+                <section class="panel" aria-labelledby="install-title">
+                    <h2 id="install-title">Use ESEA offline</h2>
+                    <p>After ESEA has been opened once with internet, it keeps working without internet, for example in
+                        the car or on a plane. Add it to your home screen so it opens like an app.</p>
+                    <div class="row">
+                        <button type="button" class="small-btn primary" id="installButton" hidden>Install ESEA on this device</button>
+                    </div>
+                    <p id="installHelp" style="margin:10px 0 0">
+                        <strong>iPhone / iPad:</strong> in Safari, tap Share, then "Add to Home Screen".
+                        <strong>Android:</strong> in Chrome, tap the &#8942; menu, then "Add to Home screen" or "Install app".
+                        <strong>Computer:</strong> in Chrome or Edge, use the install icon in the address bar.</p>
+                    <p id="offlineStatus" class="kid-meta" style="margin:10px 0 0"></p>
+                </section>
+
+                <section class="panel" aria-labelledby="ideas-title">
+                    <h2 id="ideas-title">Try this at home</h2>
+                    <p>Children learn the most when a grown-up joins in. These take a few minutes and no screen.</p>
+                    <details>
+                        <summary>Show all ideas</summary>
+                        <dl class="ideas" id="ideas"></dl>
+                    </details>
+                </section>
+
+                <section class="panel" aria-labelledby="privacy-title">
+                    <h2 id="privacy-title">Privacy</h2>
+                    <p>ESEA has no ads, no accounts and no tracking. Names and progress are saved only in this
+                        browser on this device. They are not sent anywhere, and clearing the browser's data
+                        removes them.</p>
+                    <button type="button" class="small-btn danger" id="resetProgress">Reset progress for this child</button>
+                </section>
+            </div>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+
+    <script>
+        (function() {
+            var F = window.ESEAFamily;
+            var viewing = F.activeProfile().id;
+
+            function esc(text) {
+                return String(text).replace(/[&<>"']/g, function(c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                });
+            }
+
+            function ago(time) {
+                if (!time) return '';
+                var days = Math.floor((Date.now() - time) / 86400000);
+                if (days <= 0) return 'played today';
+                if (days === 1) return 'played yesterday';
+                return 'played ' + days + ' days ago';
+            }
+
+            function lessonStats(lessonId, profileId) {
+                var items = SkillTracker.summary(lessonId, profileId);
+                var groups = { known: [], learning: [], practising: [] };
+                var last = 0;
+                items.forEach(function(item) {
+                    groups[item.status].push(item.key);
+                    last = Math.max(last, item.last);
+                });
+                Object.keys(groups).forEach(function(k) {
+                    groups[k].sort(function(a, b) {
+                        return isNaN(a) || isNaN(b) ? String(a).localeCompare(String(b)) : a - b;
+                    });
+                });
+                return { groups: groups, last: last, count: items.length };
+            }
+
+            function chipRow(label, keys, cls) {
+                if (!keys.length) return '';
+                return '<div class="chips"><b>' + label + '</b>' + keys.map(function(k) {
+                    return '<span class="chip ' + cls + '">' + esc(k) + '</span>';
+                }).join('') + '</div>';
+            }
+
+            function renderTabs() {
+                var tabs = document.getElementById('childTabs');
+                tabs.innerHTML = F.profiles().map(function(p) {
+                    return '<button type="button" class="small-btn tab" aria-pressed="' + (p.id === viewing) + '" data-id="' + p.id + '">' +
+                        p.avatar + ' ' + esc(p.name) + '</button>';
+                }).join('');
+            }
+
+            function renderProgress() {
+                var html = '';
+                var area = '';
+                F.catalog.filter(function(l) { return l.tracked; }).forEach(function(lesson) {
+                    if (lesson.area !== area) {
+                        area = lesson.area;
+                        html += '<h3 class="area-title">' + esc(area) + '</h3>';
+                    }
+                    var s = lessonStats(lesson.id, viewing);
+                    html += '<div class="lesson"><div class="lesson-head"><a href="' + lesson.href + '">' + esc(lesson.name) + '</a>' + langTag(lesson) +
+                        '<span>' + (s.count ? ago(s.last) : 'not started yet') + '</span></div>';
+                    if (s.count) {
+                        html += chipRow('Practising', s.groups.practising, 'practising') +
+                            chipRow('Learning', s.groups.learning, 'learning') +
+                            chipRow('Knows', s.groups.known, 'known');
+                    }
+                    html += '<div class="idea">At home: ' + esc(lesson.home) + '</div></div>';
+                });
+                document.getElementById('progress').innerHTML = html;
+            }
+
+            // Status of a lesson for one child: new, working (has practising items) or good.
+            function stepState(lesson) {
+                var st = lessonStats(lesson.id, viewing);
+                if (!lesson.tracked) return { cls: 'new', text: 'play together', started: true };
+                if (!st.count) return { cls: 'new', text: 'not started', started: false };
+                if (st.groups.practising.length) return { cls: 'work', text: 'practising ' + st.groups.practising.length, started: true };
+                return { cls: 'good', text: st.groups.known.length ? 'going well' : 'learning', started: true, good: Boolean(st.groups.known.length) };
+            }
+
+            function pathSteps(path) {
+                return F.catalog.filter(function(l) { return l.path === path; })
+                    .sort(function(a, b) { return a.step - b.step; });
+            }
+
+            // The first tracked step that is not going well yet.
+            function nextStep(path) {
+                var steps = pathSteps(path).filter(function(l) { return l.tracked; });
+                for (var i = 0; i < steps.length; i += 1) {
+                    if (!stepState(steps[i]).good) return steps[i];
+                }
+                return null;
+            }
+
+            function langTag(lesson) {
+                return lesson.langs ? '<span class="lang-tag">ES FR</span>' : '';
+            }
+
+            function renderPaths() {
+                var html = '';
+                [['reading', 'Reading path'], ['math', 'Math path']].forEach(function(pair) {
+                    var next = nextStep(pair[0]);
+                    html += '<div class="path"><h3>' + pair[1] + '</h3><ol class="steps">';
+                    pathSteps(pair[0]).forEach(function(lesson) {
+                        var state = stepState(lesson);
+                        html += '<li class="' + (next && next.id === lesson.id ? 'next' : '') + '"><span class="num">' + lesson.step + '</span>' +
+                            '<a href="' + lesson.href + '">' + esc(lesson.name) + '</a>' + langTag(lesson) +
+                            '<span class="state ' + state.cls + '">' + (next && next.id === lesson.id ? 'next &middot; ' : '') + state.text + '</span></li>';
+                    });
+                    html += '</ol></div>';
+                });
+                document.getElementById('paths').innerHTML = html;
+            }
+
+            function renderNext() {
+                var p = F.profiles().filter(function(x) { return x.id === viewing; })[0];
+                var tracked = F.catalog.filter(function(l) { return l.tracked; });
+                var steps = [];
+                tracked.map(function(l) { return { lesson: l, stats: lessonStats(l.id, viewing) }; })
+                    .filter(function(x) { return x.stats.groups.practising.length; })
+                    .sort(function(a, b) { return b.stats.groups.practising.length - a.stats.groups.practising.length; })
+                    .slice(0, 2)
+                    .forEach(function(x) {
+                        steps.push('Practise <strong>' + x.stats.groups.practising.slice(0, 5).map(esc).join(', ') +
+                            '</strong> in <a href="' + x.lesson.href + '">' + esc(x.lesson.name) + '</a>. ' +
+                            'At home: ' + esc(x.lesson.home));
+                    });
+                ['reading', 'math'].forEach(function(path) {
+                    var l = nextStep(path);
+                    if (!l || steps.length >= 4 || lessonStats(l.id, viewing).groups.practising.length) return;
+                    steps.push('Next on the ' + path + ' path: step ' + l.step + ', <a href="' + l.href + '">' +
+                        esc(l.name) + '</a>. At home: ' + esc(l.home));
+                });
+                var minutes = F.minutesToday(viewing);
+                document.getElementById('nextSteps').innerHTML =
+                    '<p>' + p.avatar + ' <strong>' + esc(p.name) + '</strong> has played about ' + minutes +
+                    ' minute' + (minutes === 1 ? '' : 's') + ' today.</p>' +
+                    (steps.length ? '<ul class="next-list"><li>' + steps.join('</li><li>') + '</li></ul>'
+                        : '<p class="empty">Great work: nothing to practise right now. Keep playing to unlock more.</p>');
+            }
+
+            function renderKids() {
+                var active = F.activeProfile().id;
+                var single = F.profiles().length === 1;
+                document.getElementById('kids').innerHTML = F.profiles().map(function(p) {
+                    return '<div class="kid' + (p.id === active ? ' active' : '') + '" data-id="' + p.id + '">' +
+                        '<div class="kid-top"><button type="button" class="kid-avatar" data-act="avatar" aria-label="Change animal">' + p.avatar + '</button>' +
+                        '<input class="kid-name" data-act="name" value="' + esc(p.name) + '" maxlength="20" aria-label="Name"></div>' +
+                        '<div class="kid-meta">' + F.minutesToday(p.id) + ' min today' + (p.id === active ? ' &middot; playing now' : '') + '</div>' +
+                        '<div class="row">' +
+                        (p.id === active ? '' : '<button type="button" class="small-btn" data-act="play">Set as playing now</button>') +
+                        (single ? '' : '<button type="button" class="small-btn danger" data-act="remove">Remove</button>') +
+                        '</div></div>';
+                }).join('');
+            }
+
+            function renderIdeas() {
+                document.getElementById('ideas').innerHTML = F.catalog.map(function(l) {
+                    return '<dt>' + esc(l.name) + '</dt><dd>' + esc(l.home) + '</dd>';
+                }).join('');
+            }
+
+            function renderAll() {
+                if (!F.profiles().some(function(p) { return p.id === viewing; })) viewing = F.activeProfile().id;
+                renderTabs();
+                renderNext();
+                renderPaths();
+                renderProgress();
+                renderKids();
+                document.getElementById('limit').value = String(F.data().limitMinutes || 0);
+            }
+
+            document.getElementById('childTabs').addEventListener('click', function(e) {
+                var t = e.target.closest('[data-id]');
+                if (!t) return;
+                viewing = t.getAttribute('data-id');
+                renderAll();
+            });
+
+            document.getElementById('kids').addEventListener('click', function(e) {
+                var t = e.target.closest('[data-act]');
+                if (!t) return;
+                var id = t.closest('.kid').getAttribute('data-id');
+                var act = t.getAttribute('data-act');
+                if (act === 'avatar') {
+                    var p = F.profiles().filter(function(x) { return x.id === id; })[0];
+                    var next = F.avatars[(F.avatars.indexOf(p.avatar) + 1) % F.avatars.length];
+                    F.updateProfile(id, null, next);
+                } else if (act === 'play') {
+                    F.setActive(id);
+                } else if (act === 'remove') {
+                    var who = t.closest('.kid').querySelector('.kid-name').value;
+                    if (!confirm('Remove ' + who + ' and all of their progress? This cannot be undone.')) return;
+                    F.removeProfile(id);
+                } else {
+                    return;
+                }
+                renderAll();
+            });
+
+            document.getElementById('kids').addEventListener('change', function(e) {
+                if (e.target.getAttribute('data-act') !== 'name') return;
+                var name = e.target.value.trim();
+                if (!name) return;
+                F.updateProfile(e.target.closest('.kid').getAttribute('data-id'), name, null);
+                renderAll();
+            });
+
+            document.getElementById('addKid').addEventListener('click', function() {
+                var input = document.getElementById('newName');
+                var name = input.value.trim();
+                if (!name) { input.focus(); return; }
+                viewing = F.addProfile(name);
+                input.value = '';
+                renderAll();
+            });
+
+            document.getElementById('limit').addEventListener('change', function(e) {
+                F.setLimit(e.target.value);
+            });
+
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                var p = F.profiles().filter(function(x) { return x.id === viewing; })[0];
+                if (!confirm('Reset all progress for ' + p.name + '? This cannot be undone.')) return;
+                SkillTracker.reset(viewing);
+                renderAll();
+            });
+
+            var langSelect = document.getElementById('language');
+            Object.keys(F.languages).forEach(function(code) {
+                var opt = document.createElement('option');
+                opt.value = code;
+                opt.textContent = F.languages[code].name;
+                langSelect.appendChild(opt);
+            });
+            langSelect.value = F.lang();
+            langSelect.addEventListener('change', function() { F.setLanguage(langSelect.value); });
+
+            var installButton = document.getElementById('installButton');
+            function updateInstall() { installButton.hidden = !F.canInstall(); }
+            document.addEventListener('esea-installable', updateInstall);
+            installButton.addEventListener('click', function() { F.install(); updateInstall(); });
+            updateInstall();
+            var offlineStatus = document.getElementById('offlineStatus');
+            if (window.matchMedia && matchMedia('(display-mode: standalone)').matches) {
+                offlineStatus.textContent = 'ESEA is installed on this device.';
+            }
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                offlineStatus.textContent += (offlineStatus.textContent ? ' ' : '') + 'Offline use is ready.';
+            }
+
+            function show() {
+                document.getElementById('locked').hidden = true;
+                document.getElementById('content').hidden = false;
+                renderIdeas();
+                renderAll();
+            }
+            function unlock() {
+                if (F.recentlyVerified()) show();
+                else F.parentGate(show);
+            }
+            document.getElementById('unlockButton').addEventListener('click', unlock);
+            unlock();
+        })();
+    </script>
+</body>
+</html>

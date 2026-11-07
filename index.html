@@ -10,6 +10,10 @@
     <meta name="theme-color" content="#245f73">
     <!-- Updated to force GitHub Pages rebuild -->
 
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="ESEA">
     <title>ESEA - Early Start Education App</title>
 
     <link rel="stylesheet" href="responsive.css">
@@ -196,11 +200,53 @@
             font-size: 1rem;
         }
 
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 56px;
+        }
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #fff3c7;
+            color: #17323a;
+            font-size: 0.9rem;
+            font-weight: 900;
+            margin-left: auto;
+        }
+        .item-icon {
+            font-size: 1.9rem;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
         .dropdown-item:hover {
             background: #1d4c5c;
             transform: scale(1.02);
         }
 
+        .player-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 6px;
+        }
+        .grownups-row {
+            margin: 14px 0 8px !important;
+        }
+        .grownups-link {
+            display: inline-block;
+            background: #245f73;
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 999px;
+        }
         .footer-panel {
             display: flex;
             flex-direction: column;
@@ -236,6 +282,7 @@
             }
         }
     </style>
+    <script src="./family.js"></script>
 </head>
 
 <body>
@@ -247,6 +294,9 @@
                     <h1>ESEA</h1>
                     <p>Early Start Education App</p>
                 </div>
+            </div>
+            <div class="player-row">
+                <button type="button" id="profileChip" class="profile-chip">Who is playing?</button>
             </div>
         </header>
 
@@ -264,27 +314,33 @@
                     <article class="card blue" role="button" tabindex="0" aria-label="Numbers and counting">
                         <div class="card-icon" aria-hidden="true">&#128290;</div>
                         <div class="card-title">Numbers & Counting</div>
-                        <div class="card-subtitle">Recognize numbers, count objects, and practice 1-100 with sound.
-                        </div>
+                        <div class="card-subtitle">Follow the numbered steps: see small amounts, count, compare, and put numbers in order.</div>
                         <div class="dropdown-menu">
-                            <a href="./123/countto100.html" class="dropdown-item">Hear Numbers 1-100</a>
-                            <a href="./123/pickthenum.html" class="dropdown-item">Pick the Number</a>
-                            <a href="./arithmetic/howmanyapple.html" class="dropdown-item">Count the Apples</a>
-                            <a href="./puzzles/number-match.html" class="dropdown-item">Number Match</a>
+                            <a href="./math/quicklook.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">👀</span>Quick Look<span class="step-badge" aria-label="Step 1">1</span></a>
+                            <a href="./arithmetic/howmanyapple.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🍎</span>Count the Apples<span class="step-badge" aria-label="Step 2">2</span></a>
+                            <a href="./math/countto10.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🍓</span>Count to 10<span class="step-badge" aria-label="Step 3">3</span></a>
+                            <a href="./math/moreorless.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">⚖️</span>More or Less<span class="step-badge" aria-label="Step 4">4</span></a>
+                            <a href="./math/whatsnext.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">➡️</span>What Comes Next?<span class="step-badge" aria-label="Step 5">5</span></a>
+                            <a href="./123/pickthenum.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔢</span>Pick the Number<span class="step-badge" aria-label="Step 6">6</span></a>
+                            <a href="./puzzles/number-match.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔵</span>Number Match</a>
+                            <a href="./123/countto100.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔊</span>Hear Numbers 1-100</a>
                         </div>
                     </article>
 
                     <article class="card orange" role="button" tabindex="0" aria-label="ABC and letters">
                         <div class="card-icon" aria-hidden="true">&#128292;</div>
                         <div class="card-title">ABC & Letters</div>
-                        <div class="card-subtitle">Name letters, hear sounds, and connect letters to pictures.</div>
+                        <div class="card-subtitle">Follow the numbered steps: rhymes, word parts, first sounds, then letters.</div>
                         <div class="dropdown-menu">
-                            <a href="./abc/abc.html" class="dropdown-item">Say Your ABCs</a>
-                            <a href="./abc/alphabet-sounds.html" class="dropdown-item">Sounds Phonics</a>
-                            <a href="./abc/pronunciation-symbols.html" class="dropdown-item">Pronunciation Symbols</a>
-                            <a href="./abc/picktheletter.html" class="dropdown-item">Pick the Letter</a>
-                            <a href="./abc/abcpic.html" class="dropdown-item">Letters with Pictures</a>
-                            <a href="./puzzles/letter-match.html" class="dropdown-item">Letter Match</a>
+                            <a href="./reading/rhyme.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🎩</span>Rhyme Time<span class="step-badge" aria-label="Step 1">1</span></a>
+                            <a href="./reading/wordparts.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🌻</span>Word Parts<span class="step-badge" aria-label="Step 2">2</span></a>
+                            <a href="./reading/firstsounds.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🐍</span>First Sounds<span class="step-badge" aria-label="Step 3">3</span></a>
+                            <a href="./abc/alphabet-sounds.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🗣️</span>Sounds Phonics<span class="step-badge" aria-label="Step 4">4</span></a>
+                            <a href="./abc/picktheletter.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🅰️</span>Pick the Letter<span class="step-badge" aria-label="Step 5">5</span></a>
+                            <a href="./abc/abc.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔤</span>Say Your ABCs</a>
+                            <a href="./abc/abcpic.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🐘</span>Letters with Pictures</a>
+                            <a href="./puzzles/letter-match.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🧩</span>Letter Match</a>
+                            <a href="./abc/pronunciation-symbols.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📖</span>Pronunciation Symbols</a>
                         </div>
                     </article>
 
@@ -293,7 +349,7 @@
                         <div class="card-title">Colors</div>
                         <div class="card-subtitle">Build color names through bright, concrete visual choices.</div>
                         <div class="dropdown-menu">
-                            <a href="./color/colors.html" class="dropdown-item">Learn Colors</a>
+                            <a href="./color/colors.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🎨</span>Learn Colors</a>
                         </div>
                     </article>
 
@@ -302,9 +358,9 @@
                         <div class="card-title">Shapes</div>
                         <div class="card-subtitle">Find circles, squares, triangles, and other everyday shapes.</div>
                         <div class="dropdown-menu">
-                            <a href="./shapes/shapes.html" class="dropdown-item">Learn Shapes</a>
-                            <a href="./shapes/whatshape.html" class="dropdown-item">What Shape Is This?</a>
-                            <a href="./puzzles/shape-match.html" class="dropdown-item">Shape Match</a>
+                            <a href="./shapes/shapes.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔺</span>Learn Shapes</a>
+                            <a href="./shapes/whatshape.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🟦</span>What Shape Is This?</a>
+                            <a href="./puzzles/shape-match.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">⭐</span>Shape Match</a>
                         </div>
                     </article>
                 </div>
@@ -319,9 +375,9 @@
                         <div class="card-title">First Words</div>
                         <div class="card-subtitle">Practice picture-word matching before moving into spelling.</div>
                         <div class="dropdown-menu">
-                            <a href="./abc/pickaword.html" class="dropdown-item">Pick the Word</a>
-                            <a href="./abc/pickthepic.html" class="dropdown-item">Pick the Picture</a>
-                            <a href="./abc/kiddictionary.html" class="dropdown-item">Kid Word Book</a>
+                            <a href="./abc/pickaword.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📝</span>Pick the Word</a>
+                            <a href="./abc/pickthepic.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🖼️</span>Pick the Picture</a>
+                            <a href="./abc/kiddictionary.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📚</span>Kid Word Book</a>
                         </div>
                     </article>
 
@@ -330,7 +386,7 @@
                         <div class="card-title">Stories</div>
                         <div class="card-subtitle">Shared reading builds attention, vocabulary, memory, and joy.</div>
                         <div class="dropdown-menu">
-                            <a href="./books/lego.html" class="dropdown-item">Who Took My Legos?</a>
+                            <a href="./books/lego.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🧱</span>Who Took My Legos?</a>
                         </div>
                     </article>
 
@@ -339,8 +395,8 @@
                         <div class="card-title">Daily Routines</div>
                         <div class="card-subtitle">Introduce days, months, and seasons through familiar routines.</div>
                         <div class="dropdown-menu">
-                            <a href="./abc/calendar.html" class="dropdown-item">Calendar Words</a>
-                            <a href="./weather/weather.html" class="dropdown-item">Weather & Seasons</a>
+                            <a href="./abc/calendar.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📅</span>Calendar Words</a>
+                            <a href="./weather/weather.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">⛅</span>Weather & Seasons</a>
                         </div>
                     </article>
                 </div>
@@ -355,7 +411,7 @@
                         <div class="card-title">Feelings</div>
                         <div class="card-subtitle">Name emotions and practice gentle self-expression.</div>
                         <div class="dropdown-menu">
-                            <a href="./emotions/emotions.html" class="dropdown-item">Learn Emotions</a>
+                            <a href="./emotions/emotions.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">😊</span>Learn Emotions</a>
                         </div>
                     </article>
 
@@ -364,8 +420,8 @@
                         <div class="card-title">Nature Discovery</div>
                         <div class="card-subtitle">Observe plants, animals, weather, and simple living things.</div>
                         <div class="dropdown-menu">
-                            <a href="./science/bio.html" class="dropdown-item">Living Things</a>
-                            <a href="./weather/weather.html" class="dropdown-item">Weather Watching</a>
+                            <a href="./science/bio.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🌱</span>Living Things</a>
+                            <a href="./weather/weather.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">⛅</span>Weather Watching</a>
                         </div>
                     </article>
 
@@ -374,10 +430,10 @@
                         <div class="card-title">Matching Games</div>
                         <div class="card-subtitle">Build memory, attention, turn-taking, and visual matching.</div>
                         <div class="dropdown-menu">
-                            <a href="./puzzles/puzzles.html" class="dropdown-item">Puzzle Lessons</a>
-                            <a href="./puzzles/animal-match.html" class="dropdown-item">Animal Match</a>
-                            <a href="./puzzles/find-pairs.html" class="dropdown-item">Find Pairs</a>
-                            <a href="./puzzles/sort-game.html" class="dropdown-item">Sort Game</a>
+                            <a href="./puzzles/puzzles.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🧩</span>Puzzle Lessons</a>
+                            <a href="./puzzles/animal-match.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🐶</span>Animal Match</a>
+                            <a href="./puzzles/find-pairs.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🃏</span>Find Pairs</a>
+                            <a href="./puzzles/sort-game.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🗂️</span>Sort Game</a>
                         </div>
                     </article>
 
@@ -386,10 +442,10 @@
                         <div class="card-title">Watch & Listen</div>
                         <div class="card-subtitle">Use short videos and songs as adult-guided learning moments.</div>
                         <div class="dropdown-menu">
-                            <a href="./tv/tv.html" class="dropdown-item">Watch & Listen</a>
-                            <a href="./tv/animated-alphabet.html" class="dropdown-item">Alphabet Adventure</a>
-                            <a href="./tv/counting-rainbow.html" class="dropdown-item">Counting Rainbow</a>
-                            <a href="./tv/sound-parade.html" class="dropdown-item">Sound Parade</a>
+                            <a href="./tv/tv.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📺</span>Watch & Listen</a>
+                            <a href="./tv/animated-alphabet.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔠</span>Alphabet Adventure</a>
+                            <a href="./tv/counting-rainbow.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🌈</span>Counting Rainbow</a>
+                            <a href="./tv/sound-parade.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🥁</span>Sound Parade</a>
                         </div>
                     </article>
                 </div>
@@ -400,6 +456,8 @@
                 <p>This pathway favors concrete, sensory, short activities. Advanced civics, state capitals, chemistry,
                     computer science, full dictionaries, leaderboards, and higher arithmetic are kept out of the
                     child-facing flow.</p>
+                <p class="grownups-row"><a href="parents.html" id="grownupsLink" class="grownups-link">&#128106; Grown-ups area</a></p>
+                <p>See what your child has learned, set a daily time limit, add siblings, and get ideas to try at home.</p>
             </section>
         </main>
 
@@ -411,7 +469,7 @@
                 </div>
                 <div class="footer-actions">
                     <button class="btn btn-primary btn-large"
-                        onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=VD3YGDBNY6CUA')">
+                        onclick="ESEAFamily.parentGate(function () { window.open('https://www.paypal.com/donate/?hosted_button_id=VD3YGDBNY6CUA'); })">
                         Donate
                     </button>
                     <img src="./images/QR Code.png" alt="Scan to donate with QR code">

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Count the Apples - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
 </head>
 <body>
     <div class="lesson-shell">
@@ -20,25 +21,40 @@
         <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
     <script>
+        var L = window.ESEAFamily ? ESEAFamily.lessonLang(['en', 'es', 'fr']) : 'en';
+        var T = {
+            en: { title: 'Count the Apples', hero: 'Count the apples with your finger, then tap the number.',
+                  prompt: 'How many apples?', speak: 'How many apples do you see?', intro: 'Use small groups first. Count each apple one time.',
+                  heading: 'Count Objects', alt: 'Apple' },
+            es: { title: 'Cuenta las manzanas', hero: 'Cuenta las manzanas con el dedo y toca el número.',
+                  prompt: '¿Cuántas manzanas?', speak: '¿Cuántas manzanas ves?', intro: 'Empieza con grupos pequeños. Cuenta cada manzana una sola vez.',
+                  heading: 'Contar objetos', alt: 'Manzana' },
+            fr: { title: 'Compte les pommes', hero: 'Compte les pommes avec ton doigt, puis touche le nombre.',
+                  prompt: 'Combien de pommes ?', speak: 'Combien de pommes vois-tu ?', intro: 'Commence par de petits groupes. Compte chaque pomme une seule fois.',
+                  heading: 'Compter des objets', alt: 'Pomme' }
+        }[L];
         var numberChoices = [1, 2, 3, 4, 5].map(function(number) {
             return { value: String(number), label: String(number), symbol: String(number) };
         });
         function appleRound(count) {
             return {
-                prompt: 'How many apples?',
-                speak: 'How many apples do you see?',
+                prompt: T.prompt,
+                speak: T.speak,
                 answer: String(count),
-                target: { countImage: '../images/apple.png', count: count, alt: 'Apple' },
+                target: { countImage: '../images/apple.png', count: count, alt: T.alt },
                 options: numberChoices
             };
         }
         window.EarlyLesson = {
-            title: 'Count Objects',
-            instructions: 'Use small groups first. Count each apple one time.',
+            lang: L,
+            hero: { title: T.title, text: T.hero },
+            title: T.heading,
+            instructions: T.intro,
             type: 'quiz',
             rounds: [1, 2, 3, 4, 5].map(appleRound)
         };
     </script>
+    <script src="../skill-tracker.js"></script>
     <script src="../early-lesson.js"></script>
 </body>
 </html>

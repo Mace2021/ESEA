@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count to 10 - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Count to 10</h1>
+            <p>Count the pictures, then tap the number.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var L = window.ESEAFamily ? ESEAFamily.lessonLang(['en', 'es', 'fr']) : 'en';
+
+        var T = {
+            en: { title: 'Count to 10', hero: 'Count the pictures, then tap the number.', prompt: 'How many?',
+                  speak: 'Count them. How many?', intro: 'Touch each picture once as you count. The last number you say is how many.' },
+            es: { title: 'Cuenta hasta 10', hero: 'Cuenta los dibujos y toca el número.', prompt: '¿Cuántos hay?',
+                  speak: 'Cuéntalos. ¿Cuántos hay?', intro: 'Toca cada dibujo una vez mientras cuentas. El último número que dices es cuántos hay.' },
+            fr: { title: 'Compter jusqu’à 10', hero: 'Compte les images, puis touche le nombre.', prompt: 'Combien ?',
+                  speak: 'Compte-les. Combien y en a-t-il ?', intro: 'Touche chaque image une fois en comptant. Le dernier nombre que tu dis, c’est combien il y en a.' }
+        }[L];
+        var pictures = ['🍓', '🐟', '⭐', '🚗', '🎈', '🐞', '🍪', '🌸'];
+        function optionsFor(n) {
+            var nums = [n];
+            [-1, 1, -2, 2, 3, -3].forEach(function(d) {
+                var c = n + d;
+                if (nums.length < 4 && c >= 1 && c <= 10) nums.push(c);
+            });
+            return nums.sort(function(a, b) { return a - b; }).map(function(x) {
+                return { value: String(x), label: String(x), symbol: String(x) };
+            });
+        }
+        window.EarlyLesson = {
+            lang: L,
+            hero: { title: T.title, text: T.hero },
+            title: T.title,
+            instructions: T.intro,
+            type: 'quiz',
+            rounds: [3, 4, 5, 6, 7, 8, 9, 10].map(function(n, i) {
+                return { prompt: T.prompt, speak: T.speak, answer: String(n),
+                         target: { countEmoji: pictures[i % pictures.length], count: n }, options: optionsFor(n) };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

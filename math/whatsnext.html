@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Comes Next? - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>What Comes Next?</h1>
+            <p>Which number comes next?</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var L = window.ESEAFamily ? ESEAFamily.lessonLang(['en', 'es', 'fr']) : 'en';
+
+        var T = {
+            en: { title: 'What Comes Next?', hero: 'Which number comes next?', prompt: 'What comes next?',
+                  ask: 'What comes next?', intro: 'Say the numbers out loud. Which number comes after them?', hint: 'Let’s count:' },
+            es: { title: '¿Qué sigue?', hero: '¿Qué número sigue?', prompt: '¿Qué número sigue?',
+                  ask: '¿Qué número sigue?', intro: 'Di los números en voz alta. ¿Qué número viene después?', hint: 'Vamos a contar:' },
+            fr: { title: 'Et après ?', hero: 'Quel nombre vient après ?', prompt: 'Quel nombre vient après ?',
+                  ask: 'Quel nombre vient après ?', intro: 'Dis les nombres à voix haute. Quel nombre vient ensuite ?', hint: 'Comptons :' }
+        }[L];
+        function round(start) {
+            var seq = [start, start + 1, start + 2];
+            var answer = start + 3;
+            var nums = [answer];
+            [start + 4, start + 2, start + 5, start + 1, start + 6].forEach(function(c) {
+                if (nums.length < 4 && c >= 1 && c <= 10 && nums.indexOf(c) === -1) nums.push(c);
+            });
+            return {
+                key: 'after ' + seq.join(' '),
+                prompt: T.prompt,
+                speak: seq.join(', ') + '. ' + T.ask,
+                hint: T.hint + ' ' + seq.join(', ') + '...',
+                answer: String(answer),
+                target: { html: '<span class="seq">' + seq.join(' ') + ' <span class="gap">?</span></span>' },
+                options: nums.sort(function(a, b) { return a - b; }).map(function(x) {
+                    return { value: String(x), label: String(x), symbol: String(x) };
+                })
+            };
+        }
+        window.EarlyLesson = {
+            lang: L,
+            hero: { title: T.title, text: T.hero },
+            title: T.title,
+            instructions: T.intro,
+            type: 'quiz',
+            rounds: [1, 2, 3, 4, 5, 6, 7].map(round)
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

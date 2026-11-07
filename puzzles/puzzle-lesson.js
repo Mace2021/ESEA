@@ -8,8 +8,34 @@
     answered: false,
     pairCards: [],
     revealed: [],
-    matched: {}
+    matched: {},
+    misses: 0,
+    requeued: {},
+    advanceTimer: null
   };
+  var lessonId = config.id || (window.SkillTracker ? SkillTracker.lessonId() : location.pathname);
+  var PRAISE = ['Yes!', 'You got it!', 'Great job!', 'Well done!', 'Super!'];
+
+  function speak(text) {
+    if (!text || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    var msg = new SpeechSynthesisUtterance(text);
+    msg.rate = 0.9;
+    msg.pitch = 1.05;
+    window.speechSynthesis.speak(msg);
+  }
+
+  function itemKey(round) {
+    return String(config.type === 'sort' ? (round.label || round.answer) : round.answer);
+  }
+
+  function promptText(round) {
+    return config.type === 'sort' ? 'Where does the ' + round.label + ' go?' : (round.speak || round.prompt);
+  }
+
+  // Shuffle question order (and cap length) so each play is a fresh, short set.
+  var allRounds = (config.rounds || []).slice();
+  var maxRounds = config.maxRounds || 8;
 
   var title = document.getElementById('lessonTitle');
   var goal = document.getElementById('lessonGoal');
@@ -94,6 +120,8 @@
     nextButton.disabled = true;
     nextButton.style.display = 'inline-flex';
     setFeedback('', '');
+    state.misses = 0;
+    clearTimeout(state.advanceTimer);
 
     if (config.type === 'sort') {
       activityArea.innerHTML = [
@@ -124,6 +152,19 @@
     });
 
     updateProgress();
+    speak(promptText(round));
+  }
+
+  function choiceButtons() {
+    return Array.prototype.slice.call(activityArea.querySelectorAll('#choiceGrid button'));
+  }
+
+  function labelFor(round) {
+    var options = config.type === 'sort' ? config.categories : round.options;
+    for (var i = 0; i < options.length; i += 1) {
+      if (options[i].value === round.answer) return options[i].label;
+    }
+    return round.answer;
   }
 
   function handleChoice(event) {
@@ -133,20 +174,40 @@
     var selected = event.currentTarget.dataset.value;
 
     if (selected === round.answer) {
+      var firstTry = state.misses === 0;
       state.score += 1;
       state.answered = true;
+      event.currentTarget.classList.remove('reveal');
       event.currentTarget.classList.add('correct');
-      Array.prototype.slice.call(activityArea.querySelectorAll('button')).forEach(function(button) {
-        button.disabled = true;
-      });
-      setFeedback('Yes. That is correct.', 'good');
+      choiceButtons().forEach(function(button) { button.disabled = true; });
+      if (window.SkillTracker) SkillTracker.record(lessonId, itemKey(round), firstTry);
+      var praise = PRAISE[Math.floor(Math.random() * PRAISE.length)];
+      setFeedback(praise, 'good');
+      speak(praise + ' ' + labelFor(round) + '.');
       nextButton.disabled = false;
-      announce('Correct.');
       saveProgress(false);
+      // Move on by itself so children who cannot read are never stuck.
+      state.advanceTimer = setTimeout(moveNext, 2200);
     } else {
+      state.misses += 1;
       event.currentTarget.classList.add('incorrect');
-      setFeedback('Try again.', 'try');
-      announce('Try again.');
+      event.currentTarget.disabled = true;
+      if (state.misses === 1) {
+        // Missed items come back once more later in this session.
+        var key = itemKey(round);
+        if (!state.requeued[key] && Object.keys(state.requeued).length < 3) {
+          state.requeued[key] = true;
+          config.rounds.push(round);
+        }
+        setFeedback('Look again.', 'try');
+        speak('Look again. ' + promptText(round));
+      } else {
+        choiceButtons().forEach(function(button) {
+          if (button.dataset.value === round.answer) button.classList.add('reveal');
+        });
+        setFeedback('This one! Tap ' + labelFor(round) + '.', 'try');
+        speak('This one is ' + labelFor(round) + '. Tap ' + labelFor(round) + '.');
+      }
     }
 
     updateProgress();
@@ -154,6 +215,8 @@
 
   function moveNext() {
     if (config.type === 'pairs') return;
+    clearTimeout(state.advanceTimer);
+    if (!state.answered) return;
 
     if (state.roundIndex >= config.rounds.length - 1) {
       finishLesson();
@@ -166,7 +229,17 @@
   }
 
   function finishLesson() {
-    completeText.textContent = 'You finished ' + config.title + ' with ' + state.score + ' correct.';
+    completeText.textContent = 'All done! Great learning today.';
+    var idea = window.ESEAFamily ? ESEAFamily.homeIdea(lessonId) : '';
+    var ideaBox = document.getElementById('homeIdea');
+    if (idea && !ideaBox) {
+      ideaBox = document.createElement('div');
+      ideaBox.id = 'homeIdea';
+      ideaBox.className = 'home-idea';
+      completeBox.appendChild(ideaBox);
+    }
+    if (ideaBox) ideaBox.innerHTML = '<strong>Grown-ups, try this at home:</strong> ' + idea;
+    speak('All done! Great learning today.');
     completeBox.classList.add('show');
     setFeedback('Lesson complete.', 'good');
     nextButton.disabled = true;
@@ -253,6 +326,13 @@
   }
 
   function restartLesson() {
+    if (allRounds.length) {
+      if (config.keepOrder) config.rounds = allRounds.slice(0, maxRounds);
+      else if (window.SkillTracker) config.rounds = SkillTracker.choose(lessonId, allRounds, maxRounds, itemKey);
+      else config.rounds = shuffle(allRounds).slice(0, maxRounds);
+    }
+    clearTimeout(state.advanceTimer);
+    state.requeued = {};
     state.roundIndex = 0;
     state.score = 0;
     state.answered = false;

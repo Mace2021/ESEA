@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More or Less - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>More or Less</h1>
+            <p>Which group has more?</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var L = window.ESEAFamily ? ESEAFamily.lessonLang(['en', 'es', 'fr']) : 'en';
+
+        var T = {
+            en: { title: 'More or Less', hero: 'Which group has more?', prompt: 'Which has more?',
+                  speak: 'Which group has more dots?', intro: 'Look at both groups. Tap the group with more.',
+                  hint: 'Count each group. Which one has more?', revealText: 'This one has more!',
+                  revealSay: 'This group has more. Tap it.', alt: 'group of {n} dots' },
+            es: { title: 'Más o menos', hero: '¿Qué grupo tiene más?', prompt: '¿Cuál tiene más?',
+                  speak: '¿Qué grupo tiene más puntos?', intro: 'Mira los dos grupos. Toca el grupo que tiene más.',
+                  hint: 'Cuenta cada grupo. ¿Cuál tiene más?', revealText: '¡Este tiene más!',
+                  revealSay: 'Este grupo tiene más. Tócalo.', alt: 'grupo de {n} puntos' },
+            fr: { title: 'Plus ou moins', hero: 'Quel groupe en a le plus ?', prompt: 'Lequel en a le plus ?',
+                  speak: 'Quel groupe a le plus de points ?', intro: 'Regarde les deux groupes. Touche celui qui en a le plus.',
+                  hint: 'Compte chaque groupe. Lequel en a le plus ?', revealText: 'Celui-ci en a plus !',
+                  revealSay: 'Ce groupe en a plus. Touche-le.', alt: 'groupe de {n} points' }
+        }[L];
+        // Big differences first; pairs that differ by one are harder.
+        var pairs = [[1, 4], [2, 5], [1, 3], [3, 6], [2, 4], [4, 7], [3, 5], [4, 5], [5, 6], [2, 3]];
+        function group(n) {
+            return { value: String(n), label: '', alt: T.alt.replace('{n}', n), dots: n };
+        }
+        window.EarlyLesson = {
+            lang: L,
+            hero: { title: T.title, text: T.hero },
+            title: T.title,
+            instructions: T.intro,
+            type: 'quiz',
+            rounds: pairs.map(function(p) {
+                return { key: p[0] + ' vs ' + p[1], prompt: T.prompt, speak: T.speak, hint: T.hint,
+                         revealText: T.revealText, revealSay: T.revealSay,
+                         answer: String(p[1]), target: { emoji: '⚖️' }, options: [group(p[0]), group(p[1])] };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

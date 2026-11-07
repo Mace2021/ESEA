@@ -46,6 +46,56 @@ ESEA favors:
 - Positive feedback without ranking children against one another
 - Whole-child growth, including emotions and attention
 
+## How Lessons Adapt
+
+- **Short sessions:** each quiz is up to 8 questions, then an "All done!" screen.
+- **Practice what is hard:** `skill-tracker.js` remembers each item (each letter, number, shape) in this browser and picks more of the ones a child misses or has not met yet, plus some review of known ones.
+- **Help instead of "wrong":** first miss gives a hint (counting lessons count the objects aloud; other lessons remove one wrong choice). Second miss shows the answer. A missed item comes back later in the same session.
+- **No reading needed:** questions are spoken, a 🔊 button repeats them, correct answers move on by themselves, and home-screen activities have picture icons and say their names.
+
+Lesson pages can set `maxRounds: N` or `keepOrder: true` in their config to change this.
+
+## Learning Paths
+
+Two step-by-step paths, numbered on the home screen and tracked in the Grown-ups area:
+
+| Step | Reading path | Math path |
+| --- | --- | --- |
+| 1 | Rhyme Time: which word rhymes? | Quick Look: see 1-5 dots at a glance |
+| 2 | Word Parts: sun + flower = sunflower | Count the Apples (1-5) |
+| 3 | First Sounds: which starts like *sock*? | Count to 10 |
+| 4 | Sounds Phonics: letter sounds | More or Less: which group has more? |
+| 5 | Pick the Letter | What Comes Next? 1-10 order |
+| 6 | | Pick the Number |
+
+The new reading lessons only speak whole words, never single letter sounds, because browser voices pronounce isolated sounds poorly.
+
+## Languages
+
+Grown-ups can choose **English, Spanish or French** for practice. The math lessons, lesson buttons and praise, the "Who is playing?" picker and the break screen follow that choice, using a voice for that language if the device has one. Reading lessons stay in English because rhymes and letter sounds differ between languages. To translate another lesson, set `lang: ESEAFamily.lessonLang(['en', 'es', 'fr'])` and `hero` in its config (see `math/quicklook.html`).
+
+## Offline and Install
+
+ESEA works offline after it has been opened once with internet, and it can be added to a phone or tablet home screen like an app (`manifest.json`, `service-worker.js`). **After adding, removing or changing files, run:**
+
+```bash
+python3 scripts/build-precache.py
+```
+
+This updates the list of files saved for offline use, so devices get the new version.
+
+## For Grown-ups
+
+The **Grown-ups area** (`parents.html`, linked at the bottom of the home screen) is behind a simple grown-ups check, a multiplication question young children cannot answer. It offers:
+
+- **What to do next:** the items each child is practising, plus lessons they have not tried yet
+- **Progress per child:** every letter, number and shape marked *knows*, *learning* or *practising*
+- **Child profiles:** siblings each get their own progress; children pick "Who is playing?" on the home screen
+- **Daily time limit:** a calm "Time for a break" screen when time is up (a grown-up can add 15 minutes)
+- **Try this at home:** a short screen-free idea for each lesson, also shown at the end of each lesson
+
+Links that leave the app, such as the book link and the donate button, also go through the grown-ups check.
+
 ## Quick Start
 
 Open `index.html` in a modern browser. No installation is required.
@@ -56,7 +106,14 @@ Open `index.html` in a modern browser. No installation is required.
 ESEA/
 ├── index.html          Main early childhood dashboard
 ├── responsive.css      Shared responsive styles
-├── app.js              Card interactions and local progress helpers
+├── app.js              Card interactions and spoken labels
+├── family.js           Child profiles, grown-ups check, time limit, at-home ideas
+├── skill-tracker.js    Per-child, per-item progress and adaptive question choice
+├── parents.html        Grown-ups area
+├── service-worker.js   Offline support (file list built by scripts/build-precache.py)
+├── manifest.json       Install-to-home-screen settings
+├── math/               Math path lessons (English, Spanish, French)
+├── reading/            Reading path lessons
 ├── 123/                Number activities
 ├── abc/                Letters, words, and calendar activities
 ├── arithmetic/         Counting-object activities and older math pages
@@ -76,7 +133,9 @@ ESEA/
 - No ads
 - No external tracking
 - No account required
-- Progress is stored locally in the browser
+- Names and progress are stored only in this browser on this device
+- Grown-ups check before the parent area and before any link that leaves the app
+- Optional daily time limit
 - Main pathway uses age-appropriate topics and wording
 
 ## Contact
