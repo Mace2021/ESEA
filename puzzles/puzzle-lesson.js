@@ -86,7 +86,8 @@
   }
 
   function saveProgress(isComplete) {
-    var key = 'esea_puzzle_lessons';
+    // Saved per child, so brothers and sisters each keep their own scores.
+    var key = 'esea_puzzle_lessons' + (window.ESEAFamily ? ':' + ESEAFamily.activeProfile().id : '');
     var saved = {};
     try {
       saved = JSON.parse(localStorage.getItem(key)) || {};

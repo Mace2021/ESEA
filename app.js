@@ -114,6 +114,11 @@ const LearningProgress = {
     this.load();
   },
 
+  // Saved per child, so brothers and sisters each keep their own scores.
+  key() {
+    return 'esea_progress' + (window.ESEAFamily ? ':' + ESEAFamily.activeProfile().id : '');
+  },
+
   save(moduleName, score, total) {
     const progress = this.load();
     progress[moduleName] = {
@@ -122,11 +127,11 @@ const LearningProgress = {
       percentage: Math.round((score / total) * 100),
       lastUpdated: new Date().toISOString()
     };
-    localStorage.setItem('esea_progress', JSON.stringify(progress));
+    localStorage.setItem(this.key(), JSON.stringify(progress));
   },
 
   load() {
-    const saved = localStorage.getItem('esea_progress');
+    const saved = localStorage.getItem(this.key());
     return saved ? JSON.parse(saved) : {};
   },
 

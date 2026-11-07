@@ -56,6 +56,14 @@
         .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
         .tab[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
         .next-list { margin: 0; padding-left: 20px; line-height: 1.6; }
+        .glance { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+        .glance-card { text-align: left; border: 3px solid rgba(23, 50, 58, 0.12); border-radius: 16px; background: #fff; padding: 12px; cursor: pointer; font: inherit; color: var(--ink); }
+        .glance-card[aria-pressed="true"] { border-color: #245f73; background: #fff8df; }
+        .glance-card .who { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 1.15rem; margin-bottom: 6px; }
+        .glance-card .who span { font-size: 2.2rem; line-height: 1; }
+        .glance-card dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin: 0; font-size: 0.92rem; }
+        .glance-card dt { color: #4a6067; }
+        .glance-card dd { margin: 0; font-weight: 800; }
         .area-title { margin: 18px 0 8px; font-size: 1.1rem; color: var(--ink); }
         .lesson {
             border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: #fff;
@@ -105,6 +113,12 @@
             </div>
 
             <div id="content" hidden>
+                <section class="panel" aria-labelledby="glance-title">
+                    <h2 id="glance-title">Your children at a glance</h2>
+                    <p>Each child has their own progress, level and daily plan on this device. Tap a child to see their details below.</p>
+                    <div class="glance" id="glance"></div>
+                </section>
+
                 <section class="panel" aria-labelledby="next-title">
                     <h2 id="next-title">What to do next</h2>
                     <div id="nextSteps"></div>
@@ -130,7 +144,7 @@
                 <section class="panel" aria-labelledby="kids-title">
                     <h2 id="kids-title">Children</h2>
                     <p>Each child gets their own progress. Tap the animal to change it. Age sets how hard the lessons are (for example, counting to 3 at age 3 and to 10 at age 6, with 2 to 4
-                        answer choices) and where the reading and math steps begin. Children choose who is playing from the home screen.</p>
+                        answer choices) and where the reading and math steps begin. With two or more children, ESEA asks “Who is playing?” each time the app is opened, and every lesson shows whose turn it is (tap it to switch).</p>
                     <div class="kids" id="kids"></div>
                     <div class="row" style="margin-top:12px">
                         <input class="kid-name" style="max-width:240px" id="newName" placeholder="Child's name" maxlength="20" aria-label="New child's name">
@@ -393,8 +407,32 @@
                 }).join('');
             }
 
+            // One card per child: age, time today, today's plan, and what they know.
+            function renderGlance() {
+                var tracked = F.catalog.filter(function(l) { return l.tracked; });
+                document.getElementById('glance').innerHTML = F.profiles().map(function(p) {
+                    var known = 0, practising = 0, started = 0, last = 0;
+                    tracked.forEach(function(l) {
+                        var s = lessonStats(l.id, p.id);
+                        if (s.count) started += 1;
+                        known += s.groups.known.length;
+                        practising += s.groups.practising.length;
+                        last = Math.max(last, s.last);
+                    });
+                    return '<button type="button" class="glance-card" data-id="' + p.id + '" aria-pressed="' + (p.id === viewing) + '">' +
+                        '<div class="who"><span aria-hidden="true">' + p.avatar + '</span>' + esc(p.name) + '</div><dl>' +
+                        '<dt>Age</dt><dd>' + (p.age ? p.age + ' years' : 'not set') + '</dd>' +
+                        '<dt>Today</dt><dd>' + F.minutesToday(p.id) + ' min, plan ' + F.planDone(p.id) + ' of 3</dd>' +
+                        '<dt>Lessons</dt><dd>' + started + ' of ' + tracked.length + ' started</dd>' +
+                        '<dt>Knows</dt><dd>' + known + ' item' + (known === 1 ? '' : 's') + (practising ? ', practising ' + practising : '') + '</dd>' +
+                        '<dt>Last</dt><dd>' + (last ? ago(last) : 'not played yet') + '</dd>' +
+                        '</dl></button>';
+                }).join('');
+            }
+
             function renderAll() {
                 if (!F.profiles().some(function(p) { return p.id === viewing; })) viewing = F.activeProfile().id;
+                renderGlance();
                 renderTabs();
                 renderNext();
                 renderPaths();
@@ -408,6 +446,14 @@
                 if (!t) return;
                 viewing = t.getAttribute('data-id');
                 renderAll();
+            });
+
+            document.getElementById('glance').addEventListener('click', function(e) {
+                var t = e.target.closest('[data-id]');
+                if (!t) return;
+                viewing = t.getAttribute('data-id');
+                renderAll();
+                document.getElementById('next-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
 
             document.getElementById('kids').addEventListener('click', function(e) {
