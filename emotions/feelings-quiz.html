@@ -79,8 +79,10 @@
             title: 'How Do They Feel?',
             instructions: 'Listen to the story. Tap the face that shows how they feel.',
             type: 'quiz',
-            maxRounds: 6,
-            rounds: STORIES.map(function(s) {
+            // Age 3 starts with the four basic feelings; older children get all of them.
+            rounds: STORIES.filter(function(s) {
+                return !window.ESEAFamily || ESEAFamily.age() > 3 || ['happy', 'sad', 'angry', 'scared'].indexOf(s.feel) !== -1;
+            }).map(function(s) {
                 return {
                     key: s.id,
                     prompt: s.story + ' How does ' + s.who + ' feel?',

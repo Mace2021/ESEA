@@ -100,7 +100,14 @@
             }[L];
             var COLORS = window.ESEA_COLORS;
             var lessonId = 'color/balloon-pop';
-            var ROUNDS = 8;
+            // Age decides the colors and how many balloons float up: 3 yrs four colors and 2-3 balloons,
+            // 4 yrs six colors and 3-4, 5 yrs all eight and 3-5, 6 yrs all eight and 4-6.
+            var F = window.ESEAFamily;
+            var AGE = F ? F.age() : 5;
+            var ROUNDS = F ? F.level().rounds : 8;
+            var COLOR_IDS = { 3: ['red', 'blue', 'yellow', 'green'], 4: ['red', 'blue', 'yellow', 'green', 'orange', 'purple'] }[AGE];
+            if (COLOR_IDS) COLORS = COLORS.filter(function(c) { return COLOR_IDS.indexOf(c.id) !== -1; });
+            var BALLOONS = { 3: [2, 3, 3], 4: [3, 4, 4], 5: [3, 4, 5], 6: [4, 5, 6] }[AGE] || [3, 4, 5];
             var sky = document.getElementById('sky');
             var promptEl = document.getElementById('prompt');
             var state;
@@ -146,7 +153,7 @@
 
             function round() {
                 var target = state.rounds[state.index];
-                var count = state.index < 3 ? 3 : state.index < 6 ? 4 : 5;
+                var count = Math.min(COLORS.length, BALLOONS[Math.min(2, Math.floor(state.index / Math.max(1, Math.ceil(state.rounds.length / 3))))]);
                 var others = shuffle(COLORS.filter(function(c) { return c.id !== target.id; })).slice(0, count - 1);
                 var set = shuffle([target].concat(others));
                 state.misses = 0;

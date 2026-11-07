@@ -62,6 +62,23 @@ Lesson pages can set `maxRounds: N` or `keepOrder: true` in their config to chan
 - **About & privacy** (`about.html`): who ESEA is for, how and why it teaches, privacy in plain words, screen-time guidance, accessibility and languages.
 - **Languages:** the home screen, Today's learning and setup are in English, Spanish and French (`ui-text.js`); English-only activities are marked EN.
 
+## Difficulty Follows Age
+
+The age chosen in setup (or in the Grown-ups area) sets how hard every lesson is (`ESEAFamily.age()`, `level()` and `byAge()` in `family.js`):
+
+| | Age 3 | Age 4 | Age 5 | Age 6 |
+| --- | --- | --- | --- | --- |
+| Answer choices | 2 | 3 | 4 | 4 |
+| Questions per lesson | 5 | 6 | 8 | 10 |
+| How many apples / dots? | 1-3 | 1-5 | 1-8 | 3-10 |
+| Pick the Number | 1-5 | 1-10 | 1-20 | 1-50 |
+| What Comes Next? | to 5 | to 10 | to 20 | to 20, also counting back |
+| More or Less | small, big gaps | to 7 | to 8, close | to 10, and "fewer" |
+| Letters | 8 capitals | A-M | A-Z | lowercase with look-alikes |
+| Shapes / colors / feelings | basic set | more | all | all |
+
+Both lesson engines keep the closest numbers when they reduce the choices, so younger children still have to count.
+
 ## Learning Paths
 
 Two step-by-step paths, numbered on the home screen and tracked in the Grown-ups area:

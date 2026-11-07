@@ -36,16 +36,30 @@
                   speak: 'Regarde vite ! Combien de points ?',
                   intro: 'Les points se cachent après deux secondes. Essaie de voir combien il y en a sans les compter un par un.' }
         }[L];
-        var options = [1, 2, 3, 4, 5].map(function(n) { return { value: String(n), label: String(n), symbol: String(n) }; });
+        // Age decides the numbers and how long the dots stay: 3 yrs 1-3 for 3 s, up to 6 yrs 2-8 for 1.3 s.
+        var F = window.ESEAFamily;
+        var COUNTS = F ? F.byAge({ 3: [1, 3], 4: [1, 5], 5: [1, 6], 6: [2, 8] }) : [1, 5];
+        function nearNumbers(n, lo, hi) {
+            var nums = [n];
+            [-1, 1, -2, 2, 3, -3, 4, -4].forEach(function(d) {
+                var c = n + d;
+                if (nums.length < 4 && c >= Math.max(1, lo) && c <= hi) nums.push(c);
+            });
+            return nums.sort(function(a, b) { return a - b; });
+        }
+        function seq(lo, hi) { var out = []; for (var i = lo; i <= hi; i += 1) out.push(i); return out; }
+        var FLASH = F ? F.byAge({ 3: 3000, 4: 2000, 5: 1600, 6: 1300 }) : 2000;
+        function options(n) {
+            return nearNumbers(n, COUNTS[0], COUNTS[1]).map(function(x) { return { value: String(x), label: String(x), symbol: String(x) }; });
+        }
         window.EarlyLesson = {
             lang: L,
             hero: { title: T.title, text: T.hero },
             title: T.title,
             instructions: T.intro,
             type: 'quiz',
-            maxRounds: 5,
-            rounds: [1, 2, 3, 4, 5].map(function(n) {
-                return { prompt: T.prompt, speak: T.speak, answer: String(n), target: { dots: n }, options: options, flashMs: 2000 };
+            rounds: seq(COUNTS[0], COUNTS[1]).map(function(n) {
+                return { prompt: T.prompt, speak: T.speak, answer: String(n), target: { dots: n }, options: options(n), flashMs: FLASH };
             })
         };
     </script>

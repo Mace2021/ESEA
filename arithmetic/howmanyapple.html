@@ -35,16 +35,30 @@
                   prompt: 'Combien de pommes ?', speak: 'Combien de pommes vois-tu ?', intro: 'Commence par de petits groupes. Compte chaque pomme une seule fois.',
                   heading: 'Compter des objets', alt: 'Pomme' }
         }[L];
-        var numberChoices = [1, 2, 3, 4, 5].map(function(number) {
-            return { value: String(number), label: String(number), symbol: String(number) };
-        });
+        // Age decides the numbers: 3 yrs 1-3, 4 yrs 1-5, 5 yrs 1-8, 6 yrs 3-10.
+        var F = window.ESEAFamily;
+        var COUNTS = F ? F.byAge({ 3: [1, 3], 4: [1, 5], 5: [1, 8], 6: [3, 10] }) : [1, 5];
+        function nearNumbers(n, lo, hi) {
+            var nums = [n];
+            [-1, 1, -2, 2, 3, -3, 4, -4].forEach(function(d) {
+                var c = n + d;
+                if (nums.length < 4 && c >= Math.max(1, lo) && c <= hi) nums.push(c);
+            });
+            return nums.sort(function(a, b) { return a - b; });
+        }
+        function seq(lo, hi) { var out = []; for (var i = lo; i <= hi; i += 1) out.push(i); return out; }
+        function numberChoices(count) {
+            return nearNumbers(count, COUNTS[0], COUNTS[1]).map(function(number) {
+                return { value: String(number), label: String(number), symbol: String(number) };
+            });
+        }
         function appleRound(count) {
             return {
                 prompt: T.prompt,
                 speak: T.speak,
                 answer: String(count),
                 target: { countImage: '../images/apple.png', count: count, alt: T.alt },
-                options: numberChoices
+                options: numberChoices(count)
             };
         }
         window.EarlyLesson = {
@@ -53,7 +67,7 @@
             title: T.heading,
             instructions: T.intro,
             type: 'quiz',
-            rounds: [1, 2, 3, 4, 5].map(appleRound)
+            rounds: seq(COUNTS[0], COUNTS[1]).map(appleRound)
         };
     </script>
     <script src="../skill-tracker.js"></script>

@@ -23,12 +23,17 @@
         <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
     <script>
-        var shapeOptions = [
-            { value: 'circle', label: 'Circle', image: '../images/circle.png' },
-            { value: 'square', label: 'Square', image: '../images/square.png' },
-            { value: 'triangle', label: 'Triangle', image: '../images/triangle.png' },
-            { value: 'rectangle', label: 'Rectangle', image: '../images/rectangle.png' }
-        ];
+        // Age decides the shapes: 3 yrs circle, square, triangle, star; 4 yrs adds rectangle and heart;
+        // 5 yrs adds oval and diamond (rhombus); 6 yrs adds pentagon, hexagon and octagon.
+        var ALL_SHAPES = {
+            circle: 'Circle', square: 'Square', triangle: 'Triangle', star: 'Star', rectangle: 'Rectangle', heart: 'Heart',
+            oval: 'Oval', rhombus: 'Diamond', pentagon: 'Pentagon', hexagon: 'Hexagon', octagon: 'Octagon'
+        };
+        var F = window.ESEAFamily;
+        var BASIC = ['circle', 'square', 'triangle', 'star'];
+        var IDS = F ? F.byAge({ 3: BASIC, 4: BASIC.concat(['rectangle', 'heart']), 5: BASIC.concat(['rectangle', 'heart', 'oval', 'rhombus']),
+            6: BASIC.concat(['rectangle', 'heart', 'oval', 'rhombus', 'pentagon', 'hexagon', 'octagon']) }) : BASIC.concat(['rectangle', 'heart']);
+        var shapeOptions = IDS.map(function(id) { return { value: id, label: ALL_SHAPES[id], image: '../images/' + id + '.png' }; });
         function shapeRound(item, choices) {
             return {
                 prompt: 'What shape is this?',
@@ -40,20 +45,9 @@
         }
         window.EarlyLesson = {
             title: 'Shape Matching',
-            instructions: 'Four choices keeps this lesson calm and easy to scan.',
+            instructions: 'Look at the shape, then tap its name.',
             type: 'quiz',
-            rounds: [
-                shapeRound(shapeOptions[0], shapeOptions),
-                shapeRound(shapeOptions[1], shapeOptions),
-                shapeRound(shapeOptions[2], shapeOptions),
-                shapeRound(shapeOptions[3], shapeOptions),
-                shapeRound({ value: 'star', label: 'Star', image: '../images/star.png' }, [
-                    { value: 'star', label: 'Star', image: '../images/star.png' },
-                    { value: 'heart', label: 'Heart', image: '../images/heart.png' },
-                    { value: 'oval', label: 'Oval', image: '../images/oval.png' },
-                    { value: 'circle', label: 'Circle', image: '../images/circle.png' }
-                ])
-            ]
+            rounds: shapeOptions.map(function(shape) { return shapeRound(shape, shapeOptions); })
         };
     </script>
     <script src="../skill-tracker.js"></script>
