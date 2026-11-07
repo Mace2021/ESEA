@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .cards { display: grid; grid-template-columns: repeat(3, minmax(64px, 96px)); gap: 10px; justify-content: center; }
+        .mcard { aspect-ratio: 3 / 4; perspective: 600px; }
+        .mcard .flip { position: relative; width: 100%; height: 100%; transition: transform 0.6s ease; transform-style: preserve-3d; }
+        .mcard.up .flip { transform: rotateY(180deg); }
+        .mcard .face { position: absolute; inset: 0; border-radius: 12px; display: grid; place-items: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .mcard .back { background: repeating-linear-gradient(45deg, #ffc94d 0 10px, #ffb300 10px 20px); font-size: 1.8rem; font-weight: 900; color: #7a4a00; }
+        .mcard .front { background: #fff; transform: rotateY(180deg); font-size: clamp(2.2rem, 10vw, 3rem); }
+        .mcard.matched .front { box-shadow: 0 0 0 4px #43a047; }
+        .mcard.point .back, .mcard.point .front { box-shadow: 0 0 0 4px #fff; }
+        .tip { font-size: clamp(1.05rem, 4.5vw, 1.25rem); font-weight: 800; color: #fff7c2; min-height: 1.6rem; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Memory with Pip</h1>
+            <p>Find two cards that match! Pip shows how to play memory and remember where pictures are.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+
+        // Cards in a 3 x 2 grid: position -> picture.
+        var LAYOUT = [['☀️', 'sun'], ['⭐', 'star'], ['❤️', 'heart'], ['⭐', 'star'], ['❤️', 'heart'], ['☀️', 'sun']];
+        function grid() {
+            return '<div class="cards" id="cards">' + LAYOUT.map(function(c, i) {
+                return '<div class="mcard" data-i="' + i + '"><div class="flip"><div class="face back">?</div><div class="face front" aria-hidden="true">' + c[0] + '</div></div></div>';
+            }).join('') + '</div><div class="tip" id="tip"></div>';
+        }
+        function card(i) { return board.querySelectorAll('.mcard')[i]; }
+        function flip(i, up) { card(i).classList.toggle('up', up); }
+        function tip(text) { document.getElementById('tip').textContent = text; }
+
+        var scenes = [
+            async function(ctx) {
+                show('<div class="board-title pop-in">Memory with Pip</div>');
+                pip.wave();
+                await ctx.say('Hi! It’s Pip! Let’s play a memory game. We need to find two cards that match!');
+            },
+            async function(ctx) {
+                show(grid());
+                pip.point();
+                await ctx.say('All the cards are turned over. We can’t see the pictures. We turn over two cards at a time.');
+                tip('Turn over two cards');
+                flip(0, true);
+                await ctx.say('This one is a sun.');
+                flip(1, true);
+                await ctx.say('And this one is a star.');
+                tip('Sun and star: not the same');
+                await ctx.say('A sun and a star. They are not the same. So we turn them back...');
+                flip(0, false); flip(1, false);
+                tip('Remember where they are!');
+                await ctx.say('...but we remember where they are! The sun was here, and the star was here.');
+                card(0).classList.add('point'); await ctx.wait(700); card(0).classList.remove('point');
+                card(1).classList.add('point'); await ctx.wait(700); card(1).classList.remove('point');
+            },
+            async function(ctx) {
+                if (!board.querySelector('.cards')) show(grid());
+                pip.point();
+                tip('');
+                flip(3, true);
+                await ctx.say('Let’s turn over another card. A star!');
+                tip('Where is the other star?');
+                await ctx.say('Where did we see the other star? Can you remember?');
+                await ctx.wait(1800); // time to remember
+                card(1).classList.add('point');
+                flip(1, true);
+                card(1).classList.remove('point');
+                card(1).classList.add('matched'); card(3).classList.add('matched');
+                pip.jump(1400);
+                tip('Two stars: a match!');
+                await ctx.say('Yes! Here it is! Two stars. A match!');
+            },
+            async function(ctx) {
+                if (!board.querySelector('.cards')) show(grid());
+                pip.point();
+                tip('');
+                flip(5, true);
+                await ctx.say('Next card... a sun! Where was the other sun?');
+                await ctx.wait(1800);
+                flip(0, true);
+                card(0).classList.add('matched'); card(5).classList.add('matched');
+                pip.jump(1400);
+                tip('Two suns: a match!');
+                await ctx.say('Right here! Two suns. Another match!');
+            },
+            async function(ctx) {
+                if (!board.querySelector('.cards')) show(grid());
+                pip.point();
+                tip('Two cards left');
+                await ctx.say('Only two cards are left. What do you think they are?');
+                await ctx.wait(1500);
+                flip(2, true); flip(4, true);
+                card(2).classList.add('matched'); card(4).classList.add('matched');
+                pip.jump(1600);
+                tip('Two hearts: all matched!');
+                await ctx.say('Two hearts! We found all the pairs. Hooray!');
+            },
+            async function(ctx) {
+                show('<div class="board-title pop-in">Memory tips</div><div class="tip" style="font-size:1.4rem">👀 Look carefully<br>🗣️ Say the names out loud<br>🧠 Remember where they are</div>');
+                pip.wave();
+                await ctx.say('Here are my memory tips. Look carefully. Say the picture names out loud. And try to remember where each picture is.');
+            },
+            async function(ctx) {
+                show('<div class="board-title pop-in">Your turn! &#127183;</div>');
+                pip.wave(4000);
+                await ctx.say('Now it’s your turn! Try Find Pairs. You can play memory at home with socks or cups too. Bye-bye!');
+            }
+        ];
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Memory with Pip</div>');
+    </script>
+</body>
+</html>
