@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calm Down Corner - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="feelings.css">
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Calm Down Corner</h1>
+            <p>When a feeling is too big, these help our bodies feel calm again.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel">
+                <nav class="feel-steps" aria-label="Feelings activities">
+                    <a class="feel-step" href="emotions.html"><span aria-hidden="true">&#128578;</span>Name My Feelings</a>
+                    <a class="feel-step" href="feelings-quiz.html"><span aria-hidden="true">&#128269;</span>How Do They Feel?</a>
+                    <a class="feel-step on" href="calm-corner.html"><span aria-hidden="true">&#127800;</span>Calm Down Corner</a>
+                </nav>
+
+                <div class="okay-banner">&#127800; Pick a calm tool. Do it together with a grown-up.</div>
+
+                <div class="calm-tools" role="group" aria-label="Calm tools">
+                    <button type="button" class="calm-tool" data-tool="flower"><span aria-hidden="true">&#127800;</span>Flower breathing</button>
+                    <button type="button" class="calm-tool" data-tool="count"><span aria-hidden="true">&#9995;</span>Count to five</button>
+                    <button type="button" class="calm-tool" data-tool="squeeze"><span aria-hidden="true">&#127819;</span>Squeeze &amp; let go</button>
+                </div>
+
+                <div class="breath-stage" id="stage">
+                    <div class="breath-ball" id="ball" aria-hidden="true">&#127800;</div>
+                    <div class="breath-label" id="label" aria-live="polite">Choose a calm tool</div>
+                </div>
+                <div class="actions">
+                    <button type="button" class="lesson-action secondary" id="stopBtn">&#9632; Stop</button>
+                </div>
+                <p class="grownup-tip"><b>Grown-ups:</b> practise these when your child is already calm, so they are easy to use when feelings get big. Breathing slowly together works better than telling a child to calm down.</p>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var stage = document.getElementById('stage');
+        var ball = document.getElementById('ball');
+        var label = document.getElementById('label');
+        var run = 0;
+
+        // Speak and wait for the voice to finish; resolves false if stopped.
+        function say(text, myRun) {
+            return new Promise(function(resolve) {
+                if (myRun !== run) return resolve(false);
+                if (window.ESEASpeech && ESEASpeech.supported) {
+                    ESEASpeech.speak(text, { onend: function() { resolve(myRun === run); } });
+                } else {
+                    setTimeout(function() { resolve(myRun === run); }, 600 + text.length * 70);
+                }
+            });
+        }
+        function wait(ms, myRun) {
+            return new Promise(function(resolve) { setTimeout(function() { resolve(myRun === run); }, ms); });
+        }
+        function show(text) { label.textContent = text; }
+        function stop() {
+            run += 1;
+            if (window.ESEASpeech) ESEASpeech.stop();
+            ball.classList.remove('big');
+            stage.querySelectorAll('.count-dots').forEach(function(n) { n.remove(); });
+            ball.hidden = false;
+            document.querySelectorAll('.calm-tool').forEach(function(b) { b.setAttribute('aria-pressed', 'false'); });
+            show('Choose a calm tool');
+        }
+
+        var TOOLS = {
+            // Belly breathing, slowed by imagery: smell the flower, blow out the candle.
+            flower: async function(r) {
+                ball.textContent = '🌸';
+                if (!await say('Let’s do flower breathing. Sit up tall, and put your hands on your tummy.', r)) return;
+                for (var i = 1; i <= 3; i += 1) {
+                    ball.textContent = '🌸';
+                    ball.classList.add('big');
+                    show('Smell the flower... breathe in');
+                    var ok = await Promise.all([say('Smell the flower... breathe in... 2... 3.', r), wait(3600, r)]);
+                    if (!ok[0] || !ok[1]) return;
+                    ball.textContent = '🕯️';
+                    ball.classList.remove('big');
+                    show('Blow out the candle... breathe out');
+                    ok = await Promise.all([say('Blow out the candle... slowly... 2... 3.', r), wait(3600, r)]);
+                    if (!ok[0] || !ok[1]) return;
+                }
+                ball.textContent = '😌';
+                show('Calm and still');
+                await say('Great breathing. Notice how your body feels calm and still.', r);
+            },
+            // Slow counting gives big feelings a moment to settle.
+            count: async function(r) {
+                ball.hidden = true;
+                var dots = document.createElement('div');
+                dots.className = 'count-dots';
+                dots.innerHTML = '<i></i><i></i><i></i><i></i><i></i>';
+                stage.insertBefore(dots, label);
+                if (!await say('Let’s count slowly to five. Hold up one finger at a time.', r)) return;
+                for (var i = 0; i < 5; i += 1) {
+                    dots.children[i].classList.add('on');
+                    show(String(i + 1));
+                    var ok = await Promise.all([say(String(i + 1) + '...', r), wait(1400, r)]);
+                    if (!ok[0] || !ok[1]) return;
+                }
+                show('All done counting');
+                await say('Five. Now your body has had time to slow down. Well done.', r);
+            },
+            // Tense and relax: squeeze like a lemon, then let go.
+            squeeze: async function(r) {
+                ball.textContent = '🍋';
+                if (!await say('Let’s squeeze lemons. Make two tight fists.', r)) return;
+                for (var i = 1; i <= 3; i += 1) {
+                    ball.textContent = '✊';
+                    show('Squeeze tight!');
+                    if (!await say('Squeeze, squeeze, squeeze... as tight as you can.', r)) return;
+                    ball.textContent = '🖐️';
+                    show('And let go...');
+                    var ok = await Promise.all([say('And let go. Feel your hands go soft and floppy.', r), wait(2400, r)]);
+                    if (!ok[0] || !ok[1]) return;
+                }
+                ball.textContent = '😌';
+                show('Soft and relaxed');
+                await say('Your hands feel soft and relaxed. Great job.', r);
+            }
+        };
+
+        document.querySelectorAll('.calm-tool').forEach(function(button) {
+            button.addEventListener('click', function() {
+                stop();
+                button.setAttribute('aria-pressed', 'true');
+                var myRun = run;
+                TOOLS[button.dataset.tool](myRun);
+            });
+        });
+        document.getElementById('stopBtn').addEventListener('click', stop);
+    </script>
+</body>
+</html>

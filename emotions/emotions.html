@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feelings - ESEA</title>
+    <title>Name My Feelings - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="feelings.css">
     <script src="../speech.js"></script>
     <script src="../family.js"></script>
 </head>
@@ -12,36 +13,102 @@
     <div class="lesson-shell">
         <header class="lesson-hero">
             <img src="../images/ESEA.png" alt="ESEA logo">
-            <h1>Feelings</h1>
-            <p>All feelings are okay. Naming feelings helps children understand themselves.</p>
+            <h1>Name My Feelings</h1>
+            <p>All feelings are okay. When we can name a feeling, we can do something about it.</p>
         </header>
         <main class="lesson-main">
             <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
-            <section class="lesson-card-panel" id="lessonRoot"></section>
+            <section class="lesson-card-panel">
+                <nav class="feel-steps" aria-label="Feelings activities">
+                    <a class="feel-step on" href="emotions.html"><span aria-hidden="true">&#128578;</span>Name My Feelings</a>
+                    <a class="feel-step" href="feelings-quiz.html"><span aria-hidden="true">&#128269;</span>How Do They Feel?</a>
+                    <a class="feel-step" href="calm-corner.html"><span aria-hidden="true">&#127800;</span>Calm Down Corner</a>
+                </nav>
+
+                <div class="okay-banner">&#128155; Every feeling is okay. Some feelings are big, and grown-ups can help.</div>
+
+                <h2 class="feel-heading">Tap a feeling</h2>
+                <div class="feel-grid" id="feelGrid"></div>
+
+                <article class="feel-detail" id="feelDetail" aria-live="polite" hidden>
+                    <div class="feel-face" id="detailFace" aria-hidden="true"></div>
+                    <h3 id="detailName"></h3>
+                    <ul class="feel-facts">
+                        <li><span class="fact-icon" aria-hidden="true">&#128064;</span><div><b>Looks like</b><p id="detailLooks"></p></div></li>
+                        <li><span class="fact-icon" aria-hidden="true">&#128173;</span><div><b>Happens when</b><p id="detailWhen"></p></div></li>
+                        <li><span class="fact-icon" aria-hidden="true">&#128155;</span><div><b>What helps</b><p id="detailHelps"></p></div></li>
+                    </ul>
+                    <div class="actions">
+                        <button type="button" class="lesson-action" id="hearAgain">&#128264; Hear it again</button>
+                        <button type="button" class="lesson-action secondary" id="makeFace">&#129325; Make the face!</button>
+                    </div>
+                    <p class="grownup-tip" id="detailTip"></p>
+                </article>
+            </section>
         </main>
         <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
+    <script src="feelings-data.js"></script>
     <script>
-        window.EarlyLesson = {
-            title: 'Name My Feelings',
-            instructions: 'Tap a feeling. Make the face together and talk about when it happens.',
-            type: 'explore',
-            sections: [{
-                title: 'Feelings Words',
-                items: [
-                    { label: 'Happy', emoji: '&#128522;', note: 'I feel good.', speak: 'Happy. I feel good.' },
-                    { label: 'Sad', emoji: '&#128546;', note: 'I may need comfort.', speak: 'Sad. I may need comfort.' },
-                    { label: 'Angry', emoji: '&#128544;', note: 'I can stop and breathe.', speak: 'Angry. I can stop and breathe.' },
-                    { label: 'Scared', emoji: '&#128552;', note: 'I can ask for help.', speak: 'Scared. I can ask for help.' },
-                    { label: 'Surprised', emoji: '&#128562;', note: 'Something unexpected happened.', speak: 'Surprised. Something unexpected happened.' },
-                    { label: 'Calm', emoji: '&#128524;', note: 'My body feels quiet.', speak: 'Calm. My body feels quiet.' },
-                    { label: 'Excited', emoji: '&#129321;', note: 'I have big happy energy.', speak: 'Excited. I have big happy energy.' },
-                    { label: 'Proud', emoji: '&#128522;', note: 'I tried hard.', speak: 'Proud. I tried hard.' }
-                ]
-            }]
-        };
+        // Each feeling is taught the same way, so children learn what a feeling is:
+        // what it looks like (recognize), when it happens (understand), and
+        // what helps (manage). The colors stay the same across all three activities.
+        var FEELINGS = window.ESEA_FEELINGS;
+        var grid = document.getElementById('feelGrid');
+        var detail = document.getElementById('feelDetail');
+        var current = null;
+
+        function speak(text, onend) {
+            if (window.ESEASpeech) ESEASpeech.speak(text, { onend: onend });
+        }
+
+        function storyFor(f) {
+            return f.name + '. ' + f.looksSay + ' ' + f.whenSay + ' ' + f.helpsSay;
+        }
+
+        function open(f, button) {
+            current = f;
+            Array.prototype.forEach.call(grid.children, function(b) { b.setAttribute('aria-pressed', String(b === button)); });
+            detail.hidden = false;
+            detail.style.setProperty('--feel', f.color);
+            detail.style.setProperty('--feel-soft', f.soft);
+            document.getElementById('detailFace').textContent = f.face;
+            document.getElementById('detailName').textContent = f.name;
+            document.getElementById('detailLooks').textContent = f.looks;
+            document.getElementById('detailWhen').textContent = f.when;
+            document.getElementById('detailHelps').textContent = f.helps;
+            document.getElementById('detailTip').innerHTML = '<b>Grown-ups:</b> ' + f.tip;
+            detail.classList.remove('pop-detail');
+            void detail.offsetWidth;
+            detail.classList.add('pop-detail');
+            detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            speak(storyFor(f));
+        }
+
+        FEELINGS.forEach(function(f) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'feel-card';
+            b.style.setProperty('--feel', f.color);
+            b.style.setProperty('--feel-soft', f.soft);
+            b.setAttribute('aria-pressed', 'false');
+            b.innerHTML = '<span class="feel-card-face" aria-hidden="true">' + f.face + '</span><span class="feel-card-name">' + f.name + '</span>';
+            b.addEventListener('click', function() { open(f, b); });
+            grid.appendChild(b);
+        });
+
+        document.getElementById('hearAgain').addEventListener('click', function() {
+            if (current) speak(storyFor(current));
+        });
+        document.getElementById('makeFace').addEventListener('click', function() {
+            if (!current) return;
+            var face = document.getElementById('detailFace');
+            face.classList.add('wiggle');
+            var word = current.name.toLowerCase();
+            speak('Can you make ' + (/^[aeiou]/.test(word) ? 'an ' : 'a ') + word + ' face? ' + current.faceHint + ' Show me!', function() {
+                face.classList.remove('wiggle');
+            });
+        });
     </script>
-    <script src="../skill-tracker.js"></script>
-    <script src="../early-lesson.js"></script>
 </body>
 </html>
