@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .board-things { display: flex; gap: 8px; justify-content: center; min-height: 3.2rem; flex-wrap: wrap; align-items: center; }
+        .board-things span { font-size: clamp(2.3rem, 10vw, 3rem); line-height: 1; background: rgba(255,255,255,0.92); border-radius: 14px; padding: 4px 6px; }
+        .board-things img { width: clamp(52px, 14vw, 66px); height: clamp(52px, 14vw, 66px); object-fit: contain; background: #fff; border-radius: 14px; padding: 4px; }
+        .big-thing { font-size: clamp(4rem, 18vw, 5.4rem); line-height: 1; }
+        .big-thing img { width: clamp(90px, 26vw, 120px); height: clamp(90px, 26vw, 120px); object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; }
+        .thing-name { font-size: clamp(1.7rem, 7.5vw, 2.3rem); font-weight: 950; color: #fff7c2; }
+        .verdict { font-size: clamp(3rem, 14vw, 4rem); line-height: 1; min-height: 4rem; }
+        .arrow { font-size: 1.8rem; color: #fff7c2; font-weight: 900; background: none !important; padding: 0 !important; }
+        .grow { font-size: clamp(4rem, 18vw, 5.4rem); line-height: 1; transition: transform 0.4s ease; }
+        .needs { display: flex; gap: 8px; justify-content: center; }
+        .needs span { font-size: 2rem; opacity: 0.25; transition: opacity 0.3s, transform 0.3s; background: rgba(255,255,255,0.9); border-radius: 12px; padding: 4px 6px; }
+        .needs span.on { opacity: 1; transform: scale(1.15); }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Nature with Pip</h1>
+            <p>Go on a nature walk with Pip: what is alive, where animals live, and how things grow.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function pic(t) { return t.indexOf('.png') !== -1 ? '<img src="' + t + '" alt="">' : t; }
+
+        // Alive or not? (living things grow, eat or drink, and breathe)
+        var ALIVE = [
+            { thing: '🐦', name: 'bird', alive: true, why: 'Yes! A bird is alive. It grows, it eats, and it breathes.' },
+            { thing: '../images/rock.png', name: 'rock', alive: false, why: 'No! A rock is not alive. It does not grow, eat, or breathe.' },
+            { thing: '🌳', name: 'tree', alive: true, why: 'Yes! A tree is alive. It grows bigger and bigger, and it drinks water.' },
+            { thing: '🧸', name: 'teddy bear', alive: false, why: 'No! A teddy bear is not alive. It is a toy. It does not eat or grow.' }
+        ];
+        // Living things and their homes
+        var HOMES = [
+            { thing: '🐟', name: 'Fish', fact: 'A fish lives in the water. It swims with its fins. Blub, blub!', home: [['🌊', 'water']] },
+            { thing: '🐦', name: 'Bird', fact: 'A bird lives in a nest up in a tree. Tweet, tweet!', home: [['../images/nest.png', 'nest']] },
+            { thing: '🐰', name: 'Rabbit', fact: 'A rabbit lives in a burrow under the ground. Hop, hop!', home: [['🕳️', 'burrow']] },
+            { thing: '🐝', name: 'Bee', fact: 'A bee lives in a hive and visits flowers. Buzz, buzz!', home: [['🌼', 'flower'], ['🍯', 'honey']] }
+        ];
+        var NEEDS = [['💧', 'water'], ['☀️', 'sunlight'], ['💨', 'air'], ['🍎', 'food']];
+        var GROW = ['🌰', '🌱', '🌿', '🌻'];
+
+        var scenes = [
+            async function(ctx) {
+                show('<div class="board-title pop-in">Nature with Pip</div><div class="board-things"><span class="pop-in">🌳</span><span class="pop-in">🐦</span><span class="pop-in">🌸</span></div>');
+                pip.wave();
+                await ctx.say('Hi! It’s me, Pip! Let’s go on a nature walk and look for living things!');
+                await ctx.say('Living things grow. They need food or water, and they breathe.');
+            },
+            async function(ctx) {
+                show('<div class="board-title pop-in">Alive or not?</div><div class="verdict">&#128077; &#128078;</div>');
+                pip.point();
+                await ctx.say('Let’s play alive or not! Thumbs up if it is alive. Thumbs down if it is not!');
+            }
+        ];
+        ALIVE.forEach(function(a) {
+            scenes.push(async function(ctx) {
+                show('<div class="big-thing pop-in" aria-hidden="true">' + pic(a.thing) + '</div><div class="thing-name">' + a.name.charAt(0).toUpperCase() + a.name.slice(1) + '</div><div class="verdict" id="verdict"></div>');
+                pip.point();
+                await ctx.say('Is a ' + a.name + ' alive?');
+                await ctx.wait(2000); // time for thumbs up or down
+                document.getElementById('verdict').innerHTML = '<span class="pop-in" style="display:inline-block">' + (a.alive ? '&#128077;' : '&#128078;') + '</span>';
+                if (a.alive) pip.jump(1400);
+                await ctx.say(a.why);
+                await ctx.wait(300);
+            });
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Animal homes</div><div class="board-things"><span>🐟</span><span>🐦</span><span>🐰</span><span>🐝</span></div>');
+            pip.wave();
+            await ctx.say('Animals are living things too. Let’s see where they live!');
+        });
+        HOMES.forEach(function(h) {
+            scenes.push(async function(ctx) {
+                show('<div class="big-thing pop-in" aria-hidden="true">' + h.thing + '</div><div class="thing-name">' + h.name + '</div><div class="board-things" id="home"></div>');
+                pip.point();
+                await ctx.say('This is a ' + h.name.toLowerCase() + '.');
+                var row = document.getElementById('home');
+                h.home.forEach(function(x) { var s = el('span', 'pop-in', pic(x[0])); s.setAttribute('aria-hidden', 'true'); row.appendChild(s); });
+                await ctx.say(h.fact);
+                await ctx.wait(400);
+            });
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title">What do living things need?</div><div class="grow" id="grow" aria-hidden="true">' + GROW[0] + '</div>' +
+                '<div class="needs" id="needs">' + NEEDS.map(function(n) { return '<span aria-hidden="true">' + n[0] + '</span>'; }).join('') + '</div>');
+            pip.point();
+            await ctx.say('Here is a tiny seed. Let’s help it grow! What does it need?');
+            var grow = document.getElementById('grow');
+            var needs = document.getElementById('needs').children;
+            // Each need helps the seed grow one step, into a sunflower.
+            for (var i = 0; i < NEEDS.length; i += 1) {
+                needs[i].classList.add('on');
+                if (GROW[i + 1]) { grow.textContent = GROW[i + 1]; grow.classList.remove('pop-in'); void grow.offsetWidth; grow.classList.add('pop-in'); }
+                await ctx.say(NEEDS[i][1].charAt(0).toUpperCase() + NEEDS[i][1].slice(1) + '!');
+            }
+            pip.jump(1600);
+            await ctx.say('With water, sunlight, and air, the seed grew into a big sunflower! Animals need food, water, and air too. Just like you!');
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Growing up</div><div class="board-things" id="cycle"></div>');
+            pip.point();
+            await ctx.say('Living things grow and change. Watch!');
+            var row = document.getElementById('cycle');
+            var chick = [['🥚', 'First, an egg.'], ['🐣', 'Crack! Out comes a baby chick.'], ['🐔', 'The chick grows up into a hen!']];
+            for (var i = 0; i < chick.length; i += 1) {
+                if (i) row.appendChild(el('span', 'arrow', '→'));
+                var s = el('span', 'pop-in', chick[i][0]); s.setAttribute('aria-hidden', 'true'); row.appendChild(s);
+                await ctx.say(chick[i][1]);
+            }
+            await ctx.wait(400);
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Growing up</div><div class="board-things" id="cycle"></div>');
+            pip.point();
+            var row = document.getElementById('cycle');
+            var bug = [['🐛', 'A little caterpillar eats and eats leaves.'], ['🍂', 'Then it wraps up in a cozy cocoon, and rests.'], ['🦋', 'One day... out comes a beautiful butterfly!']];
+            for (var i = 0; i < bug.length; i += 1) {
+                if (i) row.appendChild(el('span', 'arrow', '→'));
+                var s = el('span', 'pop-in', bug[i][0]); s.setAttribute('aria-hidden', 'true'); row.appendChild(s);
+                await ctx.say(bug[i][1]);
+            }
+            pip.jump(1600);
+            await ctx.wait(400);
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Nature walk time! &#127807;</div><div class="board-things"><span>🐞</span><span>🐦</span><span>🌼</span></div>');
+            pip.wave(4000);
+            await ctx.say('Now go outside with a grown-up and look for living things! Can you find a bug, a bird, or a flower? Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Nature with Pip</div>');
+    </script>
+</body>
+</html>

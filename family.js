@@ -234,6 +234,8 @@
       home: 'At breakfast, say what day it is today, what day it was yesterday, and what day it will be tomorrow.' },
     { id: 'tv/rhymes-with-pip', area: 'Watch & Listen', name: 'Rhymes with Pip', href: 'tv/rhymes-with-pip.html', video: true,
       home: 'Rhyme game in the car: say a word and take turns finding words that rhyme with it.' },
+    { id: 'tv/nature-with-pip', area: 'Watch & Listen', name: 'Nature with Pip', href: 'tv/nature-with-pip.html', video: true,
+      home: 'Nature walk: find three living things outside (a bug, a bird, a plant) and one thing that is not alive.' },
     { id: 'tv/luna-little-cloud', area: 'Watch & Listen', name: 'Luna the Little Cloud', href: 'tv/luna-little-cloud.html', video: true,
       home: 'Ask "How did Luna help the flower?" Then find one small way your child can help someone today.' },
     { id: 'tv/sound-parade', area: 'Watch & Listen', name: 'Sound Parade', href: 'tv/sound-parade.html', video: true,
@@ -284,7 +286,7 @@
   // The third activity of the day rotates through videos and feelings.
   var PLAN_EXTRAS = ['tv/abc-with-pip', 'emotions/feelings-quiz', 'tv/count-with-pip', 'color/balloon-pop', 'tv/sound-parade',
     'tv/colors-with-pip', 'tv/luna-little-cloud', 'tv/shapes-with-pip', 'tv/feelings-with-pip', 'tv/weather-with-pip',
-    'tv/days-with-pip', 'tv/rhymes-with-pip',
+    'tv/days-with-pip', 'tv/rhymes-with-pip', 'tv/nature-with-pip',
     'emotions/calm-corner', 'tv/animated-alphabet', 'tv/counting-rainbow'];
 
   function pathSteps(path) {
