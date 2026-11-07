@@ -9,7 +9,9 @@
         .phoneme-chart { width: 100%; border-collapse: collapse; margin-top: 1rem; }
         .phoneme-chart th, .phoneme-chart td { border: 1px solid rgba(0,0,0,0.12); padding: 0.8rem; vertical-align: top; }
         .phoneme-chart th { background: #f8f1ff; color: #2f2d52; }
-        .phoneme-symbol { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; display: block; cursor: pointer; }
+        .phoneme-symbol { font-size: 1.6rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: 0; background: #f8f1ff; border-radius: 10px; padding: 6px 10px; min-height: 48px; font-family: inherit; color: inherit; }
+        .phoneme-symbol span { font-size: 1rem; }
+        .more-words { display: block; color: #666; font-size: 0.88rem; margin-top: 4px; }
         .example-word { color: #444; font-size: 0.95rem; }
         .sound-chip { display: inline-flex; align-items: center; justify-content: center; margin-top: 0.5rem; padding: 0.4rem 0.8rem; border: none; border-radius: 999px; background: #ffd6e8; color: #2b0a3d; cursor: pointer; font-size: 0.95rem; }
         .chart-heading { margin-top: 1.5rem; }
@@ -29,263 +31,128 @@
             <section class="lesson-card-panel">
                 <article class="lesson-card">
                     <h2>Sound Symbols</h2>
-                    <p>Tap the word buttons to hear how the symbol sounds in English. These are the symbols used to show speech sounds on the phonemic chart.</p>
+                    <p>Tap a symbol to hear its sound in example words, or tap a word button to hear just that word. These symbols show speech sounds on the phonemic chart.</p>
                 </article>
                 <div class="chart-section">
                     <h3 class="chart-heading">Vowel Sounds</h3>
-                    <table class="phoneme-chart">
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Example</th>
-                            <th>Sound</th>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">i:</span></td>
-                            <td><button class="sound-chip" data-word="sheep">sheep</button></td>
-                            <td>as in <strong>sheep</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ɪ</span></td>
-                            <td><button class="sound-chip" data-word="ship">ship</button></td>
-                            <td>as in <strong>ship</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ʊ</span></td>
-                            <td><button class="sound-chip" data-word="good">good</button></td>
-                            <td>as in <strong>good</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">u:</span></td>
-                            <td><button class="sound-chip" data-word="shoot">shoot</button></td>
-                            <td>as in <strong>shoot</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">e</span></td>
-                            <td><button class="sound-chip" data-word="bed">bed</button></td>
-                            <td>as in <strong>bed</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ə</span></td>
-                            <td><button class="sound-chip" data-word="teacher">teacher</button></td>
-                            <td>as in the second syllable of <strong>teacher</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ɜ:</span></td>
-                            <td><button class="sound-chip" data-word="bird">bird</button></td>
-                            <td>as in <strong>bird</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ɔ:</span></td>
-                            <td><button class="sound-chip" data-word="door">door</button></td>
-                            <td>as in <strong>door</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">æ</span></td>
-                            <td><button class="sound-chip" data-word="cat">cat</button></td>
-                            <td>as in <strong>cat</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ʌ</span></td>
-                            <td><button class="sound-chip" data-word="up">up</button></td>
-                            <td>as in <strong>up</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ɑ:</span></td>
-                            <td><button class="sound-chip" data-word="far">far</button></td>
-                            <td>as in <strong>far</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">eɪ</span></td>
-                            <td><button class="sound-chip" data-word="wait">wait</button></td>
-                            <td>as in <strong>wait</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ɪə</span></td>
-                            <td><button class="sound-chip" data-word="here">here</button></td>
-                            <td>as in <strong>here</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ɔɪ</span></td>
-                            <td><button class="sound-chip" data-word="boy">boy</button></td>
-                            <td>as in <strong>boy</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">əʊ</span></td>
-                            <td><button class="sound-chip" data-word="show">show</button></td>
-                            <td>as in <strong>show</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">aɪ</span></td>
-                            <td><button class="sound-chip" data-word="my">my</button></td>
-                            <td>as in <strong>my</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">aʊ</span></td>
-                            <td><button class="sound-chip" data-word="cow">cow</button></td>
-                            <td>as in <strong>cow</strong></td>
-                        </tr>
-                    </table>
+                    <table class="phoneme-chart" id="vowelChart"></table>
                     <h3 class="chart-heading">Consonant Sounds</h3>
-                    <table class="phoneme-chart">
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Example</th>
-                            <th>Sound</th>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">p</span></td>
-                            <td><button class="sound-chip" data-word="pea">pea</button></td>
-                            <td>as in <strong>pea</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">b</span></td>
-                            <td><button class="sound-chip" data-word="boat">boat</button></td>
-                            <td>as in <strong>boat</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">t</span></td>
-                            <td><button class="sound-chip" data-word="tea">tea</button></td>
-                            <td>as in <strong>tea</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">d</span></td>
-                            <td><button class="sound-chip" data-word="dog">dog</button></td>
-                            <td>as in <strong>dog</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">tʃ</span></td>
-                            <td><button class="sound-chip" data-word="cheese">cheese</button></td>
-                            <td>as in <strong>cheese</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">dʒ</span></td>
-                            <td><button class="sound-chip" data-word="June">June</button></td>
-                            <td>as in <strong>June</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">k</span></td>
-                            <td><button class="sound-chip" data-word="car">car</button></td>
-                            <td>as in <strong>car</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">g</span></td>
-                            <td><button class="sound-chip" data-word="go">go</button></td>
-                            <td>as in <strong>go</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">f</span></td>
-                            <td><button class="sound-chip" data-word="fly">fly</button></td>
-                            <td>as in <strong>fly</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">v</span></td>
-                            <td><button class="sound-chip" data-word="video">video</button></td>
-                            <td>as in <strong>video</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">θ</span></td>
-                            <td><button class="sound-chip" data-word="think">think</button></td>
-                            <td>as in <strong>think</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ð</span></td>
-                            <td><button class="sound-chip" data-word="this">this</button></td>
-                            <td>as in <strong>this</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">s</span></td>
-                            <td><button class="sound-chip" data-word="see">see</button></td>
-                            <td>as in <strong>see</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">z</span></td>
-                            <td><button class="sound-chip" data-word="zoo">zoo</button></td>
-                            <td>as in <strong>zoo</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ʃ</span></td>
-                            <td><button class="sound-chip" data-word="shall">shall</button></td>
-                            <td>as in <strong>shall</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ʒ</span></td>
-                            <td><button class="sound-chip" data-word="television">television</button></td>
-                            <td>as in the middle of <strong>television</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">m</span></td>
-                            <td><button class="sound-chip" data-word="man">man</button></td>
-                            <td>as in <strong>man</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">n</span></td>
-                            <td><button class="sound-chip" data-word="now">now</button></td>
-                            <td>as in <strong>now</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">ŋ</span></td>
-                            <td><button class="sound-chip" data-word="sing">sing</button></td>
-                            <td>as in <strong>sing</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">h</span></td>
-                            <td><button class="sound-chip" data-word="hat">hat</button></td>
-                            <td>as in <strong>hat</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">l</span></td>
-                            <td><button class="sound-chip" data-word="love">love</button></td>
-                            <td>as in <strong>love</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">r</span></td>
-                            <td><button class="sound-chip" data-word="red">red</button></td>
-                            <td>as in <strong>red</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">w</span></td>
-                            <td><button class="sound-chip" data-word="wet">wet</button></td>
-                            <td>as in <strong>wet</strong></td>
-                        </tr>
-                        <tr>
-                            <td><span class="phoneme-symbol">j</span></td>
-                            <td><button class="sound-chip" data-word="yes">yes</button></td>
-                            <td>as in <strong>yes</strong></td>
-                        </tr>
-                    </table>
+                    <table class="phoneme-chart" id="consonantChart"></table>
                 </div>
             </section>
         </main>
         <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
     <script>
-        function speakText(text) {
-          // Shared calm, natural voice (speech.js), with a plain fallback.
-          if (window.ESEASpeech) {
-            ESEASpeech.speak(text);
-            return;
-          }
-          if (!text || !window.speechSynthesis) return;
-          window.speechSynthesis.cancel();
-          var msg = new SpeechSynthesisUtterance(text);
-          msg.rate = 0.85;
-          window.speechSynthesis.speak(msg);
+        // Each sound is taught the way a teacher says it, using only things
+        // browser voices pronounce well: a sound spelling voices read reliably
+        // ("ee", "oh", "oy"...) where one exists, then example words. Short
+        // vowels cannot be said reliably on their own, so the child hears them
+        // inside words. The phonetic symbols are only shown, never read aloud.
+        //   say: how to say the sound on its own (left out when unreliable)
+        //   where: which part of the word to listen to
+        var VOWELS = [
+            { symbol: 'iː', say: 'ee', words: ['sheep', 'tree', 'see'] },
+            { symbol: 'ɪ', where: 'middle', words: ['ship', 'fish', 'sit'] },
+            { symbol: 'ʊ', where: 'middle', words: ['good', 'book', 'foot'] },
+            { symbol: 'uː', say: 'oo', words: ['shoot', 'moon', 'blue'] },
+            { symbol: 'e', where: 'middle', words: ['bed', 'red', 'egg'] },
+            { symbol: 'ə', where: 'quiet end', words: ['teacher', 'sofa', 'banana'],
+              note: 'the soft sound at the end of' },
+            { symbol: 'ɜː', say: 'er', words: ['bird', 'her', 'fur'] },
+            { symbol: 'ɔː', say: 'or', words: ['door', 'four', 'horse'] },
+            { symbol: 'æ', where: 'middle', words: ['cat', 'hat', 'bag'] },
+            { symbol: 'ʌ', say: 'uh', words: ['up', 'cup', 'sun'] },
+            { symbol: 'ɑː', say: 'are', words: ['far', 'car', 'star'] },
+            { symbol: 'eɪ', say: '[A]', words: ['wait', 'rain', 'day'] },
+            { symbol: 'ɪə', say: 'ear', words: ['here', 'ear', 'deer'] },
+            { symbol: 'ɔɪ', say: 'oy', words: ['boy', 'toy', 'coin'] },
+            { symbol: 'əʊ', say: 'oh', words: ['show', 'go', 'boat'] },
+            { symbol: 'aɪ', say: 'eye', words: ['my', 'fly', 'kite'] },
+            { symbol: 'aʊ', say: 'ow', words: ['cow', 'now', 'house'] }
+        ];
+        var CONSONANTS = [
+            { symbol: 'p', where: 'first', words: ['pea', 'pan', 'pig'] },
+            { symbol: 'b', where: 'first', words: ['boat', 'bed', 'ball'] },
+            { symbol: 't', where: 'first', words: ['tea', 'top', 'ten'] },
+            { symbol: 'd', where: 'first', words: ['dog', 'duck', 'door'] },
+            { symbol: 'tʃ', where: 'first', words: ['cheese', 'chair', 'chin'] },
+            { symbol: 'dʒ', where: 'first', words: ['June', 'jam', 'jump'] },
+            { symbol: 'k', where: 'first', words: ['car', 'kite', 'cup'] },
+            { symbol: 'g', where: 'first', words: ['go', 'goat', 'gate'] },
+            { symbol: 'f', where: 'first', words: ['fly', 'fish', 'fan'] },
+            { symbol: 'v', where: 'first', words: ['video', 'van', 'vet'] },
+            { symbol: 'θ', where: 'first', words: ['think', 'thumb', 'three'] },
+            { symbol: 'ð', where: 'first', words: ['this', 'that', 'mother'] },
+            { symbol: 's', where: 'first', words: ['see', 'sun', 'sock'] },
+            { symbol: 'z', where: 'first', words: ['zoo', 'zip', 'zebra'] },
+            { symbol: 'ʃ', where: 'first', words: ['shall', 'ship', 'shoe'] },
+            { symbol: 'ʒ', where: 'middle', words: ['television', 'treasure', 'measure'] },
+            { symbol: 'm', where: 'first', words: ['man', 'moon', 'mop'] },
+            { symbol: 'n', where: 'first', words: ['now', 'nose', 'net'] },
+            { symbol: 'ŋ', where: 'end', words: ['sing', 'ring', 'king'] },
+            { symbol: 'h', where: 'first', words: ['hat', 'hen', 'hop'] },
+            { symbol: 'l', where: 'first', words: ['love', 'leg', 'lion'] },
+            { symbol: 'r', where: 'first', words: ['red', 'run', 'rain'] },
+            { symbol: 'w', where: 'first', words: ['wet', 'web', 'window'] },
+            { symbol: 'j', where: 'first', words: ['yes', 'yellow', 'yo-yo'] }
+        ];
+
+        // What the voice says when a symbol is tapped.
+        function spokenSound(item) {
+            var words = item.words.join('... ') + '.';
+            if (item.say) return item.say + '... as in ' + words;
+            var part = item.where === 'quiet end' ? 'the soft sound at the end'
+                : item.where === 'first' ? 'the first sound'
+                : 'the ' + item.where + ' sound';
+            return 'Listen to ' + part + '... ' + words;
         }
-        document.addEventListener('click', function(event) {
-            if (event.target.matches('.sound-chip')) {
-                speakText(event.target.dataset.word);
+
+        function describe(item) {
+            var lead = item.note || (item.where === 'first' ? 'as at the start of'
+                : item.where === 'end' ? 'as at the end of'
+                : item.where === 'middle' ? 'as in the middle of' : 'as in');
+            return lead + ' <strong>' + item.words[0] + '</strong>' +
+                '<span class="more-words">also: ' + item.words.slice(1).join(', ') + '</span>';
+        }
+
+        function renderChart(id, items) {
+            var html = '<tr><th>Symbol</th><th>Example</th><th>Sound</th></tr>';
+            items.forEach(function(item, i) {
+                html += '<tr>' +
+                    '<td><button type="button" class="phoneme-symbol" data-list="' + id + '" data-i="' + i + '" ' +
+                    'aria-label="Hear this sound">' + item.symbol + ' <span aria-hidden="true">&#128264;</span></button></td>' +
+                    '<td><button type="button" class="sound-chip" data-word="' + item.words[0] + '">' + item.words[0] + '</button></td>' +
+                    '<td>' + describe(item) + '</td></tr>';
+            });
+            document.getElementById(id).innerHTML = html;
+        }
+        renderChart('vowelChart', VOWELS);
+        renderChart('consonantChart', CONSONANTS);
+
+        function speakText(text, slower) {
+            // Shared calm, natural voice (speech.js), with a plain fallback.
+            if (window.ESEASpeech) {
+                ESEASpeech.speak(text, { slower: slower });
                 return;
             }
+            if (!text || !window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            var msg = new SpeechSynthesisUtterance(String(text).replace(/\[([A-Za-z])\]/g, '$1'));
+            msg.rate = 0.8;
+            window.speechSynthesis.speak(msg);
+        }
 
-            if (event.target.matches('.phoneme-symbol')) {
-                const row = event.target.closest('tr');
-                const exampleButton = row && row.querySelector('.sound-chip');
-                const exampleWord = exampleButton ? exampleButton.dataset.word : '';
-                const symbolText = event.target.textContent.trim();
-                const phrase = exampleWord
-                    ? symbolText + ', as in ' + exampleWord
-                    : symbolText;
-                speakText(phrase);
+        document.addEventListener('click', function(event) {
+            var chip = event.target.closest('.sound-chip');
+            if (chip) {
+                speakText(chip.dataset.word + '.', true);
+                return;
+            }
+            var symbol = event.target.closest('.phoneme-symbol');
+            if (symbol) {
+                var list = symbol.dataset.list === 'vowelChart' ? VOWELS : CONSONANTS;
+                speakText(spokenSound(list[Number(symbol.dataset.i)]), true);
             }
         });
     </script>
