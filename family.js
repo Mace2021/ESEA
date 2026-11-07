@@ -15,6 +15,54 @@
     try { return new URL('.', doc.currentScript.src).href; } catch (e) { return './'; }
   })();
   var IS_PARENT_PAGE = /\/parents\.html$/i.test(global.location.pathname);
+  var LANGUAGES = {
+    en: { name: 'English', speech: 'en-US' },
+    es: { name: 'Español (Spanish)', speech: 'es-ES' },
+    fr: { name: 'Français (French)', speech: 'fr-FR' }
+  };
+  // Child-facing words used by family.js itself.
+  var WORDS = {
+    en: { who: 'Who is playing?', hi: 'Hi, {name}!', grownupsAdd: 'Grown-ups can add children in the Grown-ups area.',
+          breakTitle: 'Time for a break!', breakText: 'Great learning today, {name}. Let\u2019s play again tomorrow.',
+          breakSay: 'Time for a break! Great learning today. Let\u2019s play again tomorrow.', grownups: 'Grown-ups' },
+    es: { who: '¿Quién va a jugar?', hi: '¡Hola, {name}!', grownupsAdd: 'Los adultos pueden añadir niños en el área de adultos.',
+          breakTitle: '¡Hora de descansar!', breakText: '¡Aprendiste mucho hoy, {name}! Jugamos otra vez mañana.',
+          breakSay: '¡Hora de descansar! Aprendiste mucho hoy. Jugamos otra vez mañana.', grownups: 'Adultos' },
+    fr: { who: 'Qui joue ?', hi: 'Bonjour, {name} !', grownupsAdd: 'Les adultes peuvent ajouter des enfants dans l\u2019espace adultes.',
+          breakTitle: 'C\u2019est l\u2019heure de la pause !', breakText: 'Tu as bien appris aujourd\u2019hui, {name}. On rejoue demain.',
+          breakSay: 'C\u2019est l\u2019heure de la pause ! Tu as bien appris aujourd\u2019hui. On rejoue demain.', grownups: 'Adultes' }
+  };
+  function word(key, name) {
+    var lang = currentLang();
+    var text = (WORDS[lang] || WORDS.en)[key] || WORDS.en[key];
+    return name === undefined ? text : text.replace('{name}', name);
+  }
+  function currentLang() {
+    var lang = load().language;
+    return LANGUAGES[lang] ? lang : 'en';
+  }
+
+  // Pick the best installed voice for a language (falls back to the default).
+  function voiceFor(langCode) {
+    try {
+      var voices = global.speechSynthesis.getVoices() || [];
+      var short = langCode.slice(0, 2);
+      return voices.filter(function(v) { return v.lang === langCode; })[0] ||
+        voices.filter(function(v) { return v.lang && v.lang.slice(0, 2) === short; })[0] || null;
+    } catch (e) { return null; }
+  }
+
+  /** Make a speech utterance in the given language ('en', 'es', 'fr'). */
+  function utterance(text, lang) {
+    var msg = new global.SpeechSynthesisUtterance(text);
+    var code = (LANGUAGES[lang] || LANGUAGES.en).speech;
+    msg.lang = code;
+    var voice = voiceFor(code);
+    if (voice) msg.voice = voice;
+    msg.rate = 0.9;
+    msg.pitch = 1.05;
+    return msg;
+  }
 
   // ---------- Storage ----------
   var memory = {};
@@ -75,15 +123,42 @@
   // ---------- Lesson catalog and "try this at home" ideas ----------
   // id matches the lesson id the skill tracker uses ("folder/file" or puzzle id).
   var CATALOG = [
+    { id: 'math/quicklook', area: 'Numbers', name: 'Quick Look', href: 'math/quicklook.html', tracked: true,
+      path: 'math', step: 1, langs: ['en', 'es', 'fr'],
+      home: 'Dice glance: roll one die, cover it after a second, and ask how many dots. Use dominoes or fingers too.' },
     { id: 'arithmetic/howmanyapple', area: 'Numbers', name: 'Count the Apples', href: 'arithmetic/howmanyapple.html', tracked: true,
+      path: 'math', step: 2, langs: ['en', 'es', 'fr'],
       home: 'Snack counting: put 1 to 5 grapes or crackers on a plate. Touch each one as you count together, then ask "How many?"' },
+    { id: 'math/countto10', area: 'Numbers', name: 'Count to 10', href: 'math/countto10.html', tracked: true,
+      path: 'math', step: 3, langs: ['en', 'es', 'fr'],
+      home: 'Count 6 to 10 things at bath time or while tidying: toys into the box, one at a time.' },
+    { id: 'math/moreorless', area: 'Numbers', name: 'More or Less', href: 'math/moreorless.html', tracked: true,
+      path: 'math', step: 4, langs: ['en', 'es', 'fr'],
+      home: 'Snack sharing: make two piles of crackers and ask "Which pile has more?" Then count to check.' },
+    { id: 'math/whatsnext', area: 'Numbers', name: 'What Comes Next?', href: 'math/whatsnext.html', tracked: true,
+      path: 'math', step: 5, langs: ['en', 'es', 'fr'],
+      home: 'Count steps out loud, stop, and let your child say the next number.' },
     { id: '123/pickthenum', area: 'Numbers', name: 'Pick the Number', href: '123/pickthenum.html', tracked: true,
+      path: 'math', step: 6,
       home: 'Number hunt: spot numbers on clocks, doors, buses and price tags. Say each one together.' },
     { id: 'number-match', area: 'Numbers', name: 'Number Match', href: 'puzzles/number-match.html', tracked: true,
       home: 'Finger match: hold up 1 to 5 fingers and ask your child to show the same number with spoons or blocks.' },
     { id: '123/countto100', area: 'Numbers', name: 'Hear Numbers 1-100', href: '123/countto100.html',
       home: 'Count the stairs or steps to the car out loud every day.' },
+    { id: 'reading/rhyme', area: 'Letters & Words', name: 'Rhyme Time', href: 'reading/rhyme.html', tracked: true,
+      path: 'reading', step: 1,
+      home: 'Rhyme silly names: cat, hat, bat, zat! Read rhyming books and pause so your child can say the rhyme.' },
+    { id: 'reading/wordparts', area: 'Letters & Words', name: 'Word Parts', href: 'reading/wordparts.html', tracked: true,
+      path: 'reading', step: 2,
+      home: 'Robot talk: say a word in parts ("pan... cake") and let your child say the whole word. Then clap the parts.' },
+    { id: 'reading/firstsounds', area: 'Letters & Words', name: 'First Sounds', href: 'reading/firstsounds.html', tracked: true,
+      path: 'reading', step: 3,
+      home: 'I spy first sounds: "I spy something that starts like sss... sock!" Take turns choosing.' },
+    { id: 'abc/alphabet-sounds', area: 'Letters & Words', name: 'Sounds Phonics', href: 'abc/alphabet-sounds.html',
+      path: 'reading', step: 4,
+      home: 'First-sound game: "I spy something that starts with mmm..." Take turns.' },
     { id: 'abc/picktheletter', area: 'Letters & Words', name: 'Pick the Letter', href: 'abc/picktheletter.html', tracked: true,
+      path: 'reading', step: 5,
       home: 'Letter of the day: pick one letter and find it on cereal boxes, signs and book covers.' },
     { id: 'letter-match', area: 'Letters & Words', name: 'Letter Match', href: 'puzzles/letter-match.html', tracked: true,
       home: 'Write big and small letters on sticky notes and match the pairs around the house.' },
@@ -91,8 +166,6 @@
       home: 'Label three things at home (door, cup, bed) with paper signs and read them together each day.' },
     { id: 'abc/pickthepic', area: 'Letters & Words', name: 'Pick the Picture', href: 'abc/pickthepic.html', tracked: true,
       home: 'Picture book pointing: say a word and let your child point to it in a picture book.' },
-    { id: 'abc/alphabet-sounds', area: 'Letters & Words', name: 'Sounds Phonics', href: 'abc/alphabet-sounds.html',
-      home: 'First-sound game: "I spy something that starts with mmm..." Take turns.' },
     { id: 'abc/abcpic', area: 'Letters & Words', name: 'Letters with Pictures', href: 'abc/abcpic.html',
       home: 'Make an "A is for..." page together with drawings or magazine cut-outs.' },
     { id: 'shapes/whatshape', area: 'Shapes & Colors', name: 'What Shape Is This?', href: 'shapes/whatshape.html', tracked: true,
@@ -169,10 +242,7 @@
   function speak(text) {
     if (!text || !global.speechSynthesis) return;
     global.speechSynthesis.cancel();
-    var msg = new global.SpeechSynthesisUtterance(text);
-    msg.rate = 0.9;
-    msg.pitch = 1.05;
-    global.speechSynthesis.speak(msg);
+    global.speechSynthesis.speak(utterance(text, currentLang()));
   }
 
   // ---------- Grown-ups check ----------
@@ -217,16 +287,16 @@
   function profilePicker(onDone) {
     var data = load();
     var overlay = openModal([
-      '<h2>Who is playing?</h2>',
+      '<h2>' + word('who') + '</h2>',
       '<div class="esea-avatars">',
       data.profiles.map(function(p) {
         return '<button type="button" class="esea-avatar' + (p.id === data.active ? ' on' : '') + '" data-id="' + p.id + '">' +
           '<span aria-hidden="true">' + p.avatar + '</span>' + escapeHtml(p.name) + '</button>';
       }).join(''),
       '</div>',
-      '<p style="font-size:.9rem;margin:0">Grown-ups can add children in the Grown-ups area.</p>'
+      '<p style="font-size:.9rem;margin:0">' + word('grownupsAdd') + '</p>'
     ].join(''));
-    speak('Who is playing?');
+    speak(word('who'));
     overlay.addEventListener('click', function(e) {
       var t = e.target.closest('.esea-avatar');
       if (!t) {
@@ -237,7 +307,7 @@
       d.active = t.getAttribute('data-id');
       save(d);
       var p = findProfile(d, d.active);
-      speak('Hi, ' + p.name + '!');
+      speak(word('hi', p.name));
       overlay.remove();
       if (onDone) onDone(p);
     });
@@ -268,11 +338,11 @@
     var name = ESEAFamily.activeProfile().name;
     var overlay = openModal([
       '<div class="esea-break" aria-hidden="true">🌙</div>',
-      '<h2>Time for a break!</h2>',
-      '<p>Great learning today, ' + escapeHtml(name) + '. Let’s play again tomorrow.</p>',
-      '<button type="button" class="esea-btn link" data-grownup>Grown-ups</button>'
+      '<h2>' + word('breakTitle') + '</h2>',
+      '<p>' + word('breakText', escapeHtml(name)) + '</p>',
+      '<button type="button" class="esea-btn link" data-grownup>' + word('grownups') + '</button>'
     ].join(''));
-    setTimeout(function() { speak('Time for a break! Great learning today. Let’s play again tomorrow.'); }, 50);
+    setTimeout(function() { speak(word('breakSay')); }, 50);
     overlay.querySelector('[data-grownup]').addEventListener('click', function() {
       parentGate(function() {
         var data = load();
@@ -310,6 +380,19 @@
       e.stopImmediatePropagation();
       parentGate(function() { global.location.href = a.href; });
     }, true);
+  }
+
+  // ---------- Offline + install ----------
+  var installPrompt = null;
+  global.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    installPrompt = e;
+    doc.dispatchEvent(new Event('esea-installable'));
+  });
+  if ('serviceWorker' in global.navigator && /^https?:$/.test(global.location.protocol)) {
+    global.addEventListener('load', function() {
+      global.navigator.serviceWorker.register(ROOT + 'service-worker.js').catch(function() {});
+    });
   }
 
   // ---------- Public API ----------
@@ -376,6 +459,30 @@
       var d = load();
       var u = d.usage[profileId || d.active];
       return u && u.date === today() ? Math.round(u.seconds / 60) : 0;
+    },
+
+    languages: LANGUAGES,
+    /** The language grown-ups chose for practice ('en', 'es' or 'fr'). */
+    lang: currentLang,
+    setLanguage: function(lang) {
+      var d = load();
+      d.language = LANGUAGES[lang] ? lang : 'en';
+      save(d);
+    },
+    /** The chosen language if this lesson supports it, otherwise English. */
+    lessonLang: function(supported) {
+      var lang = currentLang();
+      return (supported || ['en']).indexOf(lang) !== -1 ? lang : 'en';
+    },
+    utterance: utterance,
+
+    /** Offer to install the app (Chrome/Edge/Android). Returns false if not available. */
+    canInstall: function() { return Boolean(installPrompt); },
+    install: function() {
+      if (!installPrompt) return false;
+      installPrompt.prompt();
+      installPrompt = null;
+      return true;
     },
 
     parentGate: parentGate,

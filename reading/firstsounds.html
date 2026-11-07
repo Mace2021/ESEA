@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Sounds - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>First Sounds</h1>
+            <p>Find the picture that starts with the same sound.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        function shuffle(list) {
+            var copy = list.slice();
+            for (var i = copy.length - 1; i > 0; i -= 1) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var t = copy[i]; copy[i] = copy[j]; copy[j] = t;
+            }
+            return copy;
+        }
+        function wordOption(w) {
+            return { value: w.word, label: w.word, emoji: w.emoji };
+        }
+        function picture(w) {
+            return { html: '<span class="card-emoji" aria-hidden="true">' + w.emoji + '</span><span class="target-word">' + w.word + '</span>' };
+        }
+        function listWords(options) {
+            return shuffle(options).map(function(o) { return o.label; }).join('? ') + '?';
+        }
+
+        var groups = {
+            s: [{ word: 'sun', emoji: '☀️' }, { word: 'sock', emoji: '🧦' }, { word: 'snake', emoji: '🐍' }, { word: 'seal', emoji: '🦭' }],
+            m: [{ word: 'moon', emoji: '🌙' }, { word: 'mouse', emoji: '🐭' }, { word: 'milk', emoji: '🥛' }, { word: 'monkey', emoji: '🐵' }],
+            f: [{ word: 'fish', emoji: '🐟' }, { word: 'fox', emoji: '🦊' }, { word: 'fork', emoji: '🍴' }, { word: 'frog', emoji: '🐸' }],
+            b: [{ word: 'ball', emoji: '⚽' }, { word: 'bus', emoji: '🚌' }, { word: 'bear', emoji: '🐻' }, { word: 'banana', emoji: '🍌' }],
+            t: [{ word: 'tiger', emoji: '🐯' }, { word: 'tent', emoji: '⛺' }, { word: 'train', emoji: '🚂' }, { word: 'tomato', emoji: '🍅' }],
+            p: [{ word: 'pig', emoji: '🐷' }, { word: 'pear', emoji: '🍐' }, { word: 'pizza', emoji: '🍕' }, { word: 'penguin', emoji: '🐧' }],
+            d: [{ word: 'dog', emoji: '🐶' }, { word: 'duck', emoji: '🦆' }, { word: 'drum', emoji: '🥁' }, { word: 'door', emoji: '🚪' }],
+            c: [{ word: 'cat', emoji: '🐱' }, { word: 'car', emoji: '🚗' }, { word: 'cake', emoji: '🎂' }, { word: 'cow', emoji: '🐮' }]
+        };
+        var letters = Object.keys(groups);
+        var rounds = [];
+        letters.forEach(function(letter) {
+            groups[letter].forEach(function(answer, i) {
+                // The example is another word with the same first sound.
+                var example = groups[letter][(i + 1) % groups[letter].length];
+                var others = shuffle(letters.filter(function(l) { return l !== letter; })).slice(0, 2)
+                    .map(function(l) { return groups[l][Math.floor(Math.random() * groups[l].length)]; });
+                var options = [answer].concat(others).map(wordOption);
+                rounds.push({
+                    key: answer.word,
+                    prompt: 'Which one starts like ' + example.word + '?',
+                    speak: example.word + '. Which one starts with the same sound as ' + example.word + '? ' + listWords(options),
+                    hint: 'Listen to the start: ' + example.word + '... Which one starts the same way?',
+                    answer: answer.word,
+                    target: { html: '<span class="target-text" style="font-size:3.4rem">' + letter + '</span>' +
+                        '<span class="card-emoji" aria-hidden="true">' + example.emoji + '</span>' +
+                        '<span class="target-word">' + example.word + '</span>' },
+                    options: options
+                });
+            });
+        });
+        window.EarlyLesson = {
+            title: 'First Sounds',
+            instructions: 'Words start with a sound. Sun and sock both start with sss. Say the words slowly together.',
+            type: 'quiz',
+            sayChoice: true,
+            rounds: rounds
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

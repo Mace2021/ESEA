@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Look - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Quick Look</h1>
+            <p>Look fast! How many dots did you see?</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var L = window.ESEAFamily ? ESEAFamily.lessonLang(['en', 'es', 'fr']) : 'en';
+
+        var T = {
+            en: { title: 'Quick Look', hero: 'Look fast! How many dots did you see?', prompt: 'How many dots?',
+                  speak: 'Look quickly! How many dots?',
+                  intro: 'The dots hide after two seconds. Try to see how many without counting one by one.' },
+            es: { title: 'Mirada rápida', hero: '¡Mira rápido! ¿Cuántos puntos viste?', prompt: '¿Cuántos puntos?',
+                  speak: '¡Mira rápido! ¿Cuántos puntos hay?',
+                  intro: 'Los puntos se esconden después de dos segundos. Intenta ver cuántos hay sin contarlos uno por uno.' },
+            fr: { title: 'Coup d’œil', hero: 'Regarde vite ! Combien de points as-tu vus ?', prompt: 'Combien de points ?',
+                  speak: 'Regarde vite ! Combien de points ?',
+                  intro: 'Les points se cachent après deux secondes. Essaie de voir combien il y en a sans les compter un par un.' }
+        }[L];
+        var options = [1, 2, 3, 4, 5].map(function(n) { return { value: String(n), label: String(n), symbol: String(n) }; });
+        window.EarlyLesson = {
+            lang: L,
+            hero: { title: T.title, text: T.hero },
+            title: T.title,
+            instructions: T.intro,
+            type: 'quiz',
+            maxRounds: 5,
+            rounds: [1, 2, 3, 4, 5].map(function(n) {
+                return { prompt: T.prompt, speak: T.speak, answer: String(n), target: { dots: n }, options: options, flashMs: 2000 };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

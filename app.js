@@ -37,8 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Say each activity's name when a child points at it (mouse or keyboard),
   // so children who cannot read yet can still choose.
   document.querySelectorAll('.dropdown-item').forEach(function(item) {
-    var icon = item.querySelector('.item-icon');
-    var label = item.textContent.replace(icon ? icon.textContent : '', '').trim();
+    // Only the visible name, not the icon or step number.
+    var label = Array.prototype.filter.call(item.childNodes, function(node) {
+      return node.nodeType === 3;
+    }).map(function(node) { return node.textContent; }).join('').trim();
     var say = function() { speakLabel(label); };
     item.addEventListener('mouseenter', say);
     item.addEventListener('focus', say);

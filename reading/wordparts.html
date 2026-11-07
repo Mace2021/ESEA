@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Parts - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Word Parts</h1>
+            <p>Put two little words together to make a big word.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        function shuffle(list) {
+            var copy = list.slice();
+            for (var i = copy.length - 1; i > 0; i -= 1) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var t = copy[i]; copy[i] = copy[j]; copy[j] = t;
+            }
+            return copy;
+        }
+        function wordOption(w) {
+            return { value: w.word, label: w.word, emoji: w.emoji };
+        }
+        function picture(w) {
+            return { html: '<span class="card-emoji" aria-hidden="true">' + w.emoji + '</span><span class="target-word">' + w.word + '</span>' };
+        }
+        function listWords(options) {
+            return shuffle(options).map(function(o) { return o.label; }).join('? ') + '?';
+        }
+
+        var words = [
+            { parts: ['sun', 'flower'], word: 'sunflower', emoji: '🌻' },
+            { parts: ['rain', 'bow'], word: 'rainbow', emoji: '🌈' },
+            { parts: ['cup', 'cake'], word: 'cupcake', emoji: '🧁' },
+            { parts: ['butter', 'fly'], word: 'butterfly', emoji: '🦋' },
+            { parts: ['pop', 'corn'], word: 'popcorn', emoji: '🍿' },
+            { parts: ['snow', 'man'], word: 'snowman', emoji: '⛄' },
+            { parts: ['tooth', 'brush'], word: 'toothbrush', emoji: '🪥' },
+            { parts: ['pan', 'cake'], word: 'pancake', emoji: '🥞' },
+            { parts: ['lady', 'bug'], word: 'ladybug', emoji: '🐞' },
+            { parts: ['fire', 'truck'], word: 'fire truck', emoji: '🚒' },
+            { parts: ['straw', 'berry'], word: 'strawberry', emoji: '🍓' },
+            { parts: ['water', 'melon'], word: 'watermelon', emoji: '🍉' },
+            { parts: ['pine', 'apple'], word: 'pineapple', emoji: '🍍' }
+        ];
+        window.EarlyLesson = {
+            title: 'Word Parts',
+            instructions: 'Listen to two small words, then say them fast together. Sun... flower... sunflower!',
+            type: 'quiz',
+            sayChoice: true,
+            rounds: words.map(function(w, i) {
+                var others = shuffle(words.filter(function(x, j) { return j !== i; })).slice(0, 2);
+                var options = [w].concat(others).map(wordOption);
+                return {
+                    key: w.word,
+                    prompt: w.parts[0] + ' + ' + w.parts[1] + ' = ?',
+                    speak: 'Listen. ' + w.parts[0] + '... ' + w.parts[1] + '. Put them together. What is it?',
+                    hint: 'Listen again. ' + w.parts[0] + '... ' + w.parts[1] + '. Say it fast!',
+                    answer: w.word,
+                    target: { html: '<span class="target-word">' + w.parts[0] + ' &nbsp;+&nbsp; ' + w.parts[1] + '</span>' },
+                    options: options
+                };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

@@ -10,6 +10,10 @@
     <meta name="theme-color" content="#245f73">
     <!-- Updated to force GitHub Pages rebuild -->
 
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="ESEA">
     <title>ESEA - Early Start Education App</title>
 
     <link rel="stylesheet" href="responsive.css">
@@ -202,6 +206,19 @@
             gap: 12px;
             min-height: 56px;
         }
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #fff3c7;
+            color: #17323a;
+            font-size: 0.9rem;
+            font-weight: 900;
+            margin-left: auto;
+        }
         .item-icon {
             font-size: 1.9rem;
             line-height: 1;
@@ -297,27 +314,33 @@
                     <article class="card blue" role="button" tabindex="0" aria-label="Numbers and counting">
                         <div class="card-icon" aria-hidden="true">&#128290;</div>
                         <div class="card-title">Numbers & Counting</div>
-                        <div class="card-subtitle">Recognize numbers, count objects, and practice 1-100 with sound.
-                        </div>
+                        <div class="card-subtitle">Follow the numbered steps: see small amounts, count, compare, and put numbers in order.</div>
                         <div class="dropdown-menu">
-                            <a href="./123/countto100.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔊</span>Hear Numbers 1-100</a>
-                            <a href="./123/pickthenum.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔢</span>Pick the Number</a>
-                            <a href="./arithmetic/howmanyapple.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🍎</span>Count the Apples</a>
+                            <a href="./math/quicklook.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">👀</span>Quick Look<span class="step-badge" aria-label="Step 1">1</span></a>
+                            <a href="./arithmetic/howmanyapple.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🍎</span>Count the Apples<span class="step-badge" aria-label="Step 2">2</span></a>
+                            <a href="./math/countto10.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🍓</span>Count to 10<span class="step-badge" aria-label="Step 3">3</span></a>
+                            <a href="./math/moreorless.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">⚖️</span>More or Less<span class="step-badge" aria-label="Step 4">4</span></a>
+                            <a href="./math/whatsnext.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">➡️</span>What Comes Next?<span class="step-badge" aria-label="Step 5">5</span></a>
+                            <a href="./123/pickthenum.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔢</span>Pick the Number<span class="step-badge" aria-label="Step 6">6</span></a>
                             <a href="./puzzles/number-match.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔵</span>Number Match</a>
+                            <a href="./123/countto100.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔊</span>Hear Numbers 1-100</a>
                         </div>
                     </article>
 
                     <article class="card orange" role="button" tabindex="0" aria-label="ABC and letters">
                         <div class="card-icon" aria-hidden="true">&#128292;</div>
                         <div class="card-title">ABC & Letters</div>
-                        <div class="card-subtitle">Name letters, hear sounds, and connect letters to pictures.</div>
+                        <div class="card-subtitle">Follow the numbered steps: rhymes, word parts, first sounds, then letters.</div>
                         <div class="dropdown-menu">
+                            <a href="./reading/rhyme.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🎩</span>Rhyme Time<span class="step-badge" aria-label="Step 1">1</span></a>
+                            <a href="./reading/wordparts.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🌻</span>Word Parts<span class="step-badge" aria-label="Step 2">2</span></a>
+                            <a href="./reading/firstsounds.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🐍</span>First Sounds<span class="step-badge" aria-label="Step 3">3</span></a>
+                            <a href="./abc/alphabet-sounds.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🗣️</span>Sounds Phonics<span class="step-badge" aria-label="Step 4">4</span></a>
+                            <a href="./abc/picktheletter.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🅰️</span>Pick the Letter<span class="step-badge" aria-label="Step 5">5</span></a>
                             <a href="./abc/abc.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🔤</span>Say Your ABCs</a>
-                            <a href="./abc/alphabet-sounds.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🗣️</span>Sounds Phonics</a>
-                            <a href="./abc/pronunciation-symbols.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📖</span>Pronunciation Symbols</a>
-                            <a href="./abc/picktheletter.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🅰️</span>Pick the Letter</a>
                             <a href="./abc/abcpic.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🐘</span>Letters with Pictures</a>
                             <a href="./puzzles/letter-match.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">🧩</span>Letter Match</a>
+                            <a href="./abc/pronunciation-symbols.html" class="dropdown-item"><span class="item-icon" aria-hidden="true">📖</span>Pronunciation Symbols</a>
                         </div>
                     </article>
 

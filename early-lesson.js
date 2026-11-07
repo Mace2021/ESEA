@@ -18,13 +18,20 @@
   var allRounds = (config.rounds || []).slice();
   var maxRounds = config.maxRounds || 8;
   var MAX_REQUEUE = 3;
+  // Lessons that offer translations set config.lang (see ESEAFamily.lessonLang).
+  var lang = config.lang || 'en';
   var lessonId = config.id || (window.SkillTracker ? SkillTracker.lessonId() : location.pathname);
+
+  // The item a round practises: round.key if given (e.g. "3 vs 5"), else its answer.
+  function keyOf(round) {
+    return String(round.key || round.answer);
+  }
 
   function pickRounds() {
     if (config.keepOrder) {
       config.rounds = allRounds.slice(0, maxRounds);
     } else if (window.SkillTracker) {
-      config.rounds = SkillTracker.choose(lessonId, allRounds, maxRounds);
+      config.rounds = SkillTracker.choose(lessonId, allRounds, maxRounds, keyOf);
     } else {
       config.rounds = shuffle(allRounds).slice(0, maxRounds);
     }
@@ -34,9 +41,14 @@
   function speak(text, queue) {
     if (!text || !window.speechSynthesis) return;
     if (!queue) window.speechSynthesis.cancel();
-    var msg = new SpeechSynthesisUtterance(text);
-    msg.rate = 0.9;
-    msg.pitch = 1.05;
+    var msg;
+    if (window.ESEAFamily) {
+      msg = ESEAFamily.utterance(text, lang);
+    } else {
+      msg = new SpeechSynthesisUtterance(text);
+      msg.rate = 0.9;
+      msg.pitch = 1.05;
+    }
     window.speechSynthesis.speak(msg);
   }
 
@@ -71,6 +83,7 @@
 
   function visualHtml(item, target) {
     var imgClass = target ? 'target-image' : 'card-image';
+    if (item.html) return item.html;
     if (item.image) return imageHtml(item.image, item.alt || item.label, imgClass);
     if (item.emoji) return '<span class="card-emoji" aria-hidden="true">' + item.emoji + '</span>';
     if (item.symbol) return '<span class="card-symbol">' + item.symbol + '</span>';
@@ -79,6 +92,11 @@
       var dots = '';
       for (var i = 0; i < item.dots; i += 1) dots += '<span class="dot"></span>';
       return '<div class="dot-cloud" aria-label="' + item.dots + ' dots">' + dots + '</div>';
+    }
+    if (item.countEmoji) {
+      var marks = '';
+      for (var m = 0; m < item.count; m += 1) marks += '<span class="cloud-emoji">' + item.countEmoji + '</span>';
+      return '<div class="picture-cloud" aria-label="' + item.count + '">' + marks + '</div>';
     }
     if (item.countImage) {
       var pics = '';
@@ -128,10 +146,41 @@
     });
   }
 
-  var NUMBER_WORDS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
-    'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
-  var PRAISE_FIRST = ['Yes!', 'You got it!', 'Great job!', 'That is right!', 'Super!', 'Well done!'];
-  var PRAISE_RETRY = ['You did it!', 'Yes, you found it!', 'Good trying!', 'There it is!'];
+  // Words the engine says. Numbers are spoken as digits so the voice reads
+  // them in the lesson's language.
+  var TEXT = {
+    en: {
+      praiseFirst: ['Yes!', 'You got it!', 'Great job!', 'That is right!', 'Super!', 'Well done!'],
+      praiseRetry: ['You did it!', 'Yes, you found it!', 'Good trying!', 'There it is!'],
+      countTogether: 'Let’s count together.', howMany: 'How many?', lookAgain: 'Look again.',
+      thisOne: 'This one! Tap {x}.', thisOneSay: 'This one is {x}. Tap {x}.',
+      allDone: 'All done!', doneText: 'Great learning today. Come back tomorrow to practise again.',
+      doneSay: 'All done! Great learning today.', again: 'Play Again', home: 'Home', next: 'Next',
+      newSet: 'New Set', hear: 'Hear the question again', of: 'of', stars: 'stars'
+    },
+    es: {
+      praiseFirst: ['¡Sí!', '¡Muy bien!', '¡Excelente!', '¡Correcto!', '¡Súper!', '¡Lo lograste!'],
+      praiseRetry: ['¡Lo hiciste!', '¡Sí, lo encontraste!', '¡Buen intento!', '¡Ahí está!'],
+      countTogether: 'Vamos a contar juntos.', howMany: '¿Cuántos?', lookAgain: 'Mira otra vez.',
+      thisOne: '¡Este! Toca {x}.', thisOneSay: 'Es este: {x}. Toca {x}.',
+      allDone: '¡Terminaste!', doneText: 'Aprendiste mucho hoy. Vuelve mañana para practicar más.',
+      doneSay: '¡Terminaste! Aprendiste mucho hoy.', again: 'Jugar otra vez', home: 'Inicio', next: 'Siguiente',
+      newSet: 'Otra serie', hear: 'Escuchar otra vez', of: 'de', stars: 'estrellas'
+    },
+    fr: {
+      praiseFirst: ['Oui !', 'Bravo !', 'Super !', 'C’est juste !', 'Très bien !', 'Génial !'],
+      praiseRetry: ['Tu as réussi !', 'Oui, tu l’as trouvé !', 'Bel effort !', 'Le voilà !'],
+      countTogether: 'Comptons ensemble.', howMany: 'Combien ?', lookAgain: 'Regarde encore.',
+      thisOne: 'Celui-ci ! Touche {x}.', thisOneSay: 'C’est celui-ci : {x}. Touche {x}.',
+      allDone: 'C’est fini !', doneText: 'Tu as bien appris aujourd’hui. Reviens demain pour t’entraîner.',
+      doneSay: 'C’est fini ! Tu as bien appris aujourd’hui.', again: 'Rejouer', home: 'Accueil', next: 'Suivant',
+      newSet: 'Nouvelle série', hear: 'Réécouter la question', of: 'sur', stars: 'étoiles'
+    }
+  };
+  function t(key, x) {
+    var value = (TEXT[lang] || TEXT.en)[key];
+    return typeof value === 'string' && x !== undefined ? value.split('{x}').join(x) : value;
+  }
 
   function progressPercent() {
     var total = config.rounds.length;
@@ -166,11 +215,11 @@
       '<div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>',
       '</div>',
       '<div class="quiz-prompt">' + round.prompt +
-        ' <button type="button" class="hear-again" id="hearAgain" aria-label="Hear the question again">&#128264;</button></div>',
+        ' <button type="button" class="hear-again" id="hearAgain" aria-label="' + t('hear') + '">&#128264;</button></div>',
       '<div class="target-box" id="targetBox">' + visualHtml(round.target, true) + '</div>',
       '<div class="choice-grid" id="choiceGrid"></div>',
       '<div class="feedback" id="lessonFeedback" role="status" aria-live="polite"></div>',
-      '<div class="actions"><button type="button" class="lesson-action" id="nextButton" disabled>Next</button><button type="button" class="lesson-action secondary" id="newButton">New Set</button></div>'
+      '<div class="actions"><button type="button" class="lesson-action" id="nextButton" disabled>' + t('next') + '</button><button type="button" class="lesson-action secondary" id="newButton">' + t('newSet') + '</button></div>'
     ].join('');
 
     var grid = document.getElementById('choiceGrid');
@@ -179,10 +228,11 @@
       button.type = 'button';
       button.className = 'choice-card';
       button.dataset.value = option.value;
-      button.setAttribute('aria-label', option.label);
+      button.setAttribute('aria-label', option.label || option.alt || '');
       button.innerHTML = [
         visualHtml(option, false),
-        '<span class="card-title">' + option.label + '</span>',
+        // Skip the caption when it would just repeat the big symbol (e.g. "2").
+        option.label && option.label !== option.symbol ? '<span class="card-title">' + option.label + '</span>' : '',
         option.note ? '<span class="card-note">' + option.note + '</span>' : ''
       ].join('');
       button.addEventListener('click', handleAnswer);
@@ -196,12 +246,19 @@
     });
     updateQuizProgress();
     speak(roundSpeech(round));
+    // Quick-look rounds show the picture briefly, then hide it, so children
+    // learn to see small amounts at a glance instead of counting one by one.
+    if (round.flashMs) {
+      later(function() {
+        if (!state.answered) document.getElementById('targetBox').classList.add('peek-hidden');
+      }, round.flashMs);
+    }
   }
 
   function updateQuizProgress() {
-    document.getElementById('roundPill').textContent = (state.roundIndex + 1) + ' of ' + config.rounds.length;
+    document.getElementById('roundPill').textContent = (state.roundIndex + 1) + ' ' + t('of') + ' ' + config.rounds.length;
     document.getElementById('scorePill').textContent = '⭐ ' + state.score;
-    document.getElementById('scorePill').setAttribute('aria-label', state.score + ' stars');
+    document.getElementById('scorePill').setAttribute('aria-label', state.score + ' ' + t('stars'));
     var percent = progressPercent();
     document.getElementById('progressFill').style.width = percent + '%';
     document.querySelector('.progress-track').setAttribute('aria-valuenow', String(percent));
@@ -214,27 +271,27 @@
   }
 
   function isCountingRound(round) {
-    return Boolean(round.target && (round.target.dots || round.target.countImage));
+    return Boolean(round.target && (round.target.dots || round.target.countImage || round.target.countEmoji));
   }
 
   // Hint for counting: point at each object in turn and count it aloud.
   function countAlong(round) {
-    var items = Array.prototype.slice.call(document.querySelectorAll('#targetBox .dot, #targetBox .cloud-image'));
+    var items = Array.prototype.slice.call(document.querySelectorAll('#targetBox .dot, #targetBox .cloud-image, #targetBox .cloud-emoji'));
     var buttons = choiceButtons();
+    document.getElementById('targetBox').classList.remove('peek-hidden');
     buttons.forEach(function(b) { b.classList.add('waiting'); });
-    setFeedback('Let’s count together.', 'try');
-    speak('Let’s count together.');
+    setFeedback(t('countTogether'), 'try');
+    speak(t('countTogether'));
     items.forEach(function(item, i) {
       later(function() {
         item.classList.add('counted');
-        var word = NUMBER_WORDS[i] || String(i + 1);
         setFeedback(String(i + 1), 'try');
-        speak(word, true);
+        speak(String(i + 1), true);
       }, 900 + i * 900);
     });
     later(function() {
       buttons.forEach(function(b) { b.classList.remove('waiting'); });
-      setFeedback('How many?', 'try');
+      setFeedback(t('howMany'), 'try');
       speak(roundSpeech(round), true);
     }, 900 + items.length * 900 + 400);
   }
@@ -249,23 +306,29 @@
       fade.disabled = true;
       fade.classList.add('faded');
     }
-    var hint = round.hint || ('Look again. ' + roundSpeech(round));
-    setFeedback('Look again.', 'try');
-    speak(hint);
+    var hint = round.hint || (t('lookAgain') + ' ' + roundSpeech(round));
+    setFeedback(t('lookAgain'), 'try');
+    speak(tappedPrefix() + hint);
+  }
+
+  // With config.sayChoice, a wrong tap first says what was tapped ("dog."),
+  // so children who cannot read still hear the word they chose.
+  function tappedPrefix() {
+    return config.sayChoice && state.tapped ? state.tapped + '. ' : '';
   }
 
   function showAnswer(round) {
-    var label = correctOption(round).label;
+    var label = correctOption(round).say || correctOption(round).label;
     choiceButtons().forEach(function(b) {
       if (b.dataset.value === round.answer) b.classList.add('reveal');
     });
-    setFeedback('This one! Tap ' + label + '.', 'try');
-    speak('This one is ' + label + '. Tap ' + label + '.');
+    setFeedback(round.revealText || t('thisOne', label), 'try');
+    speak(tappedPrefix() + (round.revealSay || t('thisOneSay', label)));
   }
 
   // Bring a missed item back once more near the end of this session.
   function requeue(round) {
-    var key = String(round.answer);
+    var key = keyOf(round);
     if (state.requeued[key] || Object.keys(state.requeued).length >= MAX_REQUEUE) return;
     state.requeued[key] = true;
     config.rounds.push(round);
@@ -284,15 +347,17 @@
       button.classList.remove('reveal');
       button.classList.add('correct');
       choiceButtons().forEach(function(b) { b.disabled = true; });
-      if (window.SkillTracker) SkillTracker.record(lessonId, String(round.answer), firstTry);
-      var praise = pick(firstTry ? PRAISE_FIRST : PRAISE_RETRY);
+      if (window.SkillTracker) SkillTracker.record(lessonId, keyOf(round), firstTry);
+      var praise = pick(firstTry ? t('praiseFirst') : t('praiseRetry'));
       setFeedback(praise, 'good');
-      speak(praise + ' ' + correctOption(round).label + '.');
+      var said = correctOption(round).say || correctOption(round).label;
+      speak(said ? praise + ' ' + said + '.' : praise);
       document.getElementById('nextButton').disabled = false;
       // Move on by itself, so children who cannot read yet are never stuck.
       later(nextRound, 2200);
     } else {
       state.misses += 1;
+      state.tapped = button.getAttribute('aria-label');
       button.classList.add('incorrect');
       button.disabled = true;
       if (state.misses === 1) {
@@ -327,18 +392,18 @@
     for (var i = 0; i < state.score; i += 1) stars += '⭐';
     root.innerHTML = [
       '<section class="done-screen" aria-live="polite">',
-      '<div class="done-stars" aria-label="' + state.score + ' stars">' + stars + '</div>',
-      '<h2>All done!</h2>',
-      '<p>Great learning today. Come back tomorrow to practise again.</p>',
+      '<div class="done-stars" aria-label="' + state.score + ' ' + t('stars') + '">' + stars + '</div>',
+      '<h2>' + t('allDone') + '</h2>',
+      '<p>' + t('doneText') + '</p>',
       homeIdeaHtml(),
       '<div class="actions">',
-      '<button type="button" class="lesson-action" id="againButton">Play Again</button>',
-      '<a class="lesson-action secondary" href="../index.html">Home</a>',
+      '<button type="button" class="lesson-action" id="againButton">' + t('again') + '</button>',
+      '<a class="lesson-action secondary" href="../index.html">' + t('home') + '</a>',
       '</div>',
       '</section>'
     ].join('');
     document.getElementById('againButton').addEventListener('click', restartQuiz);
-    speak('All done! Great learning today.');
+    speak(t('doneSay'));
   }
 
   function restartQuiz() {
@@ -350,6 +415,17 @@
     state.requeued = {};
     renderQuiz();
   }
+
+  if (config.hero) {
+    var heroTitle = document.querySelector('.lesson-hero h1');
+    var heroText = document.querySelector('.lesson-hero p');
+    if (heroTitle && config.hero.title) heroTitle.textContent = config.hero.title;
+    if (heroText && config.hero.text) heroText.textContent = config.hero.text;
+    if (config.hero.title) document.title = config.hero.title + ' - ESEA';
+  }
+  document.documentElement.lang = lang;
+  var homeLink = document.querySelector('.lesson-nav .home-button');
+  if (homeLink) homeLink.textContent = t('home');
 
   if (config.type === 'quiz') {
     restartQuiz();

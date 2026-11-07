@@ -479,3 +479,64 @@ footer p {
   font-size: 0.98rem;
   line-height: 1.45;
 }
+
+/* ---------- Emoji counting, quick-look, sequences ---------- */
+.cloud-emoji {
+  font-size: clamp(2.2rem, 10vw, 3.4rem);
+  line-height: 1.1;
+  display: inline-block;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.cloud-emoji.counted {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 6px rgba(242, 162, 12, 0.95));
+}
+
+.target-box .card-emoji {
+  font-size: clamp(4rem, 20vw, 6rem);
+}
+
+.target-box.peek-hidden > * {
+  visibility: hidden;
+}
+
+.target-box.peek-hidden {
+  background: repeating-linear-gradient(45deg, #f4fbfc, #f4fbfc 12px, #e6f4f6 12px, #e6f4f6 24px);
+}
+
+.choice-card .dot-cloud .dot {
+  width: clamp(18px, 5vw, 26px);
+}
+
+.target-word {
+  display: block;
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  font-weight: 900;
+  margin-top: 6px;
+}
+
+.seq {
+  font-size: clamp(2.4rem, 11vw, 4rem);
+  font-weight: 950;
+  letter-spacing: 0.15em;
+}
+
+.seq .gap {
+  color: #f2a20c;
+}
+
+/* Learning-path step badges on the home screen */
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff3c7;
+  color: #17323a;
+  font-size: 0.85rem;
+  font-weight: 900;
+  margin-left: auto;
+}

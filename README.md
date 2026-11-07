@@ -55,6 +55,35 @@ ESEA favors:
 
 Lesson pages can set `maxRounds: N` or `keepOrder: true` in their config to change this.
 
+## Learning Paths
+
+Two step-by-step paths, numbered on the home screen and tracked in the Grown-ups area:
+
+| Step | Reading path | Math path |
+| --- | --- | --- |
+| 1 | Rhyme Time: which word rhymes? | Quick Look: see 1-5 dots at a glance |
+| 2 | Word Parts: sun + flower = sunflower | Count the Apples (1-5) |
+| 3 | First Sounds: which starts like *sock*? | Count to 10 |
+| 4 | Sounds Phonics: letter sounds | More or Less: which group has more? |
+| 5 | Pick the Letter | What Comes Next? 1-10 order |
+| 6 | | Pick the Number |
+
+The new reading lessons only speak whole words, never single letter sounds, because browser voices pronounce isolated sounds poorly.
+
+## Languages
+
+Grown-ups can choose **English, Spanish or French** for practice. The math lessons, lesson buttons and praise, the "Who is playing?" picker and the break screen follow that choice, using a voice for that language if the device has one. Reading lessons stay in English because rhymes and letter sounds differ between languages. To translate another lesson, set `lang: ESEAFamily.lessonLang(['en', 'es', 'fr'])` and `hero` in its config (see `math/quicklook.html`).
+
+## Offline and Install
+
+ESEA works offline after it has been opened once with internet, and it can be added to a phone or tablet home screen like an app (`manifest.json`, `service-worker.js`). **After adding, removing or changing files, run:**
+
+```bash
+python3 scripts/build-precache.py
+```
+
+This updates the list of files saved for offline use, so devices get the new version.
+
 ## For Grown-ups
 
 The **Grown-ups area** (`parents.html`, linked at the bottom of the home screen) is behind a simple grown-ups check, a multiplication question young children cannot answer. It offers:
@@ -81,6 +110,10 @@ ESEA/
 ├── family.js           Child profiles, grown-ups check, time limit, at-home ideas
 ├── skill-tracker.js    Per-child, per-item progress and adaptive question choice
 ├── parents.html        Grown-ups area
+├── service-worker.js   Offline support (file list built by scripts/build-precache.py)
+├── manifest.json       Install-to-home-screen settings
+├── math/               Math path lessons (English, Spanish, French)
+├── reading/            Reading path lessons
 ├── 123/                Number activities
 ├── abc/                Letters, words, and calendar activities
 ├── arithmetic/         Counting-object activities and older math pages
