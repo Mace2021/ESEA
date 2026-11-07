@@ -105,19 +105,19 @@
     if (item.dots) {
       var dots = '';
       for (var i = 0; i < item.dots; i += 1) dots += '<span class="dot"></span>';
-      return '<div class="dot-cloud" aria-label="' + item.dots + ' dots">' + dots + '</div>';
+      return '<div class="dot-cloud" role="img" aria-label="' + item.dots + ' dots">' + dots + '</div>';
     }
     if (item.countEmoji) {
       var marks = '';
       for (var m = 0; m < item.count; m += 1) marks += '<span class="cloud-emoji">' + item.countEmoji + '</span>';
-      return '<div class="picture-cloud" aria-label="' + item.count + '">' + marks + '</div>';
+      return '<div class="picture-cloud" role="img" aria-label="' + item.count + '">' + marks + '</div>';
     }
     if (item.countImage) {
       var pics = '';
       for (var p = 0; p < item.count; p += 1) {
         pics += imageHtml(item.countImage, item.alt || item.label, 'cloud-image');
       }
-      return '<div class="picture-cloud" aria-label="' + item.count + ' pictures">' + pics + '</div>';
+      return '<div class="picture-cloud" role="img" aria-label="' + item.count + ' pictures">' + pics + '</div>';
     }
     return '';
   }
@@ -229,7 +229,7 @@
       renderIntro(),
       '<div class="quiz-top">',
       '<div class="quiz-progress"><span class="pill" id="roundPill"></span><span class="pill" id="scorePill"></span></div>',
-      '<div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>',
+      '<div class="progress-track" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>',
       '</div>',
       '<div class="quiz-prompt">' + round.prompt +
         ' <button type="button" class="hear-again" id="hearAgain" aria-label="' + t('hear') + '">&#128264;</button></div>',
@@ -438,6 +438,11 @@
       '</section>'
     ].join('');
     document.getElementById('againButton').addEventListener('click', restartQuiz);
+    // Tick off today's plan; when opened from it, lead back to it.
+    if (window.ESEAFamily) {
+      var back = ESEAFamily.finished(lessonId);
+      if (back) root.querySelector('.done-screen .actions').insertBefore(back, root.querySelector('#againButton'));
+    }
     speak(t('doneSay'));
   }
 

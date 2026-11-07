@@ -260,6 +260,10 @@
     if (ideaBox) ideaBox.innerHTML = '<strong>Grown-ups, try this at home:</strong> ' + idea;
     speak('All done! You worked so hard today. Great job!');
     completeBox.classList.add('show');
+    if (window.ESEAFamily && !document.getElementById('planBack')) {
+      var back = ESEAFamily.finished(config.id || lessonId);
+      if (back) { back.id = 'planBack'; completeBox.appendChild(back); }
+    }
     setFeedback('Lesson complete.', 'good');
     nextButton.disabled = true;
     saveProgress(true);

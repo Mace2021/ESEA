@@ -4,10 +4,10 @@
      when   - a familiar moment when it happens        (understand)
      helps  - something a young child can do with it  (manage)
    The *Say versions are full sentences for the voice. Each feeling keeps the
-   same color everywhere so children can link color, face and word. */
+   same color everywhere (ink is the darker shade used for readable text) so children can link color, face and word. */
 window.ESEA_FEELINGS = [
   {
-    id: 'happy', name: 'Happy', face: '😊', color: '#f2b705', soft: '#fff6cf',
+    id: 'happy', name: 'Happy', face: '😊', color: '#f2b705', soft: '#fff6cf', ink: '#7a5a00',
     looks: 'A big smile and bright eyes.',
     looksSay: 'Happy looks like a big smile and bright eyes.',
     when: 'I play with my friend.',
@@ -18,7 +18,7 @@ window.ESEA_FEELINGS = [
     tip: 'Ask, "What made you happy today?" and share your own happy moment.'
   },
   {
-    id: 'sad', name: 'Sad', face: '😢', color: '#3d7fd6', soft: '#e3efff',
+    id: 'sad', name: 'Sad', face: '😢', color: '#3d7fd6', soft: '#e3efff', ink: '#1f4f99',
     looks: 'Tears, a frown, and a quiet voice.',
     looksSay: 'Sad looks like tears, a frown, and a quiet voice.',
     when: 'My toy breaks, or I miss someone.',
@@ -29,7 +29,7 @@ window.ESEA_FEELINGS = [
     tip: 'Say, "It’s okay to be sad." Sitting close often helps more than fixing it.'
   },
   {
-    id: 'angry', name: 'Angry', face: '😠', color: '#d93b30', soft: '#ffe3e0',
+    id: 'angry', name: 'Angry', face: '😠', color: '#d93b30', soft: '#ffe3e0', ink: '#a32219',
     looks: 'A tight face, hot cheeks, and fists.',
     looksSay: 'Angry looks like a tight face, hot cheeks, and fists.',
     when: 'Someone takes my toy.',
@@ -40,7 +40,7 @@ window.ESEA_FEELINGS = [
     tip: 'Name it calmly: "You look angry." Then breathe together. Try the Calm Down Corner.'
   },
   {
-    id: 'scared', name: 'Scared', face: '😨', color: '#7b4fc9', soft: '#efe6ff',
+    id: 'scared', name: 'Scared', face: '😨', color: '#7b4fc9', soft: '#efe6ff', ink: '#5a33a0',
     looks: 'Wide eyes and a shaky body.',
     looksSay: 'Scared looks like wide eyes and a shaky body.',
     when: 'I hear a loud noise in the dark.',
@@ -51,7 +51,7 @@ window.ESEA_FEELINGS = [
     tip: 'Say, "You’re safe. I’m here." Talk about what helps them feel brave.'
   },
   {
-    id: 'surprised', name: 'Surprised', face: '😲', color: '#f07b16', soft: '#ffecd9',
+    id: 'surprised', name: 'Surprised', face: '😲', color: '#f07b16', soft: '#ffecd9', ink: '#9a4a00',
     looks: 'Big eyes and an open mouth.',
     looksSay: 'Surprised looks like big eyes and an open mouth.',
     when: 'Something happens that I did not expect.',
@@ -62,7 +62,7 @@ window.ESEA_FEELINGS = [
     tip: 'Surprises can feel good or bad. Ask, "Was it a good surprise?"'
   },
   {
-    id: 'calm', name: 'Calm', face: '😌', color: '#2e9e6a', soft: '#dff5ea',
+    id: 'calm', name: 'Calm', face: '😌', color: '#2e9e6a', soft: '#dff5ea', ink: '#1c6b46',
     looks: 'A soft face and slow breaths.',
     looksSay: 'Calm looks like a soft face and slow breaths.',
     when: 'I cuddle up with a book.',
@@ -73,7 +73,7 @@ window.ESEA_FEELINGS = [
     tip: 'Point out calm moments: "Your body looks calm right now."'
   },
   {
-    id: 'excited', name: 'Excited', face: '🤩', color: '#e0457b', soft: '#ffe3ee',
+    id: 'excited', name: 'Excited', face: '🤩', color: '#e0457b', soft: '#ffe3ee', ink: '#a3214f',
     looks: 'A bouncy body and a big smile.',
     looksSay: 'Excited looks like a bouncy body and a big smile.',
     when: 'It is almost my birthday!',
@@ -84,7 +84,7 @@ window.ESEA_FEELINGS = [
     tip: 'Excited and happy are close. Excited has more "bounce" in the body.'
   },
   {
-    id: 'proud', name: 'Proud', face: '🥇', color: '#b8860b', soft: '#fff1c9',
+    id: 'proud', name: 'Proud', face: '🥇', color: '#b8860b', soft: '#fff1c9', ink: '#7a5800',
     looks: 'Standing tall with a big smile.',
     looksSay: 'Proud looks like standing tall with a big smile.',
     when: 'I do something hard all by myself.',

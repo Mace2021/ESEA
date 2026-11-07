@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's learning - ESEA</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="early-lesson.css">
+    <link rel="stylesheet" href="tv/movie.css">
+    <style>
+        .today-hello { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: end; margin-bottom: 14px; }
+        .today-hello .pip { width: clamp(90px, 24vw, 130px); }
+        .bubble { position: relative; background: #fff8df; border: 2px solid rgba(23, 50, 58, 0.12); border-radius: 18px; padding: 12px 14px; font-weight: 800; font-size: clamp(1.05rem, 4.4vw, 1.3rem); margin-bottom: 24px; }
+        .bubble::after { content: ""; position: absolute; left: -12px; bottom: 18px; border: 10px solid transparent; border-right-color: #fff8df; }
+        .plan-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+        .plan-item { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 14px; border-radius: 18px; background: #f4f7f8; border: 3px solid transparent; }
+        .plan-item.next { background: #fff6cf; border-color: #f2b705; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08); }
+        .plan-item.done { background: #dff5ea; }
+        .plan-icon { font-size: 2.6rem; width: 64px; height: 64px; display: grid; place-items: center; background: #fff; border-radius: 16px; }
+        .plan-slot { display: block; font-size: 0.82rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; color: #4a6067; }
+        .plan-name { display: block; font-size: 1.2rem; font-weight: 900; color: #17323a; }
+        .plan-state { display: block; font-size: 0.95rem; font-weight: 800; color: #1c6b46; }
+        .plan-go { min-height: 52px; min-width: 52px; border-radius: 999px; border: 0; background: #245f73; color: #fff; font-weight: 900; font-size: 1.05rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 0 16px; }
+        .plan-item.done .plan-go { background: #fff; color: #245f73; border: 2px solid rgba(23, 50, 58, 0.16); }
+        .all-done { display: none; margin-top: 18px; text-align: center; background: #dff5ea; border-radius: 20px; padding: 18px 14px; }
+        .all-done.show { display: block; }
+        .all-done .stars { font-size: 2.6rem; letter-spacing: 6px; }
+        .all-done h2 { margin: 6px 0; color: #1c6b46; font-size: clamp(1.6rem, 7vw, 2.2rem); }
+        .all-done .idea { text-align: left; background: #fff; border-radius: 14px; padding: 12px 14px; margin: 12px 0; }
+        .en-tag { font-size: 0.7rem; font-weight: 900; background: #fff3c7; color: #17323a; border-radius: 6px; padding: 2px 6px; vertical-align: middle; }
+        .today-sub { text-align: center; color: #4a6067; margin: 0 0 14px; font-weight: 700; }
+    </style>
+    <script src="speech.js"></script>
+    <script src="family.js"></script>
+    <script src="ui-text.js"></script>
+    <script src="skill-tracker.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="images/ESEA.png" alt="ESEA logo">
+            <h1 data-i18n="today.title">Today&rsquo;s learning</h1>
+            <p data-i18n="today.sub">Three short activities, about 10 minutes.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="index.html" data-i18n="today.backHome">Back to home</a></nav>
+            <section class="lesson-card-panel">
+                <div class="today-hello">
+                    <div id="pip"></div>
+                    <div class="bubble" id="bubble" aria-live="polite"></div>
+                </div>
+                <ol class="plan-list" id="planList"></ol>
+                <div class="all-done" id="allDone" aria-live="polite">
+                    <div class="stars" aria-hidden="true">&#11088;&#11088;&#11088;</div>
+                    <h2 data-i18n="today.allDone">All done for today!</h2>
+                    <p id="allDoneText"></p>
+                    <div class="idea"><b data-i18n="today.homeIdea">Try this together:</b> <span id="homeIdea"></span></div>
+                    <a class="lesson-action" href="index.html" data-i18n="today.backHome">Back to home</a>
+                </div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="tv/movie.js"></script>
+    <script>
+        // A short daily routine so grown-ups never have to choose: the next step
+        // on the reading path, the next step on the math path, and one video or
+        // feelings activity. It stays the same all day and ticks off as it is done.
+        (function() {
+            var F = window.ESEAFamily;
+            var UI = window.ESEAUI;
+            var ICONS = {
+                'reading/rhyme': '🎩', 'reading/wordparts': '🌻', 'reading/firstsounds': '🐍', 'abc/picktheletter': '🅰️',
+                'math/quicklook': '👀', 'arithmetic/howmanyapple': '🍎', 'math/countto10': '🍓', 'math/moreorless': '⚖️',
+                'math/whatsnext': '➡️', '123/pickthenum': '🔢', 'tv/abc-with-pip': '🧒', 'tv/count-with-pip': '🔢',
+                'tv/animated-alphabet': '🔠', 'tv/counting-rainbow': '🌈', 'tv/sound-parade': '🥁',
+                'emotions/feelings-quiz': '🔍', 'emotions/calm-corner': '🌸'
+            };
+            var SLOTS = ['today.reading', 'today.math', 'today.extra'];
+            var pip = ESEAMovie.character(document.getElementById('pip'));
+            var plan = F.todayPlan();
+            var child = F.activeProfile();
+            var lessons = plan.items.map(function(id) { return F.lessonById(id); });
+            var nextIndex = -1;
+            for (var i = 0; i < plan.items.length; i += 1) {
+                if (!plan.done[plan.items[i]]) { nextIndex = i; break; }
+            }
+
+            function say(text) {
+                document.getElementById('bubble').textContent = text;
+                if (!window.ESEASpeech) return;
+                pip.talking(true);
+                ESEASpeech.speak(text, { lang: F.lang(), onend: function() { pip.talking(false); } });
+            }
+
+            var list = document.getElementById('planList');
+            lessons.forEach(function(lesson, i) {
+                if (!lesson) return;
+                var done = Boolean(plan.done[lesson.id]);
+                var li = document.createElement('li');
+                li.className = 'plan-item' + (done ? ' done' : '') + (i === nextIndex ? ' next' : '');
+                var stepText = lesson.step ? ' · ' + UI.t('today.step', { n: lesson.step }) : '';
+                var state = done ? UI.t('today.done') : (i === nextIndex ? UI.t('today.next') : '');
+                li.innerHTML = '<span class="plan-icon" aria-hidden="true">' + (ICONS[lesson.id] || '⭐') + '</span>' +
+                    '<span><span class="plan-slot">' + UI.t(SLOTS[i]) + stepText + '</span>' +
+                    '<span class="plan-name">' + UI.itemName(lesson.href, lesson.name) +
+                    (F.lang() !== 'en' && !UI.isMultilingual(lesson.href) ? ' <span class="en-tag" title="' + UI.t('enTitle') + '">EN</span>' : '') + '</span>' +
+                    (state ? '<span class="plan-state">' + state + '</span>' : '') + '</span>' +
+                    '<a class="plan-go" href="' + lesson.href + '?plan=1">' + (done ? UI.t('today.again') : UI.t('today.start')) + '</a>';
+                list.appendChild(li);
+            });
+
+            if (nextIndex === -1) {
+                document.getElementById('allDone').classList.add('show');
+                document.getElementById('allDoneText').textContent = UI.t('today.allDoneText', { name: child.name });
+                var ideaLesson = lessons[0] || lessons[1];
+                document.getElementById('homeIdea').textContent = ideaLesson ? ideaLesson.home : '';
+                pip.jump(2400);
+                say(UI.t('today.greetDone', { name: child.name }));
+            } else {
+                pip.wave();
+                say(UI.t('today.greet', { name: child.name }));
+            }
+        })();
+    </script>
+</body>
+</html>

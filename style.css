@@ -10,7 +10,7 @@ body {
   text-align: center;
   display: inline-block;
   justify-content: center;
-  background-image: url('https://source.unsplash.com/random/1920x1080/?gaming,background');
+  background-image: none;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

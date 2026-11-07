@@ -69,7 +69,7 @@
 .feel-card:focus-visible { transform: translateY(-3px); }
 .feel-card[aria-pressed="true"] { border-color: var(--feel); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); }
 .feel-card-face { font-size: clamp(2.6rem, 11vw, 3.4rem); line-height: 1; }
-.feel-card-name { font-weight: 900; font-size: 1.15rem; color: var(--feel); filter: brightness(0.8); }
+.feel-card-name { font-weight: 900; font-size: 1.15rem; color: var(--feel-ink); }
 
 .feel-detail {
   margin-top: 16px;
@@ -81,7 +81,7 @@
 }
 
 .feel-detail.pop-detail { animation: feel-pop 0.4s ease-out; }
-@keyframes feel-pop { from { transform: scale(0.96); opacity: 0.4; } to { transform: none; opacity: 1; } }
+@keyframes feel-pop { from { transform: scale(0.96); } to { transform: none; } }
 
 .feel-face { font-size: clamp(4.5rem, 20vw, 6rem); line-height: 1; }
 .feel-face.wiggle { animation: wiggle 0.5s ease-in-out infinite alternate; }
@@ -90,8 +90,7 @@
 .feel-detail h3 {
   margin: 6px 0 10px;
   font-size: clamp(1.8rem, 8vw, 2.4rem);
-  color: var(--feel);
-  filter: brightness(0.8);
+  color: var(--feel-ink);
 }
 
 .feel-facts {
@@ -113,7 +112,7 @@
 }
 
 .fact-icon { font-size: 1.7rem; line-height: 1; }
-.feel-facts b { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.feel-facts b { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: #4a6067; }
 .feel-facts p { margin: 2px 0 0; font-size: 1.15rem; font-weight: 800; color: var(--ink); }
 
 .grownup-tip {

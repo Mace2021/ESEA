@@ -101,6 +101,7 @@
     restartBtn.type = 'button';
     var progress = el('div', 'movie-progress', '<div class="movie-progress-fill"></div>');
     progress.setAttribute('role', 'progressbar');
+    progress.setAttribute('aria-label', 'Video progress');
     progress.setAttribute('aria-valuemin', '0');
     progress.setAttribute('aria-valuemax', '100');
     controls.appendChild(playBtn);
@@ -181,6 +182,10 @@
           index = 0;
           playBtn.innerHTML = '&#9654; Watch again';
           if (opts.onEnd) opts.onEnd();
+          if (global.ESEAFamily && !controls.querySelector('.plan-back')) {
+            var back = global.ESEAFamily.finished(null, 'movie-btn plan-back');
+            if (back) controls.insertBefore(back, controls.firstChild);
+          }
           return;
         }
         var scene = scenes[index];

@@ -72,6 +72,7 @@
             detail.hidden = false;
             detail.style.setProperty('--feel', f.color);
             detail.style.setProperty('--feel-soft', f.soft);
+            detail.style.setProperty('--feel-ink', f.ink);
             document.getElementById('detailFace').textContent = f.face;
             document.getElementById('detailName').textContent = f.name;
             document.getElementById('detailLooks').textContent = f.looks;
@@ -91,6 +92,7 @@
             b.className = 'feel-card';
             b.style.setProperty('--feel', f.color);
             b.style.setProperty('--feel-soft', f.soft);
+            b.style.setProperty('--feel-ink', f.ink);
             b.setAttribute('aria-pressed', 'false');
             b.innerHTML = '<span class="feel-card-face" aria-hidden="true">' + f.face + '</span><span class="feel-card-name">' + f.name + '</span>';
             b.addEventListener('click', function() { open(f, b); });
