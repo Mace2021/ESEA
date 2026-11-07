@@ -61,7 +61,9 @@
         'puzzles/puzzles.html': 'Rompecabezas', 'puzzles/animal-match.html': 'Parejas de animales', 'puzzles/find-pairs.html': 'Encuentra las parejas',
         'puzzles/sort-game.html': 'Juego de clasificar', 'tv/tv.html': 'Todos los videos', 'tv/abc-with-pip.html': 'El ABC con Pip',
         'tv/count-with-pip.html': 'Contar con Pip', 'tv/animated-alphabet.html': 'Aventura del abecedario',
-        'tv/counting-rainbow.html': 'Arcoíris de números', 'tv/sound-parade.html': 'Desfile de sonidos'
+        'tv/counting-rainbow.html': 'Arcoíris de números', 'tv/sound-parade.html': 'Desfile de sonidos',
+        'color/balloon-pop.html': 'Revienta globos', 'tv/colors-with-pip.html': 'Los colores con Pip',
+        'tv/luna-little-cloud.html': 'Luna, la nubecita'
       }
     },
     fr: {
@@ -117,7 +119,9 @@
         'puzzles/puzzles.html': 'Puzzles', 'puzzles/animal-match.html': 'Associer les animaux', 'puzzles/find-pairs.html': 'Trouve les paires',
         'puzzles/sort-game.html': 'Jeu de tri', 'tv/tv.html': 'Toutes les vidéos', 'tv/abc-with-pip.html': 'L’ABC avec Pip',
         'tv/count-with-pip.html': 'Compter avec Pip', 'tv/animated-alphabet.html': 'L’aventure de l’alphabet',
-        'tv/counting-rainbow.html': 'L’arc-en-ciel des nombres', 'tv/sound-parade.html': 'La parade des sons'
+        'tv/counting-rainbow.html': 'L’arc-en-ciel des nombres', 'tv/sound-parade.html': 'La parade des sons',
+        'color/balloon-pop.html': 'Éclate les ballons', 'tv/colors-with-pip.html': 'Les couleurs avec Pip',
+        'tv/luna-little-cloud.html': 'Luna, le petit nuage'
       }
     },
     en: {
@@ -143,7 +147,7 @@
   // Pages that have content in Spanish and French (the others are in English).
   var MULTILINGUAL = {
     'math/quicklook.html': 1, 'arithmetic/howmanyapple.html': 1, 'math/countto10.html': 1,
-    'math/moreorless.html': 1, 'math/whatsnext.html': 1, 'tv/tv.html': 1
+    'math/moreorless.html': 1, 'math/whatsnext.html': 1, 'tv/tv.html': 1, 'color/balloon-pop.html': 1
   };
 
   function lang() {

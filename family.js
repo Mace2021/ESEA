@@ -190,6 +190,8 @@
       home: 'Shape walk: find circles, squares and triangles in the kitchen or on the street.' },
     { id: 'shape-match', area: 'Shapes & Colors', name: 'Shape Match', href: 'puzzles/shape-match.html', tracked: true,
       home: 'Trace around cups, books and boxes on paper and guess which object made each shape.' },
+    { id: 'color/balloon-pop', area: 'Shapes & Colors', name: 'Balloon Pop', href: 'color/balloon-pop.html', tracked: true, langs: ['en', 'es', 'fr'],
+      home: 'Color hunt: name a color and find three things of that color at home. Then let your child choose the color.' },
     { id: 'color/colors', area: 'Shapes & Colors', name: 'Learn Colors', href: 'color/colors.html',
       home: 'I spy colors: "I spy something red." Then let your child choose the color.' },
     { id: 'emotions/emotions', area: 'Feelings & World', name: 'Name My Feelings', href: 'emotions/emotions.html',
@@ -220,6 +222,10 @@
       home: 'Pick a letter and find three things at home that start with it.' },
     { id: 'tv/counting-rainbow', area: 'Watch & Listen', name: 'Counting Rainbow', href: 'tv/counting-rainbow.html', video: true,
       home: 'Go on a color hunt: find something red, orange, yellow, green, blue and purple.' },
+    { id: 'tv/colors-with-pip', area: 'Watch & Listen', name: 'Colors with Pip', href: 'tv/colors-with-pip.html', video: true,
+      home: 'Mix paints or play-dough together: what happens when you mix red and yellow? Blue and yellow?' },
+    { id: 'tv/luna-little-cloud', area: 'Watch & Listen', name: 'Luna the Little Cloud', href: 'tv/luna-little-cloud.html', video: true,
+      home: 'Ask "How did Luna help the flower?" Then find one small way your child can help someone today.' },
     { id: 'tv/sound-parade', area: 'Watch & Listen', name: 'Sound Parade', href: 'tv/sound-parade.html', video: true,
       home: 'Take turns making an animal sound and guessing the animal.' }
   ];
@@ -234,7 +240,8 @@
   // moves on as each step is going well, whatever the starting point.
   var PATH_START = { 3: { reading: 1, math: 1 }, 4: { reading: 1, math: 1 }, 5: { reading: 2, math: 2 }, 6: { reading: 3, math: 3 } };
   // The third activity of the day rotates through videos and feelings.
-  var PLAN_EXTRAS = ['tv/abc-with-pip', 'emotions/feelings-quiz', 'tv/count-with-pip', 'tv/sound-parade',
+  var PLAN_EXTRAS = ['tv/abc-with-pip', 'emotions/feelings-quiz', 'tv/count-with-pip', 'color/balloon-pop', 'tv/sound-parade',
+    'tv/colors-with-pip', 'tv/luna-little-cloud',
     'emotions/calm-corner', 'tv/animated-alphabet', 'tv/counting-rainbow'];
 
   function pathSteps(path) {
