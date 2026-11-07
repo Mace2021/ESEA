@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colors with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .splash { width: min(150px, 42%); }
+        .splash svg { width: 100%; display: block; }
+.color-word { font-size: clamp(1.9rem, 8.5vw, 2.8rem); font-weight: 950; letter-spacing: 0.02em; padding: 2px 22px; border-radius: 999px; border: 3px solid rgba(255,255,255,0.7); }
+        .color-things { display: flex; gap: 10px; justify-content: center; min-height: 3.4rem; }
+        .color-things span { font-size: clamp(2.4rem, 11vw, 3.2rem); line-height: 1; background: rgba(255,255,255,0.9); border-radius: 14px; padding: 4px 6px; }
+        .mix { position: relative; width: 100%; height: 150px; }
+        .blob { position: absolute; top: 20px; width: 96px; height: 96px; border-radius: 48% 52% 46% 54%; transition: left 1.4s ease-in-out, opacity 0.6s; }
+        .blob.l { left: 6%; } .blob.r { left: calc(94% - 96px); }
+        .mix.go .blob.l { left: calc(50% - 60px); } .mix.go .blob.r { left: calc(50% - 36px); }
+        .blob.result { left: calc(50% - 60px); width: 120px; height: 120px; top: 8px; opacity: 0; transform: scale(0.4); transition: all 0.6s cubic-bezier(0.2, 1.4, 0.4, 1); }
+        .mix.done .blob.result { opacity: 1; transform: scale(1); }
+        .mix.done .blob.l, .mix.done .blob.r { opacity: 0; }
+        .mix-eq { font-size: clamp(1.4rem, 6vw, 1.9rem); font-weight: 900; color: #fff7c2; }
+        .rainbow-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+        .rainbow-row span { width: 46px; height: 46px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.4); transition: transform 0.2s; }
+        .rainbow-row span.lit { transform: scale(1.3); border-color: #fff; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Colors with Pip</h1>
+            <p>Pip shows every color, finds colorful things, and mixes some color magic!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../color/colors-data.js"></script>
+    <script>
+        var COLORS = window.ESEA_COLORS;
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        function splash(hex) {
+            return '<div class="splash pop-in"><svg viewBox="0 0 120 110" aria-hidden="true"><path fill="' + hex + '" d="M60 8c9 0 12 14 20 15s17-9 23-2-5 15-2 23 15 10 13 19-15 6-20 13 1 18-8 22-15-7-24-7-15 11-24 6 0-17-6-23-19-6-21-15 11-12 12-21-9-16-3-23 15 1 22-3 9-24 18-24z"/></svg></div>';
+        }
+        function mixScene(a, b, result) {
+            return async function(ctx) {
+                var A = COLORS.filter(function(c) { return c.id === a; })[0];
+                var B = COLORS.filter(function(c) { return c.id === b; })[0];
+                var R = COLORS.filter(function(c) { return c.id === result; })[0];
+                show('<div class="board-title pop-in">Color magic!</div>' +
+                    '<div class="mix" id="mix"><div class="blob l" style="background:' + A.hex + '"></div><div class="blob r" style="background:' + B.hex + '"></div><div class="blob result" style="background:' + R.hex + '"></div></div>' +
+                    '<div class="mix-eq" id="eq">' + cap(A.names.en) + ' + ' + B.names.en + ' = ?</div>');
+                pip.point();
+                await ctx.say('What happens if we mix ' + A.names.en + ' and ' + B.names.en + '? Let’s see!');
+                var mix = document.getElementById('mix');
+                mix.classList.add('go');
+                await ctx.wait(1500);
+                mix.classList.add('done');
+                document.getElementById('eq').textContent = cap(A.names.en) + ' + ' + B.names.en + ' = ' + R.names.en + '!';
+                pip.jump(1600);
+                await ctx.say('Wow! ' + cap(A.names.en) + ' and ' + B.names.en + ' make... ' + R.names.en + '!');
+                await ctx.wait(500);
+            };
+        }
+
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Colors with Pip</div>');
+            pip.wave();
+            await ctx.say('Hi! It’s me, Pip! Today let’s learn our colors. The world is full of them!');
+        }];
+        COLORS.forEach(function(c, i) {
+            scenes.push(async function(ctx) {
+                show(splash(c.hex) + '<div class="color-word pop-in" style="background:' + c.hex + ';color:' + (['yellow', 'orange', 'pink'].indexOf(c.id) !== -1 ? '#17323a' : '#fff') + '">' + cap(c.names.en) + '</div><div class="color-things" id="things"></div>');
+                pip.point();
+                await ctx.say('This is ' + c.names.en + '!');
+                var row = document.getElementById('things');
+                for (var k = 0; k < c.things.length; k += 1) {
+                    var thing = el('span', 'pop-in', c.things[k][0]);
+                    thing.setAttribute('aria-hidden', 'true');
+                    row.appendChild(thing);
+                    var lead = k === 0 ? cap(c.names.en) + ' like ' : (k === c.things.length - 1 ? 'and ' : '');
+                    await ctx.say(lead + c.things[k][1] + (k === c.things.length - 1 ? '!' : ','));
+                }
+                pip.rest();
+                await ctx.say('Can you find something ' + c.names.en + ' near you?');
+                await ctx.wait(1800); // time to look around the room
+            });
+            if (c.id === 'yellow') scenes.push(mixScene('red', 'yellow', 'orange'));
+            if (c.id === 'blue') scenes.push(mixScene('blue', 'yellow', 'green'));
+        });
+        scenes.push(async function(ctx) {
+            var row = el('div', 'rainbow-row');
+            COLORS.forEach(function(c) { var s = el('span'); s.style.background = c.hex; row.appendChild(s); });
+            board.innerHTML = '<div class="board-title">Say them with me!</div>';
+            board.appendChild(row);
+            pip.point();
+            await ctx.say('Now let’s say all the colors together!');
+            for (var i = 0; i < COLORS.length; i += 1) {
+                row.children[i].classList.add('lit');
+                await ctx.say(cap(COLORS[i].names.en) + '!');
+                row.children[i].classList.remove('lit');
+            }
+            pip.wave(4000);
+            show('<div class="board-title pop-in">What a colorful day! &#127752;</div>');
+            await ctx.say('What a colorful day! Look for colors everywhere you go. Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Colors with Pip</div>');
+    </script>
+</body>
+</html>
