@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Do They Feel? - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="feelings.css">
+    <style>
+        .story-scene { font-size: clamp(3.4rem, 16vw, 5rem); letter-spacing: 0.1em; line-height: 1.1; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>How Do They Feel?</h1>
+            <p>Listen to a little story. Then find the face that shows the feeling.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel">
+                <nav class="feel-steps" aria-label="Feelings activities">
+                    <a class="feel-step" href="emotions.html"><span aria-hidden="true">&#128578;</span>Name My Feelings</a>
+                    <a class="feel-step on" href="feelings-quiz.html"><span aria-hidden="true">&#128269;</span>How Do They Feel?</a>
+                    <a class="feel-step" href="calm-corner.html"><span aria-hidden="true">&#127800;</span>Calm Down Corner</a>
+                </nav>
+                <div id="lessonRoot"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="feelings-data.js"></script>
+    <script>
+        // Short stories about everyday moments. The child works out how the
+        // character feels (understanding causes of feelings), and after a right
+        // answer hears why and what could help. Scene pictures never show the
+        // answer face, and the wrong choices are clearly different feelings.
+        var BY_ID = {};
+        window.ESEA_FEELINGS.forEach(function(f) { BY_ID[f.id] = f; });
+        function option(id) {
+            var f = BY_ID[id];
+            return { value: id, label: f.name, emoji: f.face };
+        }
+        var STORIES = [
+            { id: 'puppy', scene: '🐶🎁', who: 'Sam', story: 'Sam got a new puppy!', feel: 'happy', others: ['sad', 'scared'],
+              why: 'Sam feels happy because he got a new puppy. He can share it with a big hug!' },
+            { id: 'icecream', scene: '🍦⬇️', who: 'Mia', story: 'Mia’s ice cream fell on the ground.', feel: 'sad', others: ['happy', 'proud'],
+              why: 'Mia feels sad because her ice cream fell. A hug could help her feel better.' },
+            { id: 'tower', scene: '🧱💥', who: 'Leo', story: 'Leo’s brother knocked over his tall tower.', feel: 'angry', others: ['happy', 'calm'],
+              why: 'Leo feels angry because his tower fell down. He can take three big breaths and use his words.' },
+            { id: 'thunder', scene: '⛈️🌙', who: 'Ruby', story: 'Thunder goes BOOM in the middle of the night.', feel: 'scared', others: ['proud', 'happy'],
+              why: 'Ruby feels scared because of the loud thunder. She can go and find a grown-up.' },
+            { id: 'grandma', scene: '👵🚪', who: 'Omar', story: 'Grandma came to visit, and Omar did not know she was coming!', feel: 'surprised', others: ['sad', 'angry'],
+              why: 'Omar feels surprised because he did not know Grandma was coming. What a nice surprise!' },
+            { id: 'blanket', scene: '🛋️🎵', who: 'Ava', story: 'Ava is snuggled in a soft blanket, listening to quiet music.', feel: 'calm', others: ['angry', 'scared'],
+              why: 'Ava feels calm because everything is soft and quiet.' },
+            { id: 'birthday', scene: '🎂🎈', who: 'Ben', story: 'Tomorrow is Ben’s birthday party!', feel: 'excited', others: ['sad', 'scared'],
+              why: 'Ben feels excited because his party is almost here! He can jump it out, then take a slow breath.' },
+            { id: 'climb', scene: '🧗⭐', who: 'Zoe', story: 'Zoe climbed all the way to the top, all by herself!', feel: 'proud', others: ['sad', 'scared'],
+              why: 'Zoe feels proud because she did something hard all by herself. She can tell someone what she did!' },
+            { id: 'moved', scene: '🏠🚚', who: 'Lily', story: 'Lily’s best friend moved far away.', feel: 'sad', others: ['excited', 'proud'],
+              why: 'Lily feels sad because she misses her friend. Talking to a grown-up can help.' },
+            { id: 'turn', scene: '⏳🛝', who: 'Max', story: 'Max waited and waited, but he did not get a turn on the slide.', feel: 'angry', others: ['happy', 'calm'],
+              why: 'Max feels angry because he did not get a turn. He can stop, breathe, and ask a grown-up for help.' },
+            { id: 'store', scene: '🛒❓', who: 'Noah', story: 'Noah cannot find his mom in the big store.', feel: 'scared', others: ['happy', 'proud'],
+              why: 'Noah feels scared because he cannot find his mom. He can ask a helper at the store.' },
+            { id: 'puzzle', scene: '🧩✅', who: 'Emma', story: 'Emma finished a big puzzle with no help!', feel: 'proud', others: ['sad', 'angry'],
+              why: 'Emma feels proud because she finished the puzzle herself. Great trying, Emma!' },
+            { id: 'snack', scene: '🍪🤝', who: 'Kai', story: 'Kai’s friend shared a yummy snack with him.', feel: 'happy', others: ['angry', 'scared'],
+              why: 'Kai feels happy because his friend shared. He can say thank you!' },
+            { id: 'balloon', scene: '🎈💥', who: 'Ella', story: 'A balloon popped right next to Ella!', feel: 'surprised', others: ['calm', 'proud'],
+              why: 'Ella feels surprised because the pop was sudden. She can stop, look, and take a breath.' }
+        ];
+        window.EarlyLesson = {
+            title: 'How Do They Feel?',
+            instructions: 'Listen to the story. Tap the face that shows how they feel.',
+            type: 'quiz',
+            maxRounds: 6,
+            rounds: STORIES.map(function(s) {
+                return {
+                    key: s.id,
+                    prompt: s.story + ' How does ' + s.who + ' feel?',
+                    speak: s.story + ' How does ' + s.who + ' feel?',
+                    hint: 'If this happened to you, how would you feel? ' + s.story,
+                    explain: s.why,
+                    answer: s.feel,
+                    target: { html: '<span class="story-scene" aria-hidden="true">' + s.scene + '</span>' },
+                    options: [s.feel].concat(s.others).map(option)
+                };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

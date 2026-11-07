@@ -376,7 +376,8 @@
       choiceButtons().forEach(function(b) { b.disabled = true; });
       if (window.SkillTracker) SkillTracker.record(lessonId, keyOf(round), firstTry);
       var praise = pick(firstTry ? t('praiseFirst') : t('praiseRetry'));
-      setFeedback(praise, 'good');
+      // round.explain (optional) says why it is right, e.g. "Mia feels sad because..."
+      setFeedback(round.explain ? praise + ' ' + plainText(round.explain) : praise, 'good');
       var said = correctOption(round).say || correctOption(round).label;
       var token = state.roundIndex;
       function advance() {
@@ -385,8 +386,10 @@
       document.getElementById('nextButton').disabled = false;
       // Move on by itself once the praise has been said, so children who
       // cannot read yet are never stuck (with a safety net if speech stalls).
-      speak(said ? praise + ' ' + sayable(said) + '!' : praise, false, function() { later(advance, 700); });
-      later(advance, 7000);
+      var praiseText = said ? praise + ' ' + sayable(said) + '!' : praise;
+      if (round.explain) praiseText += ' ' + round.explain;
+      speak(praiseText, false, function() { later(advance, round.explain ? 1200 : 700); });
+      later(advance, 7000 + (round.explain ? round.explain.length * 90 : 0));
     } else {
       state.misses += 1;
       state.tapped = button.getAttribute('aria-label');
