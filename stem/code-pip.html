@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <style>
+        .code-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+        .code-say { font-weight: 900; font-size: clamp(1.1rem, 4.6vw, 1.35rem); color: #17323a; min-height: 2.6em; margin: 0 0 10px; }
+        .grid-wrap { position: relative; width: min(100%, 360px); aspect-ratio: 1; margin: 0 auto; }
+        .grid { display: grid; width: 100%; height: 100%; gap: 4px; background: #cfe8d6; border-radius: 16px; padding: 4px; box-sizing: border-box; }
+        .cell { background: #f3fbf5; border-radius: 10px; display: grid; place-items: center; font-size: clamp(1.6rem, 8vw, 2.4rem); line-height: 1; }
+        .cell.trail { background: #fff4c2; }
+        .cell.bump { animation: bump 0.5s; background: #ffd6d6; }
+        @keyframes bump { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+        .walker { position: absolute; display: grid; place-items: end center; transition: left 0.45s ease, top 0.45s ease; pointer-events: none; }
+        .walker .pip { width: 86%; }
+        .program { display: flex; flex-wrap: wrap; gap: 6px; min-height: 52px; align-items: center; background: #f4f7f8; border: 2px dashed rgba(23, 50, 58, 0.2); border-radius: 14px; padding: 6px; margin: 12px 0 8px; }
+        .program .empty { color: #4a6067; font-weight: 800; padding: 0 6px; }
+        .chip { width: 44px; height: 44px; border-radius: 10px; background: #245f73; color: #fff; display: grid; place-items: center; font-size: 1.5rem; font-weight: 900; }
+        .chip.now { background: #f2b705; color: #17323a; transform: scale(1.12); }
+        .chip.bug { background: #c62828; }
+        .chip.done { background: #1c6b46; }
+        .arrows { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .arrow-btn { min-height: 64px; border: 0; border-radius: 16px; background: #7445d6; color: #fff; font-size: 2rem; font-weight: 900; cursor: pointer; }
+        .arrow-btn:disabled, .code-actions button:disabled { opacity: 0.45; cursor: default; }
+        .code-actions { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 8px; margin-top: 8px; }
+        .code-actions button { min-height: 56px; border-radius: 16px; border: 2px solid rgba(23, 50, 58, 0.16); background: #fff; color: #17323a; font-weight: 900; font-size: 1.05rem; cursor: pointer; }
+        .code-actions .go { background: #1c6b46; color: #fff; border: 0; font-size: 1.25rem; }
+        .next-level { display: none; margin-top: 10px; width: 100%; }
+        .next-level.show { display: block; }
+        @media (prefers-reduced-motion: reduce) { .walker { transition: none; } .cell.bump { animation: none; } }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+    <script src="../pip.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Code with Pip</h1>
+            <p>Coding means giving clear steps, in order. Tell Pip which way to go to reach the star!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot">
+                <div id="game">
+                    <div class="code-top">
+                        <span class="pill" id="levelPill"></span>
+                        <span class="pill" id="starPill"></span>
+                        <button type="button" class="hear-again" id="hearAgain" aria-label="Hear again">&#128264;</button>
+                    </div>
+                    <p class="code-say" id="say" aria-live="polite"></p>
+                    <div class="grid-wrap">
+                        <div class="grid" id="grid" role="img"></div>
+                        <div class="walker" id="walker"><div id="pipHere"></div></div>
+                    </div>
+                    <div class="program" id="program" aria-label="Pip's code"></div>
+                    <div class="arrows">
+                        <button type="button" class="arrow-btn" data-d="up" aria-label="Up">&#11014;&#65039;</button>
+                        <button type="button" class="arrow-btn" data-d="down" aria-label="Down">&#11015;&#65039;</button>
+                        <button type="button" class="arrow-btn" data-d="left" aria-label="Left">&#11013;&#65039;</button>
+                        <button type="button" class="arrow-btn" data-d="right" aria-label="Right">&#10145;&#65039;</button>
+                    </div>
+                    <div class="code-actions">
+                        <button type="button" id="undoBtn" aria-label="Take away the last arrow">&#9003; Undo</button>
+                        <button type="button" id="clearBtn" aria-label="Clear all arrows">&#128260; Clear</button>
+                        <button type="button" class="go" id="goBtn">&#9654; Go!</button>
+                    </div>
+                    <button type="button" class="lesson-action next-level" id="nextBtn">Next level &#10145;&#65039;</button>
+                </div>
+                <section class="done-screen" id="doneScreen" hidden aria-live="polite">
+                    <div class="done-stars" id="doneStars"></div>
+                    <h2>You are a coder!</h2>
+                    <p>You gave Pip clear steps, in order, and fixed the bugs. That is what coders do!</p>
+                    <div class="home-idea" id="doneIdea"></div>
+                    <div class="actions" id="doneActions">
+                        <button type="button" class="lesson-action" id="againBtn">Play again</button>
+                        <a class="lesson-action secondary" href="../index.html">Home</a>
+                    </div>
+                </section>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        (function() {
+            var F = window.ESEAFamily;
+            var lessonId = 'stem/code-pip';
+            // Levels grow with age: a straight line for 3-year-olds, then turns, then rocks to go around.
+            // Each level: n = grid size, s = Pip's start [row, col], g = the star, r = rocks.
+            var LEVELS = {
+                3: [{ n: 3, s: [1, 0], g: [1, 2] }, { n: 3, s: [2, 1], g: [0, 1] }, { n: 3, s: [0, 2], g: [0, 0] }],
+                4: [{ n: 4, s: [3, 0], g: [3, 3] }, { n: 4, s: [3, 0], g: [1, 2] }, { n: 4, s: [0, 0], g: [2, 3], r: [[0, 2]] }, { n: 4, s: [0, 3], g: [3, 0], r: [[1, 3], [3, 2]] }],
+                5: [{ n: 4, s: [3, 0], g: [1, 2] }, { n: 5, s: [4, 0], g: [0, 4], r: [[3, 1], [1, 3]] }, { n: 5, s: [2, 0], g: [2, 4], r: [[2, 2]] },
+                    { n: 5, s: [0, 0], g: [4, 4], r: [[1, 1], [2, 2], [3, 3], [0, 3]] }, { n: 5, s: [4, 2], g: [0, 2], r: [[2, 2], [1, 1]] }],
+                6: [{ n: 5, s: [2, 0], g: [2, 4], r: [[2, 2]] }, { n: 5, s: [4, 2], g: [0, 2], r: [[2, 2], [1, 1]] },
+                    { n: 5, s: [0, 0], g: [4, 0], r: [[1, 0], [2, 1], [3, 0]] }, { n: 5, s: [4, 4], g: [0, 0], r: [[3, 3], [2, 4], [1, 1], [0, 3], [2, 0]] },
+                    { n: 5, s: [0, 4], g: [4, 2], r: [[1, 4], [1, 3], [3, 2], [3, 3], [2, 1]] }]
+            };
+            var levels = F && F.byAge ? F.byAge(LEVELS) : LEVELS[4];
+            var MOVE = { up: [-1, 0], down: [1, 0], left: [0, -1], right: [0, 1] };
+            var ICON = { up: '⬆️', down: '⬇️', left: '⬅️', right: '➡️' };
+            var state = { level: 0, program: [], pos: null, running: false, stars: 0, misses: 0 };
+            var gridEl = document.getElementById('grid');
+            var walker = document.getElementById('walker');
+            var pip = ESEAPip.character(document.getElementById('pipHere'));
+
+            function speak(text, onend) {
+                document.getElementById('say').textContent = text;
+                if (window.ESEASpeech) {
+                    pip.talking(true);
+                    ESEASpeech.speak(text, { onend: function() { pip.talking(false); if (onend) onend(); } });
+                } else if (onend) setTimeout(onend, 800);
+            }
+            function speakAsync(text) { return new Promise(function(res) { speak(text, res); }); }
+            function wait(ms) { return new Promise(function(res) { setTimeout(res, ms); }); }
+
+            // Shortest number of arrows needed (so the program strip has a sensible limit).
+            function shortest(L) {
+                var seen = {}, q = [[L.s[0], L.s[1], 0]];
+                seen[L.s.join()] = true;
+                while (q.length) {
+                    var c = q.shift();
+                    if (c[0] === L.g[0] && c[1] === L.g[1]) return c[2];
+                    for (var d in MOVE) {
+                        var r = c[0] + MOVE[d][0], k = c[1] + MOVE[d][1];
+                        if (r < 0 || k < 0 || r >= L.n || k >= L.n || isRock(L, r, k) || seen[r + ',' + k]) continue;
+                        seen[r + ',' + k] = true; q.push([r, k, c[2] + 1]);
+                    }
+                }
+                return 8;
+            }
+            function isRock(L, r, c) { return (L.r || []).some(function(x) { return x[0] === r && x[1] === c; }); }
+            function cur() { return levels[state.level]; }
+            function maxLen() { return Math.min(12, shortest(cur()) + 3); }
+
+            function placePip(r, c) {
+                var n = cur().n;
+                walker.style.width = walker.style.height = (100 / n) + '%';
+                walker.style.left = (c * 100 / n) + '%';
+                walker.style.top = (r * 100 / n) + '%';
+                state.pos = [r, c];
+            }
+            function cellAt(r, c) { return gridEl.children[r * cur().n + c]; }
+
+            function drawLevel() {
+                var L = cur();
+                gridEl.style.gridTemplateColumns = gridEl.style.gridTemplateRows = 'repeat(' + L.n + ', 1fr)';
+                gridEl.innerHTML = '';
+                for (var r = 0; r < L.n; r += 1) {
+                    for (var c = 0; c < L.n; c += 1) {
+                        var cell = document.createElement('div');
+                        cell.className = 'cell';
+                        if (r === L.g[0] && c === L.g[1]) cell.textContent = '⭐';
+                        else if (isRock(L, r, c)) cell.textContent = '🪨';
+                        gridEl.appendChild(cell);
+                    }
+                }
+                gridEl.setAttribute('aria-label', 'A ' + L.n + ' by ' + L.n + ' grid. Pip is in row ' + (L.s[0] + 1) + ', column ' + (L.s[1] + 1) +
+                    '. The star is in row ' + (L.g[0] + 1) + ', column ' + (L.g[1] + 1) + '.' + ((L.r || []).length ? ' There are ' + L.r.length + ' rocks.' : ''));
+                walker.style.transition = 'none';
+                placePip(L.s[0], L.s[1]);
+                walker.offsetWidth; // apply the jump without sliding
+                walker.style.transition = '';
+                state.program = []; state.misses = 0;
+                document.getElementById('levelPill').textContent = 'Level ' + (state.level + 1) + ' of ' + levels.length;
+                document.getElementById('starPill').textContent = '⭐ ' + state.stars;
+                document.getElementById('nextBtn').classList.remove('show');
+                drawProgram();
+                setButtons(true);
+                var hint = state.level === 0 ? 'Help Pip get to the star! Tap the arrows to make Pip’s code, then press Go.'
+                    : (L.r ? 'Watch out for the rocks! Make a code that goes around them.' : 'Make Pip’s code to reach the star, then press Go.');
+                speak(hint);
+                pip.wave(2000);
+            }
+
+            function drawProgram(nowIndex, bugIndex) {
+                var box = document.getElementById('program');
+                if (!state.program.length) { box.innerHTML = '<span class="empty">Tap arrows to add steps</span>'; return; }
+                box.innerHTML = state.program.map(function(d, i) {
+                    var cls = i === bugIndex ? ' bug' : (i === nowIndex ? ' now' : (nowIndex !== undefined && i < nowIndex ? ' done' : ''));
+                    return '<span class="chip' + cls + '" role="img" aria-label="' + d + '">' + ICON[d] + '</span>';
+                }).join('');
+            }
+
+            function setButtons(on) {
+                var full = state.program.length >= maxLen();
+                document.querySelectorAll('.arrow-btn').forEach(function(b) { b.disabled = !on || full; });
+                document.getElementById('undoBtn').disabled = !on || !state.program.length;
+                document.getElementById('clearBtn').disabled = !on || !state.program.length;
+                document.getElementById('goBtn').disabled = !on || !state.program.length;
+            }
+
+            document.querySelectorAll('.arrow-btn').forEach(function(b) {
+                b.addEventListener('click', function() {
+                    if (state.running || state.program.length >= maxLen()) return;
+                    state.program.push(b.dataset.d);
+                    drawProgram(); setButtons(true);
+                    if (window.ESEASpeech) ESEASpeech.speak(b.dataset.d);
+                });
+            });
+            document.getElementById('undoBtn').addEventListener('click', function() { state.program.pop(); drawProgram(); setButtons(true); });
+            document.getElementById('clearBtn').addEventListener('click', function() { state.program = []; drawProgram(); setButtons(true); });
+            document.getElementById('hearAgain').addEventListener('click', function() { speak(document.getElementById('say').textContent); });
+            document.getElementById('goBtn').addEventListener('click', run);
+            document.getElementById('nextBtn').addEventListener('click', function() {
+                state.level += 1;
+                if (state.level >= levels.length) finish(); else drawLevel();
+            });
+            document.getElementById('againBtn').addEventListener('click', function() {
+                state.level = 0; state.stars = 0;
+                document.getElementById('doneScreen').hidden = true;
+                document.getElementById('game').hidden = false;
+                drawLevel();
+            });
+
+            async function run() {
+                if (state.running || !state.program.length) return;
+                state.running = true; setButtons(false);
+                var L = cur();
+                Array.prototype.forEach.call(gridEl.children, function(c) { c.classList.remove('trail', 'bump'); });
+                walker.style.transition = 'none'; placePip(L.s[0], L.s[1]); walker.offsetWidth; walker.style.transition = '';
+                for (var i = 0; i < state.program.length; i += 1) {
+                    var d = state.program[i];
+                    drawProgram(i);
+                    var r = state.pos[0] + MOVE[d][0], c = state.pos[1] + MOVE[d][1];
+                    if (r < 0 || c < 0 || r >= L.n || c >= L.n || isRock(L, r, c)) {
+                        drawProgram(undefined, i);
+                        if (r >= 0 && c >= 0 && r < L.n && c < L.n) cellAt(r, c).classList.add('bump');
+                        pip.feel('surprised');
+                        state.misses += 1;
+                        if (window.ESEAPip) ESEAPip.lessonEvent('miss');
+                        await speakAsync('Oops! ' + (isRock(L, r, c) ? 'A rock is in the way.' : 'Pip can’t go off the edge.') +
+                            ' That’s a bug in the code. The red arrow is the bug. Undo it, and try a different way!');
+                        pip.feel('happy');
+                        return stop(i);
+                    }
+                    cellAt(state.pos[0], state.pos[1]).classList.add('trail');
+                    placePip(r, c);
+                    await speakAsync(d);
+                    await wait(150);
+                }
+                drawProgram(state.program.length);
+                if (state.pos[0] === L.g[0] && state.pos[1] === L.g[1]) {
+                    state.stars += 1;
+                    if (window.SkillTracker) SkillTracker.record(lessonId, 'level ' + L.n + ':' + L.s + '>' + L.g, state.misses === 0);
+                    pip.jump(1800);
+                    document.getElementById('starPill').textContent = '⭐ ' + state.stars;
+                    cellAt(L.g[0], L.g[1]).textContent = '🌟';
+                    await speakAsync(state.misses === 0 ? 'You did it! Your code worked the first time!' : 'You did it! You fixed the bug, and your code worked!');
+                    state.running = false;
+                    document.getElementById('nextBtn').textContent = state.level + 1 >= levels.length ? 'Finish ⭐' : 'Next level ➡️';
+                    document.getElementById('nextBtn').classList.add('show');
+                    document.getElementById('nextBtn').focus();
+                    return;
+                }
+                state.misses += 1;
+                await speakAsync('Pip stopped before the star. Add more arrows to finish the code!');
+                stop();
+            }
+            function stop(bugIndex) {
+                state.running = false;
+                setButtons(true);
+                if (bugIndex !== undefined) drawProgram(undefined, bugIndex);
+                var L = cur();
+                setTimeout(function() {
+                    if (state.running || cur() !== L) return;
+                    walker.style.transition = 'none'; placePip(L.s[0], L.s[1]); walker.offsetWidth; walker.style.transition = '';
+                    Array.prototype.forEach.call(gridEl.children, function(c) { c.classList.remove('trail', 'bump'); });
+                }, 1200);
+            }
+
+            function finish() {
+                document.getElementById('game').hidden = true;
+                var done = document.getElementById('doneScreen');
+                done.hidden = false;
+                var s = ''; for (var i = 0; i < state.stars; i += 1) s += '⭐';
+                document.getElementById('doneStars').textContent = s;
+                document.getElementById('doneStars').setAttribute('aria-label', state.stars + ' stars');
+                var idea = F ? F.homeIdea(lessonId) : '';
+                document.getElementById('doneIdea').innerHTML = idea ? '<strong>Grown-ups, try this at home:</strong> ' + idea : '';
+                document.getElementById('doneIdea').hidden = !idea;
+                if (F && !document.getElementById('planBack')) {
+                    var back = F.finished(lessonId);
+                    if (back) { back.id = 'planBack'; document.getElementById('doneActions').insertBefore(back, document.getElementById('againBtn')); }
+                }
+                if (window.ESEAPip) ESEAPip.lessonEvent('done');
+                speak('You are a coder! You gave Pip clear steps, in order, and fixed the bugs.');
+            }
+
+            drawLevel();
+        })();
+    </script>
+    <script src="../skill-tracker.js"></script>
+</body>
+</html>

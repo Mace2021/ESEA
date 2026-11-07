@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .cgrid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 4px; width: min(100%, 240px); aspect-ratio: 1; background: #a0703c; border-radius: 12px; padding: 4px; position: relative; box-sizing: border-box; }
+        .cgrid .c { background: #fff7e6; border-radius: 8px; display: grid; place-items: center; font-size: clamp(1.4rem, 6vw, 1.9rem); }
+        .cgrid .c.trail { background: #ffe9a8; }
+        .robot { position: absolute; width: calc((100% - 8px) / 4); height: calc((100% - 8px) / 4); display: grid; place-items: center; font-size: clamp(1.6rem, 7vw, 2.1rem); transition: left 0.5s, top 0.5s; }
+        .robot.bump { animation: shake 0.5s; }
+        @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .code { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; min-height: 42px; }
+        .code span { width: 38px; height: 38px; border-radius: 9px; background: #245f73; display: grid; place-items: center; font-size: 1.25rem; }
+        .code span.now { background: #ffc94d; transform: scale(1.12); }
+        .code span.bug { background: #c62828; }
+        .code span.ask { background: transparent; border: 3px dashed #fff7c2; color: #fff7c2; font-weight: 950; }
+        .seq { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 100%; }
+        .seq div { background: rgba(255,255,255,0.14); border-radius: 12px; padding: 6px 2px; color: #fff7c2; font-weight: 900; font-size: clamp(0.85rem, 3.6vw, 1rem); transition: background 0.3s; }
+        .seq div b { display: block; font-size: clamp(1.8rem, 8vw, 2.4rem); }
+        .seq div.lit { background: #ffc94d; color: #2d2a67; }
+        @media (prefers-reduced-motion: reduce) { .robot { transition: none; } .robot.bump { animation: none; } }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Coding with Pip</h1>
+            <p>Code is a list of steps, in order. Help Pip&rsquo;s robot friend Beep find the star!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        function show(html) { board.innerHTML = html; }
+        function $(id) { return document.getElementById(id); }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        var MOVE = { up: [-1, 0], down: [1, 0], left: [0, -1], right: [0, 1] };
+        var ICON = { up: '⬆️', down: '⬇️', left: '⬅️', right: '➡️' };
+        var pos;
+        function gridHtml(star, rocks) {
+            var h = '<div class="cgrid" id="cgrid" role="img" aria-label="A 4 by 4 grid with Beep the robot, a star' + (rocks.length ? ' and rocks' : '') + '">';
+            for (var r = 0; r < 4; r += 1) for (var c = 0; c < 4; c += 1) {
+                var rock = rocks.some(function(x) { return x[0] === r && x[1] === c; });
+                h += '<div class="c">' + (r === star[0] && c === star[1] ? '⭐' : rock ? '🪨' : '') + '</div>';
+            }
+            return h + '<span class="robot" id="robot" aria-hidden="true">🤖</span></div>';
+        }
+        function place(r, c) { var R = $('robot'); R.style.left = 'calc(4px + ' + c + ' * (100% - 8px) / 4)'; R.style.top = 'calc(4px + ' + r + ' * (100% - 8px) / 4)'; pos = [r, c]; }
+        function codeHtml(list) { return '<div class="code" id="code">' + list.map(function(d) { return d === '?' ? '<span class="ask" aria-label="missing step">?</span>' : '<span aria-label="' + d + '">' + ICON[d] + '</span>'; }).join('') + '</div>'; }
+        // Run the code one step at a time; returns the index of a bug, or -1.
+        async function run(ctx, code, rocks) {
+            var chips = $('code').children;
+            for (var i = 0; i < code.length; i += 1) {
+                Array.prototype.forEach.call(chips, function(ch) { ch.classList.remove('now'); });
+                chips[i].classList.add('now');
+                var r = pos[0] + MOVE[code[i]][0], c = pos[1] + MOVE[code[i]][1];
+                if (rocks.some(function(x) { return x[0] === r && x[1] === c; })) {
+                    chips[i].classList.remove('now'); chips[i].classList.add('bug');
+                    $('robot').classList.add('bump');
+                    return i;
+                }
+                $('cgrid').children[pos[0] * 4 + pos[1]].classList.add('trail');
+                place(r, c);
+                await ctx.say(cap(code[i]) + '!');
+            }
+            return -1;
+        }
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Meet Beep! 🤖</div>' + codeHtml(['up', 'down', 'left', 'right']));
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! This is my robot friend, Beep. Beep can only do exactly what the code says.');
+            pip.point();
+            await ctx.say('Code is a list of steps, in order. Beep knows four steps: up, down, left, and right!');
+        }, async function(ctx) {
+            show(gridHtml([0, 3], []) + codeHtml(['right', 'right', 'right', 'up', 'up', 'up']));
+            place(3, 0);
+            pip.point();
+            await ctx.say('Beep wants the star! Here is Beep’s code. Let’s run it, one step at a time.');
+            await run(ctx, ['right', 'right', 'right', 'up', 'up', 'up'], []);
+            $('cgrid').children[3].textContent = '🌟';
+            pip.jump(1400);
+            await ctx.say('Beep got the star! The code worked, because every step was in the right order.');
+        }, async function(ctx) {
+            show(gridHtml([1, 2], []) + codeHtml(['up', 'up', 'right', '?']));
+            place(3, 0);
+            pip.point();
+            await ctx.say('Now you help! Beep’s code says up, up, right... and then one more step. Which arrow comes next, to reach the star?');
+            await ctx.wait(1800); // time to answer
+            $('code').lastChild.outerHTML = '<span aria-label="right">➡️</span>';
+            await ctx.say('Right! Let’s run the code.');
+            await run(ctx, ['up', 'up', 'right', 'right'], []);
+            $('cgrid').children[1 * 4 + 2].textContent = '🌟';
+            pip.jump(1400);
+            await ctx.say('Up, up, right, right. You finished the code!');
+        }, async function(ctx) {
+            var rocks = [[2, 1]];
+            show('<div class="board-title" style="font-size:1.3rem">Uh-oh, a bug! 🐞</div>' + gridHtml([0, 1], rocks) + codeHtml(['up', 'up', 'up']));
+            place(3, 1);
+            pip.point();
+            await ctx.say('Here is a new code: up, up, up. Will it work? Let’s see.');
+            await run(ctx, ['up', 'up', 'up'], rocks);
+            pip.feel('surprised');
+            await ctx.say('Bonk! A rock is in the way! When code goes wrong, we call it a bug. Fixing it is called debugging.');
+            pip.feel('happy');
+            await ctx.say('Let’s go around the rock. Right, up, up, left, and up!');
+            var fixed = ['right', 'up', 'up', 'left', 'up'];
+            show('<div class="board-title" style="font-size:1.3rem">Debugged! ✨</div>' + gridHtml([0, 1], rocks) + codeHtml(fixed));
+            place(3, 1);
+            await run(ctx, fixed, rocks);
+            $('cgrid').children[1].textContent = '🌟';
+            pip.jump(1400);
+            await ctx.say('We fixed the bug, and Beep reached the star!');
+        }, async function(ctx) {
+            var STEPS = [['🪥', 'Brush'], ['🦷', 'Spit'], ['💧', 'Rinse']];
+            show('<div class="board-title pop-in">Code is everywhere!</div><div class="seq">' + STEPS.map(function(s, i) { return '<div id="q' + i + '"><b aria-hidden="true">' + s[0] + '</b>' + (i + 1) + '. ' + s[1] + '</div>'; }).join('') + '</div>');
+            pip.point();
+            await ctx.say('We follow steps in order every day, just like code!');
+            for (var i = 0; i < STEPS.length; i += 1) { $('q' + i).classList.add('lit'); await ctx.say(['First, brush your teeth.', 'Next, spit.', 'Last, rinse!'][i]); }
+            await ctx.say('What if we rinse first, and brush last? That would be silly! Order matters.');
+        }, async function(ctx) {
+            show('<div class="board-title pop-in">Your turn, coder! 🤖</div>' + codeHtml(['up', 'right', 'down', 'left']));
+            pip.wave(4000);
+            await ctx.say('Now try Code with Pip! Make the code, press Go, and if there is a bug, fix it. At home, give a grown-up robot steps to follow! Bye-bye!');
+        }];
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Coding with Pip</div>');
+    </script>
+</body>
+</html>

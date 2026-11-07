@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Measure It! - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <style>
+        .bar-card { display: grid; gap: 6px; justify-items: start; width: 100%; padding: 0 6px; }
+        .ribbon { height: 22px; border-radius: 11px; display: block; }
+        .tower { display: flex; flex-direction: column-reverse; align-items: center; gap: 3px; min-height: 120px; justify-content: flex-start; }
+        .tower i { width: 34px; height: 24px; border-radius: 5px; display: block; }
+        .lineup { display: grid; gap: 10px; width: min(100%, 300px); border-left: 4px solid #17323a; padding: 6px 0; }
+        .lineup.up { display: flex; justify-content: center; gap: 30px; border-left: 0; border-bottom: 4px solid #17323a; padding: 0 0 4px; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+    <script src="../pip.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Measure It!</h1>
+            <p>Longer or shorter, taller, heavier, bigger: compare things like a scientist.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var F = window.ESEAFamily;
+        // 3-year-olds compare with "longer, taller, heavier, bigger"; from 4 we add the opposites.
+        var OPPOSITES = !(F && F.age && F.age() <= 3);
+        function ribbon(color, units) {
+            return '<span class="bar-card"><span class="ribbon" style="background:' + color + ';width:' + (units * 18) + '%"></span></span>';
+        }
+        function tower(color, n) {
+            var s = '<span class="tower">';
+            for (var i = 0; i < n; i += 1) s += '<i style="background:' + color + '"></i>';
+            return s + '</span>';
+        }
+        function opt(value, label, html) { return { value: value, label: label, html: html }; }
+        function emo(value, label, e) { return { value: value, label: label, emoji: e }; }
+        var ROUNDS = [
+            { key: 'ribbon longer', prompt: 'Which ribbon is longer?', answer: 'red',
+              options: [opt('red', 'Red ribbon', ribbon('#e53935', 5)), opt('blue', 'Blue ribbon', ribbon('#1e88e5', 3))],
+              explain: 'The red ribbon goes farther. It is longer.' },
+            { key: 'tower taller', prompt: 'Which tower is taller?', answer: 'green',
+              options: [opt('yellow', 'Yellow tower', tower('#fbc02d', 2)), opt('green', 'Green tower', tower('#43a047', 4))],
+              explain: 'The green tower has more blocks. It is taller.' },
+            { key: 'elephant mouse', prompt: 'Which is heavier?', answer: 'elephant',
+              options: [emo('mouse', 'Mouse', '🐭'), emo('elephant', 'Elephant', '🐘')],
+              explain: 'An elephant is much heavier than a mouse.' },
+            { key: 'giraffe dog', prompt: 'Which is taller?', answer: 'giraffe',
+              options: [emo('giraffe', 'Giraffe', '🦒'), emo('dog', 'Dog', '🐕')],
+              explain: 'A giraffe is taller than a house door!' },
+            { key: 'whale fish', prompt: 'Which is bigger?', answer: 'whale',
+              options: [emo('fish', 'Fish', '🐟'), emo('whale', 'Whale', '🐋')],
+              explain: 'A whale is one of the biggest animals in the world.' },
+            { key: 'truck bike', prompt: 'Which is heavier?', answer: 'truck',
+              options: [emo('truck', 'Truck', '🚚'), emo('bike', 'Bike', '🚲')],
+              explain: 'A truck is much heavier than a bike.' },
+            { key: 'snake worm', prompt: 'Which is longer?', answer: 'snake',
+              options: [emo('worm', 'Worm', '🪱'), emo('snake', 'Snake', '🐍')],
+              explain: 'A snake is longer than a little worm.' }
+        ];
+        if (OPPOSITES) ROUNDS = ROUNDS.concat([
+            { key: 'ribbon shorter', prompt: 'Which ribbon is shorter?', answer: 'purple',
+              options: [opt('orange', 'Orange ribbon', ribbon('#fb8c00', 5)), opt('purple', 'Purple ribbon', ribbon('#8e24aa', 2))],
+              explain: 'The purple ribbon stops sooner. It is shorter.' },
+            { key: 'feather book', prompt: 'Which is lighter?', answer: 'feather',
+              options: [emo('book', 'Book', '📕'), emo('feather', 'Feather', '🪶')],
+              explain: 'A feather is so light it can float in the air.' },
+            { key: 'tower shorter', prompt: 'Which tower is shorter?', answer: 'blue',
+              options: [opt('red', 'Red tower', tower('#e53935', 5)), opt('blue', 'Blue tower', tower('#1e88e5', 3))],
+              explain: 'The blue tower has fewer blocks. It is shorter.' },
+            { key: 'ant cat', prompt: 'Which is smaller?', answer: 'ant',
+              options: [emo('cat', 'Cat', '🐈'), emo('ant', 'Ant', '🐜')],
+              explain: 'An ant is tiny. It is smaller than a cat.' }
+        ]);
+        window.EarlyLesson = {
+            id: 'stem/measure',
+            title: 'Measure It!',
+            instructions: 'Listen to the question, then compare the two pictures. At home, line things up side by side to compare them.',
+            type: 'quiz',
+            keepAllChoices: true,
+            rounds: ROUNDS.map(function(r) {
+                // Ribbons and towers are also shown together, lined up at the same start, so they are easy to compare.
+                var lined = r.options.every(function(o) { return o.html; });
+                r.target = lined ? { html: '<div class="lineup ' + (/tower/.test(r.prompt) ? 'up' : '') + '" role="img" aria-label="' + r.options.map(function(o) { return o.label; }).join(' and ') + ', lined up">' +
+                    r.options.map(function(o) { return o.html; }).join('') + '</div>' } : { emoji: /heavier|lighter/.test(r.prompt) ? '⚖️' : '📏' };
+                return r;
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>
