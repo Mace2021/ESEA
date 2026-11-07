@@ -132,9 +132,11 @@
   // Which Pip video teaches the same thing as each lesson.
   var VIDEO_FOR = [
     [/^reading\/rhyme/, 'tv/rhymes-with-pip.html'],
-    [/^(reading\/|abc\/(abc|abcpic|alphabet-sounds|picktheletter|pronunciation-symbols|pickaword|pickthepic|kiddictionary)$|letter-match$|puzzles\/letter-match)/, 'tv/abc-with-pip.html'],
+    [/^(reading\/|abc\/(abc|abcpic|alphabet-sounds|picktheletter|pronunciation-symbols|pickaword|pickthepic|kiddictionary)$)/, 'tv/abc-with-pip.html'],
     [/^abc\/calendar/, 'tv/days-with-pip.html'],
-    [/^(math\/|arithmetic\/|123\/|number-match$|puzzles\/number-match)/, 'tv/count-with-pip.html'],
+    [/^(math\/|arithmetic\/|123\/)/, 'tv/count-with-pip.html'],
+    [/^(number-match$|puzzles\/number-match)/, 'tv/number-match-with-pip.html'],
+    [/^(letter-match$|puzzles\/letter-match)/, 'tv/letter-match-with-pip.html'],
     [/^color\//, 'tv/colors-with-pip.html'],
     [/^(shape-match$|puzzles\/shape-match)/, 'tv/shape-match-with-pip.html'],
     [/^(shapes\/|games\/whatshape)/, 'tv/shapes-with-pip.html'],

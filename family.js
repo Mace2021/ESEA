@@ -244,6 +244,10 @@
       home: 'Shape hunt: trace around cups, books and blocks on paper, then match each object back to its outline.' },
     { id: 'tv/animal-match-with-pip', area: 'Watch & Listen', name: 'Animal Match with Pip', href: 'tv/animal-match-with-pip.html', video: true,
       home: 'Animal sound game: make an animal sound and let your child guess the animal, then swap turns. Look at baby animal pictures in a book and name their grown-ups.' },
+    { id: 'tv/number-match-with-pip', area: 'Watch & Listen', name: 'Number Match with Pip', href: 'tv/number-match-with-pip.html', video: true,
+      home: 'Number hunt: write a number on paper, then count out that many spoons, socks or blocks together and put them next to it.' },
+    { id: 'tv/letter-match-with-pip', area: 'Watch & Listen', name: 'Letter Match with Pip', href: 'tv/letter-match-with-pip.html', video: true,
+      home: 'Letter hunt: find a big letter and its little letter on a cereal box or in a book. Practice the b and d "bed" with your hands.' },
     { id: 'tv/luna-little-cloud', area: 'Watch & Listen', name: 'Luna the Little Cloud', href: 'tv/luna-little-cloud.html', video: true,
       home: 'Ask "How did Luna help the flower?" Then find one small way your child can help someone today.' },
     { id: 'tv/sound-parade', area: 'Watch & Listen', name: 'Sound Parade', href: 'tv/sound-parade.html', video: true,
@@ -294,7 +298,7 @@
   // The third activity of the day rotates through videos and feelings.
   var PLAN_EXTRAS = ['tv/abc-with-pip', 'emotions/feelings-quiz', 'tv/count-with-pip', 'color/balloon-pop', 'tv/sound-parade',
     'tv/colors-with-pip', 'tv/luna-little-cloud', 'tv/shapes-with-pip', 'tv/feelings-with-pip', 'tv/weather-with-pip',
-    'tv/days-with-pip', 'tv/rhymes-with-pip', 'tv/nature-with-pip', 'tv/sorting-with-pip', 'tv/memory-with-pip', 'tv/shape-match-with-pip', 'tv/animal-match-with-pip',
+    'tv/days-with-pip', 'tv/rhymes-with-pip', 'tv/nature-with-pip', 'tv/sorting-with-pip', 'tv/memory-with-pip', 'tv/shape-match-with-pip', 'tv/animal-match-with-pip', 'tv/number-match-with-pip', 'tv/letter-match-with-pip',
     'emotions/calm-corner', 'tv/animated-alphabet', 'tv/counting-rainbow'];
 
   function pathSteps(path) {

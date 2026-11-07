@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Match with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+        .cards.two { grid-template-columns: repeat(2, 1fr); }
+        .ncard { background: rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 6px 2px; color: #fff7c2; font-weight: 950; font-size: clamp(2.2rem, 10vw, 3rem); line-height: 1.1; transition: transform 0.25s, background 0.25s, opacity 0.25s;
+            font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .ncard.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.12); }
+        .ncard.dim { opacity: 0.4; }
+        .dots { display: grid; grid-template-columns: repeat(5, clamp(26px, 8vw, 38px)); gap: 8px; justify-content: center; min-height: 40px; }
+        .dots i { width: clamp(26px, 8vw, 38px); aspect-ratio: 1; border-radius: 50%; background: #fff; display: block; transition: background 0.2s, transform 0.2s; }
+        .dots i.on { background: #ffc94d; transform: scale(1.15); }
+        .dots i b { display: grid; place-items: center; height: 100%; color: #2d2a67; font-style: normal; font-weight: 950; font-size: 0.95rem; }
+        .row3 { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .group { background: rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 6px 8px; font-size: clamp(1.4rem, 6vw, 1.9rem); line-height: 1.2; min-width: 4.4em; }
+        .group.mixed { display: grid; grid-template-columns: repeat(3, 1fr); width: 4.6em; }
+        .group.mixed span:nth-child(2) { grid-column: 3; grid-row: 2; } .group.mixed span:nth-child(3) { grid-column: 1; grid-row: 3; }
+        .dice { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 6px; width: clamp(110px, 30vw, 140px); aspect-ratio: 1; background: #fff; border-radius: 18px; padding: 12px; }
+        .dice i { border-radius: 50%; background: #2d2a67; }
+        .dice i.e { background: transparent; }
+        .board-big.num { font-size: clamp(3.4rem, 14vw, 5rem); }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Number Match with Pip</h1>
+            <p>How many dots? Count with Pip and find the number that matches!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var F = window.ESEAFamily;
+        function show(html) { board.innerHTML = html; }
+        // Younger children choose from two cards, older ones from three.
+        var CHOICES = (F && F.age && F.age() <= 3) ? 2 : 3;
+        // The answer goes in a different place each round.
+        function cardsHtml(answer, others, i, label) {
+            var list = others.slice(0, CHOICES - 1);
+            list.splice(i % CHOICES, 0, answer);
+            return '<div class="cards' + (CHOICES === 2 ? ' two' : '') + '">' + list.map(function(v) {
+                return '<div class="ncard" data-v="' + v + '" aria-label="' + label(v) + '">' + v + '</div>';
+            }).join('') + '</div>';
+        }
+        function reveal(v) {
+            board.querySelectorAll('.ncard').forEach(function(c) { c.classList.add(c.dataset.v === String(v) ? 'lit' : 'dim'); });
+        }
+        var WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        // Same number ranges as the Number Match game: 3 yrs 1-3, 4 yrs 1-5, 5 yrs 1-8, 6 yrs 3-10.
+        var RANGE = F && F.byAge ? F.byAge({ 3: [1, 3], 4: [1, 5], 5: [1, 8], 6: [3, 10] }) : [1, 5];
+        var ROUNDS = F && F.byAge ? F.byAge({ 3: [2, 1, 3], 4: [3, 1, 5, 2, 4], 5: [4, 2, 7, 5, 8], 6: [6, 3, 9, 7, 10] }) : [3, 1, 5, 2, 4];
+        var SAME = Math.min(RANGE[1], F && F.age && F.age() >= 5 ? 5 : 3);
+        function others(n) {
+            var out = [];
+            [1, -1, 2, -2, 3, -3].forEach(function(d) { var c = n + d; if (c >= RANGE[0] && c <= RANGE[1] && out.length < 2) out.push(c); });
+            return out;
+        }
+        function dotsHtml(n) {
+            var h = '<div class="dots" role="img" aria-label="' + n + ' dots">';
+            for (var i = 0; i < n; i += 1) h += '<i></i>';
+            return h + '</div>';
+        }
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Number Match</div><div class="board-big num">1 2 3</div>');
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Numbers tell us how many. Let’s count the dots and find the number that matches!');
+        }];
+        ROUNDS.forEach(function(n, i) {
+            scenes.push(async function(ctx) {
+                show('<div class="board-title">How many dots?</div>' + dotsHtml(n) + cardsHtml(n, others(n), i, function(v) { return 'number ' + v; }));
+                pip.point();
+                await ctx.say('How many dots? Which number matches?');
+                await ctx.wait(1800); // time to guess first
+                await ctx.say('Let’s count together!');
+                var dots = board.querySelectorAll('.dots i');
+                for (var k = 0; k < dots.length; k += 1) {
+                    dots[k].classList.add('on');
+                    dots[k].innerHTML = '<b>' + (k + 1) + '</b>';
+                    await ctx.say(String(k + 1));
+                }
+                reveal(n);
+                pip.jump(1200);
+                await ctx.say(cap(WORDS[n]) + (n === 1 ? ' dot' : ' dots') + '. They match the number ' + WORDS[n] + '!');
+            });
+        });
+        scenes.push(async function(ctx) {
+            var row = function(e) { var s = ''; for (var i = 0; i < SAME; i += 1) s += '<span>' + e + '</span>'; return s; };
+            show('<div class="board-title pop-in">Still ' + WORDS[SAME] + '!</div><div class="board-big num">' + SAME + '</div>' +
+                '<div class="row3"><div class="group" role="img" aria-label="' + SAME + ' apples in a row">' + row('🍎') + '</div>' +
+                '<div class="group" role="img" aria-label="' + SAME + ' big balloons">' + row('🎈') + '</div>' +
+                '<div class="group' + (SAME === 3 ? ' mixed' : '') + '" role="img" aria-label="' + SAME + ' chicks all mixed up">' + row('🐥') + '</div></div>');
+            pip.point();
+            await ctx.say('Look! ' + cap(WORDS[SAME]) + ' apples in a row. ' + cap(WORDS[SAME]) + ' big balloons. ' + cap(WORDS[SAME]) + ' chicks all mixed up.');
+            pip.jump(1200);
+            await ctx.say('In a line or mixed up, big or small, ' + WORDS[SAME] + ' is always ' + WORDS[SAME] + '!');
+        });
+        scenes.push(async function(ctx) {
+            var FACES = { 4: [1, 0, 1, 0, 0, 0, 1, 0, 1], 5: [1, 0, 1, 0, 1, 0, 1, 0, 1] };
+            var n = RANGE[1] >= 5 ? 5 : 4;
+            if (RANGE[1] < 4) n = 3, FACES[3] = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+            show('<div class="board-title pop-in">Quick look!</div><div class="dice" role="img" aria-label="dice showing ' + n + '">' +
+                FACES[n].map(function(d) { return '<i class="' + (d ? '' : 'e') + '"></i>'; }).join('') + '</div>');
+            pip.point();
+            await ctx.say('Here is a dice. Can you tell how many dots, without counting?');
+            await ctx.wait(1500);
+            pip.jump(1200);
+            await ctx.say(n === 5 ? 'Five! Four corners, and one in the middle. That makes five.' : n === 4 ? 'Four! One in each corner makes four.' : 'Three! A line of three dots.');
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Your turn! &#11088;</div><div class="board-big num">' + RANGE[0] + ' &ndash; ' + RANGE[1] + '</div>');
+            pip.wave(4000);
+            await ctx.say('Great counting! Now try the Number Match game. At home, count spoons, steps, or toys, and find the number. Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Number Match with Pip</div>');
+    </script>
+</body>
+</html>
