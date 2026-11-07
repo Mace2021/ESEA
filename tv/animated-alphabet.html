@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alphabet Adventure - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
     <style>
-        .video-stage { padding: 1rem; }
-        .scene { min-height: 320px; display: grid; place-items: center; background: linear-gradient(180deg, #fff8f3, #f7e6ff); border-radius: 20px; position: relative; overflow: hidden; }
-        .letter { font-size: clamp(5rem, 8vw, 8rem); font-weight: 900; color: #7d3cff; opacity: 0; transform: translateY(50px); animation: floatUp 0.8s ease forwards; }
-        .word { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.85); padding: 0.8rem 1rem; border-radius: 999px; font-size: 1.3rem; color: #333; }
-        .cloud { position: absolute; width: 120px; height: 70px; background: #fff; border-radius: 60px; opacity: 0.75; animation: drift 8s linear infinite; }
-        .cloud:nth-child(1){ top: 20px; left: 10%; animation-duration: 9s; }
-        .cloud:nth-child(2){ top: 70px; right: 10%; width: 140px; height: 80px; animation-duration: 11s; }
-        .video-controls { margin-top: 1rem; display:flex; gap:1rem; flex-wrap:wrap; }
-        .video-controls button { padding: 0.85rem 1.2rem; border-radius: 999px; border:none; background: #9c6bff; color:#fff; font-weight:700; cursor:pointer; }
-        @keyframes floatUp { to { opacity: 1; transform: translateY(0); } }
-        @keyframes drift { 0% { transform: translateX(0);} 100% { transform: translateX(120vw);} }
+        .abc-stage { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 12px; padding: 24px 16px; min-height: 340px; }
+        .abc-letter { font-size: clamp(5rem, 22vw, 9rem); font-weight: 950; color: #7d3cff; text-align: center; line-height: 1; text-shadow: 0 6px 0 rgba(125, 60, 255, 0.15); }
+        .abc-letter small { font-size: 0.6em; color: #ff7a59; margin-left: 0.08em; }
+        .abc-picture { text-align: center; min-height: 200px; display: grid; place-items: center; }
+        .abc-card { background: #fff; border-radius: 22px; padding: 12px; box-shadow: 0 12px 26px rgba(0,0,0,0.12); width: min(100%, 220px); }
+        .abc-card img { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 14px; display: block; }
+        .abc-card span { display: block; margin-top: 6px; font-size: clamp(1.2rem, 5vw, 1.6rem); font-weight: 900; color: #2d2a67; }
+        .abc-title { grid-column: 1 / -1; text-align: center; font-size: clamp(2rem, 9vw, 3.2rem); font-weight: 950; color: #7d3cff; }
+        .abc-all { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 6px; }
+        .abc-all span { background: #fff; border-radius: 10px; text-align: center; font-weight: 900; font-size: 1.4rem; padding: 6px 0; color: #7d3cff; transition: transform 0.2s, background 0.2s; }
+        .abc-all span.lit { background: #ffc94d; transform: scale(1.15); }
+        .cloud { position: absolute; width: 120px; height: 46px; background: #fff; border-radius: 40px; opacity: 0.7; z-index: -1; animation: drift 18s linear infinite; }
+        .cloud.c1 { top: 14px; left: -140px; }
+        .cloud.c2 { top: 70px; left: -140px; animation-delay: -9s; width: 90px; }
+        @keyframes drift { to { transform: translateX(calc(100vw + 300px)); } }
+        @media (max-width: 480px) { .abc-stage { grid-template-columns: 1fr; } .abc-picture { min-height: 170px; } }
     </style>
     <script src="../speech.js"></script>
     <script src="../family.js"></script>
@@ -26,84 +32,85 @@
         <header class="lesson-hero">
             <img src="../images/ESEA.png" alt="ESEA logo">
             <h1>Alphabet Adventure</h1>
-            <p>Watch letters come to life and hear a short phonics story.</p>
+            <p>All 26 letters. Watch each letter fly in and its picture pop up!</p>
         </header>
         <main class="lesson-main">
-            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
-            <section class="lesson-card-panel video-stage">
-                <div class="scene" id="scene">
-                    <div class="cloud"></div>
-                    <div class="cloud"></div>
-                    <div class="letter" id="bigLetter">A</div>
-                    <div class="word" id="wordLabel">A is for Apple</div>
-                </div>
-                <div class="video-controls">
-                    <button id="playBtn">Play Video</button>
-                    <button id="replayBtn">Replay</button>
-                </div>
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage abc-stage" id="stage"><div class="cloud c1"></div><div class="cloud c2"></div></div>
+                <div class="movie-chips" id="chips" aria-label="Jump to a letter"></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
             </section>
         </main>
         <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
+    <script src="movie.js"></script>
+    <script src="alphabet-data.js"></script>
     <script>
-        const scenes = [
-            { letter: 'A', phrase: 'A is for apple', voice: 'Here comes [A]! [A] is for... apple.' },
-            { letter: 'B', phrase: 'B is for ball', voice: 'Next is [B]. [B] is for... ball.' },
-            { letter: 'C', phrase: 'C is for cat', voice: 'And here is [C]. [C] is for... cat.' }
-        ];
-        const ENDING = 'Great job! You can watch it again any time.';
-        const bigLetter = document.getElementById('bigLetter');
-        const wordLabel = document.getElementById('wordLabel');
-        const playBtn = document.getElementById('playBtn');
-        const replayBtn = document.getElementById('replayBtn');
-
-        function showScene(index) {
-            const scene = scenes[index];
-            bigLetter.textContent = scene.letter;
-            wordLabel.textContent = scene.phrase;
-            bigLetter.style.animation = 'none';
-            void bigLetter.offsetWidth;
-            bigLetter.style.animation = 'floatUp 0.8s ease forwards';
+        var ABC = window.ESEA_ALPHABET;
+        var stage = document.getElementById('stage');
+        var el = ESEAMovie.el;
+        function clear() {
+            Array.prototype.slice.call(stage.children).forEach(function(c) {
+                if (!c.classList.contains('cloud')) c.remove();
+            });
         }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
 
-        // Narration uses the shared calm voice (speech.js). Each scene waits
-        // for the narrator to finish, then pauses briefly before the next one.
-        function speakText(text, onend) {
-            if (window.ESEASpeech) {
-                ESEASpeech.speak(text, { onend: onend });
-                return;
+        var scenes = [async function(ctx) {
+            clear();
+            var title = el('div', 'abc-title pop-in', 'Alphabet Adventure!');
+            stage.appendChild(title);
+            await ctx.say('Let’s go on an alphabet adventure! Watch for each letter... and its picture.');
+            await ctx.wait(300);
+        }];
+        ABC.forEach(function(item) {
+            scenes.push(async function(ctx) {
+                clear();
+                var letter = el('div', 'abc-letter pop-in', item.letter + '<small>' + item.letter.toLowerCase() + '</small>');
+                var pic = el('div', 'abc-picture');
+                stage.appendChild(letter);
+                stage.appendChild(pic);
+                markChip(item.letter);
+                ctx.caption(item.letter + ' is for ...');
+                await ctx.say('[' + item.letter + ']!', { noCaption: true });
+                await ctx.say('[' + item.letter + '] is for...', { noCaption: true });
+                // The picture pops up exactly as its word is spoken.
+                var card = el('div', 'abc-card pop-in', '<img src="' + item.image + '" alt="' + item.word + '"><span>' + cap(item.word) + '</span>');
+                pic.appendChild(card);
+                ctx.caption(item.letter + ' is for ' + item.word);
+                await ctx.say(cap(item.word) + '!', { noCaption: true });
+                await ctx.wait(800);
+            });
+        });
+        scenes.push(async function(ctx) {
+            clear();
+            var all = el('div', 'abc-all');
+            ABC.forEach(function(item) { all.appendChild(el('span', '', item.letter)); });
+            stage.appendChild(all);
+            ctx.caption('A to Z!');
+            var cells = all.children;
+            for (var i = 0; i < cells.length; i += 1) {
+                cells[i].classList.add('lit');
+                await ctx.say('[' + ABC[i].letter + ']', { noCaption: true });
+                cells[i].classList.remove('lit');
             }
-            if (window.speechSynthesis && text) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = 0.85;
-                window.speechSynthesis.speak(utterance);
-            }
-            if (onend) setTimeout(onend, 3500);
+            await ctx.say('You went on the whole alphabet adventure! Great job!');
+        });
+
+        var chips = document.getElementById('chips');
+        function markChip(letter) {
+            Array.prototype.forEach.call(chips.children, function(c) { c.classList.toggle('on', c.textContent === letter); });
         }
-
-        let playId = 0;
-        function playVideo() {
-            const id = ++playId;
-            let current = 0;
-            function step() {
-                if (id !== playId) return;
-                if (current >= scenes.length) {
-                    speakText(ENDING);
-                    return;
-                }
-                showScene(current);
-                speakText(scenes[current].voice, () => setTimeout(() => {
-                    if (id !== playId) return;
-                    current += 1;
-                    step();
-                }, 900));
-            }
-            step();
-        }
-
-        playBtn.addEventListener('click', playVideo);
-        replayBtn.addEventListener('click', playVideo);
+        var player = ESEAMovie.create({ stage: stage, caption: document.getElementById('caption'), controls: document.getElementById('controls'), scenes: scenes });
+        ABC.forEach(function(item, i) {
+            var b = el('button', 'movie-chip', item.letter);
+            b.type = 'button';
+            b.setAttribute('aria-label', 'Jump to ' + item.letter);
+            b.addEventListener('click', function() { player.playFrom(i + 1); });
+            chips.appendChild(b);
+        });
     </script>
 </body>
 </html>

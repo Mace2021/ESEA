@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counting Rainbow - ESEA</title>
     <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
     <style>
-        .video-stage { padding: 1rem; }
-        .rainbow-scene { min-height: 360px; border-radius: 20px; background: linear-gradient(180deg, #f2f9ff, #e8f2ff); position: relative; overflow: hidden; }
-        .balloon { position: absolute; width: 80px; height: 110px; border-radius: 50% 50% 50% 50%; background: #ff8f91; box-shadow: inset -8px -8px 0 rgba(0,0,0,0.08); animation: floatBalloon 8s ease-in-out infinite alternate; }
-        .balloon:nth-child(1){ left: 10%; top: 65%; background: #ffb347; animation-delay: 0s; }
-        .balloon:nth-child(2){ left: 40%; top: 70%; background: #7ed6df; animation-delay: 1s; }
-        .balloon:nth-child(3){ left: 70%; top: 60%; background: #9c88ff; animation-delay: 2s; }
-        .number-label { position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.92); padding: 0.75rem 1rem; border-radius: 999px; font-size: 1.3rem; font-weight: 700; color: #2d2a67; }
-        .video-controls { margin-top: 1rem; display:flex; gap:1rem; flex-wrap:wrap; }
-        .video-controls button { padding: 0.85rem 1.2rem; border-radius: 999px; border:none; background: #9c6bff; color:#fff; font-weight:700; cursor:pointer; }
-        @keyframes floatBalloon { from { transform: translateY(0);} to { transform: translateY(-40px);} }
+        .rain-stage { background: linear-gradient(180deg, #dff3ff 0%, #f4fbff 70%, #c9efc2 70%, #b6e4ad 100%); min-height: 380px; }
+        .rain-head { position: absolute; top: 14px; left: 0; right: 0; text-align: center; }
+        .rain-head b { display: inline-block; font-size: clamp(3rem, 14vw, 5rem); line-height: 1; font-weight: 950; }
+        .rain-head span { display: block; font-size: clamp(1.3rem, 6vw, 2rem); font-weight: 900; }
+        .balloons { position: absolute; left: 4%; right: 4%; bottom: 8%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 4px; }
+        .balloon { width: clamp(44px, 13vw, 70px); position: relative; }
+        .balloon b { position: absolute; top: 22%; left: 0; right: 0; text-align: center; color: #fff; font-size: clamp(1rem, 4vw, 1.4rem); font-weight: 900; text-shadow: 0 2px 2px rgba(0,0,0,0.25); }
+        .balloon-svg { width: 100%; display: block; animation: sway 2.6s ease-in-out infinite alternate; transform-origin: 50% 100%; }
+        .balloon.rise { animation: rise 0.9s cubic-bezier(0.2, 1.2, 0.4, 1) both; }
+        @keyframes rise { from { transform: translateY(140px) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+        @keyframes sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+        .rainbow { position: absolute; left: 50%; bottom: 14%; width: min(92%, 520px); transform: translateX(-50%); }
+        .rainbow path { fill: none; stroke-width: 22; stroke-linecap: round; stroke-dasharray: 600; stroke-dashoffset: 600; transition: stroke-dashoffset 0.9s ease; }
+        .rainbow path.drawn { stroke-dashoffset: 0; }
     </style>
     <script src="../speech.js"></script>
     <script src="../family.js"></script>
@@ -25,78 +30,86 @@
         <header class="lesson-hero">
             <img src="../images/ESEA.png" alt="ESEA logo">
             <h1>Counting Rainbow</h1>
-            <p>Watch bright balloons float by and count the colorful objects out loud.</p>
+            <p>Count the balloons of each color, then build a rainbow!</p>
         </header>
         <main class="lesson-main">
-            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
-            <section class="lesson-card-panel video-stage">
-                <div class="rainbow-scene" id="rainbowScene">
-                    <div class="number-label" id="countLabel">Count: 0</div>
-                    <div class="balloon"></div>
-                    <div class="balloon"></div>
-                    <div class="balloon"></div>
-                </div>
-                <div class="video-controls">
-                    <button id="playBtn">Play Video</button>
-                    <button id="replayBtn">Replay</button>
-                </div>
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage rain-stage" id="stage"></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
             </section>
         </main>
         <footer><p>ESEA - Early Start Education App</p></footer>
     </div>
+    <script src="movie.js"></script>
     <script>
-        const countLabel = document.getElementById('countLabel');
-        const playBtn = document.getElementById('playBtn');
-        const replayBtn = document.getElementById('replayBtn');
-        const scenes = [
-            { count: 1, voice: 'Let’s count! One... one bright yellow balloon.' },
-            { count: 2, voice: 'Two... two blue balloons float up.' },
-            { count: 3, voice: 'Three... three purple balloons wave hello!' }
+        var COLORS = [
+            { name: 'red', hex: '#e53935' },
+            { name: 'orange', hex: '#fb8c00' },
+            { name: 'yellow', hex: '#f9c80e' },
+            { name: 'green', hex: '#43a047' },
+            { name: 'blue', hex: '#1e88e5' },
+            { name: 'purple', hex: '#8e24aa' }
         ];
-        const ENDING = 'Great counting! You can watch it again any time.';
-
-        function showScene(index) {
-            countLabel.textContent = 'Count: ' + scenes[index].count;
+        var NUM = ['zero', 'one', 'two', 'three', 'four', 'five', 'six'];
+        var stage = document.getElementById('stage');
+        var el = ESEAMovie.el;
+        function balloonSvg(hex) {
+            return '<svg class="balloon-svg" viewBox="0 0 60 100" aria-hidden="true">' +
+                '<path d="M30 70 C 28 80, 34 88, 30 100" stroke="#777" stroke-width="1.5" fill="none"/>' +
+                '<ellipse cx="30" cy="34" rx="26" ry="32" fill="' + hex + '"/>' +
+                '<ellipse cx="21" cy="22" rx="6" ry="10" fill="#fff" opacity="0.35"/>' +
+                '<path d="M26 66 L34 66 L30 72 Z" fill="' + hex + '"/></svg>';
         }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
 
-        // Narration uses the shared calm voice (speech.js). Each scene waits
-        // for the narrator to finish, then pauses briefly before the next one.
-        function speakText(text, onend) {
-            if (window.ESEASpeech) {
-                ESEASpeech.speak(text, { onend: onend });
-                return;
-            }
-            if (window.speechSynthesis && text) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = 0.85;
-                window.speechSynthesis.speak(utterance);
-            }
-            if (onend) setTimeout(onend, 3500);
-        }
-
-        let playId = 0;
-        function playVideo() {
-            const id = ++playId;
-            let current = 0;
-            function step() {
-                if (id !== playId) return;
-                if (current >= scenes.length) {
-                    speakText(ENDING);
-                    return;
+        var scenes = [async function(ctx) {
+            stage.innerHTML = '';
+            var head = el('div', 'rain-head pop-in', '<span style="color:#7d3cff">Counting Rainbow</span>');
+            stage.appendChild(head);
+            await ctx.say('Let’s count balloons! Each color has a different number. Count with me!');
+        }];
+        COLORS.forEach(function(color, i) {
+            var n = i + 1;
+            var plural = n === 1 ? 'balloon' : 'balloons';
+            scenes.push(async function(ctx) {
+                stage.innerHTML = '';
+                var head = el('div', 'rain-head pop-in', '<b style="color:' + color.hex + '">' + n + '</b><span style="color:' + color.hex + '">' + color.name + ' ' + plural + '</span>');
+                var row = el('div', 'balloons');
+                stage.appendChild(head);
+                stage.appendChild(row);
+                await ctx.say((n === 1 ? 'Here comes ' : 'Here come ') + NUM[n] + ' ' + color.name + ' ' + plural + '. Let’s count!');
+                // One balloon floats up as each number is said.
+                for (var k = 1; k <= n; k += 1) {
+                    var b = el('div', 'balloon rise', balloonSvg(color.hex) + '<b>' + k + '</b>');
+                    row.appendChild(b);
+                    await ctx.say(String(k) + '!');
                 }
-                showScene(current);
-                speakText(scenes[current].voice, () => setTimeout(() => {
-                    if (id !== playId) return;
-                    current += 1;
-                    step();
-                }, 900));
+                await ctx.say(cap(NUM[n]) + ' ' + color.name + ' ' + plural + '!');
+                await ctx.wait(600);
+            });
+        });
+        scenes.push(async function(ctx) {
+            stage.innerHTML = '';
+            var head = el('div', 'rain-head', '<span style="color:#7d3cff">Let’s make a rainbow!</span>');
+            var paths = COLORS.map(function(c, i) {
+                var r = 200 - i * 24;
+                return '<path d="M ' + (240 - r) + ' 240 A ' + r + ' ' + r + ' 0 0 1 ' + (240 + r) + ' 240" stroke="' + c.hex + '"/>';
+            }).join('');
+            var bow = el('div', 'rainbow', '<svg viewBox="0 0 480 250" aria-hidden="true">' + paths + '</svg>');
+            stage.appendChild(head);
+            stage.appendChild(bow);
+            await ctx.say('Now let’s use all the colors to make a rainbow!');
+            var bands = bow.querySelectorAll('path');
+            for (var i = 0; i < COLORS.length; i += 1) {
+                bands[i].classList.add('drawn');
+                await ctx.say(cap(COLORS[i].name) + '!');
             }
-            step();
-        }
-
-        playBtn.addEventListener('click', playVideo);
-        replayBtn.addEventListener('click', playVideo);
+            head.innerHTML = '<span style="color:#7d3cff">We made a rainbow! &#127752;</span>';
+            await ctx.say('We made a rainbow! Great counting!');
+        });
+        ESEAMovie.create({ stage: stage, caption: document.getElementById('caption'), controls: document.getElementById('controls'), scenes: scenes });
     </script>
 </body>
 </html>

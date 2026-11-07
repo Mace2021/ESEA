@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>ABC with Pip</h1>
+            <p>Pip teaches the alphabet. Say each word with Pip!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="alphabet-data.js"></script>
+    <script>
+        var ABC = window.ESEA_ALPHABET;
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        var el = ESEAMovie.el;
+        var PRAISE = ['Great job!', 'Super!', 'Well done!', 'You’re a star!', 'Wonderful!'];
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        function show(html) { board.innerHTML = html; }
+
+        var scenes = [
+            async function(ctx) {
+                show('<div class="board-title pop-in">ABC with Pip</div>');
+                pip.wave();
+                await ctx.say('Hi! I’m Pip. Let’s learn the alphabet together!');
+                await ctx.say('When I say a word, you say it too. Ready? Here we go!');
+            }
+        ];
+        ABC.forEach(function(item, i) {
+            scenes.push(async function(ctx) {
+                show('<div class="board-big pop-in">' + item.letter + '<small>' + item.letter.toLowerCase() + '</small></div>');
+                pip.point();
+                await ctx.say('This is [' + item.letter + '].');
+                var pic = el('div', 'board-pic pop-in', '<img src="' + item.image + '" alt="' + item.word + '"><span>' + cap(item.word) + '</span>');
+                board.appendChild(pic);
+                await ctx.say('[' + item.letter + '] is for ' + item.word + '.');
+                pip.rest();
+                await ctx.say('Can you say ' + item.word + '?');
+                await ctx.wait(1500); // time for the child to say it
+                if (i % 4 === 3) await ctx.say(PRAISE[(i / 4) % PRAISE.length | 0]);
+            });
+            if (item.letter === 'M') {
+                scenes.push(async function(ctx) {
+                    show('<div class="board-title pop-in">Stretch time! &#127881;</div>');
+                    pip.jump(3200);
+                    await ctx.say('We’re halfway there! Let’s stand up and stretch. Jump up high... and wiggle, wiggle!');
+                    await ctx.wait(1200);
+                    await ctx.say('Okay, let’s keep going!');
+                });
+            }
+        });
+        scenes.push(async function(ctx) {
+            var grid = el('div', 'board-grid');
+            ABC.forEach(function(item) { grid.appendChild(el('span', '', item.letter)); });
+            board.innerHTML = '<div class="board-title">Say them all with me!</div>';
+            board.appendChild(grid);
+            pip.point();
+            await ctx.say('Now let’s say all the letters together!');
+            var cells = grid.children;
+            for (var i = 0; i < cells.length; i += 1) {
+                cells[i].classList.add('lit');
+                await ctx.say('[' + ABC[i].letter + ']');
+                cells[i].classList.remove('lit');
+            }
+            pip.wave(4000);
+            show('<div class="board-title pop-in">You know the alphabet! &#11088;</div>');
+            await ctx.say('Hooray! You know the whole alphabet! See you next time. Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">ABC with Pip</div>');
+    </script>
+</body>
+</html>
