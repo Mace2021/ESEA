@@ -9,6 +9,16 @@
     answered: false
   };
 
+  // Short, shuffled sessions: young children focus best for a handful of
+  // questions, and a fixed order lets them pattern-match instead of learning.
+  var allRounds = (config.rounds || []).slice();
+  var maxRounds = config.maxRounds || 8;
+
+  function pickRounds() {
+    var pool = config.keepOrder ? allRounds.slice() : shuffle(allRounds);
+    config.rounds = pool.slice(0, maxRounds);
+  }
+
   function speak(text) {
     if (!text || !window.speechSynthesis) return;
     window.speechSynthesis.cancel();
@@ -112,7 +122,7 @@
       '<div class="target-box">' + visualHtml(round.target, true) + '</div>',
       '<div class="choice-grid" id="choiceGrid"></div>',
       '<div class="feedback" id="lessonFeedback" role="status" aria-live="polite"></div>',
-      '<div class="actions"><button type="button" class="lesson-action" id="nextButton" disabled>Next</button><button type="button" class="lesson-action secondary" id="newButton">New Question</button></div>',
+      '<div class="actions"><button type="button" class="lesson-action" id="nextButton" disabled>Next</button><button type="button" class="lesson-action secondary" id="newButton">New Set</button></div>',
       '<div class="complete-box" id="completeBox"><h3>Great work!</h3><p>You finished this lesson.</p></div>'
     ].join('');
 
@@ -183,6 +193,7 @@
   }
 
   function restartQuiz() {
+    pickRounds();
     state.roundIndex = 0;
     state.score = 0;
     state.answered = false;
@@ -190,6 +201,7 @@
   }
 
   if (config.type === 'quiz') {
+    pickRounds();
     renderQuiz();
   } else {
     renderExplore();

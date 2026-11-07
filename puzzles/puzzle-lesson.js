@@ -11,6 +11,10 @@
     matched: {}
   };
 
+  // Shuffle question order (and cap length) so each play is a fresh, short set.
+  var allRounds = (config.rounds || []).slice();
+  var maxRounds = config.maxRounds || 8;
+
   var title = document.getElementById('lessonTitle');
   var goal = document.getElementById('lessonGoal');
   var roundText = document.getElementById('roundText');
@@ -253,6 +257,10 @@
   }
 
   function restartLesson() {
+    if (allRounds.length) {
+      var pool = config.keepOrder ? allRounds.slice() : shuffle(allRounds);
+      config.rounds = pool.slice(0, maxRounds);
+    }
     state.roundIndex = 0;
     state.score = 0;
     state.answered = false;
