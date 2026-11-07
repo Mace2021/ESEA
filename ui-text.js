@@ -65,7 +65,7 @@
         'color/balloon-pop.html': 'Revienta globos', 'tv/colors-with-pip.html': 'Los colores con Pip',
         'tv/luna-little-cloud.html': 'Luna, la nubecita', 'tv/shapes-with-pip.html': 'Las formas con Pip',
         'tv/feelings-with-pip.html': 'Las emociones con Pip', 'tv/weather-with-pip.html': 'El tiempo con Pip',
-        'tv/days-with-pip.html': 'Los días de la semana con Pip', 'tv/rhymes-with-pip.html': 'Rimas con Pip', 'tv/nature-with-pip.html': 'La naturaleza con Pip', 'tv/sorting-with-pip.html': 'Clasificar con Pip', 'tv/memory-with-pip.html': 'Memoria con Pip'
+        'tv/days-with-pip.html': 'Los días de la semana con Pip', 'tv/rhymes-with-pip.html': 'Rimas con Pip', 'tv/nature-with-pip.html': 'La naturaleza con Pip', 'tv/sorting-with-pip.html': 'Clasificar con Pip', 'tv/memory-with-pip.html': 'Memoria con Pip', 'tv/shape-match-with-pip.html': 'Formas con Pip: ¿dónde encaja?'
       }
     },
     fr: {
@@ -125,7 +125,7 @@
         'color/balloon-pop.html': 'Éclate les ballons', 'tv/colors-with-pip.html': 'Les couleurs avec Pip',
         'tv/luna-little-cloud.html': 'Luna, le petit nuage', 'tv/shapes-with-pip.html': 'Les formes avec Pip',
         'tv/feelings-with-pip.html': 'Les émotions avec Pip', 'tv/weather-with-pip.html': 'La météo avec Pip',
-        'tv/days-with-pip.html': 'Les jours de la semaine avec Pip', 'tv/rhymes-with-pip.html': 'Les rimes avec Pip', 'tv/nature-with-pip.html': 'La nature avec Pip', 'tv/sorting-with-pip.html': 'Trier avec Pip', 'tv/memory-with-pip.html': 'La mémoire avec Pip'
+        'tv/days-with-pip.html': 'Les jours de la semaine avec Pip', 'tv/rhymes-with-pip.html': 'Les rimes avec Pip', 'tv/nature-with-pip.html': 'La nature avec Pip', 'tv/sorting-with-pip.html': 'Trier avec Pip', 'tv/memory-with-pip.html': 'La mémoire avec Pip', 'tv/shape-match-with-pip.html': 'Les formes avec Pip : où ça va ?'
       }
     },
     en: {
