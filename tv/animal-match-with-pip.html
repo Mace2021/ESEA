@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Match with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .sound-bubble { background: #fff; color: #2d2a67; font-weight: 950; font-size: clamp(2rem, 9vw, 2.8rem); border-radius: 22px; padding: 6px 22px; margin-bottom: 4px; letter-spacing: 0.04em; }
+        .sound-bubble.shake { animation: shake 0.5s ease-in-out 2; }
+        @keyframes shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
+        @media (prefers-reduced-motion: reduce) { .sound-bubble.shake { animation: none; } }
+        .baby { font-size: clamp(2.2rem, 10vw, 3rem); line-height: 1; }
+        .baby-name { font-size: clamp(1.3rem, 6vw, 1.7rem); font-weight: 950; color: #fff7c2; }
+        .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+        .cards.two { grid-template-columns: repeat(2, 1fr); }
+        .acard { background: rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 8px 2px 6px; transition: transform 0.25s, background 0.25s, opacity 0.25s; }
+        .acard span { display: block; font-size: clamp(2.6rem, 12vw, 3.4rem); line-height: 1.1; }
+        .acard b { display: block; color: #fff7c2; font-size: clamp(0.95rem, 4vw, 1.1rem); }
+        .acard.lit { background: #ffc94d; transform: scale(1.1); }
+        .acard.lit b { color: #2d2a67; }
+        .acard.dim { opacity: 0.4; }
+        .family { display: flex; align-items: flex-end; justify-content: center; gap: 6px; }
+        .family .big { font-size: clamp(4rem, 17vw, 5.4rem); line-height: 1; }
+        .family .small { font-size: clamp(2.2rem, 10vw, 3rem); line-height: 1; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Animal Match with Pip</h1>
+            <p>Who says moo? Whose baby is this? Match animals with Pip!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        function show(html) { board.innerHTML = html; }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        // Younger children choose from two pictures, older ones from three.
+        var CHOICES = (window.ESEAFamily && ESEAFamily.age && ESEAFamily.age() <= 3) ? 2 : 3;
+
+        var A = {
+            cow: ['🐄', 'cow'], cat: ['🐈', 'cat'], dog: ['🐕', 'dog'], lion: ['🦁', 'lion'],
+            duck: ['🦆', 'duck'], sheep: ['🐑', 'sheep'], pig: ['🐖', 'pig'], hen: ['🐔', 'hen'], horse: ['🐎', 'horse']
+        };
+        // [answer, sound, other choices]: the first four are the same as the Animal Match game.
+        var SOUNDS = [
+            ['cow', 'Moo', ['dog', 'duck']], ['cat', 'Meow', ['pig', 'cow']], ['dog', 'Woof', ['sheep', 'cat']],
+            ['lion', 'Roar', ['duck', 'pig']], ['duck', 'Quack', ['lion', 'horse']], ['sheep', 'Baa', ['hen', 'dog']]
+        ];
+        // [baby emoji, baby name, parent, other choices]
+        var BABIES = [
+            ['🐕', 'puppy', 'dog', ['cow', 'duck']], ['🐈', 'kitten', 'cat', ['sheep', 'hen']],
+            ['🐄', 'calf', 'cow', ['pig', 'lion']], ['🐥', 'chick', 'hen', ['cat', 'horse']], ['🦆', 'duckling', 'duck', ['dog', 'sheep']]
+        ];
+        // Put the answer in a different place each time.
+        function cardsHtml(answer, others, i) {
+            var list = others.slice(0, CHOICES - 1);
+            list.splice(i % CHOICES, 0, answer);
+            return '<div class="cards' + (CHOICES === 2 ? ' two' : '') + '">' + list.map(function(id) {
+                return '<div class="acard" data-a="' + id + '"><span role="img" aria-label="' + A[id][1] + '">' + A[id][0] + '</span><b>' + cap(A[id][1]) + '</b></div>';
+            }).join('') + '</div>';
+        }
+        function reveal(id) {
+            board.querySelectorAll('.acard').forEach(function(c) { c.classList.add(c.dataset.a === id ? 'lit' : 'dim'); });
+        }
+
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Animal Match</div><div class="family"><span class="big" aria-hidden="true">🐄</span><span class="big" aria-hidden="true">🐕</span><span class="big" aria-hidden="true">🦁</span></div>');
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Animals make all kinds of sounds. Let’s listen, and match each sound to its animal!');
+        }];
+        SOUNDS.forEach(function(s, i) {
+            scenes.push(async function(ctx) {
+                show('<div class="sound-bubble shake pop-in" aria-hidden="true">' + s[1].toUpperCase() + '!</div>' + cardsHtml(s[0], s[2], i));
+                pip.point();
+                await ctx.say(s[1] + '! ' + s[1] + '! Who says ' + s[1].toLowerCase() + '?');
+                await ctx.wait(1800); // time to point and answer
+                reveal(s[0]);
+                pip.jump(1200);
+                await ctx.say('The ' + A[s[0]][1] + '! The ' + A[s[0]][1] + ' says ' + s[1].toLowerCase() + '.');
+            });
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Baby animals!</div><div class="family"><span class="big" aria-hidden="true">🐕</span><span class="small" aria-hidden="true">🐕</span></div>');
+            pip.wave();
+            await ctx.say('Great listening! Now let’s match baby animals to their grown-ups. Baby animals often have their own special names!');
+        });
+        BABIES.forEach(function(b, i) {
+            scenes.push(async function(ctx) {
+                show('<div class="baby pop-in" role="img" aria-label="baby ' + b[1] + '">' + b[0] + '</div><div class="baby-name">' + cap(b[1]) + '</div>' + cardsHtml(b[2], b[3], i + 1));
+                pip.point();
+                await ctx.say('This baby is called a ' + b[1] + '. Who is its grown-up?');
+                await ctx.wait(1800);
+                reveal(b[2]);
+                pip.jump(1200);
+                await ctx.say('A ' + b[1] + ' grows up to be a ' + A[b[2]][1] + '!');
+            });
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Your turn! &#128062;</div><div class="family"><span class="big" aria-hidden="true">🐔</span><span class="small" aria-hidden="true">🐥</span><span class="big" aria-hidden="true">🐄</span><span class="small" aria-hidden="true">🐄</span></div>');
+            pip.wave(4000);
+            await ctx.say('You matched them all! Now try the Animal Match game. And next time you see an animal, make its sound together! Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Animal Match with Pip</div>');
+    </script>
+</body>
+</html>

@@ -141,7 +141,7 @@
     [/^emotions\//, 'tv/feelings-with-pip.html'],
     [/^weather\//, 'tv/weather-with-pip.html'],
     [/^science\//, 'tv/nature-with-pip.html'],
-    [/^(animal-match$|puzzles\/animal-match)/, 'tv/sound-parade.html'],
+    [/^(animal-match$|puzzles\/animal-match)/, 'tv/animal-match-with-pip.html'],
     [/^(sort-game$|puzzles\/sort-game)/, 'tv/sorting-with-pip.html'],
     [/^(find-pairs$|puzzles\/find-pairs)/, 'tv/memory-with-pip.html']
   ];
