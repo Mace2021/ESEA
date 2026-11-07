@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sink or Float? - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <style>
+        .tank { position: relative; width: min(260px, 80vw); height: 150px; margin: 0 auto; border-radius: 0 0 22px 22px; border: 4px solid #8fb8c9; border-top: 0;
+            background: linear-gradient(180deg, transparent 0 34%, #bfe6f5 34%, #7cc6e6 100%); }
+        .tank .thing { position: absolute; left: 50%; top: 4px; transform: translateX(-50%); font-size: 3.4rem; line-height: 1; }
+        .tank .wave { position: absolute; left: 0; right: 0; top: 30%; height: 8px; background: repeating-radial-gradient(circle at 8px -2px, transparent 0 7px, #bfe6f5 7px 9px); opacity: 0.8; }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+    <script src="../pip.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Sink or Float?</h1>
+            <p>Science starts with a guess. Will it sink to the bottom or float on top?</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        // Each item: [emoji, name, answer, why]. The "why" uses simple, true ideas:
+        // heavy for its size sinks; light, or full of air, floats.
+        var ITEMS = [
+            ['🪨', 'a rock', 'sink', 'A rock is heavy for its size, so it sinks.'],
+            ['🍃', 'a leaf', 'float', 'A leaf is light and flat, so it floats.'],
+            ['🪙', 'a coin', 'sink', 'A coin is small, but it is heavy metal, so it sinks.'],
+            ['🦆', 'a rubber duck', 'float', 'A rubber duck is full of air, so it floats.'],
+            ['🍎', 'an apple', 'float', 'An apple has air inside, so it floats. Surprise!'],
+            ['🔑', 'a key', 'sink', 'A key is made of metal, so it sinks.'],
+            ['🪶', 'a feather', 'float', 'A feather is very light, so it floats.'],
+            ['🥄', 'a metal spoon', 'sink', 'A metal spoon sinks to the bottom.'],
+            ['⚽', 'a ball', 'float', 'A ball is full of air, so it floats.'],
+            ['⛵', 'a toy boat', 'float', 'Boats are made to float!'],
+            ['⚓', 'an anchor', 'sink', 'An anchor is heavy. It sinks and holds the boat still.'],
+            ['🧱', 'a brick', 'sink', 'A brick is heavy for its size, so it sinks.']
+        ];
+        window.EarlyLesson = {
+            id: 'stem/sink-float',
+            title: 'Sink or Float?',
+            instructions: 'Look at the thing above the water. Guess: will it sink or float? Then try it for real in a bowl of water!',
+            type: 'quiz',
+            keepAllChoices: true,
+            rounds: ITEMS.map(function(it) {
+                return {
+                    key: it[1], answer: it[2],
+                    prompt: 'Will ' + it[1] + ' sink or float?',
+                    target: { html: '<div class="tank" role="img" aria-label="' + it[1] + ' above water"><span class="thing" aria-hidden="true">' + it[0] + '</span><span class="wave"></span></div>' },
+                    options: [
+                        { value: 'sink', label: 'Sink', emoji: '⬇️', say: 'sink' },
+                        { value: 'float', label: 'Float', emoji: '🛟', say: 'float' }
+                    ],
+                    explain: it[3]
+                };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

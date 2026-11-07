@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push or Pull? - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <style>
+
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+    <script src="../pip.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Push or Pull?</h1>
+            <p>A push moves things away from you. A pull brings things closer. Forces make things move!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a></nav>
+            <section class="lesson-card-panel" id="lessonRoot"></section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script>
+        var ITEMS = [
+            ['🛒', 'a shopping cart', 'push', 'We push a cart away from us to move it.'],
+            ['🪁', 'a kite string', 'pull', 'We pull the string to bring the kite closer.'],
+            ['⚽', 'a ball when we kick it', 'push', 'A kick is a push. The ball moves away!'],
+            ['🥕', 'a carrot from the ground', 'pull', 'We pull a carrot up out of the ground.'],
+            ['🛷', 'a sled up the hill', 'pull', 'We pull the sled behind us with a rope.'],
+            ['🔔', 'a doorbell button', 'push', 'We push the button. Ding dong!'],
+            ['🧦', 'our socks up', 'pull', 'We pull our socks up onto our feet.'],
+            ['🚗', 'a toy car', 'push', 'We push the toy car and it rolls away.'],
+            ['🧹', 'a broom', 'push', 'We push the broom to sweep the floor.'],
+            ['🗄️', 'a drawer to open it', 'pull', 'We pull a drawer toward us to open it.']
+        ];
+        window.EarlyLesson = {
+            id: 'stem/push-pull',
+            title: 'Push or Pull?',
+            instructions: 'Push means away from you. Pull means toward you. Try it with your hands: push, push! Pull, pull!',
+            type: 'quiz',
+            keepAllChoices: true,
+            rounds: ITEMS.map(function(it) {
+                return {
+                    key: it[1], answer: it[2],
+                    prompt: 'Do we push or pull ' + it[1] + '?',
+                    target: { emoji: it[0] },
+                    options: [
+                        { value: 'push', label: 'Push', emoji: '👐', say: 'push' },
+                        { value: 'pull', label: 'Pull', emoji: '🪢', say: 'pull' }
+                    ],
+                    explain: it[3]
+                };
+            })
+        };
+    </script>
+    <script src="../skill-tracker.js"></script>
+    <script src="../early-lesson.js"></script>
+</body>
+</html>

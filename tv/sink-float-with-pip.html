@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sink or Float with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .tank { position: relative; width: 100%; max-width: 300px; height: 200px; border: 4px solid #cfe9f5; border-top: 0; border-radius: 0 0 24px 24px;
+            background: linear-gradient(180deg, transparent 0 32%, #8fd3f0 32%, #3fa2d6 100%); overflow: hidden; }
+        .tank .t { position: absolute; left: 50%; font-size: clamp(2.6rem, 11vw, 3.4rem); line-height: 1; transform: translateX(-50%); top: 0; transition: top 1.1s cubic-bezier(.3,.1,.4,1); }
+        .tank .t.float { top: calc(32% - 1.9rem); animation: bob 1.6s ease-in-out 1.1s infinite; }
+        .tank .t.sink { top: calc(100% - 3.6rem); }
+        @keyframes bob { 0%, 100% { margin-top: 0; } 50% { margin-top: 6px; } }
+        .splash { position: absolute; left: 50%; top: calc(32% - 14px); transform: translateX(-50%); font-size: 1.8rem; opacity: 0; }
+        .splash.go { animation: splash 0.8s ease-out; }
+        @keyframes splash { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; top: calc(32% - 40px); } }
+        .verdict { font-size: clamp(1.4rem, 6vw, 1.9rem); font-weight: 950; color: #fff7c2; min-height: 2.2rem; }
+        .steps { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .steps span { background: rgba(255,255,255,0.14); color: #fff7c2; border-radius: 12px; padding: 6px 10px; font-weight: 900; transition: background 0.3s; }
+        .steps span.lit { background: #ffc94d; color: #2d2a67; }
+        @media (prefers-reduced-motion: reduce) { .tank .t { transition: none; } .tank .t.float { animation: none; } }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Sink or Float with Pip</h1>
+            <p>Guess, test, and find out! A splashy science experiment with Pip.</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        function show(html) { board.innerHTML = html; }
+        function $(id) { return document.getElementById(id); }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        function tank(e, label) {
+            return '<div class="tank" role="img" aria-label="' + label + ' and a tank of water"><span class="t" id="thing" aria-hidden="true">' + e + '</span><span class="splash" id="splash" aria-hidden="true">💦</span></div>';
+        }
+        async function drop(ctx, how) {
+            $('splash').classList.add('go');
+            $('thing').classList.add(how);
+            await ctx.wait(1200);
+        }
+        var ITEMS = [
+            ['🪨', 'a rock', 'sink', 'A rock is heavy for its size, so it sinks to the bottom.'],
+            ['🍃', 'a leaf', 'float', 'A leaf is light and flat, so it floats on top.'],
+            ['🔑', 'a key', 'sink', 'A key is made of metal. It sinks!'],
+            ['🦆', 'a rubber duck', 'float', 'A rubber duck is full of air, so it floats.'],
+            ['🍎', 'an apple', 'float', 'Surprise! An apple floats. It has tiny pockets of air inside.'],
+            ['🪙', 'a coin', 'sink', 'A coin is small, but it is heavy metal, so it sinks.']
+        ];
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Sink or Float?</div><div class="steps"><span id="s1">1. Guess</span><span id="s2">2. Test</span><span id="s3">3. Find out</span></div>');
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Today we are scientists. Scientists make a guess, then they test it, and find out!');
+            pip.point();
+            for (var i = 1; i <= 3; i += 1) { $('s' + i).classList.add('lit'); await ctx.say(['', 'First, guess.', 'Then, test it.', 'Then, find out what happened!'][i]); }
+            await ctx.say('Things that sink go down to the bottom. Things that float stay on top of the water.');
+        }];
+        ITEMS.forEach(function(it) {
+            scenes.push(async function(ctx) {
+                show('<div class="verdict" id="verdict">' + cap(it[1].replace(/^(an?) /, '')) + '</div>' + tank(it[0], it[1]));
+                pip.point();
+                await ctx.say('Will ' + it[1] + ' sink or float? What is your guess?');
+                await ctx.wait(1800); // time to guess
+                await ctx.say('Let’s test it. Splash!');
+                await drop(ctx, it[2]);
+                $('verdict').textContent = it[2] === 'sink' ? 'It sinks! ⬇️' : 'It floats! 🛟';
+                pip.jump(1200);
+                await ctx.say(it[3]);
+            });
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Change the shape!</div><div class="verdict" id="verdict">A ball of clay</div>' + tank('🟤', 'a ball of clay'));
+            pip.point();
+            await ctx.say('Here is a ball of clay. Plop! It sinks.');
+            await drop(ctx, 'sink');
+            $('verdict').textContent = 'It sinks! ⬇️';
+            await ctx.say('But what if we squash the clay flat, and make it into a little boat shape? Will it float now?');
+            await ctx.wait(1800);
+            show('<div class="board-title">Change the shape!</div><div class="verdict" id="verdict">A clay boat</div>' + tank('🛶', 'a clay boat'));
+            await drop(ctx, 'float');
+            $('verdict').textContent = 'It floats! 🛟';
+            pip.jump(1600);
+            await ctx.say('It floats! The boat shape holds air, and pushes on lots of water. That is how big ships float. Engineers use this idea!');
+        });
+        scenes.push(async function(ctx) {
+            show('<div class="board-title pop-in">Try it at home! 🥣</div><div class="verdict">🪨 🍃 🥄 🍎 ⚽</div>');
+            pip.wave(4000);
+            await ctx.say('Fill a bowl with water, and test toys and things from the kitchen. Guess first, then test! Now try the Sink or Float game. Bye-bye!');
+        });
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Sink or Float with Pip</div>');
+    </script>
+</body>
+</html>

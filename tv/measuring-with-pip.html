@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Measuring with Pip - ESEA</title>
+    <link rel="stylesheet" href="../early-lesson.css">
+    <link rel="stylesheet" href="movie.css">
+    <style>
+        .pip-stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px; padding: 18px 14px 14px; min-height: 400px;
+            background: linear-gradient(180deg, #fff3d6 0%, #fff3d6 78%, #e7c49a 78%, #d9b083 100%); }
+        .pip-stage .pip { align-self: end; z-index: 2; }
+        .board { align-self: center; min-height: 270px; background: #2f5d50; border: 10px solid #a0703c; border-radius: 16px; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; text-align: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.25); }
+        .board-big { font-size: clamp(4rem, 17vw, 7rem); font-weight: 950; line-height: 1; color: #fff7c2; font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif; }
+        .board-big small { font-size: 0.65em; color: #ffd1da; margin-left: 0.08em; }
+        .board-pic { background: #fff; border-radius: 16px; padding: 8px; width: min(170px, 60%); }
+        .board-pic img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; border-radius: 10px; }
+        .board-pic span { display: block; color: #2d2a67; font-weight: 900; font-size: 1.3rem; }
+        .board-title { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 900; color: #fff7c2; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; width: 100%; }
+        .board-grid span { border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px; padding: 4px 0; font-weight: 900; font-size: 1.3rem; transition: transform 0.2s, background 0.2s; }
+        .board-grid span.lit { background: #ffc94d; color: #2d2a67; transform: scale(1.18); border-color: transparent; }
+        .board-things { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; }
+        .board-things i { font-style: normal; font-size: clamp(1.8rem, 8vw, 2.6rem); line-height: 1.1; }
+        @media (max-width: 520px) {
+            .pip-stage { grid-template-columns: 1fr; padding-bottom: 150px; }
+            .pip-stage .pip { position: absolute; left: 10px; bottom: 8px; width: 104px; }
+            .board { min-height: 220px; }
+        }
+        .lines { display: grid; gap: 14px; width: 100%; justify-items: start; padding: 0 6px; box-sizing: border-box; }
+        .rib { height: 22px; border-radius: 11px; transition: margin-left 0.9s ease; }
+        .rib-row { display: flex; align-items: center; gap: 8px; width: 100%; }
+        .rib-row b { color: #fff7c2; min-width: 3.5em; text-align: left; }
+        .startline { position: relative; }
+        .blocks { display: flex; gap: 2px; margin-top: 4px; }
+        .blocks i { width: 40px; height: 22px; background: #ffc94d; border-radius: 4px; color: #2d2a67; font-style: normal; font-weight: 950; display: grid; place-items: center; opacity: 0; transition: opacity 0.3s; }
+        .blocks i.on { opacity: 1; }
+        .pencil { font-size: 2.2rem; display: inline-block; transform: rotate(45deg); }
+        .scale { position: relative; width: min(100%, 260px); height: 150px; }
+        .beam { position: absolute; left: 10%; right: 10%; top: 60px; height: 8px; background: #fff7c2; border-radius: 4px; transition: transform 0.9s ease; transform-origin: 50% 50%; }
+        .pan { position: absolute; top: -46px; width: 64px; text-align: center; font-size: 2.4rem; line-height: 1; }
+        .pan.l { left: -8px; } .pan.r { right: -8px; }
+        .post { position: absolute; left: calc(50% - 5px); top: 64px; width: 10px; height: 70px; background: #fff7c2; }
+        .base { position: absolute; left: calc(50% - 40px); bottom: 0; width: 80px; height: 14px; background: #fff7c2; border-radius: 8px; }
+        .towers { display: flex; gap: 28px; align-items: flex-end; justify-content: center; min-height: 150px; }
+        .tw { display: flex; flex-direction: column-reverse; gap: 3px; align-items: center; }
+        .tw i { width: 40px; height: 24px; border-radius: 5px; display: block; }
+        .tw b { color: #fff7c2; }
+        .result { font-size: clamp(1.2rem, 5vw, 1.6rem); font-weight: 950; color: #fff7c2; min-height: 2rem; }
+        @media (prefers-reduced-motion: reduce) { .rib, .beam { transition: none; } }
+    </style>
+    <script src="../speech.js"></script>
+    <script src="../family.js"></script>
+</head>
+<body>
+    <div class="lesson-shell">
+        <header class="lesson-hero">
+            <img src="../images/ESEA.png" alt="ESEA logo">
+            <h1>Measuring with Pip</h1>
+            <p>Longer, taller, heavier: compare and measure things with Pip!</p>
+        </header>
+        <main class="lesson-main">
+            <nav class="lesson-nav"><a class="home-button" href="../index.html">Home</a> <a class="home-button" href="tv.html">All videos</a></nav>
+            <section class="lesson-card-panel">
+                <div class="movie-stage pip-stage" id="stage"><div id="pip"></div><div class="board" id="board"></div></div>
+                <div class="movie-caption" id="caption" aria-live="polite">Tap Play to start.</div>
+                <div class="movie-controls" id="controls"></div>
+            </section>
+        </main>
+        <footer><p>ESEA - Early Start Education App</p></footer>
+    </div>
+    <script src="movie.js"></script>
+    <script src="../pip.js"></script>
+    <script>
+        var board = document.getElementById('board');
+        var pip = ESEAMovie.character(document.getElementById('pip'));
+        function show(html) { board.innerHTML = html; }
+        function $(id) { return document.getElementById(id); }
+        function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+        function scaleHtml(left, right, label) {
+            return '<div class="scale" role="img" aria-label="' + label + '"><div class="beam" id="beam"><span class="pan l">' + left + '</span><span class="pan r">' + right + '</span></div><div class="post"></div><div class="base"></div></div>';
+        }
+        function towerHtml(color, n, id) {
+            var s = '<div class="tw" id="' + id + '"><b>' + '</b>';
+            for (var i = 0; i < n; i += 1) s += '<i style="background:' + color + '"></i>';
+            return s + '</div>';
+        }
+        var scenes = [async function(ctx) {
+            show('<div class="board-title pop-in">Let’s measure! 📏</div><div class="result">longer · taller · heavier</div>');
+            pip.wave();
+            await ctx.say('Hi! It’s Pip! Today we will compare things, and measure them, just like scientists and builders do!');
+        }, async function(ctx) {
+            show('<div class="board-title">Which is longer?</div><div class="lines">' +
+                '<div class="rib-row"><b>Red</b><span class="rib" id="red" style="width:45%;background:#e53935;margin-left:30%"></span></div>' +
+                '<div class="rib-row"><b>Blue</b><span class="rib" id="blue" style="width:55%;background:#1e88e5;margin-left:0"></span></div></div><div class="result" id="res"></div>');
+            pip.point();
+            await ctx.say('Which ribbon is longer, red or blue? Hmm... the red one sticks out farther. But wait!');
+            await ctx.say('To compare, we must line them up at the same start. Watch!');
+            $('red').style.marginLeft = '0';
+            await ctx.wait(1100);
+            await ctx.say('Now, which is longer?');
+            await ctx.wait(1500);
+            $('res').textContent = 'Blue is longer!';
+            pip.jump(1200);
+            await ctx.say('Blue is longer! Always start at the same line when you compare.');
+        }, async function(ctx) {
+            show('<div class="board-title">How long is the pencil?</div><div><span class="pencil" aria-hidden="true">✏️</span></div><div class="blocks" role="img" aria-label="blocks under the pencil"><i>1</i><i>2</i><i>3</i><i>4</i></div><div class="result" id="res"></div>');
+            pip.point();
+            await ctx.say('We can measure with blocks! Let’s put blocks along the pencil, end to end, with no gaps.');
+            var bs = board.querySelectorAll('.blocks i');
+            for (var i = 0; i < 4; i += 1) { bs[i].classList.add('on'); await ctx.say(String(i + 1)); }
+            $('res').textContent = '4 blocks long!';
+            pip.jump(1200);
+            await ctx.say('The pencil is four blocks long! Measuring tells us how long something is, with a number.');
+        }, async function(ctx) {
+            show('<div class="board-title">Which tower is taller?</div><div class="towers">' + towerHtml('#43a047', 3, 'g') + towerHtml('#fb8c00', 5, 'o') + '</div><div class="result" id="res"></div>');
+            pip.point();
+            await ctx.say('Which tower is taller, green or orange?');
+            await ctx.wait(1600);
+            $('res').textContent = 'Orange is taller: 5 blocks!';
+            pip.jump(1200);
+            await ctx.say('The orange tower is taller. It has five blocks. The green tower has three. It is shorter.');
+        }, async function(ctx) {
+            show('<div class="board-title">Which is heavier?</div>' + scaleHtml('🪶', '🍎', 'a balance scale with a feather and an apple') + '<div class="result" id="res"></div>');
+            pip.point();
+            await ctx.say('This is a balance scale. It helps us find out which is heavier. A feather, or an apple? What do you think?');
+            await ctx.wait(1800);
+            $('beam').style.transform = 'rotate(14deg)';
+            await ctx.wait(1000);
+            $('res').textContent = 'The apple is heavier!';
+            pip.jump(1200);
+            await ctx.say('The apple side goes down! The heavier side always goes down. The feather is lighter, so it goes up.');
+        }, async function(ctx) {
+            show('<div class="board-title">Which is heavier?</div>' + scaleHtml('🧱', '🎈', 'a balance scale with a brick and a balloon') + '<div class="result" id="res"></div>');
+            pip.point();
+            await ctx.say('Now a big balloon, and a small brick. The balloon is bigger. Is it heavier?');
+            await ctx.wait(1800);
+            $('beam').style.transform = 'rotate(-14deg)';
+            await ctx.wait(1000);
+            $('res').textContent = 'The brick is heavier!';
+            pip.jump(1200);
+            await ctx.say('The brick goes down! Bigger does not always mean heavier. The balloon is full of light air.');
+        }, async function(ctx) {
+            show('<div class="board-title pop-in">Measure at home! 📏</div><div class="result">🧸 ✏️ 🥄 👟</div>');
+            pip.wave(4000);
+            await ctx.say('Use blocks, spoons, or your hands to measure things at home. How many hands long is your bed? Now try the Measure It game! Bye-bye!');
+        }];
+        ESEAMovie.create({ stage: document.getElementById('stage'), caption: document.getElementById('caption'), controls: document.getElementById('controls'), character: pip, scenes: scenes });
+        show('<div class="board-title">Measuring with Pip</div>');
+    </script>
+</body>
+</html>
